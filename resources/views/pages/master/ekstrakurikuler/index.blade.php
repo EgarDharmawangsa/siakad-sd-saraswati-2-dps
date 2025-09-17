@@ -5,7 +5,7 @@
         <a href="{{ route('ekstrakurikuler.create') }}" class="btn btn-success mb-4"><i
                 class="bi bi-plus-lg me-2"></i>Tambah Ekstrakurikuler</a>
 
-        <div class="table-responsive-md">
+        <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -46,7 +46,7 @@
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="9">Belum ada data ekstrakurikuler.</td>
+                            <td colspan="9">Belum ada data Ekstrakurikuler.</td>
                         </tr>
                     @endforelse
                 </tbody>

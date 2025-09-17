@@ -15,7 +15,7 @@ class PengumumanController extends Controller
     {
         return view('pages.akademik.pengumuman.index', [
             'judul' => 'Pengumuman',
-            'pengumuman' => Pengumuman::paginate(15)->withQueryString()
+            'pengumuman' => Pengumuman::paginate(20)->withQueryString()
         ]);
     }
 

@@ -12,7 +12,10 @@ class MataPelajaranController extends Controller
      */
     public function index()
     {
-        return view('pages.master.mata_pelajaran.index');
+        return view('pages.master.mata_pelajaran.index', [
+            'judul' => 'Mata Pelajaran',
+            'mata_pelajaran' => MataPelajaran::paginate(10)->withQueryString()
+        ]);
     }
 
     /**

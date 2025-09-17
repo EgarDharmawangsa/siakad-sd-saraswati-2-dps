@@ -14,7 +14,7 @@ class PrestasiController extends Controller
     {
         return view('pages.akademik.prestasi.index', [
             'judul' => 'Prestasi',
-            'prestasi' => Prestasi::paginate(15)->withQueryString()
+            'prestasi' => Prestasi::paginate(20)->withQueryString()
         ]);
     }
 

@@ -12,7 +12,10 @@ class SemesterController extends Controller
      */
     public function index()
     {
-        return view('pages.master.semester.index');
+        return view('pages.master.semester.index', [
+            'judul' => 'Semester',
+            'semester' => Semester::paginate(20)->withQueryString()
+        ]);
     }
 
     /**

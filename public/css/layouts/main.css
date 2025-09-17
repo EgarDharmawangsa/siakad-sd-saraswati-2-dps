@@ -1,8 +1,13 @@
+* {
+  scrollbar-color: #c1c1c1 white;
+}
+
 .container-fluid.content-container {
   flex: 1;
   padding: 1.5rem;
   margin: 3.3rem 0 0 15rem;
   background-color: #f4f5fa;
+  overflow-x: hidden;
 }
 
 .content-card {

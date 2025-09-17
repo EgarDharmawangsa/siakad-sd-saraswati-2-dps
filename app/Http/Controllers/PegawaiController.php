@@ -12,7 +12,10 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        return view('pages.master.pegawai.index');
+        return view('pages.master.pegawai.index', [
+            'judul' => 'Pegawai',
+            'pegawai' => Pegawai::latest()->paginate(30)
+        ]);
     }
 
     /**

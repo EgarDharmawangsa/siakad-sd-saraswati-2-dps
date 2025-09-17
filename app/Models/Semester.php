@@ -8,6 +8,10 @@ class Semester extends Model
 {
     protected $table = 'semester';
 
+    protected $primaryKey = 'id_semester';
+
+    protected $guarded = ['id_semester'];
+
     public function nilaiEkstrakurikuler() {
         return $this->hasMany(NilaiEkstrakurikuler::class, 'id_semester', 'id_semester');
     }

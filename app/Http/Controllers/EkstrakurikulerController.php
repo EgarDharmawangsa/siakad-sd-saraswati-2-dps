@@ -14,7 +14,7 @@ class EkstrakurikulerController extends Controller
     {
         return view('pages.master.ekstrakurikuler.index', [
             'judul' => 'Ekstrakurikuler',
-            'ekstrakurikuler' => Ekstrakurikuler::paginate(15)->withQueryString()
+            'ekstrakurikuler' => Ekstrakurikuler::paginate(20)->withQueryString()
         ]);        
     }
 

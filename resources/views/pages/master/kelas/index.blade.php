@@ -2,9 +2,9 @@
 
 @section('container')
     <div class="content-card">
-        <a href="{{ route('kelas.create') }}" class="btn btn-success mb-4"><i class="bi bi-plus-lg me-2"></i>Tambah kelas</a>
+        <a href="{{ route('kelas.create') }}" class="btn btn-success mb-4"><i class="bi bi-plus-lg me-2"></i>Tambah Kelas</a>
 
-        <div class="table-responsive-md">
+        <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -33,7 +33,7 @@
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="4">Belum ada data kelas.</td>
+                            <td colspan="4">Belum ada data Kelas.</td>
                         </tr>
                     @endforelse
                 </tbody>

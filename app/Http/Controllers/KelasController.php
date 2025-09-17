@@ -14,7 +14,7 @@ class KelasController extends Controller
     {
         return view('pages.master.kelas.index', [
             'judul' => 'Kelas',
-            'kelas' => Kelas::paginate(10)->withQueryString()
+            'kelas' => Kelas::paginate(20)->withQueryString()
         ]);
     }
 

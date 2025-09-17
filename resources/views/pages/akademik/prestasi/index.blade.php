@@ -4,7 +4,7 @@
     <div class="content-card">
         <a href="{{ route('prestasi.create') }}" class="btn btn-success mb-4"><i class="bi bi-plus-lg me-2"></i>Tambah Prestasi</a>
 
-        <div class="table-responsive-md">
+        <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -43,7 +43,7 @@
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="8">Belum ada data prestasi.</td>
+                            <td colspan="8">Belum ada data Prestasi.</td>
                         </tr>
                     @endforelse
                 </tbody>
