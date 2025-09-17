@@ -10,7 +10,7 @@
         <small class="text-muted mb-3 d-block">Diterbitkan pada {{ $pengumuman->tanggal->translatedFormat('l, d-m-Y') }}</small>
 
         @if ($pengumuman->gambar)
-            <img src="{{ asset('storage/' . $pengumuman->gambar) }}" alt="{{ $pengumuman->judul }}"class="gambar my-4 rounded">
+            <img src="{{ asset('storage/' . $pengumuman->gambar) }}" alt="{{ $pengumuman->judul }}"class="gambar my-5 rounded">
         @endif
 
         <p>{!! nl2br(e($pengumuman->isi)) !!}</p>

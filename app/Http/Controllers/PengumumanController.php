@@ -109,6 +109,13 @@ class PengumumanController extends Controller
     public function destroy(Pengumuman $pengumuman)
     {
         $pengumuman->delete();
+
+        if (!empty($pengumuman->gambar)) {
+            Storage::delete($pengumuman->gambar);
+        }
+
         return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil dihapus.');
+
+
     }
 }
