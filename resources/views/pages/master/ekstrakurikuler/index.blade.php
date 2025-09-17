@@ -27,7 +27,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $_ekstrakurikuler->nama_ekstrakurikuler }}</td>
                             <td>{{ $_ekstrakurikuler->nama_pembina }}</td>
-                            <td>{{ $_ekstrakurikuler->alamat_pembina }}</td>
+                            <td class="text-truncate">{{ $_ekstrakurikuler->alamat_pembina }}</td>
                             <td>{{ $_ekstrakurikuler->no_telepon }}</td>
                             <td>{{ $_ekstrakurikuler->hari }}</td>
                             <td>{{ $_ekstrakurikuler->jam_mulai }}</td>

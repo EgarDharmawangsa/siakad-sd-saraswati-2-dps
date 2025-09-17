@@ -12,7 +12,10 @@ class KelasController extends Controller
      */
     public function index()
     {
-        return view('pages.master.kelas.index');
+        return view('pages.master.kelas.index', [
+            'judul' => 'Kelas',
+            'kelas' => Kelas::paginate(10)->withQueryString()
+        ]);
     }
 
     /**
