@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
     ];
@@ -38,6 +39,7 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
+    
     protected function casts(): array
     {
         return [
@@ -52,5 +54,10 @@ class User extends Authenticatable
 
     public function pegawai() {
         return $this->belongsTo(Pegawai::class, 'id_pegawai', 'id_pegawai');
+    }
+
+    public function getAuthIdentifierName()
+    {
+        return 'username'; // Menggunakan username sebagai identifier
     }
 }

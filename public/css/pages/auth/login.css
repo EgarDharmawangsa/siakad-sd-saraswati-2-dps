@@ -1,0 +1,154 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+body {
+    font-family: 'Inter', sans-serif;
+}
+.container-full {
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+.left-side, .right-side {
+    flex: 1;
+    min-width: 300px;
+}
+.left-side {
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+.right-side {
+    background: #d9d9d9;
+    flex-grow: 1
+}
+.login-box {
+    width: 100%;
+    max-width: 520px;
+    text-align: center;
+}
+.login-box h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+.login-box p {
+    color: #6c757d;
+    font-size: 1.4rem;
+    margin-bottom: 3rem;
+    font-weight: 400;
+}
+.form-control {
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 1.3rem 1.5rem;
+    font-size: 1.3rem;
+    margin-bottom: 1.8rem;
+}
+.form-control:focus {
+    border-color: #28a745;
+    box-shadow: none;
+}
+.btn-login {
+    width: 100%;
+    background: #28a745;
+    border: none;
+    border-radius: 12px;
+    padding: 1.2rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+.btn-login:hover {
+    background: #218838;
+}
+.password-wrap {
+    position: relative;
+}
+.password-toggle {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #777;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+.password-toggle.active {
+    color: #28a745;
+}
+.alert {
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+/* View Tablet */
+@media (max-width: 992px) {
+    .container-full {
+        height: 100vh;
+        flex-direction: column; 
+    }
+    .left-side,
+    .right-side {
+        width: auto; 
+        height: 100vh;
+    }
+    .right-side {
+        flex-grow: 1;
+    }
+    .login-box h1 {
+        font-size: 2.5rem; 
+    }
+    .login-box p {
+        font-size: 1.2rem; 
+    }
+    .form-control {
+        font-size: 1.1rem;
+        padding: 1rem 1.2rem;
+    }
+    .btn-login {
+        font-size: 1.2rem;
+        padding: 1rem;
+    }
+}
+
+/* View HP */
+@media (max-width: 576px) {
+    .container-full {
+        flex-direction: column;
+        height: 100vh; 
+    }
+    .left-side {
+        width: 100%;
+        padding: 1.5rem;
+    }
+    .right-side {
+        flex-grow: 1; 
+    }
+    .login-box h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.8rem;
+    }
+    .login-box p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    .form-control {
+        font-size: 1rem;
+        padding: 0.9rem 1rem;
+        margin-bottom: 1.2rem;
+    }
+    .btn-login {
+        font-size: 1.1rem;
+        padding: 0.9rem;
+    }
+}
