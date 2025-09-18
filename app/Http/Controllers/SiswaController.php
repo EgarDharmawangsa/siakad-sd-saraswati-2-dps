@@ -12,7 +12,10 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        return view('pages.master.siswa.index');
+        return view('pages.master.siswa.index', [
+            'judul' => 'Data Siswa',
+            'siswa' => Siswa::paginate(50)->withQueryString()
+        ]);
     }
 
     /**

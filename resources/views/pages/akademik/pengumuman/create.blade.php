@@ -22,10 +22,8 @@
     
             <div class="mb-3">
                 <label for="isi" class="form-label">Isi</label>
-                <textarea class="form-control @error('isi') is-invalid @enderror" id="isi" name="isi" rows="10" placeholder="Ketikkan isi" required>{{ old('isi') }}</textarea>
-                @error('isi')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                <input id="isi" type="hidden" name="isi" value="{{ old('isi') }}">
+                <trix-editor input="isi"></trix-editor>
             </div>
     
             <div class="mb-4">

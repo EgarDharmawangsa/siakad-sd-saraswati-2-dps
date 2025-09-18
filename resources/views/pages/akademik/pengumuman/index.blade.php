@@ -22,7 +22,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $_pengumuman->judul }}</td>
                             <td>{{ $_pengumuman->tanggal->format('d-m-Y') }}</td>
-                            <td class="text-truncate">{{ $_pengumuman->isi }}</td>
+                            <td class="text-truncate">{!! $_pengumuman->isi !!}</td>
                             <td class="aksi-column">
                                 <a href="{{ route('pengumuman.show', $_pengumuman->id_pengumuman) }}" class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('pengumuman.edit', $_pengumuman->id_pengumuman) }}" class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>

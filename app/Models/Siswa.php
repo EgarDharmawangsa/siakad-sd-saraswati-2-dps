@@ -8,6 +8,10 @@ class Siswa extends Model
 {
     protected $table = 'siswa';
 
+    protected $primaryKey = 'id_siswa';
+
+    protected $guarded = ['id_siswa'];
+
     public function prestasi() {
         return $this->hasMany(Prestasi::class, 'id_siswa', 'id_siswa');
     }

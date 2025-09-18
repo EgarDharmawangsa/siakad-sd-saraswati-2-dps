@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('ekstrakurikuler', function (Blueprint $table) {
             $table->id('id_ekstrakurikuler');
             $table->string('nama_ekstrakurikuler', 25);
-            $table->string('nama_pembina', 255);
-            $table->string('alamat_pembina', 100);
+            $table->string('nama_pembina');
+            $table->string('alamat_pembina');
             $table->integer('no_telepon');
             $table->integer('hari');
             $table->time('jam_mulai');

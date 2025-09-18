@@ -13,8 +13,8 @@
                         <th>Nama Prestasi</th>
                         <th>Jenis</th>
                         <th>Tingkat</th>
-                        <th>peringkat</th>
-                        <th>penyelenggara</th>
+                        <th>Peringkat</th>
+                        <th>Penyelenggara</th>
                         <th>Tanggal</th>
                         <th>Aksi</th>
                     </tr>
