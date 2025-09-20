@@ -13,6 +13,7 @@
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
 
@@ -25,18 +26,23 @@
                             <td>{{ $_semester->tanggal_selesai->format('d-m-Y') }}</td>
                             <td>{{ $_semester->status }}</td>
                             <td class="aksi-column">
-                                <a href="{{ route('semester.show', $_semester->id_semester) }}" class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
-                                <a href="{{ route('semester.edit', $_semester->id_semester) }}" class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form action="{{ route('semester.destroy', $_semester->id_semester) }}" method="POST"class="d-inline">
+                                <a href="{{ route('semester.show', $_semester->id_semester) }}" class="btn btn-info btn-sm"><i
+                                        class="bi bi-info-lg me-2"></i>Detail</a>
+                                <a href="{{ route('semester.edit', $_semester->id_semester) }}"
+                                    class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                <form action="{{ route('semester.destroy', $_semester->id_semester) }}" method="POST"
+                                    class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus semester ini?')"><i class="bi bi-trash me-2"></i>Hapus</button>
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Yakin ingin menghapus semester ini?')"><i
+                                            class="bi bi-trash me-2"></i>Hapus</button>
                                 </form>
                             </td>
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="5">Belum ada data Semester.</td>
+                            <td colspan="6">Belum ada data Semester.</td>
                         </tr>
                     @endforelse
                 </tbody>

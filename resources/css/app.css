@@ -4,7 +4,7 @@
 trix-editor {
     border: 1px solid #ced4da;
     border-radius: 6px; 
-    transition: border-color 150ms ease-in-out, box-shadow 150ms ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 150ms ease-in-out;
 }
 
 trix-editor:focus {
@@ -18,10 +18,12 @@ span.trix-button-group {
 }
 
 button.trix-button.trix-button--icon {
+    font-size: 15px;
     padding: 0.2rem 0.52rem;
     border-radius: 6px;
     border: none;
     background-color: #e3e8ed;
+    transition: background-color 0.15s ease-in-out;
 }
 
 button.trix-button.trix-button--icon:hover {

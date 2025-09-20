@@ -2,45 +2,87 @@
 
 @section('container')
     <div class="content-card">
-        <form action="{{ route('pengumuman.store') }}" method="POST" enctype="multipart/form-data">
+        <h5>Edit {{ $judul }}</h5>
+        <hr>
+
+        <form action="{{ route('ekstrakurikuler.store') }}" method="POST">
             @csrf
             <div class="mb-3">
-                <label for="judul" class="form-label">Judul</label>
-                <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" placeholder="Ketikkan judul" value="{{ old('judul') }}" required>
-                @error('judul')
+                <label for="nama-ekstrakurikuler" class="form-label">Nama Ekstrakurikuler</label>
+                <input type="text" class="form-control @error('nama_ekstrakurikuler') is-invalid @enderror"
+                    id="nama-ekstrakurikuler" name="nama_ekstrakurikuler" placeholder="Ketikkan nama ekstrakurikuler"
+                    value="{{ old('nama_ekstrakurikuler') }}" required>
+                @error('nama_ekstrakurikuler')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-    
+
             <div class="mb-3">
-                <label for="tanggal" class="form-label">Tanggal</label>
-                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
-                @error('tanggal')
+                <label for="nama-pembina" class="form-label">Nama Pembina</label>
+                <input type="text" class="form-control @error('nama_pembina') is-invalid @enderror" id="nama-pembina"
+                    name="nama_pembina" placeholder="Ketikkan nama pembina" value="{{ old('nama_pembina') }}" required>
+                @error('nama_pembina')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-    
+
             <div class="mb-3">
-                <label for="isi" class="form-label">Isi</label>
-                <textarea class="form-control @error('isi') is-invalid @enderror" id="isi" name="isi" rows="10" placeholder="Ketikkan isi" required>{{ old('isi') }}</textarea>
-                @error('isi')
+                <label for="alamat-pembina" class="form-label">Alamat Pembina</label>
+                <input type="text" class="form-control @error('alamat_pembina') is-invalid @enderror" id="alamat-pembina"
+                    name="alamat_pembina" placeholder="Ketikkan alamat pembina" value="{{ old('alamat_pembina') }}"
+                    required>
+                @error('alamat_pembina')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-    
+
+            <div class="mb-3">
+                <label for="no-telepon" class="form-label">No. Telepon</label>
+                <input type="text" class="form-control @error('no_telepon') is-invalid @enderror" id="no-telepon"
+                    name="no_telepon" placeholder="Ketikkan no. telepon" value="{{ old('no_telepon') }}" required>
+                @error('no_telepon')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="hari" class="form-label">Hari</label>
+                <select class="form-select @error('hari') is-invalid @enderror" id="hari" name="hari" required>
+                    <option value="7">Pilih hari</option>
+                    <option value="0" {{ old('hari') == '0' ? 'selected' : '' }}>Senin</option>
+                    <option value="1" {{ old('hari') == '1' ? 'selected' : '' }}>Selasa</option>
+                    <option value="2" {{ old('hari') == '2' ? 'selected' : '' }}>Rabu</option>
+                    <option value="3" {{ old('hari') == '3' ? 'selected' : '' }}>Kamis</option>
+                    <option value="4" {{ old('hari') == '4' ? 'selected' : '' }}>Jumat</option>
+                    <option value="5" {{ old('hari') == '5' ? 'selected' : '' }}>Sabtu</option>
+                    <option value="6" {{ old('hari') == '6' ? 'selected' : '' }}>Minggu</option>
+                </select>
+                @error('hari')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="jam-mulai" class="form-label">Jam Mulai</label>
+                <input type="time" class="form-control @error('jam_mulai') is-invalid @enderror" id="jam-mulai"
+                    name="jam_mulai" value="{{ old('jam_mulai') }}" required>
+                @error('jam_mulai')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
             <div class="mb-4">
-                <label for="gambar" class="form-label">Gambar<span class="text-muted mini-label ms-1">(Opsional)</span></label>
-                <img class="gambar my-4 rounded d-none" id="image-preview">
-                <button type="button" class="btn btn-danger btn-sm d-block mx-auto mb-5 d-none" id="image-delete-button" onclick="imageDelete()"><i class="bi bi-trash"></i> Hapus</button>
-                <input type="file" class="form-control @error('gambar') is-invalid @enderror image-input" id="gambar" name="gambar" onchange="imagePreview()">
-                <span class="text-muted d-block mini-label my-2">Format .jpg/.png/.jpeg | Ukuran maksimal 10 MB</span>
-                @error('gambar')
+                <label for="jam-selesai" class="form-label">Jam Selesai</label>
+                <input type="time" class="form-control @error('jam_selesai') is-invalid @enderror" id="jam-selesai"
+                    name="jam_selesai" value="{{ old('jam_selesai') }}" required>
+                @error('jam_selesai')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            
+
             <div class="text-end">
-                <a href="{{ route('pengumuman.index') }}" class="btn btn-danger m-1"><i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</a>
+                <a href="{{ route('ekstrakurikuler.index') }}" class="btn btn-danger me-1"><i
+                        class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</a>
                 <button type="submit" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Tambah</button>
             </div>
         </form>

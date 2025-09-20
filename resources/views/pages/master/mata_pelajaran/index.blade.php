@@ -10,6 +10,7 @@
                     <tr>
                         <th>No.</th>
                         <th>Nama Mata Pelajaran</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
 
@@ -17,14 +18,19 @@
                     @forelse ($mata_pelajaran as $_mata_pelajaran)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $_mata_pelajaran->judul }}</td>
+                            <td>{{ $_mata_pelajaran->nama_mata_pelajaran }}</td>
                             <td class="aksi-column">
-                                <a href="{{ route('mata_pelajaran.show', $_mata_pelajaran->id_mata_pelajaran) }}" class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
-                                <a href="{{ route('mata_pelajaran.edit', $_mata_pelajaran->id_mata_pelajaran) }}" class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form action="{{ route('mata_pelajaran.destroy', $_mata_pelajaran->id_mata_pelajaran) }}" method="POST"class="d-inline">
+                                <a href="{{ route('mata-pelajaran.show', $_mata_pelajaran->id_mata_pelajaran) }}"
+                                    class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
+                                <a href="{{ route('mata-pelajaran.edit', $_mata_pelajaran->id_mata_pelajaran) }}"
+                                    class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                <form action="{{ route('mata-pelajaran.destroy', $_mata_pelajaran->id_mata_pelajaran) }}"
+                                    method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus mata_pelajaran ini?')"><i class="bi bi-trash me-2"></i>Hapus</button>
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Yakin ingin menghapus mata_pelajaran ini?')"><i
+                                            class="bi bi-trash me-2"></i>Hapus</button>
                                 </form>
                             </td>
                         </tr>

@@ -2,8 +2,7 @@
 
 @section('container')
     <div class="content-card">
-        <a href="{{ route('ekstrakurikuler.create') }}" class="btn btn-success mb-4"><i
-                class="bi bi-plus-lg me-2"></i>Tambah Ekstrakurikuler</a>
+        <a href="{{ route('ekstrakurikuler.create') }}" class="btn btn-success mb-4"><i class="bi bi-plus-lg me-2"></i>Tambah Ekstrakurikuler</a>
 
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
@@ -27,19 +26,22 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $_ekstrakurikuler->nama_ekstrakurikuler }}</td>
                             <td>{{ $_ekstrakurikuler->nama_pembina }}</td>
-                            <td class="text-truncate">{{ $_ekstrakurikuler->alamat_pembina }}</td>
+                            <td>{!! Str::limit($_ekstrakurikuler->alamat_pembina, 40, '...') !!}</td>
                             <td>{{ $_ekstrakurikuler->no_telepon }}</td>
-                            <td>{{ $_ekstrakurikuler->hari }}</td>
+                            <td>{{ ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'][$_ekstrakurikuler->hari] }}</td>
                             <td>{{ $_ekstrakurikuler->jam_mulai }}</td>
                             <td>{{ $_ekstrakurikuler->jam_selesai }}</td>
                             <td class="aksi-column">
-                                <a href="{{ route('ekstrakurikuler.show', $_ekstrakurikuler->id_ekstrakurikuler) }}" class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
-                                <a href="{{ route('ekstrakurikuler.edit', $_ekstrakurikuler->id_ekstrakurikuler) }}" class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form action="{{ route('ekstrakurikuler.destroy', $_ekstrakurikuler->id_ekstrakurikuler) }}" method="POST" class="d-inline">
+                                <a href="{{ route('ekstrakurikuler.show', $_ekstrakurikuler->id_ekstrakurikuler) }}"
+                                    class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
+                                <a href="{{ route('ekstrakurikuler.edit', $_ekstrakurikuler->id_ekstrakurikuler) }}"
+                                    class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                <form action="{{ route('ekstrakurikuler.destroy', $_ekstrakurikuler->id_ekstrakurikuler) }}"
+                                    method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Yakin ingin menghapus ekstrakurikuler ini?')"><i
+                                        onclick="return confirm('Yakin ingin menghapus data ekstrakurikuler ini?')"><i
                                             class="bi bi-trash me-2"></i>Hapus</button>
                                 </form>
                             </td>

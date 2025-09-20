@@ -32,12 +32,17 @@
                             <td>{{ $_prestasi->penyelenggara }}</td>
                             <td>{{ $_prestasi->tanggal->format('d-m-Y') }}</td>
                             <td class="aksi-column">
-                                <a href="{{ route('prestasi.show', $_prestasi->id_prestasi) }}" class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
-                                <a href="{{ route('prestasi.edit', $_prestasi->id_prestasi) }}" class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form action="{{ route('prestasi.destroy', $_prestasi->id_prestasi) }}" method="POST"class="d-inline">
+                                <a href="{{ route('prestasi.show', $_prestasi->id_prestasi) }}" class="btn btn-info btn-sm"><i
+                                        class="bi bi-info-lg me-2"></i>Detail</a>
+                                <a href="{{ route('prestasi.edit', $_prestasi->id_prestasi) }}"
+                                    class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                <form action="{{ route('prestasi.destroy', $_prestasi->id_prestasi) }}" method="POST"
+                                    class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus prestasi ini?')"><i class="bi bi-trash me-2"></i>Hapus</button>
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Yakin ingin menghapus prestasi ini?')"><i
+                                            class="bi bi-trash me-2"></i>Hapus</button>
                                 </form>
                             </td>
                         </tr>

@@ -17,13 +17,6 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
-.text-truncate {
-  max-width: 7rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .aksi-column {
   width: 1%;
 }
@@ -31,6 +24,34 @@
 tr th, tr td {
   vertical-align: middle;
   white-space: nowrap;
+  font-size: 14px;
+}
+
+.pagination {
+  margin: 0.5rem 0 0;;
+}
+
+ul .pagination {
+  font-size: 1px;
+}
+
+.pagination .page-item .page-link {
+    color: black;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #32344b;
+    border-color: #32344b;
+    color: white;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #ececec;   
+}
+
+.pagination .page-item.active .page-link:hover {
+    background-color: #414460;   
 }
 
 button.btn, a.btn, td {

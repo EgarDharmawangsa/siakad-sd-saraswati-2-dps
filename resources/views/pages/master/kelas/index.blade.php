@@ -19,15 +19,19 @@
                     @forelse ($kelas as $_kelas)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $_kelas->nama_kelas }}</td>                            
-                            {{-- <td>{{ $_kelas->nama_kelas }}</td>                             --}}
+                            <td>{{ $_kelas->nama_kelas }}</td>
+                            {{-- <td>{{ $_kelas->nama_kelas }}</td> --}}
                             <td class="aksi-column">
-                                <a href="{{ route('kelas.show', $_kelas->id_kelas) }}" class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
-                                <a href="{{ route('kelas.edit', $_kelas->id_kelas) }}" class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form action="{{ route('kelas.destroy', $_kelas->id_kelas) }}" method="POST"class="d-inline">
+                                <a href="{{ route('kelas.show', $_kelas->id_kelas) }}" class="btn btn-info btn-sm"><i
+                                        class="bi bi-info-lg me-2"></i>Detail</a>
+                                <a href="{{ route('kelas.edit', $_kelas->id_kelas) }}" class="btn btn-warning btn-sm mx-1"><i
+                                        class="bi bi-pencil me-2"></i>Edit</a>
+                                <form action="{{ route('kelas.destroy', $_kelas->id_kelas) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus kelas ini?')"><i class="bi bi-trash me-2"></i>Hapus</button>
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Yakin ingin menghapus kelas ini?')"><i
+                                            class="bi bi-trash me-2"></i>Hapus</button>
                                 </form>
                             </td>
                         </tr>
