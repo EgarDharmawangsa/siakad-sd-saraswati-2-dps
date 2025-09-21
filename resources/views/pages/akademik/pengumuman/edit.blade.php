@@ -38,9 +38,9 @@
                 <img src="{{ $pengumuman->gambar ? asset('storage/' . $pengumuman->gambar) : '' }}"
                     class="gambar mt-2 mb-3 rounded {{ $pengumuman->gambar ? '' : 'd-none' }}" id="image-preview">
                 <button type="button" class="btn btn-danger btn-sm d-block mx-auto mb-4 {{ $pengumuman->gambar ? '' : 'd-none' }}"
-                    id="image-delete-button" onclick="imageDelete()"><i class="bi bi-trash"></i> Hapus</button>
+                    id="image-delete-button"><i class="bi bi-trash me-2"></i>Hapus</button>
                 <input type="file" class="form-control @error('gambar') is-invalid @enderror image-input" id="gambar"
-                    name="gambar" onchange="imagePreview()">
+                    name="gambar">
                 <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 10 MB</span>
                 @error('gambar')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -50,8 +50,8 @@
             </div>
 
             <div class="text-end">
-                <a href="{{ route('pengumuman.index') }}" class="btn btn-danger me-1"><i
-                        class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</a>
+                {{-- <a href="{{ route('pengumuman.index') }}" class="btn btn-danger me-1"><i
+                        class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</a> --}}
                 <button type="submit" class="btn btn-primary"><i class="bi bi-pencil me-2"></i>Perbarui</button>
             </div>
         </form>

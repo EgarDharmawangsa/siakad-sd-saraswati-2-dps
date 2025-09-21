@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="content-card">
-        <h5>Edit {{ $judul }}</h5>
+        <h5>Tambah {{ $judul }}</h5>
         <hr>
 
         <form action="{{ route('ekstrakurikuler.store') }}" method="POST">
@@ -67,7 +67,7 @@
         
                     <div class="mb-3">
                         <label for="jam-mulai" class="form-label">Jam Mulai (WITA)</label>
-                        <input type="time" class="form-control @error('jam_mulai') is-invalid @enderror" id="jam-mulai"
+                        <input type="text" class="form-control @error('jam_mulai') is-invalid @enderror" id="jam-mulai"
                             name="jam_mulai" value="{{ old('jam_mulai') }}" required>
                         @error('jam_mulai')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -76,7 +76,7 @@
         
                     <div>
                         <label for="jam-selesai" class="form-label">Jam Selesai (WITA)</label>
-                        <input type="time" class="form-control @error('jam_selesai') is-invalid @enderror" id="jam-selesai"
+                        <input type="text" class="form-control @error('jam_selesai') is-invalid @enderror" id="jam-selesai"
                             name="jam_selesai" value="{{ old('jam_selesai') }}" required>
                         @error('jam_selesai')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -86,8 +86,8 @@
             </div>
 
             <div class="text-end">
-                <a href="{{ route('ekstrakurikuler.index') }}" class="btn btn-danger me-1"><i
-                        class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</a>
+                <button type="button" class="btn btn-danger me-1" onclick="cancelPopUp('{{ route('ekstrakurikuler.index') }}')">
+                    <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
                 <button type="submit" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Tambah</button>
             </div>
         </form>

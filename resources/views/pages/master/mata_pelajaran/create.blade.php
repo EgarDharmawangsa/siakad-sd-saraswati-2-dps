@@ -18,8 +18,8 @@
             </div>
 
             <div class="text-end">
-                <a href="{{ route('mata-pelajaran.index') }}" class="btn btn-danger me-1"><i
-                        class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</a>
+                <button type="button" class="btn btn-danger me-1" onclick="cancelPopUp('{{ route('ekstrakurikuler.index') }}')">
+                    <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
                 <button type="submit" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Tambah</button>
             </div>
         </form>
