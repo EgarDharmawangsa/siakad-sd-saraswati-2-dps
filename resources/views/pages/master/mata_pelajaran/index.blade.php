@@ -36,7 +36,7 @@
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="2">Belum ada data Mata Pelajaran.</td>
+                            <td colspan="3">Belum ada data Mata Pelajaran.</td>
                         </tr>
                     @endforelse
                 </tbody>

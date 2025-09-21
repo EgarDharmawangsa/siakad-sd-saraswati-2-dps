@@ -28,7 +28,7 @@
                             <td>{{ $_ekstrakurikuler->nama_pembina }}</td>
                             <td>{!! Str::limit($_ekstrakurikuler->alamat_pembina, 40, '...') !!}</td>
                             <td>{{ $_ekstrakurikuler->no_telepon }}</td>
-                            <td>{{ ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'][$_ekstrakurikuler->hari] }}</td>
+                            <td>{{ $_ekstrakurikuler->getHari() }}</td>
                             <td>{{ $_ekstrakurikuler->jam_mulai }}</td>
                             <td>{{ $_ekstrakurikuler->jam_selesai }}</td>
                             <td class="aksi-column">

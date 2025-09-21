@@ -17,13 +17,27 @@ class Ekstrakurikuler extends Model
 
         protected $guarded = ['id_ekstrakurikuler'];
 
+        public function getHari(): string {
+                $hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+                return $hari[$this->hari];
+        }
+
         protected function jamMulai(): Attribute {
-                return Attribute::make(get: fn($value) => $value ? Carbon::createFromFormat('H:i:s', $value)->format('H:i') : null, );
+                return Attribute::make(
+                        get: fn ($value) => $value
+                        ? Carbon::createFromFormat('H:i:s', $value)->format('H:i') . ' WITA'
+                        : null
+                );
         }
 
         protected function jamSelesai(): Attribute {
-                return Attribute::make(get: fn($value) => $value ? Carbon::createFromFormat('H:i:s', $value)->format('H:i') : null, );
+                return Attribute::make(
+                        get: fn ($value) => $value
+                        ? Carbon::createFromFormat('H:i:s', $value)->format('H:i') . ' WITA'
+                        : null
+                );
         }
+
 
         public function pesertaEkstrakurikuler() {
                 return $this->hasMany(PesertaEkstrakurikuler::class, 'id_ekstrakurikuler', 'id_ekstrakurikuler');
