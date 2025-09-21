@@ -23,24 +23,14 @@ class Ekstrakurikuler extends Model
         }
 
         protected function jamMulai(): Attribute {
-                return Attribute::make(
-                        get: fn ($value) => $value
-                        ? Carbon::createFromFormat('H:i:s', $value)->format('H:i') . ' WITA'
-                        : null
-                );
+                return Attribute::make(get: fn($value) => Carbon::createFromFormat('H:i:s', $value)->format('H:i'),);
         }
 
         protected function jamSelesai(): Attribute {
-                return Attribute::make(
-                        get: fn ($value) => $value
-                        ? Carbon::createFromFormat('H:i:s', $value)->format('H:i') . ' WITA'
-                        : null
-                );
+                return Attribute::make(get: fn($value) => Carbon::createFromFormat('H:i:s', $value)->format('H:i'),);
         }
-
 
         public function pesertaEkstrakurikuler() {
                 return $this->hasMany(PesertaEkstrakurikuler::class, 'id_ekstrakurikuler', 'id_ekstrakurikuler');
         }
-
 }

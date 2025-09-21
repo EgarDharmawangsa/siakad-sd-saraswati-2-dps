@@ -6,9 +6,9 @@
         <hr>
 
         <div class="mb-4">
-            <a href="{{ route('mata-pelajaran.index') }}" class="btn btn-secondary btn-sm me-1"><i
+            <a href="{{ route('ekstrakurikuler.index') }}" class="btn btn-secondary btn-sm me-1"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
-            <a href="{{ route('mata-pelajaran.edit', $ekstrakurikuler->id_ekstrakurikuler) }}" class="btn btn-warning btn-sm"><i
+            <a href="{{ route('ekstrakurikuler.edit', $ekstrakurikuler->id_ekstrakurikuler) }}" class="btn btn-warning btn-sm"><i
                     class="bi bi-pencil me-2"></i>Edit</a>
         </div>
 
@@ -29,7 +29,7 @@
                     <input type="text" class="form-control" id="alamat-pembina" value="{{ $ekstrakurikuler->alamat_pembina }}" disabled>
                 </div>
         
-                <div class="mb-3">
+                <div>
                     <label for="no-telepon" class="form-label">No. Telepon</label>
                     <input type="text" class="form-control" id="no-telepon" value="{{ $ekstrakurikuler->no_telepon }}" disabled>
                 </div>

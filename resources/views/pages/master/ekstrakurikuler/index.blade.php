@@ -14,8 +14,8 @@
                         <th>Alamat Pembina</th>
                         <th>No. Telepon</th>
                         <th>Hari</th>
-                        <th>Jam Mulai</th>
-                        <th>Jam Selesai</th>
+                        <th>Jam Mulai (WITA)</th>
+                        <th>Jam Selesai (WITA)</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
