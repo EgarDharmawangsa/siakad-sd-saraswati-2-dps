@@ -19,7 +19,8 @@
             </div>
 
             <div class="text-end">
-                <button type="button" class="btn btn-danger me-1" onclick="cancelPopUp('{{ route('ekstrakurikuler.index') }}')">
+                <button type="button" class="btn btn-danger me-1" id="cancel-button"
+                    data-route="{{ route('pengumuman.index') }}">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
                 <button type="submit" class="btn btn-primary"><i class="bi bi-pencil me-2"></i>Perbarui</button>
             </div>

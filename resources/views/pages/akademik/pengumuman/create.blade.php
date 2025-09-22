@@ -18,8 +18,8 @@
 
             <div class="mb-3">
                 <label for="tanggal" class="form-label">Tanggal</label>
-                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal"
-                    value="{{ old('tanggal') }}" required>
+                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal"
+                    name="tanggal" value="{{ old('tanggal') }}" required>
                 @error('tanggal')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -46,8 +46,11 @@
             </div>
 
             <div class="text-end">
-                {{-- <a href="{{ route('pengumuman.index') }}" class="btn btn-danger me-1"><i
-                        class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</a> --}}
+                {{-- ini dicopas ke seluruh halaman create di sistem, kode sebelumya ganti sama yang ini --}}
+                <button type="button" class="btn btn-danger me-1" id="cancel-button" data-route="{{ route('pengumuman.index') }}" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                    <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
+                {{-- button yang diatas ni aja --}}
+
                 <button type="submit" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Tambah</button>
             </div>
         </form>

@@ -1,5 +1,5 @@
 <div id="sidebar" class="position-fixed top-0 start-0 vh-100">
-  <button class="btn btn-sm d-lg-none d-block ms-auto mb-3 close-sidebar-button" id="closeSidebar">
+  <button class="btn btn-sm d-lg-none d-block ms-auto mb-3 close-sidebar-button" id="close-sidebar">
     <i class="bi bi-x-lg fs-4"></i>
   </button>
 

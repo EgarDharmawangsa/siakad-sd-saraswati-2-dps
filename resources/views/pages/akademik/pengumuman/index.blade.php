@@ -2,7 +2,8 @@
 
 @section('container')
     <div class="content-card">
-        <a href="{{ route('pengumuman.create') }}" class="btn btn-success mb-4"><i class="bi bi-plus-lg me-2"></i>Tambah Pengumuman</a>
+        <a href="{{ route('pengumuman.create') }}" class="btn btn-success mb-4"><i class="bi bi-plus-lg me-2"></i>Tambah
+            Pengumuman</a>
 
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
@@ -28,14 +29,17 @@
                                     class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('pengumuman.edit', $_pengumuman->id_pengumuman) }}"
                                     class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                {{-- blok form di bawah di copas ke seluruh halaman index, kode form sebelumnya ganti pake yang ini  --}}
                                 <form id="delete-form" action="{{ route('pengumuman.destroy', $_pengumuman->id_pengumuman) }}" method="POST"
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="btn btn-danger btn-sm"
-                                        onclick="deletePopUp()"><i
-                                            class="bi bi-trash me-2"></i>Hapus</button>
+                                    
+                                    <button type="button" class="btn btn-danger btn-sm" id="delete-button"
+                                        data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                        <i class="bi bi-trash me-2"></i>Batal</button>
                                 </form>
+
                             </td>
                         </tr>
                     @empty

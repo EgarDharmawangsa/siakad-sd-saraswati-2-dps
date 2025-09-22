@@ -20,8 +20,8 @@
 
             <div class="mb-3">
                 <label for="tanggal" class="form-label">Tanggal</label>
-                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal"
-                    value="{{ old('tanggal', $pengumuman->tanggal->format('Y-m-d')) }}" required>
+                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal"
+                    name="tanggal" value="{{ old('tanggal', $pengumuman->tanggal->format('Y-m-d')) }}" required>
                 @error('tanggal')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -34,10 +34,12 @@
             </div>
 
             <div class="mb-4">
-                <label for="gambar" class="form-label">Gambar<span class="text-muted mini-label ms-1">(Opsional)</span></label>
+                <label for="gambar" class="form-label">Gambar<span
+                        class="text-muted mini-label ms-1">(Opsional)</span></label>
                 <img src="{{ $pengumuman->gambar ? asset('storage/' . $pengumuman->gambar) : '' }}"
                     class="gambar mt-2 mb-3 rounded {{ $pengumuman->gambar ? '' : 'd-none' }}" id="image-preview">
-                <button type="button" class="btn btn-danger btn-sm d-block mx-auto mb-4 {{ $pengumuman->gambar ? '' : 'd-none' }}"
+                <button type="button"
+                    class="btn btn-danger btn-sm d-block mx-auto mb-4 {{ $pengumuman->gambar ? '' : 'd-none' }}"
                     id="image-delete-button"><i class="bi bi-trash me-2"></i>Hapus</button>
                 <input type="file" class="form-control @error('gambar') is-invalid @enderror image-input" id="gambar"
                     name="gambar">
@@ -50,8 +52,12 @@
             </div>
 
             <div class="text-end">
-                {{-- <a href="{{ route('pengumuman.index') }}" class="btn btn-danger me-1"><i
-                        class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</a> --}}
+                {{-- ini dicopas ke seluruh halaman edit di sistem, kalau ada kode sebelumya ganti sama yang ini --}}
+                <button type="button" class="btn btn-danger me-1" id="cancel-button" data-route="{{ route('pengumuman.index') }}" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                    <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
+                {{-- button yang diatas ni aja --}}
+
+
                 <button type="submit" class="btn btn-primary"><i class="bi bi-pencil me-2"></i>Perbarui</button>
             </div>
         </form>

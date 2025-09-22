@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark position-fixed top-0 w-100 z-1">
     <div class="container-fluid px-3">
-        <button class="btn d-lg-none sidebar-toggle-button me-2" id="toggleSidebar"><i class="bi bi-list fs-2"></i></button>
+        <button class="btn d-lg-none sidebar-toggle-button me-2" id="toggle-sidebar"><i class="bi bi-list fs-2"></i></button>
         <a class="navbar-brand" href="{{ route('beranda') }}">SIAKAD RASDA</a>
 
         <div class="dropdown profile-dropdown ms-auto">

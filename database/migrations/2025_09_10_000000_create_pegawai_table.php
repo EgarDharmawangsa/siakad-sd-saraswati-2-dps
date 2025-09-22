@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('pegawai', function (Blueprint $table) {
             $table->id('id_pegawai');
-            $table->integer('nik');
-            $table->integer('nip');
+            $table->string('nik', 20);
+            $table->string('nip', 20);
             $table->string('nama_pegawai');
             $table->integer('jenis_kelamin');
             $table->integer('agama');
             $table->string('tempat_lahir', 20);
             $table->date('tanggal_lahir');
             $table->string('alamat');
-            $table->integer('no_telepon_rumah');
-            $table->integer('no_telepon_seluler');
+            $table->string('no_telepon_rumah', 15);
+            $table->string('no_telepon_seluler', 15);
             $table->string('e_mail');
             $table->string('pangkat', 20);
             $table->integer('status_perkawinan');

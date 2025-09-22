@@ -35,6 +35,10 @@ tr td {
     font-size: 14px;
 }
 
+.modal-content {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+}
+
 .pagination {
     margin: 0.5rem 0 0;
 }
@@ -45,7 +49,8 @@ ul .pagination {
 
 .pagination .page-item .page-link {
     color: black;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    transition: background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out;
 }
 
 .pagination .page-item.active .page-link {
@@ -85,6 +90,11 @@ td {
 
 @media (max-width: 576px) {
     .container-fluid.content-container {
+        padding: 1rem;
+    }
+
+    .modal-dialog {
+        margin: 0;
         padding: 1rem;
     }
 }

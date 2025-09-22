@@ -2,7 +2,8 @@
 
 @section('container')
     <div class="content-card">
-        <a href="{{ route('pegawai.create') }}" class="btn btn-success mb-4"><i class="bi bi-plus-lg me-2"></i>Tambah Pegawai</a>
+        <a href="{{ route('pegawai.create') }}" class="btn btn-success mb-4"><i class="bi bi-plus-lg me-2"></i>Tambah
+            Pegawai</a>
 
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
@@ -73,8 +74,7 @@
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Yakin ingin menghapus pegawai ini?')"><i
+                                    <button type="button" class="btn btn-danger btn-sm" id="delete-button"><i
                                             class="bi bi-trash me-2"></i>Hapus</button>
                                 </form>
                             </td>

@@ -1,19 +1,15 @@
 @import "trix/dist/trix.css";
 
-#swal2-title, #swal2-html-container {
-  color: black;
-}
-
 trix-editor {
     border: 1px solid #ced4da;
-    border-radius: 6px; 
+    border-radius: 6px;
     transition: border-color 0.15s ease-in-out, box-shadow 150ms ease-in-out;
 }
 
 trix-editor:focus {
     border-color: #86b7fe;
     outline: 0;
-    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.30);
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.3);
 }
 
 span.trix-button-group {
@@ -43,9 +39,7 @@ trix-toolbar [data-trix-button-group="file-tools"] {
 
 .gambar {
     max-width: 30rem;
-    width: 100%; 
+    width: 100%;
     display: block;
     margin: 0 auto;
 }
-
-
