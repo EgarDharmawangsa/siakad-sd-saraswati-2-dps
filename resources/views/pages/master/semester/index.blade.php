@@ -31,12 +31,14 @@
                                         class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('semester.edit', $_semester->id_semester) }}"
                                     class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form action="{{ route('semester.destroy', $_semester->id_semester) }}" method="POST"
+                                <form id="delete-form" action="{{ route('semester.destroy', $_semester->id_semester) }}" method="POST"
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="btn btn-danger btn-sm" id="delete-button"><i
-                                            class="bi bi-trash me-2"></i>Hapus</button>
+                                    
+                                    <button type="button" class="btn btn-danger btn-sm" id="delete-button"
+                                        data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                        <i class="bi bi-trash me-2"></i>Batal</button>
                                 </form>
                             </td>
                         </tr>
