@@ -8,8 +8,8 @@
                 Proses yang dibatalkan tidak dapat dikembalikan.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="cancel-confirm-button">Ya</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tidak</button>
+                <button type="button" class="btn btn-primary btn-lg" id="cancel-confirm-button">Ya</button>
+                <button type="button" class="btn btn-danger btn-lg" data-bs-dismiss="modal">Tidak</button>
             </div>
         </div>
     </div>
