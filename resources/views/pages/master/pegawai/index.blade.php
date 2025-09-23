@@ -70,7 +70,7 @@
                                         class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('pegawai.edit', $_pegawai->id_pegawai) }}"
                                     class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form id="delete-form" action="{{ route('pegawai.destroy', $_pegawai->id_pegawai) }}" method="POST"
+                                <form id="delete-form" action="{{ route('pengumuman.destroy', $_pengumuman->id_pengumuman) }}" method="POST"
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')

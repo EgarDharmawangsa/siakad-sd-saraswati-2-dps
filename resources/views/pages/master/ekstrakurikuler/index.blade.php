@@ -37,7 +37,7 @@
                                     class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('ekstrakurikuler.edit', $_ekstrakurikuler->id_ekstrakurikuler) }}"
                                     class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form id="delete-form" action="{{ route('ekstrakurikuler.destroy', $_ekstrakurikuler->id_ekstrakurikuler) }}" method="POST"
+                                <form id="delete-form" action="{{ route('pengumuman.destroy', $_pengumuman->id_pengumuman) }}" method="POST"
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')
