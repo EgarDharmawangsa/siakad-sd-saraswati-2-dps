@@ -47,12 +47,12 @@ Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout')
     ->middleware('auth');
 
-// Dashboard Route (contoh setelah login berhasil)
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware('auth')->name('dashboard');
+// // Dashboard Route (contoh setelah login berhasil)
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware('auth')->name('dashboard');
 
-// Redirect root to login
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+// // Redirect root to login
+// Route::get('/', function () {
+//     return redirect()->route('login');
+// });
