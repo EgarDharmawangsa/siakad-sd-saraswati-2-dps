@@ -1,0 +1,45 @@
+@import "trix/dist/trix.css";
+
+trix-editor {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    transition: border-color 0.15s ease-in-out, box-shadow 150ms ease-in-out;
+}
+
+trix-editor:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.3);
+}
+
+span.trix-button-group {
+    border: none;
+}
+
+button.trix-button.trix-button--icon {
+    font-size: 15px;
+    padding: 0.2rem 0.52rem;
+    border-radius: 6px;
+    border: none;
+    background-color: #e3e8ed;
+    transition: background-color 0.15s ease-in-out;
+}
+
+button.trix-button.trix-button--icon:hover {
+    background-color: #cbd0d5;
+}
+
+button.trix-button.trix-button--icon {
+    margin-right: 0.3rem;
+}
+
+trix-toolbar [data-trix-button-group="file-tools"] {
+    display: none;
+}
+
+.gambar {
+    max-width: 30rem;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}

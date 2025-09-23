@@ -1,37 +1,100 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
-@import "trix/dist/trix.css";
+@import "flatpickr/dist/flatpickr.min.css";
+@import "flatpickr/dist/flatpickr.min.css";
+@import "./partials/navbar.css";
+@import "./partials/sidebar.css";
+@import "./pages/akademik/pengumuman.css";
 
-trix-editor {
-    border: 1px solid #ced4da;
-    border-radius: 6px; 
-    transition: border-color 150ms ease-in-out, box-shadow 150ms ease-in-out;
+* {
+    scrollbar-color: #c1c1c1 white;
 }
 
-trix-editor:focus {
-    border-color: #86b7fe;
-    outline: 0;
-    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.30);
+.container-fluid.content-container {
+    flex: 1;
+    padding: 1.5rem;
+    margin: 3.3rem 0 0 15rem;
+    background-color: #f4f5fa;
+    overflow-x: hidden;
 }
 
-span.trix-button-group {
-    border: none;
+.content-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
-button.trix-button.trix-button--icon {
-    padding: 0.2rem 0.52rem;
-    border-radius: 6px;
-    border: none;
-    background-color: #e3e8ed;
+.aksi-column {
+    width: 1%;
 }
 
-button.trix-button.trix-button--icon:hover {
-    background-color: #cbd0d5;
+tr th,
+tr td {
+    vertical-align: middle;
+    white-space: nowrap;
+    font-size: 14px;
 }
 
-button.trix-button.trix-button--icon {
-    margin-right: 0.3rem;
+.modal-content {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
 }
 
-trix-toolbar [data-trix-button-group="file-tools"] {
-    display: none;
+.pagination {
+    margin: 0.5rem 0 0;
+}
+
+ul .pagination {
+    font-size: 1px;
+}
+
+.pagination .page-item .page-link {
+    color: black;
+    transition: background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #32344b;
+    border-color: #32344b;
+    color: white;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #ececec;
+}
+
+.pagination .page-item.active .page-link:hover {
+    background-color: #414460;
+}
+
+button.btn,
+a.btn,
+td {
+    font-size: 14px;
+}
+
+.bi-pencil,
+.bi-x-lg {
+    font-size: 12px;
+}
+
+.mini-label {
+    font-size: 12px;
+}
+
+@media (max-width: 992px) {
+    .container-fluid.content-container {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-fluid.content-container {
+        padding: 1rem;
+    }
+
+    .modal-dialog {
+        margin: 0;
+        padding: 1rem;
+    }
 }

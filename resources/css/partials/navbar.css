@@ -1,0 +1,95 @@
+nav.navbar {
+    background-color: #32344b;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.btn.sidebar-toggle-button {
+    border: none;
+    color: white;
+    padding: 0.1rem 0.55rem;
+}
+
+.btn.sidebar-toggle-button:hover {
+    background-color: #414460;
+    color: white;
+}
+
+.profile-dropdown {
+    display: flex;
+    align-items: center;
+}
+
+.profile-divider {
+    margin: 0 0.5rem;
+    background-color: white;
+    width: 1px;
+    opacity: 0.5;
+    align-self: stretch;
+}
+
+.profile-toggle {
+    display: flex;
+    max-width: 15rem;
+    align-items: center;
+    padding: 0.4rem 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    gap: 0.5rem;
+    color: white;
+    border-radius: 6px;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.profile-toggle:hover {
+    background-color: #414460;
+}
+
+.profile-avatar {
+    width: 1.8rem;
+    height: 1.8rem;
+    object-fit: cover;
+    border-radius: 50%;
+    flex: 0 0 auto;
+}
+
+.profile-name {
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.profile-dropdown .dropdown-menu {
+    background-color: #27293a;
+    border: none;
+    min-width: 10rem;
+}
+
+.profile-dropdown .dropdown-item {
+    color: white;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.profile-dropdown .dropdown-item:hover {
+    background-color: #414460;
+    color: white;
+}
+
+.dropdown-item.profile-logout-button {
+    color: red;
+}
+
+.dropdown-item.profile-logout-button:hover {
+    background-color: red;
+    color: white;
+}
+
+.profile-dropdown-divider {
+    border-color: white;
+    opacity: 0.5;
+    margin: 0.5rem 0;
+}
+
+@media (max-width: 576px) {
+    .profile-name {
+        display: none;
+    }
+}

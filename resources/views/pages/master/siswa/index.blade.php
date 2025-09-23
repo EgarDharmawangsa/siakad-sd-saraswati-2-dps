@@ -147,14 +147,20 @@
                             <td>{{ $_siswa->tahun_lahir_wali }}</td>
                             <td>{{ $_siswa->jenjang_pendidikan_wali }}</td>
                             <td>{{ $_siswa->pekerjaan_wali }}</td>
-                            <td>{{ $_siswa->penghasilan_wali }}</td>                            
+                            <td>{{ $_siswa->penghasilan_wali }}</td>
                             <td class="aksi-column">
-                                <a href="{{ route('siswa.show', $_siswa->id_siswa) }}" class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
-                                <a href="{{ route('siswa.edit', $_siswa->id_siswa) }}" class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form action="{{ route('siswa.destroy', $_siswa->id_siswa) }}" method="POST"class="d-inline">
+                                <a href="{{ route('siswa.show', $_siswa->id_siswa) }}" class="btn btn-info btn-sm"><i
+                                        class="bi bi-info-lg me-2"></i>Detail</a>
+                                <a href="{{ route('siswa.edit', $_siswa->id_siswa) }}"
+                                    class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                <form id="delete-form" action="{{ route('siswa.destroy', $_siswa->id_siswa) }}" method="POST"
+                                    class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus siswa ini?')"><i class="bi bi-trash me-2"></i>Hapus</button>
+                                    
+                                    <button type="button" class="btn btn-danger btn-sm" id="delete-button"
+                                        data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                        <i class="bi bi-trash me-2"></i>Batal</button>
                                 </form>
                             </td>
                         </tr>

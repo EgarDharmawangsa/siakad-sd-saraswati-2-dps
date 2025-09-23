@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Ekstrakurikuler;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class EkstrakurikulerController extends Controller
 {
+    public $validation_rules = [
+        'nama_ekstrakurikuler' => ['required','string','min:3','max:25'],
+        'nama_pembina' => ['required','string','min:3','max:255'],
+        'alamat_pembina' => ['required','string','min:10','max:255'],
+        'no_telepon' => ['required','string','min:10','max:15'],
+        'hari' => ['required','integer','min:0','max:6'],
+        'jam_mulai' => ['required','date_format:H:i'],
+        'jam_selesai' => ['required','date_format:H:i']
+    ];
+    
     /**
      * Display a listing of the resource.
      */
@@ -23,7 +34,9 @@ class EkstrakurikulerController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.master.ekstrakurikuler.create', [
+            'judul' => 'Ekstrakurikuler'
+        ]);
     }
 
     /**
@@ -31,7 +44,11 @@ class EkstrakurikulerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated_ekstrakurikuler = $request->validate($this->validation_rules);
+
+        Ekstrakurikuler::create($validated_ekstrakurikuler);
+
+        return redirect()->route('ekstrakurikuler.index')->with('success', 'Ekstrakurikuler berhasil ditambahkan.');
     }
 
     /**
@@ -39,7 +56,10 @@ class EkstrakurikulerController extends Controller
      */
     public function show(Ekstrakurikuler $ekstrakurikuler)
     {
-        //
+        return view('pages.master.ekstrakurikuler.show', [
+            'judul' => 'Ekstrakurikuler',
+            'ekstrakurikuler' => $ekstrakurikuler
+        ]);
     }
 
     /**
@@ -47,7 +67,10 @@ class EkstrakurikulerController extends Controller
      */
     public function edit(Ekstrakurikuler $ekstrakurikuler)
     {
-        //
+        return view('pages.master.ekstrakurikuler.edit', [
+            'judul' => 'Ekstrakurikuler',
+            'ekstrakurikuler' => $ekstrakurikuler
+        ]);
     }
 
     /**
@@ -55,7 +78,15 @@ class EkstrakurikulerController extends Controller
      */
     public function update(Request $request, Ekstrakurikuler $ekstrakurikuler)
     {
-        //
+        $update_validation_rules = $this->validation_rules;
+
+        $update_validation_rules['nama_mata_pelajaran'][] = Rule::unique('ekstrakurikuler', 'nama_ekstrakurikuler')->ignore($ekstrakurikuler->id_ekstrakurikuler);
+
+        $validated_ekstrakurikuler = $request->validate($update_validation_rules);
+
+        $ekstrakurikuler->update($validated_ekstrakurikuler);
+
+        return redirect()->route('ekstrakurikuler.index')->with('success', 'Ekstrakurikuler berhasil diperbarui.');
     }
 
     /**
@@ -63,6 +94,8 @@ class EkstrakurikulerController extends Controller
      */
     public function destroy(Ekstrakurikuler $ekstrakurikuler)
     {
-        //
+        $ekstrakurikuler->delete();
+
+        return redirect()->route('ekstrakurikuler.index')->with('success', 'Ekstrakurikuler berhasil dihapus.');
     }
 }

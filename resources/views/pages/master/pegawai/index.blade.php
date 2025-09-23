@@ -2,7 +2,8 @@
 
 @section('container')
     <div class="content-card">
-        <a href="{{ route('pegawai.create') }}" class="btn btn-success mb-4"><i class="bi bi-plus-lg me-2"></i>Tambah Pegawai</a>
+        <a href="{{ route('pegawai.create') }}" class="btn btn-success mb-4"><i class="bi bi-plus-lg me-2"></i>Tambah
+            Pegawai</a>
 
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
@@ -63,14 +64,20 @@
                             <td>{{ $_pegawai->permulaan_kerja_sds2 }}</td>
                             <td>{{ $_pegawai->no_sk }}</td>
                             <td>{{ $_pegawai->tanggal_sk_terakhir->format('d-m-Y') }}</td>
-                            <td>{{ $_pegawai->golongan_ruang }}</td>                            
+                            <td>{{ $_pegawai->golongan_ruang }}</td>
                             <td class="aksi-column">
-                                <a href="{{ route('pegawai.show', $_pegawai->id_pegawai) }}" class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
-                                <a href="{{ route('pegawai.edit', $_pegawai->id_pegawai) }}" class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form action="{{ route('pegawai.destroy', $_pegawai->id_pegawai) }}" method="POST"class="d-inline">
+                                <a href="{{ route('pegawai.show', $_pegawai->id_pegawai) }}" class="btn btn-info btn-sm"><i
+                                        class="bi bi-info-lg me-2"></i>Detail</a>
+                                <a href="{{ route('pegawai.edit', $_pegawai->id_pegawai) }}"
+                                    class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                <form id="delete-form" action="{{ route('pegawai.destroy', $_pegawai->id_pegawai) }}" method="POST"
+                                    class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus pegawai ini?')"><i class="bi bi-trash me-2"></i>Hapus</button>
+                                    
+                                    <button type="button" class="btn btn-danger btn-sm" id="delete-button"
+                                        data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                        <i class="bi bi-trash me-2"></i>Batal</button>
                                 </form>
                             </td>
                         </tr>

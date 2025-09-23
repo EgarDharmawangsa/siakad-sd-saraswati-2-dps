@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Ekstrakurikuler;
 use App\Models\User;
+use App\Models\Pengumuman;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,9 +17,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+        Ekstrakurikuler::factory(30)->create();
+
+        Pengumuman::factory(30)->create();
     }
 }

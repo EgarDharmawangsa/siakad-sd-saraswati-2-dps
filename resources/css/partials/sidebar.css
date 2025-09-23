@@ -1,0 +1,69 @@
+#sidebar {
+    width: 15rem;
+    padding: 5rem 1rem 0;
+    background-color: #27293a;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.btn.close-sidebar-button {
+    color: white;
+    border: none;
+    padding: 0.2rem 0.52rem;
+    border-radius: 6px;
+}
+
+.btn.close-sidebar-button:hover {
+    background-color: #414460;
+}
+
+#sidebar a {
+    color: white;
+    text-decoration: none;
+}
+
+#sidebar .nav-link {
+    border-radius: 6px;
+}
+
+#sidebar .nav-link:hover {
+    background: #414460;
+}
+
+.nilai-icon-rotate {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+.nilai-menu-icon {
+    font-size: 8px;
+    transition: transform 0.3s ease;
+}
+
+.nav-link.active-sidebar-link {
+    background: #28ad60;
+    font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#sidebar .nav-link.nav-link.active-sidebar-link:hover {
+    background: #1c7b44;
+}
+
+@media (max-width: 992px) {
+    #sidebar {
+        background-color: rgba(39, 41, 58, 0.9);
+        backdrop-filter: blur(10px);
+        padding-top: 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transform: translateX(-100%);
+        z-index: 1045;
+    }
+
+    #sidebar.show {
+        transform: translateX(0);
+    }
+}
