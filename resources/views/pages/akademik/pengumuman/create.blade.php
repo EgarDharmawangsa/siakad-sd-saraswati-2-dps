@@ -46,11 +46,8 @@
             </div>
 
             <div class="text-end">
-                {{-- ini dicopas ke seluruh halaman create di sistem, kode sebelumya ganti sama yang ini --}}
                 <button type="button" class="btn btn-danger me-1" id="cancel-button" data-route="{{ route('pengumuman.index') }}" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
-                {{-- button yang diatas ni aja --}}
-
                 <button type="submit" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Tambah</button>
             </div>
         </form>

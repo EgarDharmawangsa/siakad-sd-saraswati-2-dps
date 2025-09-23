@@ -5,23 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SIAKAD RASDA | {{ $judul }}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     @vite('resources/js/app.js')
 </head>
 
 <body class="d-flex flex-column vh-100 p-0 m-0">
+    <div class="toast-container position-fixed start-50 translate-middle-x">
+        @if (session()->has('success'))
+            <div class="toast align-items-center border-0" id="success-toast" role="alert" aria-live="assertive"
+                aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body text-white">
+                        {{ session('success') }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="close"></button>
+                </div>
+            </div>
+        @endif
+    </div>
+    
     @include('partials.navbar')
 
     <div class="d-flex flex-grow-1">
         @include('partials.sidebar')
 
         <div class="container-fluid content-container">
-            @if (session()->has('success'))
-                <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
 
             <h2 class="mt-2 mb-4">{{ $judul }}</h2>
 
