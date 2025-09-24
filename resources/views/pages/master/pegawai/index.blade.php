@@ -70,7 +70,7 @@
                                         class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('pegawai.edit', $_pegawai->id_pegawai) }}"
                                     class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form id="delete-form" action="{{ route('pengumuman.destroy', $_pengumuman->id_pengumuman) }}" method="POST"
+                                <form id="delete-form" action="{{ route('pengumuman.destroy', $_pegawai->id_pegawai) }}" method="POST"
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')
@@ -83,7 +83,7 @@
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="25">Belum ada data Pegawai.</td>
+                            <td colspan="25">Belum ada Pegawai.</td>
                         </tr>
                     @endforelse
                 </tbody>

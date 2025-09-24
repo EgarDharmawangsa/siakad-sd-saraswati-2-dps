@@ -25,7 +25,7 @@
                                     class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('mata-pelajaran.edit', $_mata_pelajaran->id_mata_pelajaran) }}"
                                     class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form id="delete-form" action="{{ route('pengumuman.destroy', $_pengumuman->id_pengumuman) }}" method="POST"
+                                <form id="delete-form" action="{{ route('mata-pelajaran.destroy', $_mata_pelajaran->id_mata_pelajaran) }}" method="POST"
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')
@@ -38,7 +38,7 @@
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="3">Belum ada data Mata Pelajaran.</td>
+                            <td colspan="3">Belum ada Mata Pelajaran.</td>
                         </tr>
                     @endforelse
                 </tbody>

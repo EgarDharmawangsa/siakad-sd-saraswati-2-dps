@@ -9,13 +9,17 @@ use Illuminate\Validation\Rule;
 class EkstrakurikulerController extends Controller
 {
     public $validation_rules = [
-        'nama_ekstrakurikuler' => ['required','string','min:3','max:25'],
-        'nama_pembina' => ['required','string','min:3','max:255'],
-        'alamat_pembina' => ['required','string','min:10','max:255'],
-        'no_telepon' => ['required','string','min:10','max:15'],
-        'hari' => ['required','integer','min:0','max:6'],
-        'jam_mulai' => ['required','date_format:H:i'],
-        'jam_selesai' => ['required','date_format:H:i']
+        'nama_ekstrakurikuler' => 'required|string|min:3|max:25',
+        'nama_pembina' => 'required|string|min:3|max:255',
+        'alamat_pembina' => 'required|string|min:10|max:255',
+        'no_telepon' => 'required|string|min:10|max:15',
+        'hari' => 'required|integer|in:1,2,3,4,5,6,7',
+        'jam_mulai' => 'required|date_format:H:i',
+        'jam_selesai' => 'required|date_format:H:i'
+    ];
+
+    public $custom_message_validation = [
+        'hari.in' => 'Hari harus berupa angka antara 1 sampai 7.',
     ];
     
     /**
@@ -35,7 +39,7 @@ class EkstrakurikulerController extends Controller
     public function create()
     {
         return view('pages.master.ekstrakurikuler.create', [
-            'judul' => 'Ekstrakurikuler'
+            'judul' => 'Tambah Ekstrakurikuler'
         ]);
     }
 
@@ -44,7 +48,7 @@ class EkstrakurikulerController extends Controller
      */
     public function store(Request $request)
     {
-        $validated_ekstrakurikuler = $request->validate($this->validation_rules);
+        $validated_ekstrakurikuler = $request->validate($this->validation_rules, $this->custom_message_validation);
 
         Ekstrakurikuler::create($validated_ekstrakurikuler);
 
@@ -57,7 +61,7 @@ class EkstrakurikulerController extends Controller
     public function show(Ekstrakurikuler $ekstrakurikuler)
     {
         return view('pages.master.ekstrakurikuler.show', [
-            'judul' => 'Ekstrakurikuler',
+            'judul' => 'Detail Ekstrakurikuler',
             'ekstrakurikuler' => $ekstrakurikuler
         ]);
     }
@@ -68,7 +72,7 @@ class EkstrakurikulerController extends Controller
     public function edit(Ekstrakurikuler $ekstrakurikuler)
     {
         return view('pages.master.ekstrakurikuler.edit', [
-            'judul' => 'Ekstrakurikuler',
+            'judul' => 'Edit Ekstrakurikuler',
             'ekstrakurikuler' => $ekstrakurikuler
         ]);
     }
@@ -84,7 +88,7 @@ class EkstrakurikulerController extends Controller
 
         $validated_ekstrakurikuler = $request->validate($update_validation_rules);
 
-        $ekstrakurikuler->update($validated_ekstrakurikuler);
+        $ekstrakurikuler->update($validated_ekstrakurikuler, $this->custom_message_validation);
 
         return redirect()->route('ekstrakurikuler.index')->with('success', 'Ekstrakurikuler berhasil diperbarui.');
     }

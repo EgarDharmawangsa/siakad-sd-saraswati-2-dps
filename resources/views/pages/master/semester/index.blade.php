@@ -31,7 +31,7 @@
                                         class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('semester.edit', $_semester->id_semester) }}"
                                     class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form id="delete-form" action="{{ route('pengumuman.destroy', $_pengumuman->id_pengumuman) }}" method="POST"
+                                <form id="delete-form" action="{{ route('pengumuman.destroy', $_semester->id_semester) }}" method="POST"
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')
@@ -44,7 +44,7 @@
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="6">Belum ada data Semester.</td>
+                            <td colspan="6">Belum ada Semester.</td>
                         </tr>
                     @endforelse
                 </tbody>

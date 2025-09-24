@@ -39,10 +39,6 @@
 
     @include('components.delete_confirm')
     @include('components.cancel_confirm')
-
-    @stack('scripts')
-    <script src="{{ asset('js/partials/sidebar.js') }}"></script>
-    <script src="{{ asset('js/layouts/main.js') }}"></script>
 </body>
 
 </html>

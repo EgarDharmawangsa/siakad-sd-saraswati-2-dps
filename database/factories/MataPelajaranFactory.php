@@ -17,7 +17,7 @@ class MataPelajaranFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nama_mata_pelajaran' => $this->faker->unique()->words(2, true)
         ];
     }
 }

@@ -44,7 +44,7 @@
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="5">Belum ada data Pengumuman.</td>
+                            <td colspan="5">Belum ada Pengumuman.</td>
                         </tr>
                     @endforelse
                 </tbody>

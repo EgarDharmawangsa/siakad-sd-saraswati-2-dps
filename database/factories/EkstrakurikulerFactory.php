@@ -21,7 +21,7 @@ class EkstrakurikulerFactory extends Factory
             'nama_pembina' => $this->faker->name(),
             'alamat_pembina' => $this->faker->address(),
             'no_telepon' => $this->faker->numerify('08##########'),
-            'hari' => $this->faker->numberBetween(0, 6), 
+            'hari' => $this->faker->numberBetween(1, 7), 
             'jam_mulai' => $this->faker->time('H:i'),
             'jam_selesai' => $this->faker->time('H:i'),
         ];

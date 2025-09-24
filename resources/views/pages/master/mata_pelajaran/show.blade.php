@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="content-card">
-        <h5>Detail {{ $judul }}</h5>
+        <h5>{{ $judul }}</h5>
         <hr>
 
         <div class="mb-4">

@@ -9,6 +9,7 @@ import './components/delete_confirm.js';
 import './partials/navbar.js';
 import './partials/sidebar.js';
 import './pages/master/ekstrakurikuler.js';
+import './pages/master/pegawai.js';
 import './pages/akademik/pengumuman.js';
 
 const success_toast = document.getElementById('success-toast');

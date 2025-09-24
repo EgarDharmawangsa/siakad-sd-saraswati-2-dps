@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 class MataPelajaranController extends Controller
 {
     public $validation_rules = [
-        'nama_mata_pelajaran' => ['required', 'string', 'min:3', 'max:25'],
+        'nama_mata_pelajaran' => 'required|string|min:3|max:25',
     ];
 
     /**
@@ -29,7 +29,7 @@ class MataPelajaranController extends Controller
     public function create()
     {
         return view('pages.master.mata_pelajaran.create', [
-            'judul' => 'Mata Pelajaran'
+            'judul' => 'Tambah Mata Pelajaran'
         ]);
     }
 
@@ -51,7 +51,7 @@ class MataPelajaranController extends Controller
     public function show(MataPelajaran $mataPelajaran)
     {
         return view('pages.master.mata_pelajaran.show', [
-            'judul' => 'Mata Pelajaran',
+            'judul' => 'Detail Mata Pelajaran',
             'mata_pelajaran' => $mataPelajaran
         ]);
     }
@@ -62,7 +62,7 @@ class MataPelajaranController extends Controller
     public function edit(MataPelajaran $mataPelajaran)
     {
         return view('pages.master.mata_pelajaran.edit', [
-            'judul' => 'Mata Pelajaran',
+            'judul' => 'Edit Mata Pelajaran',
             'mata_pelajaran' => $mataPelajaran
         ]);
     }
@@ -80,7 +80,7 @@ class MataPelajaranController extends Controller
 
         $mataPelajaran->update($validated_mata_pelajaran);
 
-        return redirect()->route('mata-pelajaran.index')->with('success', 'Mata Pelajaran berhasil diubah.');
+        return redirect()->route('mata-pelajaran.index')->with('success', 'Mata Pelajaran berhasil diperbarui.');
     }
 
     /**

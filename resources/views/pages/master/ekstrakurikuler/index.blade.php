@@ -37,7 +37,7 @@
                                     class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('ekstrakurikuler.edit', $_ekstrakurikuler->id_ekstrakurikuler) }}"
                                     class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form id="delete-form" action="{{ route('pengumuman.destroy', $_pengumuman->id_pengumuman) }}" method="POST"
+                                <form id="delete-form" action="{{ route('pengumuman.destroy', $_ekstrakurikuler->id_ekstrakurikuler) }}" method="POST"
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')
@@ -50,7 +50,7 @@
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="9">Belum ada data Ekstrakurikuler.</td>
+                            <td colspan="9">Belum ada Ekstrakurikuler.</td>
                         </tr>
                     @endforelse
                 </tbody>

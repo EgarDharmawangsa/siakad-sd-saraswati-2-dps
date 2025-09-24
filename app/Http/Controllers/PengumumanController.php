@@ -32,7 +32,7 @@ class PengumumanController extends Controller
     public function create()
     {
         return view('pages.akademik.pengumuman.create', [
-            'judul' => 'Pengumuman'
+            'judul' => 'Tambah Pengumuman'
         ]);
     }
 
@@ -58,7 +58,7 @@ class PengumumanController extends Controller
     public function show(Pengumuman $pengumuman)
     {
         return view('pages.akademik.pengumuman.show', [
-            'judul' => 'Pengumuman',
+            'judul' => 'Detail Pengumuman',
             'pengumuman' => $pengumuman
         ]);
     }
@@ -69,7 +69,7 @@ class PengumumanController extends Controller
     public function edit(Pengumuman $pengumuman)
     {
         return view('pages.akademik.pengumuman.edit', [
-            'judul' => 'Pengumuman',
+            'judul' => 'Edit Pengumuman',
             'pengumuman' => $pengumuman
         ]);
     }

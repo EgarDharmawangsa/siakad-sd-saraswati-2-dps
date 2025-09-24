@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('e_mail');
             $table->string('pangkat', 20);
             $table->integer('status_perkawinan');
-            $table->integer('status_kepagawaian');
+            // $table->integer('status_kepagawaian');
             $table->string('gelar_ijazah', 5);
             $table->integer('tahun_ijazah');
             $table->integer('posisi');

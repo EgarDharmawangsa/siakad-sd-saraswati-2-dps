@@ -4,6 +4,7 @@
 @import "flatpickr/dist/flatpickr.min.css";
 @import "./partials/navbar.css";
 @import "./partials/sidebar.css";
+@import "./pages/akademik/pegawai.css";
 @import "./pages/akademik/pengumuman.css";
 
 * {
@@ -90,6 +91,15 @@ ul .pagination {
     background-color: #414460;
 }
 
+.row {
+    margin-top: 1rem;
+}
+
+.col-md-6 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
 button.btn,
 a.btn,
 td {
@@ -103,6 +113,13 @@ td {
 
 .mini-label {
     font-size: 12px;
+}
+
+.foto {
+    max-width: 15rem;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
 }
 
 @media (max-width: 992px) {

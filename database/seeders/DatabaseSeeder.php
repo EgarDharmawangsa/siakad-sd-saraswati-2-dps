@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Ekstrakurikuler;
+use App\Models\MataPelajaran;
 use App\Models\User;
 use App\Models\Pengumuman;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -21,6 +22,8 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        MataPelajaran::factory(30)->create();
 
         Ekstrakurikuler::factory(30)->create();
 

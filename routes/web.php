@@ -30,8 +30,8 @@ Route::resource('/pengumuman', App\Http\Controllers\PengumumanController::class)
 
 
 Route::get('/view-login', function () {
-         return view('auth.login');
-     });
+    return view('auth.login');
+});
 
 
 // Login Routes
