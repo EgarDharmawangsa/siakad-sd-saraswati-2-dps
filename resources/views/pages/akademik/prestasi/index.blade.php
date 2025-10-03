@@ -25,11 +25,11 @@
                     @forelse ($prestasi as $_prestasi)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            {{-- <td>{{ $_prestasi->judul }}</td> draf --}}
                             <td>{{ $_prestasi->nama_prestasi }}</td>
                             <td>{{ $_prestasi->jenis }}</td>
                             <td>{{ $_prestasi->tingkat }}</td>
                             <td>{{ $_prestasi->peringkat }}</td>
+                            <td>{{ $_prestasi->peringkat_lainnya ?? '-' }}</td>
                             <td>{{ $_prestasi->penyelenggara }}</td>
                             <td>{{ $_prestasi->tanggal->format('d-m-Y') }}</td>
                             <td class="aksi-column">
@@ -44,13 +44,13 @@
                                     
                                     <button type="button" class="btn btn-danger btn-sm" id="delete-button"
                                         data-bs-toggle="modal" data-bs-target="#delete-modal">
-                                        <i class="bi bi-trash me-2"></i>Batal</button>
+                                        <i class="bi bi-trash me-2"></i>Hapus</button>
                                 </form>
                             </td>
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="8">Belum ada Prestasi.</td>
+                            <td colspan="9">Belum ada Prestasi.</td>
                         </tr>
                     @endforelse
                 </tbody>

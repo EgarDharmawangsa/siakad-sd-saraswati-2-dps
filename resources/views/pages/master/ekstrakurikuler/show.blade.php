@@ -1,11 +1,11 @@
-divdivdiv@extends('layouts.main')
+@extends('layouts.main')
 
 @section('container')
     <div class="content-card">
-        <h5>{{ $judul }}</h5>
+        <h5>Detail {{ $judul }}</h5>
         <hr>
 
-        <div class="mb-4">
+        <div class="show-button-group">
             <a href="{{ route('ekstrakurikuler.index') }}" class="btn btn-secondary btn-sm me-1"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
             <a href="{{ route('ekstrakurikuler.edit', $ekstrakurikuler->id_ekstrakurikuler) }}"
@@ -39,7 +39,7 @@ divdivdiv@extends('layouts.main')
 
             <div class="col-md-6">
                 <label for="hari" class="form-label">Hari</label>
-                <input type="text" class="form-control" id="hari" value="{{ $ekstrakurikuler->getHari() }}"
+                <input type="text" class="form-control" id="hari" value="{{ $ekstrakurikuler->hari }}"
                     disabled>
             </div>
 
@@ -49,7 +49,7 @@ divdivdiv@extends('layouts.main')
                     disabled>
             </div>
 
-            <div class="col-md-6 mb-4">
+            <div class="col-md-6">
                 <label for="jam-selesai" class="form-label">Jam Selesai</label>
                 <input type="text" class="form-control" id="jam-selesai" value="{{ $ekstrakurikuler->jam_selesai }}"
                     disabled>

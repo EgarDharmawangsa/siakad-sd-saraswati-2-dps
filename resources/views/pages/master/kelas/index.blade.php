@@ -20,7 +20,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $_kelas->nama_kelas }}</td>
-                            {{-- <td>{{ $_kelas->nama_kelas }}</td> --}}
+                            <td>{{ $_kelas->pegawai->nama_pegawai }}</td>
                             <td class="aksi-column">
                                 <a href="{{ route('kelas.show', $_kelas->id_kelas) }}" class="btn btn-info btn-sm"><i
                                         class="bi bi-info-lg me-2"></i>Detail</a>

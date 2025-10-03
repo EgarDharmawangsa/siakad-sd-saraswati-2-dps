@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('semester', function (Blueprint $table) {
             $table->id('id_semester');
-            $table->integer('jenis_semester');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
-            $table->boolean('status');
+            $table->string('jenis_semester');
+            $table->date('tanggal_mulai')->unique();
+            $table->date('tanggal_selesai')->unique();
             $table->timestamps();
         });
     }

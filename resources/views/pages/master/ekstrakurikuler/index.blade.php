@@ -29,7 +29,7 @@
                             <td>{{ $_ekstrakurikuler->nama_pembina }}</td>
                             <td>{!! Str::limit($_ekstrakurikuler->alamat_pembina, 40, '...') !!}</td>
                             <td>{{ $_ekstrakurikuler->no_telepon }}</td>
-                            <td>{{ $_ekstrakurikuler->getHari() }}</td>
+                            <td>{{ $_ekstrakurikuler->hari }}</td>
                             <td>{{ $_ekstrakurikuler->jam_mulai }}</td>
                             <td>{{ $_ekstrakurikuler->jam_selesai }}</td>
                             <td class="aksi-column">
@@ -44,7 +44,7 @@
                                     
                                     <button type="button" class="btn btn-danger btn-sm" id="delete-button"
                                         data-bs-toggle="modal" data-bs-target="#delete-modal">
-                                        <i class="bi bi-trash me-2"></i>Batal</button>
+                                        <i class="bi bi-trash me-2"></i>Hapus</button>
                                 </form>
                             </td>
                         </tr>

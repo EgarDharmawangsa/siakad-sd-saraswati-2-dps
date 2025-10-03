@@ -32,7 +32,7 @@
                                     
                                     <button type="button" class="btn btn-danger btn-sm" id="delete-button"
                                         data-bs-toggle="modal" data-bs-target="#delete-modal">
-                                        <i class="bi bi-trash me-2"></i>Batal</button>
+                                        <i class="bi bi-trash me-2"></i>Hapus</button>
                                 </form>
                             </td>
                         </tr>

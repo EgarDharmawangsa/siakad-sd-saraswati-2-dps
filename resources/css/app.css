@@ -4,7 +4,10 @@
 @import "flatpickr/dist/flatpickr.min.css";
 @import "./partials/navbar.css";
 @import "./partials/sidebar.css";
+@import "./pages/master/semester.css";
+@import "./pages/master/mata_pelajaran.css";
 @import "./pages/akademik/pegawai.css";
+@import "./pages/akademik/prestasi.css";
 @import "./pages/akademik/pengumuman.css";
 
 * {
@@ -51,6 +54,16 @@ tr td {
     width: 1%;
 }
 
+.modal-backdrop.show {
+    opacity: 1; 
+}
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(10px);           
+    -webkit-backdrop-filter: blur(10px);  
+}
+
 .modal-title {
     color: black;
 }
@@ -92,12 +105,35 @@ ul .pagination {
 }
 
 .row {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+hr {
+    margin-bottom: 0;
+}
+
+.input-button-group {
+    margin-top: 1.5rem;
+}
+
+.show-button-group {
     margin-top: 1rem;
 }
 
-.col-md-6 {
-    margin-top: 0;
-    margin-bottom: 1rem;
+.nav-tabs {
+    margin-top: 1.5rem;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: none;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 button.btn,
@@ -112,7 +148,11 @@ td {
 }
 
 .mini-label {
-    font-size: 12px;
+    font-size: 13.5px;
+}
+
+.invalid-feedback {
+    font-size: 13.5px;
 }
 
 .foto {

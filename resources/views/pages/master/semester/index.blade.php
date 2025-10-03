@@ -11,6 +11,7 @@
                     <tr>
                         <th>No.</th>
                         <th>Jenis Semester</th>
+                        <th>Tahun Ajaran</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
                         <th>Status</th>
@@ -23,28 +24,33 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $_semester->jenis_semester }}</td>
+                            <td>{{ $_semester->getTahunAjaran() }}</td>
                             <td>{{ $_semester->tanggal_mulai->format('d-m-Y') }}</td>
                             <td>{{ $_semester->tanggal_selesai->format('d-m-Y') }}</td>
-                            <td>{{ $_semester->status }}</td>
+                            <td><span
+                                    class="badge bg-{{ $_semester->getStatus() == 'Berjalan' ? 'success' : ($_semester->getStatus() == 'Menunggu' ? 'primary' : 'secondary') }}">
+                                    {{ $_semester->getStatus() }}
+                                </span>
+                            </td>
                             <td class="aksi-column">
                                 <a href="{{ route('semester.show', $_semester->id_semester) }}" class="btn btn-info btn-sm"><i
                                         class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('semester.edit', $_semester->id_semester) }}"
                                     class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form id="delete-form" action="{{ route('pengumuman.destroy', $_semester->id_semester) }}" method="POST"
-                                    class="d-inline">
+                                <form id="delete-form" action="{{ route('semester.destroy', $_semester->id_semester) }}"
+                                    method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    
+
                                     <button type="button" class="btn btn-danger btn-sm" id="delete-button"
                                         data-bs-toggle="modal" data-bs-target="#delete-modal">
-                                        <i class="bi bi-trash me-2"></i>Batal</button>
+                                        <i class="bi bi-trash me-2"></i>Hapus</button>
                                 </form>
                             </td>
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="6">Belum ada Semester.</td>
+                            <td colspan="7">Belum ada Semester.</td>
                         </tr>
                     @endforelse
                 </tbody>

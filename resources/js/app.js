@@ -4,20 +4,27 @@ import './bootstrap';
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import * as bootstrap from 'bootstrap';
 
-import './components/cancel_confirm.js';
-import './components/delete_confirm.js';
+import './components/cancel_modal.js'
+import './components/delete_modal.js';
 import './partials/navbar.js';
 import './partials/sidebar.js';
 import './pages/master/ekstrakurikuler.js';
 import './pages/master/pegawai.js';
+import './pages/akademik/prestasi.js';
 import './pages/akademik/pengumuman.js';
 
 const success_toast = document.getElementById('success-toast');
+// const error_toast = document.getElementById('error-toast');
 
 if (success_toast) {
     const toast = new bootstrap.Toast(success_toast);
     toast.show();
 }
+
+// if (error_toast) {
+//     const toast = new bootstrap.Toast(error_toast);
+//     toast.show();
+// }
 
 const image_input = document.querySelector('.image-input');
 const image_preview = document.getElementById('image-preview');

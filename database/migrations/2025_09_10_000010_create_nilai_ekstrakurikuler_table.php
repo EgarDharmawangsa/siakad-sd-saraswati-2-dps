@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('id_nilai_ekstrakurikuler');
             $table->foreignId('id_semester')->constrained('semester', 'id_semester')->onDelete('cascade');
             $table->foreignId('id_peserta_ekstrakurikuler')->constrained('peserta_ekstrakurikuler', 'id_peserta_ekstrakurikuler')->onDelete('cascade');
+            $table->unique(['id_semester', 'id_peserta_ekstrakurikuler'], 'unique_nilai_ekstrakurikuler');
             $table->integer('nilai_ekstrakurikuler');
             $table->timestamps();
         });

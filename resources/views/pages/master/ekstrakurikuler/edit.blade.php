@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="content-card">
-        <h5>{{ $judul }}</h5>
+        <h5>Edit {{ $judul }}</h5>
         <hr>
 
         <form action="{{ route('ekstrakurikuler.edit', $ekstrakurikuler->id_ekstrakurikuler) }}" method="POST">
@@ -40,7 +40,7 @@
 
                 <div class="col-md-6">
                     <label for="no-telepon" class="form-label">No. Telepon</label>
-                    <input type="text" class="form-control @error('no_telepon') is-invalid @enderror" id="no-telepon"
+                    <input type="number" class="form-control @error('no_telepon') is-invalid @enderror" id="no-telepon"
                         name="no_telepon" placeholder="Masukkan no. telepon"
                         value="{{ old('no_telepon', $ekstrakurikuler->no_telepon) }}" required>
                     @error('no_telepon')
@@ -51,20 +51,20 @@
                 <div class="col-md-6">
                     <label for="hari" class="form-label">Hari</label>
                     <select class="form-select @error('hari') is-invalid @enderror" id="hari" name="hari" required>
-                        <option value="0">-- Pilih hari --</option>
-                        <option value="1" {{ old('hari', $ekstrakurikuler->hari) == '1' ? 'selected' : '' }}>Senin
+                        <option value="default">-- Pilih Hari --</option>
+                        <option value="Senin" {{ old('hari', $ekstrakurikuler->hari) == 'Senin' ? 'selected' : '' }}>Senin
                         </option>
-                        <option value="2" {{ old('hari', $ekstrakurikuler->hari) == '2' ? 'selected' : '' }}>
+                        <option value="Selasa" {{ old('hari', $ekstrakurikuler->hari) == 'Selasa' ? 'selected' : '' }}>
                             Selasa</option>
-                        <option value="3" {{ old('hari', $ekstrakurikuler->hari) == '3' ? 'selected' : '' }}>Rabu
+                        <option value="Rabu" {{ old('hari', $ekstrakurikuler->hari) == 'Rabu' ? 'selected' : '' }}>Rabu
                         </option>
-                        <option value="4" {{ old('hari', $ekstrakurikuler->hari) == '4' ? 'selected' : '' }}>Kamis
+                        <option value="Kamis" {{ old('hari', $ekstrakurikuler->hari) == 'Kamis' ? 'selected' : '' }}>Kamis
                         </option>
-                        <option value="5" {{ old('hari', $ekstrakurikuler->hari) == '5' ? 'selected' : '' }}>Jumat
+                        <option value="Jumat" {{ old('hari', $ekstrakurikuler->hari) == 'Jumat' ? 'selected' : '' }}>Jumat
                         </option>
-                        <option value="6" {{ old('hari', $ekstrakurikuler->hari) == '6' ? 'selected' : '' }}>Sabtu
+                        <option value="Sabtu" {{ old('hari', $ekstrakurikuler->hari) == 'Sabtu' ? 'selected' : '' }}>Sabtu
                         </option>
-                        <option value="7" {{ old('hari', $ekstrakurikuler->hari) == '7' ? 'selected' : '' }}>
+                        <option value="Minggu" {{ old('hari', $ekstrakurikuler->hari) == 'Minggu' ? 'selected' : '' }}>
                             Minggu</option>
                     </select>
                     @error('hari')
@@ -81,7 +81,7 @@
                     @enderror
                 </div>
 
-                <div class="col-md-6 mb-4">
+                <div class="col-md-6">
                     <label for="jam-selesai" class="form-label">Jam Selesai (WITA)</label>
                     <input type="text" class="form-control @error('jam_selesai') is-invalid @enderror" id="jam-selesai"
                         name="jam_selesai" value="{{ old('jam_selesai', $ekstrakurikuler->jam_selesai) }}" required>
@@ -91,7 +91,7 @@
                 </div>
             </div>
 
-            <div class="text-end">
+            <div class="text-end input-button-group">
                 <button type="button" class="btn btn-danger me-1" id="cancel-button" data-route="{{ route('ekstrakurikuler.index') }}" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
                 <button type="submit" class="btn btn-primary"><i class="bi bi-pencil me-2"></i>Perbarui</button>

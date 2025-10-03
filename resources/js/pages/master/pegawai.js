@@ -1,6 +1,7 @@
 const guru_mata_pelajaran_items = document.querySelectorAll('.guru-mata-pelajaran-item');
 const guru_mata_pelajaran_dropdown_button = document.getElementById('guru-mata-pelajaran-dropdown-button');
 
+
 if (guru_mata_pelajaran_items) {
     guru_mata_pelajaran_items.forEach((guru_mata_pelajaran_item) => {
         guru_mata_pelajaran_item.addEventListener('change', () => {
@@ -14,3 +15,4 @@ if (guru_mata_pelajaran_items) {
         });
     });
 }
+

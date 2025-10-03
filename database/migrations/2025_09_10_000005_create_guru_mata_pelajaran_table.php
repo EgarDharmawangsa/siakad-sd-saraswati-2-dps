@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('id_guru_mata_pelajaran');
             $table->foreignId('id_pegawai')->nullable()->constrained('pegawai', 'id_pegawai')->onDelete('cascade');
             $table->foreignId('id_mata_pelajaran')->constrained('mata_pelajaran', 'id_mata_pelajaran')->onDelete('cascade');
+            $table->unique(['id_pegawai', 'id_mata_pelajaran']);
             $table->timestamps();
         });
     }

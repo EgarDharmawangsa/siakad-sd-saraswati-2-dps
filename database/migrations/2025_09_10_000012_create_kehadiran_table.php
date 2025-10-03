@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('id_siswa')->constrained('siswa', 'id_siswa')->onDelete('cascade');
             $table->integer('status');
             $table->string('keterangan', 100)->nullable();
-            $table->date('tanggal');
+            $table->date('tanggal')->unique();
             $table->timestamps();
         });
     }

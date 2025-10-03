@@ -17,11 +17,6 @@ class Ekstrakurikuler extends Model
 
         protected $guarded = ['id_ekstrakurikuler'];
 
-        public function getHari(): string {
-                $hari = [1 => 'Senin', 2 => 'Selasa', 3 => 'Rabu', 4 => 'Kamis', 5 => 'Jumat', 6 => 'Sabtu', 7 => 'Minggu'];
-                return $hari[$this->hari];
-        }
-
         protected function jamMulai(): Attribute {
                 return Attribute::make(get: fn($value) => Carbon::createFromFormat('H:i:s', $value)->format('H:i'),);
         }

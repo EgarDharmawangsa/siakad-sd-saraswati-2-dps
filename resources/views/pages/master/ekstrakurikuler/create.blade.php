@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="content-card">
-        <h5>{{ $judul }}</h5>
+        <h5>Tambah {{ $judul }}</h5>
         <hr>
 
         <form action="{{ route('ekstrakurikuler.store') }}" method="POST">
@@ -39,7 +39,7 @@
 
                 <div class="col-md-6">
                     <label for="no-telepon" class="form-label">No. Telepon</label>
-                    <input type="text" class="form-control @error('no_telepon') is-invalid @enderror" id="no-telepon"
+                    <input type="number" class="form-control @error('no_telepon') is-invalid @enderror" id="no-telepon"
                         name="no_telepon" placeholder="Masukkan no. telepon" value="{{ old('no_telepon') }}" required>
                     @error('no_telepon')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -49,20 +49,20 @@
                 <div class="col-md-6">
                     <label for="hari" class="form-label">Hari</label>
                     <select class="form-select @error('hari') is-invalid @enderror" id="hari" name="hari" required>
-                        <option value="0">-- Pilih hari --</option>
-                        <option value="1" {{ old('hari') == '1' ? 'selected' : '' }}>Senin
+                        <option value="default">-- Pilih Hari --</option>
+                        <option value="Senin" {{ old('hari') == '1' ? 'selected' : '' }}>Senin
                         </option>
-                        <option value="2" {{ old('hari') == '2' ? 'selected' : '' }}>
+                        <option value="Selasa" {{ old('hari') == '2' ? 'selected' : '' }}>
                             Selasa</option>
-                        <option value="3" {{ old('hari') == '3' ? 'selected' : '' }}>Rabu
+                        <option value="Rabu" {{ old('hari') == '3' ? 'selected' : '' }}>Rabu
                         </option>
-                        <option value="4" {{ old('hari') == '4' ? 'selected' : '' }}>Kamis
+                        <option value="Kamis" {{ old('hari') == '4' ? 'selected' : '' }}>Kamis
                         </option>
-                        <option value="5" {{ old('hari') == '5' ? 'selected' : '' }}>Jumat
+                        <option value="Jumat" {{ old('hari') == '5' ? 'selected' : '' }}>Jumat
                         </option>
-                        <option value="6" {{ old('hari') == '6' ? 'selected' : '' }}>Sabtu
+                        <option value="Sabtu" {{ old('hari') == '6' ? 'selected' : '' }}>Sabtu
                         </option>
-                        <option value="7" {{ old('hari') == '7' ? 'selected' : '' }}>
+                        <option value="Minggu" {{ old('hari') == '7' ? 'selected' : '' }}>
                             Minggu</option>
                     </select>
                     @error('hari')
@@ -79,7 +79,7 @@
                     @enderror
                 </div>
 
-                <div class="col-md-6 mb-4">
+                <div class="col-md-6">
                     <label for="jam-selesai" class="form-label">Jam Selesai (WITA)</label>
                     <input type="text" class="form-control @error('jam_selesai') is-invalid @enderror" id="jam-selesai"
                         name="jam_selesai" value="{{ old('jam_selesai') }}" required>
@@ -89,12 +89,12 @@
                 </div>
             </div>
 
-            <div class="text-end">
+            <div class="text-end input-button-group">
                 <button type="button" class="btn btn-danger me-1" id="cancel-button"
                     data-route="{{ route('ekstrakurikuler.index') }}" data-bs-toggle="modal"
                     data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
-                <button type="submit" class="btn btn-primary"><i class="bi bi-plus me-2"></i>Tambah</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Tambah</button>
             </div>
         </form>
     </div>

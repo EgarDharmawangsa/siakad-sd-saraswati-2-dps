@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('ekstrakurikuler', function (Blueprint $table) {
             $table->id('id_ekstrakurikuler');
-            $table->string('nama_ekstrakurikuler', 25);
+            $table->string('nama_ekstrakurikuler', 25)->unique();
             $table->string('nama_pembina');
             $table->string('alamat_pembina');
             $table->string('no_telepon');
-            $table->integer('hari');
+            $table->string('hari');
             $table->time('jam_mulai');
             $table->time('jam_selesai');
             $table->timestamps();

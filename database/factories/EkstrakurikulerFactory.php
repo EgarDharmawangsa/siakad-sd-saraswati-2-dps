@@ -16,12 +16,14 @@ class EkstrakurikulerFactory extends Factory
      */
     public function definition(): array
     {
+        $hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+
         return [
             'nama_ekstrakurikuler' => $this->faker->unique()->words(2, true),
             'nama_pembina' => $this->faker->name(),
             'alamat_pembina' => $this->faker->address(),
             'no_telepon' => $this->faker->numerify('08##########'),
-            'hari' => $this->faker->numberBetween(1, 7), 
+            'hari' => $this->faker->randomElement($hari), 
             'jam_mulai' => $this->faker->time('H:i'),
             'jam_selesai' => $this->faker->time('H:i'),
         ];

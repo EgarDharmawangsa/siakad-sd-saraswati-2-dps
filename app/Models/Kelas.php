@@ -17,10 +17,10 @@ class Kelas extends Model
     }
 
     public function pegawai() {
-        return $this->hasOne(Pegawai::class, 'id_kelas', 'id_kelas');
+        return $this->belongsTo(Pegawai::class, 'id_pegawai', 'id_pegawai');
     }
 
     public function siswa() {
-        return $this->hasMany(Siswa::class, 'id_kelas', 'id_kelas');
+        return $this->hasOne(Siswa::class, 'id_kelas', 'id_kelas');
     }
 }
