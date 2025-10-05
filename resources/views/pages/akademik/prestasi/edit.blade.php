@@ -21,14 +21,13 @@
                 <div class="col-md-6">
                     <label for="peraih" class="form-label">Peraih</label>
                     <select class="form-select @error('id_siswa') is-invalid @enderror" id="peraih" name="id_siswa" {{ $siswa->count() == 0 ? 'disabled' : '' }} required>
-                        @if ($siswa->count() > 0)
-                            <option value="0">-- Pilih Peraih --</option>
-                            @foreach ($siswa as $_siswa)
-                                <option value="{{ $_siswa->id_siswa }}" {{ old('id_siswa', $prestasi->id_siswa) == $_siswa->id_siswa ? 'selected' : '' }}>{{ $_siswa->nisn }} | {{ $_siswa->nama_siswa }}</option>
-                            @endforeach
-                        @else
-                            <option value="0">-- Siswa Tidak Tersedia --</option>
-                        @endif
+                        {{ $siswa->count() == 0 ? 'disabled' : '' }} required>
+                        <option value="0">{{ $siswa->isNotEmpty() ? 'Pilih Siswa' : 'Siswa Tidak Tersedia' }}</option>
+                        @foreach ($siswa as $_siswa)
+                            <option value="{{ $_siswa->id_siswa }}"
+                                {{ old('id_siswa', $prestasi->id_siswa) == $_siswa->id_siswa ? 'selected' : '' }}>{{ $_siswa->nisn }} |
+                                {{ $_siswa->nama_siswa }}</option>
+                        @endforeach
                     </select>
                     @error('id_siswa')
                         <div class="invalid-feedback">{{ $message }}</div>

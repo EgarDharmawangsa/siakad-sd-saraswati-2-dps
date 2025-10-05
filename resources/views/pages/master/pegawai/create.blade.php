@@ -413,7 +413,7 @@
                             <label for="tanggal-sk-terakhir" class="form-label">Tanggal SK Terakhir</label>
                             <input type="date" class="form-control @error('tanggal_sk_terakhir') is-invalid @enderror"
                                 id="tanggal-sk-terakhir" name="tanggal_sk_terakhir"
-                                value="{{ old('tanggal_sk_terakhir') }}">
+                            value="{{ old('tanggal_sk_terakhir') }}">
                             @error('tanggal_sk_terakhir')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

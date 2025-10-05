@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JadwalPelajaran;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 
 class JadwalPelajaranController extends Controller
@@ -12,7 +13,15 @@ class JadwalPelajaranController extends Controller
      */
     public function index()
     {
-        return view('pages.akademik.jadwal_pelajaran.index');   
+        $jadwal_pelajaran = JadwalPelajaran::latest()->paginate(20)->withQueryString();
+
+        $kelas = Kelas::query()->orderByRaw('CAST(nama_kelas AS UNSIGNED)')->orderByRaw('REGEXP_REPLACE(nama_kelas, "^[0-9]+", "")')->paginate(20)->withQueryString();
+
+        return view('pages.akademik.jadwal_pelajaran.index', [
+            'judul' => 'Jadwal Pelajaran',
+            'kelas' => $kelas,
+            'jadwal_pelajaran' => $jadwal_pelajaran
+        ]);   
     }
 
     /**
