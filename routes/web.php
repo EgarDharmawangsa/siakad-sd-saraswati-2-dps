@@ -12,7 +12,7 @@ Route::get('/', [App\Http\Controllers\BerandaController::class, 'index'])->name(
 // Route Master
 Route::resource('/pegawai', App\Http\Controllers\PegawaiController::class);
 Route::resource('/siswa', App\Http\Controllers\SiswaController::class);
-Route::resource('/kelas', App\Http\Controllers\KelasController::class);
+Route::resource('/kelas', App\Http\Controllers\KelasController::class)->parameters(['kelas' => 'kelas']);
 Route::resource('/semester', App\Http\Controllers\SemesterController::class);
 Route::resource('/mata-pelajaran', App\Http\Controllers\MataPelajaranController::class);
 Route::resource('/guru-mata-pelajaran', App\Http\Controllers\GuruMataPelajaranController::class);

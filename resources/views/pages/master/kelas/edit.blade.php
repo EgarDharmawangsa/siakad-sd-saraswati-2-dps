@@ -5,7 +5,7 @@
         <h5>Tambah {{ $judul }}</h5>
         <hr>
 
-        <form action="{{ route('kelas.update') }}" method="POST">
+        <form action="{{ route('kelas.update', $kelas->id_kelas) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="row g-3">

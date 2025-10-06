@@ -26,14 +26,14 @@
                                         class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('kelas.edit', $_kelas->id_kelas) }}"
                                     class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form id="delete-form" action="{{ route('pengumuman.destroy', $_kelas->id_kelas) }}" method="POST"
+                                <form id="delete-form" action="{{ route('kelas.destroy', $_kelas->id_kelas) }}" method="POST"
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     
                                     <button type="button" class="btn btn-danger btn-sm" id="delete-button"
                                         data-bs-toggle="modal" data-bs-target="#delete-modal">
-                                        <i class="bi bi-trash me-2"></i>Batal</button>
+                                        <i class="bi bi-trash me-2"></i>Hapus</button>
                                 </form>
                             </td>
                         </tr>

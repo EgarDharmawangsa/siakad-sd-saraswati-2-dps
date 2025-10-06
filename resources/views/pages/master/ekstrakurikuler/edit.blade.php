@@ -75,7 +75,7 @@
                 <div class="col-md-6">
                     <label for="jam-mulai" class="form-label">Jam Mulai (WITA)</label>
                     <input type="text" class="form-control @error('jam_mulai') is-invalid @enderror" id="jam-mulai"
-                        name="jam_mulai" value="{{ old('jam_mulai', $ekstrakurikuler->jam_mulai) }}" required>
+                        name="jam_mulai" placeholder="Pilih jam mulai" value="{{ old('jam_mulai', $ekstrakurikuler->jam_mulai) }}" required>
                     @error('jam_mulai')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -84,7 +84,7 @@
                 <div class="col-md-6">
                     <label for="jam-selesai" class="form-label">Jam Selesai (WITA)</label>
                     <input type="text" class="form-control @error('jam_selesai') is-invalid @enderror" id="jam-selesai"
-                        name="jam_selesai" value="{{ old('jam_selesai', $ekstrakurikuler->jam_selesai) }}" required>
+                        name="jam_selesai" placeholder="Pilih jam selesai" value="{{ old('jam_selesai', $ekstrakurikuler->jam_selesai) }}" required>
                     @error('jam_selesai')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

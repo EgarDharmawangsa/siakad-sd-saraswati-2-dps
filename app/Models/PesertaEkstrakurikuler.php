@@ -8,6 +8,10 @@ class PesertaEkstrakurikuler extends Model
 {
     protected $table = 'peserta_ekstrakurikuler';
 
+    protected $primaryKey = 'id_peserta_ekstrakurikuler';
+
+    protected $guarded = ['id_peserta_ekstrakurikuler'];
+
     public function nilaiEkstrakurikuler() {
         return $this->hasMany(NilaiEkstrakurikuler::class, 'id_nilai_ekstrakurikuler', 'id_nilai_ekstrakurikuler');
     }

@@ -7,3 +7,14 @@
 .empty-message:hover {
     background-color: #ececec;
 }
+
+.jadwal-pelajaran-container {
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.wali-kelas-label {
+    margin-top: 0.3rem;
+    font-size: 14px;
+}

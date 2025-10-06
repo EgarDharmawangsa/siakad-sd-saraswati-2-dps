@@ -10,21 +10,17 @@ import './partials/navbar.js';
 import './partials/sidebar.js';
 import './pages/master/ekstrakurikuler.js';
 import './pages/master/pegawai.js';
+import './pages/akademik/jadwal_pelajaran.js';
 import './pages/akademik/prestasi.js';
 import './pages/akademik/pengumuman.js';
 
 const success_toast = document.getElementById('success-toast');
 // const error_toast = document.getElementById('error-toast');
 
-if (success_toast) {
-    const toast = new bootstrap.Toast(success_toast);
+if (success_toast || error_toast) {
+    const toast = new bootstrap.Toast(success_toast || error_toast);
     toast.show();
 }
-
-// if (error_toast) {
-//     const toast = new bootstrap.Toast(error_toast);
-//     toast.show();
-// }
 
 const image_input = document.querySelector('.image-input');
 const image_preview = document.getElementById('image-preview');

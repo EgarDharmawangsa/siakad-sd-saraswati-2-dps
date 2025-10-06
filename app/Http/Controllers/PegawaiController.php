@@ -11,6 +11,7 @@ class PegawaiController extends Controller
 {
     public function pegawaiValidationRules() {
         return [
+            'id_guru_mata_pelajaran' => 'nullable|integer|not_in:0',
             'nik' => 'required|string|min:16|max:20',
             'nip' => 'nullable|string|min:18|max:20|unique:pegawai,nip',
             'nipppk' => 'nullable|string|min:18|max:20|unique:pegawai,nipppk',
