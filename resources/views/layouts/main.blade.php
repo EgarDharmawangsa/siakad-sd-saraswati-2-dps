@@ -39,6 +39,7 @@
 
     @include('components.delete_confirm')
     @include('components.cancel_confirm')
+
 </body>
 
 </html>
