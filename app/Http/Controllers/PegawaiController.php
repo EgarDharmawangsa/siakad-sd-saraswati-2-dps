@@ -14,7 +14,10 @@ class PegawaiController extends Controller
     {
         return [
             'nik' => [
-                'required', 'string', 'min:16', 'max:20',
+                'required',
+                'string',
+                'min:16',
+                'max:20',
                 function ($attribute, $value, $fail) {
                     $existsInPegawai = DB::table('pegawai')->where('nik', $value)->exists();
                     $existsInSiswa = DB::table('siswa')->where('nik', $value)->exists();
@@ -24,16 +27,22 @@ class PegawaiController extends Controller
                 },
             ],
             'nip' => 'nullable|string|min:18|max:20|unique:pegawai,nip',
+            'nipppk' => 'nullable|string|min:18|max:20|unique:pegawai,nipppk',
             'nama_pegawai' => 'required|min:3|string|max:255',
             'jenis_kelamin' => 'required|integer|in:1,2',
-            'agama' => 'required|integer|in:1,2,3,4,5,6',
+            'agama' => 'required|integer|in:1,2,3,4,5,6,7',
             'tempat_lahir' => 'required|string|min:3|max:20',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string|min:10|max:255',
             'no_telepon_rumah' => 'nullable|string|max:20',
             'no_telepon_seluler' => 'required|string|min:10|max:15',
+            'username' => 'required|string|min:4|max:50|unique:pegawai,username',
+            'password' => 'required|string|min:6',
             'e_mail' => [
-                'nullable', 'email', 'min:7', 'max:255',
+                'nullable',
+                'email',
+                'min:7',
+                'max:255',
                 function ($attribute, $value, $fail) {
                     if (!$value) return;
                     $existsInPegawai = DB::table('pegawai')->where('e_mail', $value)->exists();
@@ -43,8 +52,8 @@ class PegawaiController extends Controller
                     }
                 },
             ],
-            'pangkat' => 'nullable|string|min:4|max:20',
-            'status_perkawinan' => 'required|integer|in:1,2,3',
+            'jabatan' => 'nullable|integer|not_int:0',
+            'status_perkawinan' => 'nullable|integer|in:1,2,3,4,5,6',
             'status_kepegawaian' => 'required|integer|in:1,2,3',
             'gelar_ijazah' => 'nullable|string|min:3|max:5',
             'tahun_ijazah' => 'nullable|integer|min:1900|max:' . date('Y'),
@@ -96,7 +105,7 @@ class PegawaiController extends Controller
     // app/Http/Controllers/PegawaiController.php
     public function store(Request $request)
     {
-        $validated_pegawai =$request->validate($this->validationRules(), $this->custom_message_validation);
+        $validated_pegawai = $request->validate($this->validationRules(), $this->custom_message_validation);
 
         Pegawai::create($validated_pegawai);
 
@@ -123,10 +132,7 @@ class PegawaiController extends Controller
      * Update the specified resource in storage.
      */
     // app/Http/Controllers/PegawaiController.php
-    public function update(Request $request, Pegawai $pegawai)
-    {
-        
-    }
+    public function update(Request $request, Pegawai $pegawai) {}
 
     /**
      * Remove the specified resource from storage.
