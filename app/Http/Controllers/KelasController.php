@@ -13,7 +13,11 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelas = Kelas::query()->orderByRaw('CAST(nama_kelas AS UNSIGNED)')->orderByRaw('REGEXP_REPLACE(nama_kelas, "^[0-9]+", "")')->paginate(20)->withQueryString();
+        $kelas = Kelas::with('pegawai')
+            ->orderByRaw('CAST(nama_kelas AS UNSIGNED)')
+            ->orderByRaw('REGEXP_REPLACE(nama_kelas, "^[0-9]+", "")')
+            ->paginate(20)
+            ->withQueryString();
 
         return view('pages.master.kelas.index', [
             'judul' => 'Kelas',

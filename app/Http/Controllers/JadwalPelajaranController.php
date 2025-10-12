@@ -11,11 +11,12 @@ use App\Models\MataPelajaran;
 class JadwalPelajaranController extends Controller
 {
     public $jadwal_pelajaran_validation_rules = [
-        'id_kelas' => 'required|integer|not_in:0',
-        'id_guru_mata_pelajaran' => 'required|integer|not_in:0',
-        'hari' => 'required|string|not_in:default',
+        'id_kelas' => 'nullable|integer|not_in:0',
+        'id_guru_mata_pelajaran' => 'nullable|integer|not_in:0',
+        'kegiatan' => 'required|string|min:3|max:10|in:Belajar,Istirahat',
+        'hari' => 'required|string|min:3|max:10|not_in:default',
         'jam_mulai' => 'required|date_format:H:i',
-        'jam_selesai' => 'required|date_format:H:i'
+        'jam_selesai' => 'required|date_format:H:i|after:jam_mulai'
     ];
 
     /**
@@ -23,14 +24,23 @@ class JadwalPelajaranController extends Controller
      */
     public function index()
     {
-        $jadwal_pelajaran = JadwalPelajaran::all();
-
-        $kelas = Kelas::query()->orderByRaw('CAST(nama_kelas AS UNSIGNED)')->orderByRaw('REGEXP_REPLACE(nama_kelas, "^[0-9]+", "")')->paginate(20)->withQueryString();
+        $kelas = Kelas::with([
+            'pegawai',
+            'jadwalPelajaran' => function($query) {
+                $query->orderByRaw("
+                    FIELD(hari, 'Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu')
+                ")->orderBy('jam_mulai');
+            },
+            'jadwalPelajaran.guruMataPelajaran.mataPelajaran',
+            'jadwalPelajaran.guruMataPelajaran.pegawai'
+        ])
+            ->orderByRaw('CAST(nama_kelas AS UNSIGNED)')
+            ->orderByRaw('REGEXP_REPLACE(nama_kelas, "^[0-9]+", "")')
+            ->get();
 
         return view('pages.akademik.jadwal_pelajaran.index', [
             'judul' => 'Jadwal Pelajaran',
-            'kelas' => $kelas,
-            'jadwal_pelajaran' => $jadwal_pelajaran
+            'kelas' => $kelas
         ]);   
     }
 
@@ -39,7 +49,11 @@ class JadwalPelajaranController extends Controller
      */
     public function create()
     {
-        $kelas = Kelas::query()->orderByRaw('CAST(nama_kelas AS UNSIGNED)')->orderByRaw('REGEXP_REPLACE(nama_kelas, "^[0-9]+", "")')->paginate(20)->withQueryString();
+        $kelas = Kelas::query()
+            ->orderByRaw('CAST(nama_kelas AS UNSIGNED)')
+            ->orderByRaw('REGEXP_REPLACE(nama_kelas, "^[0-9]+", "")')
+            ->paginate(20)
+            ->withQueryString();
         $mata_pelajaran = MataPelajaran::latest()->get();
         $guru_mata_pelajaran = GuruMataPelajaran::all();
 
@@ -56,7 +70,22 @@ class JadwalPelajaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated_jadwal_pelajaran = $request->validate($this->jadwal_pelajaran_validation_rules);
+
+        $errors = JadwalPelajaran::getJamValidationErrors(
+            $validated_jadwal_pelajaran['id_kelas'],
+            $validated_jadwal_pelajaran['hari'],
+            $validated_jadwal_pelajaran['jam_mulai'],
+            $validated_jadwal_pelajaran['jam_selesai']
+        );
+
+        if (!empty($errors)) {
+            return back()->withErrors($errors)->withInput();
+        }
+
+        JadwalPelajaran::create($validated_jadwal_pelajaran);
+
+        return redirect()->route('jadwal-pelajaran.index')->with('success', 'Jadwal pelajaran berhasil ditambahkan.');
     }
 
     /**
@@ -93,7 +122,27 @@ class JadwalPelajaranController extends Controller
      */
     public function update(Request $request, JadwalPelajaran $jadwalPelajaran)
     {
-        //
+        $validated_jadwal_pelajaran = $request->validate($this->jadwal_pelajaran_validation_rules);
+
+        $errors = JadwalPelajaran::getJamValidationErrors(
+            $validated_jadwal_pelajaran['id_kelas'],
+            $validated_jadwal_pelajaran['hari'],
+            $validated_jadwal_pelajaran['jam_mulai'],
+            $validated_jadwal_pelajaran['jam_selesai'],
+            $jadwalPelajaran->id_jadwal_pelajaran
+        );
+
+        if (!empty($errors)) {
+            return back()->withErrors($errors)->withInput();
+        }
+
+        if (empty($validated_jadwal_pelajaran['id_guru_mata_pelajaran'])) {
+            $validated_jadwal_pelajaran['id_guru_mata_pelajaran'] = null;
+        }
+
+        $jadwalPelajaran->update($validated_jadwal_pelajaran);
+
+        return redirect()->route('jadwal-pelajaran.index')->with('success', 'Jadwal pelajaran berhasil diperbarui.');
     }
 
     /**

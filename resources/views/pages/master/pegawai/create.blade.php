@@ -34,7 +34,7 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="nik" class="form-label">NIK</label>
-                            <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik" 
+                            <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik"
                                 name="nik" placeholder="Masukkan NIK" value="{{ old('nik') }}" required>
                             @error('nik')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -175,7 +175,7 @@
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control @error('username') is-invalid @enderror"
                                 id="username" name="username" placeholder="Masukkan username"
-                                value="{{ old('username') }}">
+                                value="{{ old('username') }}" required>
                             @error('username')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -185,7 +185,7 @@
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control @error('password') is-invalid @enderror"
                                 id="password" name="password" placeholder="Masukkan password"
-                                value="{{ old('password') }}">
+                                value="{{ old('password') }}" required>
                             @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -237,23 +237,29 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="guru-mata-pelajaran" class="form-label">Guru Mata Pelajaran</label>
-                            <div class="dropdown" id="guru-mata-pelajaran">
-                                <button class="form-select text-start" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false" id="guru-mata-pelajaran-dropdown-button"
+                            <label for="id-mata-pelajaran" class="form-label">Guru Mata Pelajaran</label>
+                            <div class="dropdown" id="id-mata-pelajaran">
+                                <button class="form-select text-start @error('id_mata_pelajaran') is-invalid @enderror"
+                                    type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                    id="id-mata-pelajaran-dropdown-button"
                                     {{ $mata_pelajaran->isEmpty() ? 'disabled' : '' }}>
                                     {{ $mata_pelajaran->isNotEmpty() ? '-- Pilih Mata Pelajaran --' : '-- Mata Pelajaran Tidak Tersedia --' }}
                                 </button>
-                                <ul class="dropdown-menu w-100 p-2 guru-mata-pelajaran-dropdown-menu"
-                                    aria-labelledby="guru-mata-pelajaran-dropdown-button">
+                                <ul class="dropdown-menu w-100 p-2 id-mata-pelajaran-dropdown-menu"
+                                    aria-labelledby="id-mata-pelajaran-dropdown-button">
                                     @foreach ($mata_pelajaran as $_mata_pelajaran)
                                         <li><label class="dropdown-item"><input type="checkbox"
+                                                    name="id_mata_pelajaran[]"
+                                                    class="form-check-input me-2 id-mata-pelajaran-checkbox"
                                                     value="{{ $_mata_pelajaran->id_mata_pelajaran }}"
-                                                    class="form-check-input me-2 guru-mata-pelajaran-item">{{ $_mata_pelajaran->nama_mata_pelajaran }}</label>
+                                                    {{ in_array($_mata_pelajaran->id_mata_pelajaran, old('id_mata_pelajaran', [])) ? 'checked' : '' }}>{{ $_mata_pelajaran->nama_mata_pelajaran }}</label>
                                         </li>
                                     @endforeach
                                 </ul>
                             </div>
+                            @error('id_mata_pelajaran')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6">
@@ -282,7 +288,7 @@
                         <div class="col-md-6">
                             <label for="nip" class="form-label">NIP</label>
                             <input type="number" class="form-control @error('nip') is-invalid @enderror" id="nip"
-                                name="nip" placeholder="Masukkan NIP" value="{{ old('nip') }}">
+                                name="nip" placeholder="Masukkan NIP" value="{{ old('nip') }}" required>
                             @error('nip')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -290,8 +296,9 @@
 
                         <div class="col-md-6">
                             <label for="nipppk" class="form-label">NIPPPK</label>
-                            <input type="number" class="form-control @error('nipppk') is-invalid @enderror" id="nipppk"
-                                name="nipppk" placeholder="Masukkan NIPPPK" value="{{ old('nipppk') }}">
+                            <input type="number" class="form-control @error('nipppk') is-invalid @enderror"
+                                id="nipppk" name="nipppk" placeholder="Masukkan NIPPPK" value="{{ old('nipppk') }}"
+                                required>
                             @error('nipppk')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -300,21 +307,44 @@
                         <div class="col-md-6">
                             <label for="jabatan" class="form-label">Jabatan</label>
                             <select class="form-select @error('jabatan') is-invalid @enderror" id="jabatan"
-                                name="jabatan">
+                                name="jabatan" required>
                                 <option value="default">-- Pilih Jabatan --</option>
-                                <option value="Pengatur Muda | II/a" {{ old('jabatan') == 'Pengatur Muda | II/a' ? 'selected' : '' }}>Pengatur Muda | II/a</option>
-                                <option value="Pengatur Muda Tk. I | II/b" {{ old('jabatan') == 'Pengatur Muda Tk. I | II/b' ? 'selected' : '' }}>Pengatur Muda Tk. I | II/b</option>
-                                <option value="Pengatur | II/c" {{ old('jabatan') == 'Pengatur | II/c' ? 'selected' : '' }}>Pengatur | II/c</option>
-                                <option value="Pengatur Tk. I | II/d" {{ old('jabatan') == 'Pengatur Tk. I | II/d' ? 'selected' : '' }}>Pengatur Tk. I | II/d</option>
-                                <option value="Penata Muda | III/a" {{ old('jabatan') == 'Penata Muda | III/a' ? 'selected' : '' }}>Penata Muda | III/a</option>
-                                <option value="Penata Muda Tk. I | III/b" {{ old('jabatan') == 'Penata Muda Tk. I | III/b' ? 'selected' : '' }}>Penata Muda Tk. I | III/b</option>
-                                <option value="Penata | III/c" {{ old('jabatan') == 'Penata | III/c' ? 'selected' : '' }}>Penata | III/c</option>
-                                <option value="Penata Tk. I | III/d" {{ old('jabatan') == 'Penata Tk. I | III/d' ? 'selected' : '' }}>Penata Tk. I | III/d</option>
-                                <option value="Pembina | IV/a" {{ old('jabatan') == 'Pembina | IV/a' ? 'selected' : '' }}>Pembina | IV/a</option>
-                                <option value="Pembina Tk. I | IV/b" {{ old('jabatan') == 'Pembina Tk. I | IV/b' ? 'selected' : '' }}>Pembina Tk. I | IV/b</option>
-                                <option value="Pembina Utama Muda | IV/c" {{ old('jabatan') == 'Pembina Utama Muda | IV/c' ? 'selected' : '' }}>Pembina Utama Muda | IV/c</option>
-                                <option value="Pembina Utama Madya | IV/d" {{ old('jabatan') == 'Pembina Utama Madya | IV/d' ? 'selected' : '' }}>Pembina Utama Madya | IV/d</option>
-                                <option value="Pembina Utama | IV/e" {{ old('jabatan') == 'Pembina Utama | IV/e' ? 'selected' : '' }}>Pembina Utama | IV/e</option>
+                                <option value="Pengatur Muda | II/a"
+                                    {{ old('jabatan') == 'Pengatur Muda | II/a' ? 'selected' : '' }}>Pengatur Muda | II/a
+                                </option>
+                                <option value="Pengatur Muda Tk. I | II/b"
+                                    {{ old('jabatan') == 'Pengatur Muda Tk. I | II/b' ? 'selected' : '' }}>Pengatur Muda
+                                    Tk. I | II/b</option>
+                                <option value="Pengatur | II/c"
+                                    {{ old('jabatan') == 'Pengatur | II/c' ? 'selected' : '' }}>Pengatur | II/c</option>
+                                <option value="Pengatur Tk. I | II/d"
+                                    {{ old('jabatan') == 'Pengatur Tk. I | II/d' ? 'selected' : '' }}>Pengatur Tk. I | II/d
+                                </option>
+                                <option value="Penata Muda | III/a"
+                                    {{ old('jabatan') == 'Penata Muda | III/a' ? 'selected' : '' }}>Penata Muda | III/a
+                                </option>
+                                <option value="Penata Muda Tk. I | III/b"
+                                    {{ old('jabatan') == 'Penata Muda Tk. I | III/b' ? 'selected' : '' }}>Penata Muda Tk. I
+                                    | III/b</option>
+                                <option value="Penata | III/c" {{ old('jabatan') == 'Penata | III/c' ? 'selected' : '' }}>
+                                    Penata | III/c</option>
+                                <option value="Penata Tk. I | III/d"
+                                    {{ old('jabatan') == 'Penata Tk. I | III/d' ? 'selected' : '' }}>Penata Tk. I | III/d
+                                </option>
+                                <option value="Pembina | IV/a" {{ old('jabatan') == 'Pembina | IV/a' ? 'selected' : '' }}>
+                                    Pembina | IV/a</option>
+                                <option value="Pembina Tk. I | IV/b"
+                                    {{ old('jabatan') == 'Pembina Tk. I | IV/b' ? 'selected' : '' }}>Pembina Tk. I | IV/b
+                                </option>
+                                <option value="Pembina Utama Muda | IV/c"
+                                    {{ old('jabatan') == 'Pembina Utama Muda | IV/c' ? 'selected' : '' }}>Pembina Utama
+                                    Muda | IV/c</option>
+                                <option value="Pembina Utama Madya | IV/d"
+                                    {{ old('jabatan') == 'Pembina Utama Madya | IV/d' ? 'selected' : '' }}>Pembina Utama
+                                    Madya | IV/d</option>
+                                <option value="Pembina Utama | IV/e"
+                                    {{ old('jabatan') == 'Pembina Utama | IV/e' ? 'selected' : '' }}>Pembina Utama | IV/e
+                                </option>
                             </select>
                             @error('jabatan')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -388,7 +418,8 @@
                             <label for="tahun-sertifikasi" class="form-label">Tahun Sertifikasi</label>
                             <input type="number" class="form-control @error('tahun_sertifikasi') is-invalid @enderror"
                                 id="tahun-sertifikasi" name="tahun_sertifikasi" placeholder="Masukkan tahun sertifikasi"
-                                value="{{ old('tahun_sertifikasi') }}" min="1900" max="{{ date('Y') }}">
+                                value="{{ old('tahun_sertifikasi') }}" min="1900" max="{{ date('Y') }}"
+                                required>
                             @error('tahun_sertifikasi')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -400,10 +431,10 @@
                 <div class="tab-pane fade" id="data-sk" role="tabpanel">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label for="no-sk" class="form-label">Nomor SK Terakhir</label>
+                            <label for="no-sk" class="form-label">Nomor SK</label>
                             <input type="text" class="form-control @error('no_sk') is-invalid @enderror"
                                 id="no-sk" name="no_sk" placeholder="Masukkan no. SK terakhir"
-                                value="{{ old('no_sk') }}">
+                                value="{{ old('no_sk') }}" required>
                             @error('no_sk')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -413,7 +444,7 @@
                             <label for="tanggal-sk-terakhir" class="form-label">Tanggal SK Terakhir</label>
                             <input type="date" class="form-control @error('tanggal_sk_terakhir') is-invalid @enderror"
                                 id="tanggal-sk-terakhir" name="tanggal_sk_terakhir"
-                            value="{{ old('tanggal_sk_terakhir') }}">
+                                value="{{ old('tanggal_sk_terakhir') }}" required>
                             @error('tanggal_sk_terakhir')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

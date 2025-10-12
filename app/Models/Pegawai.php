@@ -20,6 +20,12 @@ class Pegawai extends Model
         'tanggal_sk_terakhir' => 'date'
     ];
 
+    public function getPegawai()
+    {
+        $nip = $this->nip ?? $this->nipppk ?? '-';
+        return "{$nip} | {$this->nama_pegawai}";
+    }
+
     // Cek NIK di pegawai & siswa
     public static function checkNikExists(string $nik): ?string
     {

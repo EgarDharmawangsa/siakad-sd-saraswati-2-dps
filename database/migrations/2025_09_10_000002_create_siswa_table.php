@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('siswa', function (Blueprint $table) {
             $table->id('id_siswa');
-            $table->foreignId('id_kelas')->constrained('kelas', 'id_kelas')->onDelete('set null');
+            $table->foreignId('id_kelas')->nullable()->constrained('kelas', 'id_kelas')->onDelete('set null');
             $table->integer('no_kk');
             $table->integer('nik')->unique();
             $table->integer('nisn')->unique();

@@ -78,7 +78,7 @@
                     <label for="peringkat-lainnya" class="form-label">Peringkat Lainnya</label>
                     <input type="text" class="form-control @error('peringkat_lainnya') is-invalid @enderror"
                         id="peringkat-lainnya" name="peringkat_lainnya"
-                        placeholder="Untuk opsi Lainnya pada Peringkat."
+                        placeholder="Masukkan peringkat lainnya"
                         value="{{ old('peringkat_lainnya') }}" required disabled>
                     @error('peringkat_lainnya')
                         <div class="invalid-feedback">{{ $message }}</div>

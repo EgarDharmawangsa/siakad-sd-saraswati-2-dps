@@ -15,7 +15,7 @@ import './pages/akademik/prestasi.js';
 import './pages/akademik/pengumuman.js';
 
 const success_toast = document.getElementById('success-toast');
-// const error_toast = document.getElementById('error-toast');
+const error_toast = document.getElementById('error-toast');
 
 if (success_toast || error_toast) {
     const toast = new bootstrap.Toast(success_toast || error_toast);

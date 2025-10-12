@@ -16,22 +16,22 @@
             <div class="col-md-6">
                 <label for="jenis-semester" class="form-label">Jenis Semester</label>
                 <input type="text" class="form-control" id="jenis-semester" value="{{ $semester->jenis_semester }}"
-                    disabled>
+                    readonly>
             </div>
             <div class="col-md-6">
                 <label for="tahun-ajaran" class="form-label">Tahun Ajaran</label>
                 <input type="text" class="form-control" id="tahun-ajaran" value="{{ $semester->getTahunAjaran() }}"
-                    disabled>
+                    readonly>
             </div>
             <div class="col-md-6">
                 <label for="tanggal-mulai" class="form-label">Tanggal Mulai</label>
                 <input type="text" class="form-control" id="tanggal-mulai"
-                    value="{{ $semester->tanggal_mulai->format('d-m-Y') }}" disabled>
+                    value="{{ $semester->tanggal_mulai->format('d-m-Y') }}" readonly>
             </div>
             <div class="col-md-6">
                 <label for="tanggal-selesai" class="form-label">Tanggal Selesai</label>
                 <input type="text" class="form-control" id="tanggal-selesai"
-                    value="{{ $semester->tanggal_selesai->format('d-m-Y') }}" disabled>
+                    value="{{ $semester->tanggal_selesai->format('d-m-Y') }}" readonly>
             </div>
             <div class="col-md-6">
                 <label for="status" class="form-label">Status</label>

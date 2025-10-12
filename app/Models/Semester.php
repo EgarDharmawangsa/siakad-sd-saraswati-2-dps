@@ -34,7 +34,7 @@ class Semester extends Model
         return 'Selesai';
     }
 
-    public static function getOverlapErrors(string $mulai, string $selesai, ?int $ignore_id = null): array
+    public static function getTanggalValidationErrors(string $mulai, string $selesai, ?int $ignore_id = null): array
     {
         $query = self::query()
             ->where('tanggal_mulai', '<=', $selesai)

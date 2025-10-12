@@ -50,19 +50,19 @@
                     <label for="hari" class="form-label">Hari</label>
                     <select class="form-select @error('hari') is-invalid @enderror" id="hari" name="hari" required>
                         <option value="default">-- Pilih Hari --</option>
-                        <option value="Senin" {{ old('hari') == '1' ? 'selected' : '' }}>Senin
+                        <option value="Senin" {{ old('hari') == 'Senin' ? 'selected' : '' }}>Senin
                         </option>
-                        <option value="Selasa" {{ old('hari') == '2' ? 'selected' : '' }}>
+                        <option value="Selasa" {{ old('hari') == 'Selasa' ? 'selected' : '' }}>
                             Selasa</option>
-                        <option value="Rabu" {{ old('hari') == '3' ? 'selected' : '' }}>Rabu
+                        <option value="Rabu" {{ old('hari') == 'Rabu' ? 'selected' : '' }}>Rabu
                         </option>
-                        <option value="Kamis" {{ old('hari') == '4' ? 'selected' : '' }}>Kamis
+                        <option value="Kamis" {{ old('hari') == 'Kamis' ? 'selected' : '' }}>Kamis
                         </option>
-                        <option value="Jumat" {{ old('hari') == '5' ? 'selected' : '' }}>Jumat
+                        <option value="Jumat" {{ old('hari') == 'Jumat' ? 'selected' : '' }}>Jumat
                         </option>
-                        <option value="Sabtu" {{ old('hari') == '6' ? 'selected' : '' }}>Sabtu
+                        <option value="Sabtu" {{ old('hari') == 'Sabtu' ? 'selected' : '' }}>Sabtu
                         </option>
-                        <option value="Minggu" {{ old('hari') == '7' ? 'selected' : '' }}>
+                        <option value="Minggu" {{ old('hari') == 'Minggu' ? 'selected' : '' }}>
                             Minggu</option>
                     </select>
                     @error('hari')

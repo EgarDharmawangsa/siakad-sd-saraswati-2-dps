@@ -11,9 +11,9 @@ class EkstrakurikulerController extends Controller
     public $ekstrakurikuler_validation_rules = [
         'nama_ekstrakurikuler' => 'required|string|min:3|max:25|unique:ekstrakurikuler,nama_ekstrakurikuler',
         'nama_pembina' => 'required|string|min:3|max:255',
-        'alamat_pembina' => 'required|string|min:5|max:255',
+        'alamat_pembina' => 'required|string|min:10|max:255',
         'no_telepon' => 'required|string|min:10|max:15',
-        'hari' => 'required|string|not_in:default',
+        'hari' => 'required|string|min:3|max:10|not_in:default',
         'jam_mulai' => 'required|date_format:H:i',
         'jam_selesai' => 'required|date_format:H:i'
     ];

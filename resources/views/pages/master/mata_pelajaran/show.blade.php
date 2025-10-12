@@ -14,7 +14,7 @@
 
         <div class="mata-pelajaran-input-group">
             <label for="nama-mata-pelajaran" class="form-label">Nama Mata Pelajaran</label>
-            <input type="text" class="form-control" id="nama-mata-pelajaran" value="{{ $mata_pelajaran->nama_mata_pelajaran }}" disabled>
+            <input type="text" class="form-control" id="nama-mata-pelajaran" value="{{ $mata_pelajaran->nama_mata_pelajaran }}" readonly>
         </div>
     </div>
 @endsection

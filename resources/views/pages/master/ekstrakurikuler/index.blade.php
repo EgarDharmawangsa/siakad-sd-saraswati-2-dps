@@ -37,12 +37,12 @@
                                     class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('ekstrakurikuler.edit', $_ekstrakurikuler->id_ekstrakurikuler) }}"
                                     class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form id="delete-form" action="{{ route('pengumuman.destroy', $_ekstrakurikuler->id_ekstrakurikuler) }}" method="POST"
-                                    class="d-inline">
+                                <form action="{{ route('pengumuman.destroy', $_ekstrakurikuler->id_ekstrakurikuler) }}" method="POST"
+                                    class="d-inline delete-form">
                                     @csrf
                                     @method('DELETE')
                                     
-                                    <button type="button" class="btn btn-danger btn-sm" id="delete-button"
+                                    <button type="button" class="btn btn-danger btn-sm delete-button"
                                         data-bs-toggle="modal" data-bs-target="#delete-modal">
                                         <i class="bi bi-trash me-2"></i>Hapus</button>
                                 </form>

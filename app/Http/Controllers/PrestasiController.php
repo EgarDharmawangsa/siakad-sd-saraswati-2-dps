@@ -13,10 +13,10 @@ class PrestasiController extends Controller
         'nama_prestasi' => 'required|string|min:3|max:100',
         'id_siswa' => 'required|integer|not_in:0|exists:siswa,id_siswa|unique:prestasi,id_siswa',
         'penyelenggara' => 'required|string|min:3|max:50',
-        'jenis' => 'required|string|not_in:default',
-        'peringkat' => 'required|string|not_in:default',
+        'jenis' => 'required|string|min:3|max:15|not_in:default',
+        'peringkat' => 'required|string|min:3|max:15|not_in:default',
         'peringkat_lainnya' => 'nullable|string|min:3|max:50',
-        'tingkat' => 'required|string|not_in:default',
+        'tingkat' => 'required|string|min:3|max:15|not_in:default',
         'nama_wilayah' => 'required|string|min:3|max:25',
         'tanggal' => 'required|date|before_or_equal:today',
         'dokumentasi' => 'nullable|file|mimes:jpg,png,jpeg|max:10240'
@@ -108,6 +108,10 @@ class PrestasiController extends Controller
             $validated_prestasi['dokumentasi'] = $request->file('dokumentasi')->store('prestasi', 'public');
         } else {
             $validated_prestasi['dokumentasi'] = $prestasi->old_dokumentasi;
+        }
+
+        if (empty($validated_prestasi['peringkat_lainnya'])) {
+            $validated_prestasi['peringkat_lainnya'] = null;
         }
 
         $prestasi->update($validated_prestasi);

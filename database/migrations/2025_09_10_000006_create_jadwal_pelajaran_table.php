@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('jadwal_pelajaran', function (Blueprint $table) {
             $table->id('id_jadwal_pelajaran');
-            $table->foreignId('id_kelas')->constrained('kelas', 'id_kelas')->onDelete('cascade');
-            $table->foreignId('id_guru_mata_pelajaran')->constrained('guru_mata_pelajaran', 'id_guru_mata_pelajaran')->onDelete('cascade');
-            $table->integer('hari');
+            $table->foreignId('id_kelas')->nullable()->constrained('kelas', 'id_kelas')->onDelete('cascade');
+            $table->foreignId('id_guru_mata_pelajaran')->nullable()->constrained('guru_mata_pelajaran', 'id_guru_mata_pelajaran')->onDelete('cascade');
+            $table->string('kegiatan', 10);
+            $table->string('hari', 10);
             $table->time('jam_mulai');
             $table->time('jam_selesai');
             $table->timestamps();

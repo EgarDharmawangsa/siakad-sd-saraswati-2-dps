@@ -55,14 +55,23 @@ tr td {
     width: 1%;
 }
 
-.modal-backdrop.show {
-    opacity: 1; 
+.text-separator {
+    color: #959697;
+}
+
+.modal {
+    z-index: 3050; 
 }
 
 .modal-backdrop {
+    z-index: 3000;
     background-color: rgba(0, 0, 0, 0.5); 
     backdrop-filter: blur(10px);           
     -webkit-backdrop-filter: blur(10px);  
+}
+
+.modal-backdrop.show {
+    opacity: 1; 
 }
 
 .modal-title {

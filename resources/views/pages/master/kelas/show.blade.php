@@ -16,13 +16,13 @@
             <div class="col-md-6">
                 <label for="nama-kelas" class="form-label">Nama Kelas</label>
                 <input type="text" class="form-control" id="nama-kelas"
-                    value="{{ $kelas->nama_kelas }}" disabled>
+                    value="{{ $kelas->nama_kelas }}" readonly>
             </div>
 
             <div class="col-md-6">
                 <label for="wali-kelas" class="form-label">Wali Kelas</label>
                 <input type="text" class="form-control" id="wali-kelas"
-                    value="{{ $kelas->pegawai->nip ?? $kelas->pegawai->nipppk ?? '-' }} | {{ $kelas->pegawai->nama_pegawai }}" disabled>
+                    value="{{ $kelas->pegawai->getPegawai() }}" readonly>
             </div>
         </div>
     </div>

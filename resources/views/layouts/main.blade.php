@@ -52,7 +52,6 @@
 
     @include('components.delete_modal')
     @include('components.cancel_modal')
-    <script src="{{ asset('js/pages/master/pegawai.js') }}"></script>
 </body>
 
 </html>

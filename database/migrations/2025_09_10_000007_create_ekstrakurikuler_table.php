@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nama_ekstrakurikuler', 25)->unique();
             $table->string('nama_pembina');
             $table->string('alamat_pembina');
-            $table->string('no_telepon');
-            $table->string('hari');
+            $table->string('no_telepon', 15);
+            $table->string('hari', 10);
             $table->time('jam_mulai');
             $table->time('jam_selesai');
             $table->timestamps();

@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', [App\Http\Controllers\BerandaController::class, 'index'])->name('beranda');
+Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 
-
+Route::get('/beranda', [App\Http\Controllers\BerandaController::class, 'index'])->name('beranda');  
 
 // Route Master
 Route::resource('/pegawai', App\Http\Controllers\PegawaiController::class);
@@ -27,32 +27,3 @@ Route::resource('/nilai-ekstrakurikuler', App\Http\Controllers\NilaiEkstrakuriku
 Route::resource('/kehadiran', App\Http\Controllers\KehadiranController::class);
 Route::resource('/prestasi', App\Http\Controllers\PrestasiController::class);
 Route::resource('/pengumuman', App\Http\Controllers\PengumumanController::class);
-
-
-Route::get('/view-login', function () {
-    return view('auth.login');
-});
-
-
-// Login Routes
-Route::get('/login', [AuthController::class, 'showLoginForm'])
-    ->name('login')
-    ->middleware('guest');
-
-Route::post('/login', [AuthController::class, 'login'])
-    ->name('login.post')
-    ->middleware('guest');
-
-Route::post('/logout', [AuthController::class, 'logout'])
-    ->name('logout')
-    ->middleware('auth');
-
-// // Dashboard Route (contoh setelah login berhasil)
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware('auth')->name('dashboard');
-
-// // Redirect root to login
-// Route::get('/', function () {
-//     return redirect()->route('login');
-// });
