@@ -16,6 +16,10 @@ class Pengumuman extends Model
     protected $guarded = ['id_pengumuman'];
 
     protected $casts = [
-        'tanggal' => 'date'
+        'tanggal' => 'datetime'
     ];
+
+    public function getStatus() {
+        return $this->tanggal->lte(today()) ? 'Terbit' : 'Menunggu';
+    }
 }

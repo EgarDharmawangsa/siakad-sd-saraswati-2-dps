@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Storage;
 
 class PengumumanController extends Controller
 {
-    public $validation_rules = [
-        'judul' => 'required|string|max:50',
+    public $pengumuman_validation_rules = [
+        'judul' => 'required|string|min:5|max:50',
         'isi' => 'required|string',
-        'tanggal' => 'required|date',
+        'tanggal' => 'required|date|after_or_equal:today',
         'gambar' => 'nullable|file|mimes:jpg,png,jpeg|max:10240'
     ];
 
@@ -20,9 +20,11 @@ class PengumumanController extends Controller
      */
     public function index()
     {
+        $pengumuman = Pengumuman::query()->orderBy('tanggal', 'desc')->paginate(20)->withQueryString();
+
         return view('pages.akademik.pengumuman.index', [
             'judul' => 'Pengumuman',
-            'pengumuman' => Pengumuman::paginate(20)->withQueryString()
+            'pengumuman' => $pengumuman
         ]);
     }
 
@@ -32,7 +34,7 @@ class PengumumanController extends Controller
     public function create()
     {
         return view('pages.akademik.pengumuman.create', [
-            'judul' => 'Tambah Pengumuman'
+            'judul' => 'Pengumuman'
         ]);
     }
 
@@ -41,7 +43,7 @@ class PengumumanController extends Controller
      */
     public function store(Request $request)
     {
-        $validated_pengumuman = $request->validate($this->validation_rules);
+        $validated_pengumuman = $request->validate($this->pengumuman_validation_rules);
 
         if ($request->hasFile('gambar')) {
             $validated_pengumuman['gambar'] = $request->file('gambar')->store('pengumuman', 'public');
@@ -58,7 +60,7 @@ class PengumumanController extends Controller
     public function show(Pengumuman $pengumuman)
     {
         return view('pages.akademik.pengumuman.show', [
-            'judul' => 'Detail Pengumuman',
+            'judul' => 'Pengumuman',
             'pengumuman' => $pengumuman
         ]);
     }
@@ -69,7 +71,7 @@ class PengumumanController extends Controller
     public function edit(Pengumuman $pengumuman)
     {
         return view('pages.akademik.pengumuman.edit', [
-            'judul' => 'Edit Pengumuman',
+            'judul' => 'Pengumuman',
             'pengumuman' => $pengumuman
         ]);
     }
@@ -79,9 +81,9 @@ class PengumumanController extends Controller
      */
     public function update(Request $request, Pengumuman $pengumuman)
     {
-        $validated_pengumuman = $request->validate($this->validation_rules);
+        $validated_pengumuman = $request->validate($this->pengumuman_validation_rules);
 
-        if ($request->gambar_delete == "1") {
+        if ($request->gambar_delete == 1) {
             if (!empty($request->old_gambar)) {
                 Storage::disk('public')->delete($request->old_gambar);
             }
@@ -112,7 +114,5 @@ class PengumumanController extends Controller
         }
 
         return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil dihapus.');
-
-
     }
 }

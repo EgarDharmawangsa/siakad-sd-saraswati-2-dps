@@ -13,6 +13,7 @@
                         <th>Judul</th>
                         <th>Tanggal</th>
                         <th>Isi</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -24,22 +25,24 @@
                             <td>{{ $_pengumuman->judul }}</td>
                             <td>{{ $_pengumuman->tanggal->format('d-m-Y') }}</td>
                             <td>{!! Str::limit($_pengumuman->isi, 40, '...') !!}</td>
+                            <td><span class="badge bg-{{ $_pengumuman->getStatus() == 'Terbit' ? 'success' : 'primary' }}">
+                                    {{ $_pengumuman->getStatus() }}
+                                </span>
+                            </td>
                             <td class="aksi-column">
                                 <a href="{{ route('pengumuman.show', $_pengumuman->id_pengumuman) }}"
                                     class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('pengumuman.edit', $_pengumuman->id_pengumuman) }}"
                                     class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                {{-- blok form di bawah di copas ke seluruh halaman index, kode form sebelumnya ganti pake yang ini  --}}
-                                <form id="delete-form" action="{{ route('pengumuman.destroy', $_pengumuman->id_pengumuman) }}" method="POST"
-                                    class="d-inline">
+                                <form action="{{ route('pengumuman.destroy', $_pengumuman->id_pengumuman) }}" method="POST"
+                                    class="d-inline delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    
-                                    <button type="button" class="btn btn-danger btn-sm" id="delete-button"
-                                        data-bs-toggle="modal" data-bs-target="#delete-modal">
-                                        <i class="bi bi-trash me-2"></i>Batal</button>
-                                </form>
 
+                                    <button type="button" class="btn btn-danger btn-sm delete-button"
+                                        data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                        <i class="bi bi-trash me-2"></i>Hapus</button>
+                                </form>
                             </td>
                         </tr>
                     @empty

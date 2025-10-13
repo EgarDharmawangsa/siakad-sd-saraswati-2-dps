@@ -1,0 +1,46 @@
+.empty-message {
+    background-color: #f2f2f2;
+    border: 1px solid #dee2e6;
+    font-size: 14px;
+}
+
+.empty-message:hover {
+    background-color: #ececec;
+}
+
+.jadwal-pelajaran-container:not(:last-child),
+.jadwal-pelajaran-table:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.jadwal-pelajaran-container {
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+#kegiatan .btn-outline-primary {
+    color: #27293a;
+    border-color: #27293a;
+}
+
+#kegiatan .btn-check:checked + .btn-outline-primary,
+#kegiatan .btn-outline-primary.active,
+#kegiatan .btn-outline-primary:active,
+#kegiatan .btn-outline-primary:focus,
+#kegiatan .btn-outline-primary.show {
+    color: #fff;
+    background-color: #27293a;
+    border-color: #27293a;
+}
+
+#kegiatan .btn-outline-primary:not(.active):hover,
+#kegiatan .btn-check:not(:checked) + .btn-outline-primary:hover {
+    color: #fff;
+    background-color: #696b79;
+    border-color: #27293a;
+}
+
+.wali-kelas-label {
+    font-size: 14px;
+}

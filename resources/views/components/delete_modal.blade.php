@@ -4,9 +4,9 @@
             <div class="modal-body">
                 <i class="bi bi-exclamation-triangle text-warning fs-1 d-block mb-2"></i>
                 <h5 class="modal-title mb-2" id="delete-modal-label">Anda yakin?</h5>
-                <p class="text-muted">Data yang dihapus tidak dapat dikembalikan.</p>
+                <p class="text-muted mb-2">Data yang dihapus tidak dapat dikembalikan.</p>
 
-                <div class="row g-3">
+                <div class="row g-3 mb-0">
                     <div class="col-6">
                         <button type="button" class="btn btn-primary w-100" id="delete-confirm-button">Ya</button>
                     </div>

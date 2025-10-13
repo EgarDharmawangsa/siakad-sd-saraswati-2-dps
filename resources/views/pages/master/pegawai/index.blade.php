@@ -12,6 +12,7 @@
                         <th>No.</th>
                         <th>NIK</th>
                         <th>NIP</th>
+                        <th>NIPPPK</th>
                         <th>Nama Pegawai</th>
                         <th>Jenis Kelamin</th>
                         <th>Agama</th>
@@ -33,7 +34,7 @@
                         <th>Permulaan Kerja (RASDA)</th>
                         <th>No. SK</th>
                         <th>Tanggal SK Terakhir</th>
-                        <th>Golongan Ruang</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
 
@@ -42,48 +43,48 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $_pegawai->nik }}</td>
-                            <td>{{ $_pegawai->nip }}</td>
+                            <td>{{ $_pegawai->nip ?? '-' }}</td>
+                            <td>{{ $_pegawai->nipppk ?? '-' }}</td>
                             <td>{{ $_pegawai->nama_pegawai }}</td>
                             <td>{{ $_pegawai->jenis_kelamin }}</td>
                             <td>{{ $_pegawai->agama }}</td>
                             <td>{{ $_pegawai->tempat_lahir }}</td>
                             <td>{{ $_pegawai->tanggal_lahir->format('d-m-Y') }}</td>
                             <td class="text-truncate">{{ $_pegawai->alamat }}</td>
-                            <td>{{ $_pegawai->no_telepon_rumah }}</td>
+                            <td>{{ $_pegawai->no_telepon_rumah ?? '-' }}</td>
                             <td>{{ $_pegawai->no_telepon_seluler }}</td>
-                            <td>{{ $_pegawai->e_mail }}</td>
-                            <td>{{ $_pegawai->pangkat }}</td>
+                            <td>{{ $_pegawai->e_mail ?? '-' }}</td>
+                            <td>{{ $_pegawai->jabatan ?? '-' }}</td>
                             <td>{{ $_pegawai->status_perkawinan }}</td>
-                            <td>{{ $_pegawai->status_kepegawaian }}</td>
-                            <td>{{ $_pegawai->gelar_ijazah }}</td>
-                            <td>{{ $_pegawai->tahun_ijazah }}</td>
+                            <td>{{ $_pegawai->status_kepegawaian ?? '-' }}</td>
+                            <td>{{ $_pegawai->ijazah_terakhir ?? '-' }}</td>
+                            <td>{{ $_pegawai->tahun_ijazah ?? '-' }}</td>
                             <td>{{ $_pegawai->posisi }}</td>
                             <td>{{ $_pegawai->status_sertifikasi }}</td>
-                            <td>{{ $_pegawai->tahun_sertifikasi }}</td>
-                            <td>{{ $_pegawai->permulaan_kerja }}</td>
-                            <td>{{ $_pegawai->permulaan_kerja_sds2 }}</td>
-                            <td>{{ $_pegawai->no_sk }}</td>
-                            <td>{{ $_pegawai->tanggal_sk_terakhir->format('d-m-Y') }}</td>
-                            <td>{{ $_pegawai->golongan_ruang }}</td>
+                            <td>{{ $_pegawai->tahun_sertifikasi ?? '-' }}</td>
+                            <td>{{ $_pegawai->permulaan_kerja->format('d-m-Y') }}</td>
+                            <td>{{ $_pegawai->permulaan_kerja_sds2->format('d-m-Y') }}</td>
+                            <td>{{ $_pegawai->no_sk ?? '-' }}</td>
+                            <td>{{ $_pegawai->tanggal_sk_terakhir?->format('d-m-Y') ?? '-' }}</td>
                             <td class="aksi-column">
                                 <a href="{{ route('pegawai.show', $_pegawai->id_pegawai) }}" class="btn btn-info btn-sm"><i
                                         class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('pegawai.edit', $_pegawai->id_pegawai) }}"
                                     class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form id="delete-form" action="{{ route('pengumuman.destroy', $_pegawai->id_pegawai) }}" method="POST"
-                                    class="d-inline">
+                                <form action="{{ route('pegawai.destroy', $_pegawai->id_pegawai) }}" method="POST"
+                                    class="d-inline delete-form">
                                     @csrf
                                     @method('DELETE')
                                     
-                                    <button type="button" class="btn btn-danger btn-sm" id="delete-button"
+                                    <button type="button" class="btn btn-danger btn-sm delete-button"
                                         data-bs-toggle="modal" data-bs-target="#delete-modal">
-                                        <i class="bi bi-trash me-2"></i>Batal</button>
+                                        <i class="bi bi-trash me-2"></i>Hapus</button>
                                 </form>
                             </td>
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="25">Belum ada Pegawai.</td>
+                            <td colspan="26">Belum ada Pegawai.</td>
                         </tr>
                     @endforelse
                 </tbody>

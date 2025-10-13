@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id('id_user');
             $table->foreignId('id_pegawai')->nullable()->constrained('pegawai', 'id_pegawai')->onDelete('cascade');
-            $table->foreignId('id_siswa')->constrained('siswa', 'id_siswa')->onDelete('cascade');
-            $table->string('username', 50);
+            $table->foreignId('id_siswa')->nullable()->constrained('siswa', 'id_siswa')->onDelete('cascade');
+            $table->unique('id_pegawai');
+            $table->unique('id_siswa');
+            $table->string('username', 50)->unique();
             $table->string('password', 255);
-            $table->integer('role');
+            $table->string('role');
             // $table->string('name');
             // $table->string('email')->unique();
             // $table->timestamp('email_verified_at')->nullable();

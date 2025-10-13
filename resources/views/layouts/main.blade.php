@@ -22,6 +22,19 @@
                 </div>
             </div>
         @endif
+        
+        {{-- @if (session()->has('error'))
+            <div class="toast align-items-center text-bg-danger border-0 w-auto" id="error-toast" role="alert" aria-live="assertive"
+                aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body text-white">
+                        {{ session('error') }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="close"></button>
+                </div>
+            </div>
+        @endif --}}
     </div>
     
     @include('partials.navbar')
@@ -31,15 +44,14 @@
 
         <div class="container-fluid content-container">
 
-            <h2 class="mt-2 mb-4">{{ $judul }}</h2>
+            <h3 class="mt-2 mb-4">{{ $judul }}</h3>
 
             @yield('container')
         </div>
     </div>
 
-    @include('components.delete_confirm')
-    @include('components.cancel_confirm')
-
+    @include('components.delete_modal')
+    @include('components.cancel_modal')
 </body>
 
 </html>

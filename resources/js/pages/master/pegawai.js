@@ -1,138 +1,144 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const username = document.getElementById("username");
-    const password = document.getElementById("password");
-    const posisi = document.getElementById("posisi");
-    const jabatan = document.getElementById("jabatan");
-    const statusKepegawaian = document.getElementById("status_kepegawaian");
-    const statusSertifikasi = document.getElementById("status_sertifikasi");
-    const nip = document.getElementById("nip");
-    const nipppk = document.getElementById('nipppk');
-    const guruMapelBtn = document.getElementById("guru-mata-pelajaran-dropdown-button");
-    const noSk = document.getElementById("no_sk");
-    const tanggalSk = document.getElementById("tanggal_sk_terakhir");
-    const tahunSertifikasi = document.getElementById("tahun_sertifikasi");
+// document.addEventListener('DOMContentLoaded', function () {
+const username = document.getElementById('username');
+const password = document.getElementById('password');
+const posisi = document.getElementById('posisi');
+const jabatan = document.getElementById('jabatan');
+const status_kepegawaian = document.getElementById('status-kepegawaian');
+const status_sertifikasi = document.getElementById('status-sertifikasi');
+const nip = document.getElementById('nip');
+const nipppk = document.getElementById('nipppk');
+const id_mata_pelajaran_hidden = document.querySelectorAll('.id-mata-pelajaran-hidden');
+const id_mata_pelajaran_dropdown_button = document.getElementById('id-mata-pelajaran-dropdown-button');
+const id_mata_pelajaran_checkboxes = document.querySelectorAll('.id-mata-pelajaran-checkbox');
+const no_sk = document.getElementById('no-sk');
+const tanggal_sk_terakhir = document.getElementById('tanggal-sk-terakhir');
+const tahun_sertifikasi = document.getElementById('tahun-sertifikasi');
 
-    // Validasi elemen
-    if (!posisi || !statusKepegawaian) {
-        console.warn("Elemen posisi atau status_kepegawaian tidak ditemukan.");
-        return;
+if (id_mata_pelajaran_checkboxes) {
+    function checkedMataPelajaran() {
+        const checked = Array.from(id_mata_pelajaran_checkboxes)
+            .filter((i) => i.checked)
+            .map((i) => i.value);
+        id_mata_pelajaran_dropdown_button.textContent =
+            checked.length > 0
+                ? `${checked.length} Dipilih`
+                : '-- Pilih Mata Pelajaran --';
     }
 
+    id_mata_pelajaran_checkboxes.forEach(
+        (guru_mata_pelajaran_checkbox) => {
+            checkedMataPelajaran();
+            guru_mata_pelajaran_checkbox.addEventListener('change', () => {
+                checkedMataPelajaran();
+            });
+        }
+    );
+}
+
+if (posisi) {
     // Fungsi update field
     function updateFields() {
-    const posisiVal = posisi.value;
-    const statusVal = statusKepegawaian.value;
-    const sertifikasiVal = statusSertifikasi ? statusSertifikasi.value : "";
+        const posisi_value = posisi.value;
+        const status_kepegawaian_value = status_kepegawaian.value;
+        const status_sertifikasi_value = status_sertifikasi
+            ? status_sertifikasi.value
+            : '';
 
-    // Reset semua ke disabled
-    if (nip) nip.disabled = true;
-    if (nipppk) nipppk.disabled = true;
-    if (statusKepegawaian) statusKepegawaian.disabled = true;
-    if (jabatan) jabatan.disabled = true;
-    if (guruMapelBtn) guruMapelBtn.disabled = true;
-    if (username) username.disabled = true;
-    if (password) password.disabled = true;
-    if (noSk) noSk.disabled = true;
-    if (tanggalSk) tanggalSk.disabled = true;
-    if (statusSertifikasi) statusSertifikasi.disabled = true;
-    if (tahunSertifikasi) tahunSertifikasi.disabled = true;
+        // Reset semua ke disabled
+        if (nip) nip.disabled = true;
+        if (nipppk) nipppk.disabled = true;
+        if (status_kepegawaian) status_kepegawaian.disabled = true;
+        if (jabatan) jabatan.disabled = true;
+        if (id_mata_pelajaran_dropdown_button)
+            id_mata_pelajaran_dropdown_button.disabled = true;
+        if (username) username.disabled = true;
+        if (password) password.disabled = true;
+        if (no_sk) no_sk.disabled = true;
+        if (tanggal_sk_terakhir) tanggal_sk_terakhir.disabled = true;
+        if (status_sertifikasi) status_sertifikasi.disabled = true;
+        if (tahun_sertifikasi) tahun_sertifikasi.disabled = true;
 
-    if (nip) nip.closest('.col-md-6').style.display = 'block';
+        if (nip) nip.closest('.col-md-6').style.display = 'block';
 
-    if (nipppk) nipppk.closest('.col-md-6').style.display = 'none';
+        if (nipppk) nipppk.closest('.col-md-6').style.display = 'none';
 
-    if (jabatan) jabatan.closest('.col-md-6').style.display = 'block';
+        if (jabatan) jabatan.closest('.col-md-6').style.display = 'block';
 
-    if (statusVal === '2') { // PPPK
-        // Sembunyikan NIP, tampilkan NIPPPK
-        if (nip) nip.closest('.col-md-6').style.display = 'none';
-        if (nipppk) {
-            nipppk.closest('.col-md-6').style.display = 'block';
-            nipppk.disabled = false;
+        if (status_kepegawaian_value === 'PPPK') {
+            // PPPK
+            // Sembunyikan NIP, tampilkan NIPPPK
+            if (nip) nip.closest('.col-md-6').style.display = 'none';
+            if (nipppk) {
+                nipppk.closest('.col-md-6').style.display = 'block';
+                nipppk.disabled = false;
+            }
+            // Tampilkan jabatan untuk PPPK
+            if (jabatan) {
+                jabatan.closest('.col-md-6').style.display = 'block';
+                jabatan.disabled = false;
+            }
+            if (no_sk) no_sk.disabled = false;
+            if (tanggal_sk_terakhir) tanggal_sk_terakhir.disabled = false;
+        } else if (status_kepegawaian_value === 'PNS') {
+            // PNS
+            // Aktifkan NIP (tetap muncul)
+            if (nip) nip.disabled = false;
+            // Tampilkan jabatan untuk PNS
+            if (jabatan) {
+                jabatan.closest('.col-md-6').style.display = 'block';
+                jabatan.disabled = false;
+            }
+            if (no_sk) no_sk.disabled = false;
+            if (tanggal_sk_terakhir) tanggal_sk_terakhir.disabled = false;
         }
-        // Tampilkan jabatan untuk PPPK
-        if (jabatan) {
-            jabatan.closest('.col-md-6').style.display = 'block';
-            jabatan.disabled = false;
+
+        if (
+            posisi_value === 'Staf Tata Usaha' ||
+            posisi_value === 'Guru' ||
+            posisi_value === 'Pegawai Perpustakaan'
+        ) {
+            // Staf TU (1), Guru (2), Perpus (3)
+            if (username) username.disabled = false;
+            if (password) password.disabled = false;
+            if (status_kepegawaian) status_kepegawaian.disabled = false;
         }
-        if (noSk) noSk.disabled = false;
-        if (tanggalSk) tanggalSk.disabled = false;
-        
-    } 
-    else if (statusVal === '1') { // PNS
-        // Aktifkan NIP (tetap muncul)
-        if (nip) nip.disabled = false;
-        // Tampilkan jabatan untuk PNS
-        if (jabatan) {
-            jabatan.closest('.col-md-6').style.display = 'block';
-            jabatan.disabled = false;
+
+        if (
+            posisi_value === 'Staf Tata Usaha' ||
+            posisi_value === 'Guru' ||
+            posisi_value === 'Pegawai Perpustakaan' ||
+            posisi_value === 'Satuan Pengamanan'
+        ) {
+            // Staf TU
+            if (status_sertifikasi) status_sertifikasi.disabled = false;
+        } else if (posisi === 'Pegawai Kebersihan') {
+            // Kebersihan
+            if (status_sertifikasi) status_sertifikasi.disabled = false;
         }
-        if (noSk) noSk.disabled = false;
-        if (tanggalSk) tanggalSk.disabled = false;
-    }
 
-    if (posisiVal === "1" || posisiVal === "2" || posisiVal === "3") {
-        // Staf TU (1), Guru (2), Perpus (3)
-        if (username) username.disabled = false;
-        if (password) password.disabled = false;
-        if (statusKepegawaian) statusKepegawaian.disabled = false;
-    }
+        if (posisi_value === 'Guru') {
+            // Guru
+            if (id_mata_pelajaran_dropdown_button)
+                id_mata_pelajaran_dropdown_button.disabled = false;
+        }
 
-    if (posisiVal === "1" || posisiVal === "2" || posisiVal === "3" || posisiVal === "5") { // Staf TU
-        if (statusSertifikasi) statusSertifikasi.disabled = false;
+        if (status_sertifikasi_value === 'Sudah') {
+            if (tahun_sertifikasi) tahun_sertifikasi.disabled = false;
+        }
     }
-    else if (posisi === "4") { // Kebersihan
-        if (statusSertifikasi) statusSertifikasi.disabled = false;
-    }
-
-    if (posisiVal === "2") { // Guru
-        if (guruMapelBtn) guruMapelBtn.disabled = false;
-    }
-
-    if (sertifikasiVal === "1") {
-        if (tahunSertifikasi) tahunSertifikasi.disabled = false;
-    }
-
-}
 
     // Reset status kepegawaian saat posisi berubah
     function handlePosisiChange() {
-        statusKepegawaian.value = "0"; // Reset ke opsi default
+        status_kepegawaian.value = 'default'; // Reset ke opsi default
         updateFields();
-    }
-
-    // Preview gambar
-    const imageInput = document.getElementById("foto");
-    const imagePreview = document.getElementById("image-preview");
-    const imageDeleteButton = document.getElementById("image-delete-button");
-
-    if (imageInput && imagePreview && imageDeleteButton) {
-        imageInput.addEventListener("change", function (e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    imagePreview.src = e.target.result;
-                    imagePreview.classList.remove("d-none");
-                    imageDeleteButton.classList.remove("d-none");
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        imageDeleteButton.addEventListener("click", function () {
-            imageInput.value = "";
-            imagePreview.src = "";
-            imagePreview.classList.add("d-none");
-            imageDeleteButton.classList.add("d-none");
-        });
     }
 
     // Inisialisasi
     updateFields();
-    posisi.addEventListener("change", handlePosisiChange);
-    if (statusKepegawaian)
-        statusKepegawaian.addEventListener("change", updateFields);
-    if (statusSertifikasi)
-        statusSertifikasi.addEventListener("change", updateFields);
-});
+    posisi.addEventListener('change', handlePosisiChange);
+    if (status_kepegawaian)
+        status_kepegawaian.addEventListener('change', updateFields);
+    if (status_sertifikasi)
+        status_sertifikasi.addEventListener('change', updateFields);
+}
+// });
