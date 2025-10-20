@@ -51,20 +51,20 @@
                 <div class="col-md-6">
                     <label for="hari" class="form-label">Hari</label>
                     <select class="form-select @error('hari') is-invalid @enderror" id="hari" name="hari" required>
-                        <option value="default">-- Pilih Hari --</option>
-                        <option value="Senin" {{ old('hari', $ekstrakurikuler->hari) == 'Senin' ? 'selected' : '' }}>Senin
+                        <option value="">-- Pilih Hari --</option>
+                        <option value="Senin" {{ old('hari', $ekstrakurikuler->hari) === 'Senin' ? 'selected' : '' }}>Senin
                         </option>
-                        <option value="Selasa" {{ old('hari', $ekstrakurikuler->hari) == 'Selasa' ? 'selected' : '' }}>
+                        <option value="Selasa" {{ old('hari', $ekstrakurikuler->hari) === 'Selasa' ? 'selected' : '' }}>
                             Selasa</option>
-                        <option value="Rabu" {{ old('hari', $ekstrakurikuler->hari) == 'Rabu' ? 'selected' : '' }}>Rabu
+                        <option value="Rabu" {{ old('hari', $ekstrakurikuler->hari) === 'Rabu' ? 'selected' : '' }}>Rabu
                         </option>
-                        <option value="Kamis" {{ old('hari', $ekstrakurikuler->hari) == 'Kamis' ? 'selected' : '' }}>Kamis
+                        <option value="Kamis" {{ old('hari', $ekstrakurikuler->hari) === 'Kamis' ? 'selected' : '' }}>Kamis
                         </option>
-                        <option value="Jumat" {{ old('hari', $ekstrakurikuler->hari) == 'Jumat' ? 'selected' : '' }}>Jumat
+                        <option value="Jumat" {{ old('hari', $ekstrakurikuler->hari) === 'Jumat' ? 'selected' : '' }}>Jumat
                         </option>
-                        <option value="Sabtu" {{ old('hari', $ekstrakurikuler->hari) == 'Sabtu' ? 'selected' : '' }}>Sabtu
+                        <option value="Sabtu" {{ old('hari', $ekstrakurikuler->hari) === 'Sabtu' ? 'selected' : '' }}>Sabtu
                         </option>
-                        <option value="Minggu" {{ old('hari', $ekstrakurikuler->hari) == 'Minggu' ? 'selected' : '' }}>
+                        <option value="Minggu" {{ old('hari', $ekstrakurikuler->hari) === 'Minggu' ? 'selected' : '' }}>
                             Minggu</option>
                     </select>
                     @error('hari')

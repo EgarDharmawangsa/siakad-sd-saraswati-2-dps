@@ -55,10 +55,10 @@
                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                             <select class="form-select @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin"
                                 name="jenis_kelamin" required>
-                                <option value="default">-- Pilih Jenis Kelamin --</option>
-                                <option value="Laki-Laki" {{ old('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '' }}>
+                                <option value="">-- Pilih Jenis Kelamin --</option>
+                                <option value="Laki-Laki" {{ old('jenis_kelamin') === 'Laki-Laki' ? 'selected' : '' }}>
                                     Laki-laki</option>
-                                <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>
+                                <option value="Perempuan" {{ old('jenis_kelamin') === 'Perempuan' ? 'selected' : '' }}>
                                     Perempuan</option>
                             </select>
                             @error('jenis_kelamin')
@@ -90,19 +90,20 @@
                             <label for="agama" class="form-label">Agama</label>
                             <select class="form-select @error('agama') is-invalid @enderror" id="agama" name="agama"
                                 required>
-                                <option value="default">-- Pilih Agama --</option>
-                                <option value="Islam" {{ old('agama') == 'Islam' ? 'selected' : '' }}>Islam</option>
+                                <option value="">-- Pilih Agama --</option>
+                                <option value="Islam" {{ old('agama') === 'Islam' ? 'selected' : '' }}>Islam</option>
                                 <option value="Kristen Protestan"
-                                    {{ old('agama') == 'Kristen Protestan' ? 'selected' : '' }}>Kristen Protestan
+                                    {{ old('agama') === 'Kristen Protestan' ? 'selected' : '' }}>Kristen Protestan
                                 </option>
-                                <option value="Kristen Katolik" {{ old('agama') == 'Kristen Katolik' ? 'selected' : '' }}>
+                                <option value="Kristen Katolik"
+                                    {{ old('agama') === 'Kristen Katolik' ? 'selected' : '' }}>
                                     Kristen Katolik
                                 </option>
-                                <option value="Hindu" {{ old('agama') == 'Hindu' ? 'selected' : '' }}>Hindu</option>
-                                <option value="Buddha" {{ old('agama') == 'Buddha' ? 'selected' : '' }}>Buddha</option>
-                                <option value="Konghucu" {{ old('agama') == 'Konghucu' ? 'selected' : '' }}>Konghucu
+                                <option value="Hindu" {{ old('agama') === 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                                <option value="Buddha" {{ old('agama') === 'Buddha' ? 'selected' : '' }}>Buddha</option>
+                                <option value="Konghucu" {{ old('agama') === 'Konghucu' ? 'selected' : '' }}>Konghucu
                                 </option>
-                                <option value="Tidak Beragama" {{ old('agama') == 'Tidak Beragama' ? 'selected' : '' }}>
+                                <option value="Tidak Beragama" {{ old('agama') === 'Tidak Beragama' ? 'selected' : '' }}>
                                     Tidak Beragama
                                 </option>
                             </select>
@@ -115,12 +116,13 @@
                             <label for="status_perkawinan" class="form-label">Status Perkawinan</label>
                             <select class="form-select @error('status_perkawinan') is-invalid @enderror"
                                 id="status_perkawinan" name="status_perkawinan" required>
-                                <option value="default">-- Pilih Status Perkawinan --</option>
-                                <option value="Sudah" {{ old('status_perkawinan') == 'Sudah' ? 'selected' : '' }}>Sudah
+                                <option value="">-- Pilih Status Perkawinan --</option>
+                                <option value="Sudah" {{ old('status_perkawinan') === 'Sudah' ? 'selected' : '' }}>Sudah
                                 </option>
-                                <option value="Pernah" {{ old('status_perkawinan') == 'Pernah' ? 'selected' : '' }}>Pernah
+                                <option value="Pernah" {{ old('status_perkawinan') === 'Pernah' ? 'selected' : '' }}>
+                                    Pernah
                                 </option>
-                                <option value="Belum" {{ old('status_perkawinan') == 'Belum' ? 'selected' : '' }}>Belum
+                                <option value="Belum" {{ old('status_perkawinan') === 'Belum' ? 'selected' : '' }}>Belum
                                 </option>
                             </select>
                             @error('status_perkawinan')
@@ -194,7 +196,7 @@
                         <div class="col-md-6">
                             <label for="foto" class="form-label">Foto<span
                                     class="text-muted mini-label ms-1">(Opsional)</span></label>
-                            <img class="foto mt-2 mb-3 rounded d-none" id="image-preview">
+                            <img class="foto mt-2 mb-3 rounded-circle d-none" id="image-preview">
                             <button type="button" class="btn btn-danger btn-sm d-block mx-auto mb-4 d-none"
                                 id="image-delete-button"><i class="bi bi-trash me-2"></i> Hapus</button>
                             <input type="file" class="form-control @error('foto') is-invalid @enderror image-input"
@@ -215,20 +217,20 @@
                             <label for="posisi" class="form-label">Posisi</label>
                             <select class="form-select @error('posisi') is-invalid @enderror" id="posisi"
                                 name="posisi" required>
-                                <option value="default">-- Pilih Posisi --</option>
+                                <option value="">-- Pilih Posisi --</option>
                                 <option value="Staf Tata Usaha"
-                                    {{ old('posisi') == 'Staf Tata Usaha' ? 'selected' : '' }}>Staf Tata Usaha
+                                    {{ old('posisi') === 'Staf Tata Usaha' ? 'selected' : '' }}>Staf Tata Usaha
                                 </option>
-                                <option value="Guru" {{ old('posisi') == 'Guru' ? 'selected' : '' }}>Guru
+                                <option value="Guru" {{ old('posisi') === 'Guru' ? 'selected' : '' }}>Guru
                                 </option>
                                 <option value="Pegawai Perpustakaan"
-                                    {{ old('posisi') == 'Pegawai Perpustakaan' ? 'selected' : '' }}>Pegawai Perpustakaan
+                                    {{ old('posisi') === 'Pegawai Perpustakaan' ? 'selected' : '' }}>Pegawai Perpustakaan
                                 </option>
                                 <option value="Pegawai Kebersihan"
-                                    {{ old('posisi') == 'Pegawai Kebersihan' ? 'selected' : '' }}>Pegawai Kebersihan
+                                    {{ old('posisi') === 'Pegawai Kebersihan' ? 'selected' : '' }}>Pegawai Kebersihan
                                 </option>
                                 <option value="Satuan Pengamanan"
-                                    {{ old('posisi') == 'Satuan Pengamanan' ? 'selected' : '' }}>Satuan Pengamanan
+                                    {{ old('posisi') === 'Satuan Pengamanan' ? 'selected' : '' }}>Satuan Pengamanan
                                 </option>
                             </select>
                             @error('posisi')
@@ -258,7 +260,7 @@
                                 </ul>
                             </div>
                             @error('id_mata_pelajaran')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -266,19 +268,20 @@
                             <label for="status-kepegawaian" class="form-label">Status Kepegawaian</label>
                             <select class="form-select @error('status_kepegawaian') is-invalid @enderror"
                                 id="status-kepegawaian" name="status_kepegawaian" required>
-                                <option value="default">-- Pilih Status Kepegawaian --</option>
-                                <option value="PNS" {{ old('status_kepegawaian') == 'PNS' ? 'selected' : '' }}>PNS
+                                <option value="">-- Pilih Status Kepegawaian --</option>
+                                <option value="PNS" {{ old('status_kepegawaian') === 'PNS' ? 'selected' : '' }}>PNS
                                 </option>
-                                <option value="PPPK" {{ old('status_kepegawaian') == 'PPPK' ? 'selected' : '' }}>PPPK
+                                <option value="PPPK" {{ old('status_kepegawaian') === 'PPPK' ? 'selected' : '' }}>PPPK
                                 </option>
-                                <option value="Honorer" {{ old('status_kepegawaian') == 'Honorer' ? 'selected' : '' }}>
+                                <option value="Honorer" {{ old('status_kepegawaian') === 'Honorer' ? 'selected' : '' }}>
                                     Honorer</option>
-                                <option value="Kontrak" {{ old('status_kepegawaian') == 'Kontrak' ? 'selected' : '' }}>
+                                <option value="Kontrak" {{ old('status_kepegawaian') === 'Kontrak' ? 'selected' : '' }}>
                                     Kontrak</option>
-                                <option value="Tetap" {{ old('status_kepegawaian') == 'Tetap' ? 'selected' : '' }}>Tetap
+                                <option value="Tetap" {{ old('status_kepegawaian') === 'Tetap' ? 'selected' : '' }}>Tetap
                                 </option>
                                 <option value="Tidak Tetap"
-                                    {{ old('status_kepegawaian') == 'Tidak Tetap' ? 'selected' : '' }}>Tidak Tetap</option>
+                                    {{ old('status_kepegawaian') === 'Tidak Tetap' ? 'selected' : '' }}>Tidak Tetap
+                                </option>
                             </select>
                             @error('status_kepegawaian')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -308,42 +311,46 @@
                             <label for="jabatan" class="form-label">Jabatan</label>
                             <select class="form-select @error('jabatan') is-invalid @enderror" id="jabatan"
                                 name="jabatan" required>
-                                <option value="default">-- Pilih Jabatan --</option>
+                                <option value="">-- Pilih Jabatan --</option>
                                 <option value="Pengatur Muda | II/a"
-                                    {{ old('jabatan') == 'Pengatur Muda | II/a' ? 'selected' : '' }}>Pengatur Muda | II/a
+                                    {{ old('jabatan') === 'Pengatur Muda | II/a' ? 'selected' : '' }}>Pengatur Muda | II/a
                                 </option>
                                 <option value="Pengatur Muda Tk. I | II/b"
-                                    {{ old('jabatan') == 'Pengatur Muda Tk. I | II/b' ? 'selected' : '' }}>Pengatur Muda
+                                    {{ old('jabatan') === 'Pengatur Muda Tk. I | II/b' ? 'selected' : '' }}>Pengatur Muda
                                     Tk. I | II/b</option>
                                 <option value="Pengatur | II/c"
-                                    {{ old('jabatan') == 'Pengatur | II/c' ? 'selected' : '' }}>Pengatur | II/c</option>
+                                    {{ old('jabatan') === 'Pengatur | II/c' ? 'selected' : '' }}>Pengatur | II/c</option>
                                 <option value="Pengatur Tk. I | II/d"
-                                    {{ old('jabatan') == 'Pengatur Tk. I | II/d' ? 'selected' : '' }}>Pengatur Tk. I | II/d
+                                    {{ old('jabatan') === 'Pengatur Tk. I | II/d' ? 'selected' : '' }}>Pengatur Tk. I |
+                                    II/d
                                 </option>
                                 <option value="Penata Muda | III/a"
-                                    {{ old('jabatan') == 'Penata Muda | III/a' ? 'selected' : '' }}>Penata Muda | III/a
+                                    {{ old('jabatan') === 'Penata Muda | III/a' ? 'selected' : '' }}>Penata Muda | III/a
                                 </option>
                                 <option value="Penata Muda Tk. I | III/b"
-                                    {{ old('jabatan') == 'Penata Muda Tk. I | III/b' ? 'selected' : '' }}>Penata Muda Tk. I
+                                    {{ old('jabatan') === 'Penata Muda Tk. I | III/b' ? 'selected' : '' }}>Penata Muda Tk.
+                                    I
                                     | III/b</option>
-                                <option value="Penata | III/c" {{ old('jabatan') == 'Penata | III/c' ? 'selected' : '' }}>
+                                <option value="Penata | III/c"
+                                    {{ old('jabatan') === 'Penata | III/c' ? 'selected' : '' }}>
                                     Penata | III/c</option>
                                 <option value="Penata Tk. I | III/d"
-                                    {{ old('jabatan') == 'Penata Tk. I | III/d' ? 'selected' : '' }}>Penata Tk. I | III/d
+                                    {{ old('jabatan') === 'Penata Tk. I | III/d' ? 'selected' : '' }}>Penata Tk. I | III/d
                                 </option>
-                                <option value="Pembina | IV/a" {{ old('jabatan') == 'Pembina | IV/a' ? 'selected' : '' }}>
+                                <option value="Pembina | IV/a"
+                                    {{ old('jabatan') === 'Pembina | IV/a' ? 'selected' : '' }}>
                                     Pembina | IV/a</option>
                                 <option value="Pembina Tk. I | IV/b"
-                                    {{ old('jabatan') == 'Pembina Tk. I | IV/b' ? 'selected' : '' }}>Pembina Tk. I | IV/b
+                                    {{ old('jabatan') === 'Pembina Tk. I | IV/b' ? 'selected' : '' }}>Pembina Tk. I | IV/b
                                 </option>
                                 <option value="Pembina Utama Muda | IV/c"
-                                    {{ old('jabatan') == 'Pembina Utama Muda | IV/c' ? 'selected' : '' }}>Pembina Utama
+                                    {{ old('jabatan') === 'Pembina Utama Muda | IV/c' ? 'selected' : '' }}>Pembina Utama
                                     Muda | IV/c</option>
                                 <option value="Pembina Utama Madya | IV/d"
-                                    {{ old('jabatan') == 'Pembina Utama Madya | IV/d' ? 'selected' : '' }}>Pembina Utama
+                                    {{ old('jabatan') === 'Pembina Utama Madya | IV/d' ? 'selected' : '' }}>Pembina Utama
                                     Madya | IV/d</option>
                                 <option value="Pembina Utama | IV/e"
-                                    {{ old('jabatan') == 'Pembina Utama | IV/e' ? 'selected' : '' }}>Pembina Utama | IV/e
+                                    {{ old('jabatan') === 'Pembina Utama | IV/e' ? 'selected' : '' }}>Pembina Utama | IV/e
                                 </option>
                             </select>
                             @error('jabatan')
@@ -403,10 +410,10 @@
                             <label for="status-sertifikasi" class="form-label">Status Sertifikasi</label>
                             <select class="form-select @error('status_sertifikasi') is-invalid @enderror"
                                 id="status-sertifikasi" name="status_sertifikasi" required>
-                                <option value="default">-- Pilih Status Sertifikasi --</option>
-                                <option value="Sudah" {{ old('status_sertifikasi') == 'Sudah' ? 'selected' : '' }}>Sudah
+                                <option value="">-- Pilih Status Sertifikasi --</option>
+                                <option value="Sudah" {{ old('status_sertifikasi') === 'Sudah' ? 'selected' : '' }}>Sudah
                                 </option>
-                                <option value="Belum" {{ old('status_sertifikasi') == 'Belum' ? 'selected' : '' }}>Belum
+                                <option value="Belum" {{ old('status_sertifikasi') === 'Belum' ? 'selected' : '' }}>Belum
                                 </option>
                             </select>
                             @error('status_sertifikasi')

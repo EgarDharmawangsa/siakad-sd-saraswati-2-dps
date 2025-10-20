@@ -10,7 +10,7 @@ if (peringkat) {
     }
 
     peringkat.addEventListener('change', () => {
-        if (peringkat.value == 'Lainnya') {
+        if (peringkat.value === 'Lainnya') {
             peringkat_lainnya.removeAttribute('disabled');
 
             if (peringkat_lainnya_value) {

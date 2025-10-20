@@ -10,15 +10,16 @@ use Illuminate\Support\Facades\Storage;
 
 class PegawaiController extends Controller
 {
-    public function pegawaiValidationRules() {
+    public function pegawaiValidationRules()
+    {
         return [
             'id_mata_pelajaran' => 'nullable|array',
-            'nik' => 'required|string|min:16|max:20',
+            'nik' => 'required|string|min:16|max:20|unique:pegawai,nik|unique:siswa,nik',
             'nip' => 'nullable|string|min:18|max:20|unique:pegawai,nip',
             'nipppk' => 'nullable|string|min:18|max:20|unique:pegawai,nipppk',
             'nama_pegawai' => 'required|min:3|string|max:255',
-            'jenis_kelamin' => 'required|string|min:3|max:10|not_in:default',
-            'agama' => 'required|string|min:3|max:20|not_in:default',
+            'jenis_kelamin' => 'required|string|min:3|max:10',
+            'agama' => 'required|string|min:3|max:20',
             'tempat_lahir' => 'required|string|min:3|max:25',
             'tanggal_lahir' => 'required|date|before:today',
             'alamat' => 'required|string|min:10|max:255',
@@ -26,23 +27,23 @@ class PegawaiController extends Controller
             'no_telepon_seluler' => 'required|string|min:10|max:15',
             'username' => 'required|string|min:5|max:50|unique:users,username',
             'password' => 'required|string|min:8|max:255',
-            'e_mail' => 'nullable|email|min:7|max:255',
-            'jabatan' => 'nullable|string|min:3|max:30|not_in:default',
-            'status_perkawinan' => 'required|min:3|max:10|string|not_in:default',
-            'status_kepegawaian' => 'nullable|min:3|max:15|string|not_in:default',
+            'e_mail' => 'nullable|email|min:7|max:255|unique:pegawai,e_mail|unique:siswa,e_mail',
+            'jabatan' => 'nullable|string|min:3|max:30',
+            'status_perkawinan' => 'required|min:3|max:10|string',
+            'status_kepegawaian' => 'nullable|min:3|max:15|string',
             'ijazah_terakhir' => 'nullable|string|min:2|max:5',
             'tahun_ijazah' => 'nullable|integer|min:1900|max:' . date('Y'),
-            'posisi' => 'required|string|min:3|max:20|not_in:default',
-            'status_sertifikasi' => 'required|string|min:3|max:5|not_in:default',
+            'posisi' => 'required|string|min:3|max:20',
+            'status_sertifikasi' => 'required|string|min:3|max:5',
             'tahun_sertifikasi' => 'nullable|integer|min:1900|max:' . date('Y'),
             'permulaan_kerja' => 'required|date|before_or_equal:today',
             'permulaan_kerja_sds2' => 'required|date|before_or_equal:today',
             'no_sk' => 'nullable|string|min:5|max:25',
             'tanggal_sk_terakhir' => 'nullable|date|before_or_equal:today',
             'foto' => 'nullable|file|mimes:jpg,png,jpeg|max:2048'
-        ];    
+        ];
     }
-    
+
     public function index()
     {
         $pegawai = Pegawai::latest()->paginate(30)->withQueryString();
@@ -74,17 +75,17 @@ class PegawaiController extends Controller
     {
         $validated_pegawai = $request->validate($this->pegawaiValidationRules());
 
-        if ($request->hasFile('foto')) {
-            $validated_pegawai['foto'] = $request->file('foto')->store('pegawai', 'public');
+        if ($validated_pegawai['posisi'] === 'Guru' && empty($validated_pegawai['id_mata_pelajaran'])) {
+            return redirect()->back()->withErrors(['id_mata_pelajaran' => 'Mata Pelajaran yang dipilih tidak valid.'])->withInput();
         }
 
-        if ($validated_pegawai['posisi'] == 'Guru' && empty($validated_pegawai['id_mata_pelajaran'])) {
-            return redirect()->back()->withErrors(['id_mata_pelajaran' => 'Mata Pelajaran yang dipilih tidak valid.'])->withInput();
+        if ($request->hasFile('foto')) {
+            $validated_pegawai['foto'] = $request->file('foto')->store('foto_pegawai', 'public');
         }
 
         $pegawai = Pegawai::create($validated_pegawai);
 
-        if ($validated_pegawai['posisi'] == 'Staf Tata Usaha' || $validated_pegawai['posisi'] == 'Guru') {
+        if ($validated_pegawai['posisi'] === 'Staf Tata Usaha' || $validated_pegawai['posisi'] === 'Guru') {
             User::create([
                 'id_pegawai' => $pegawai->id_pegawai,
                 'username' => $validated_pegawai['username'],
@@ -93,7 +94,7 @@ class PegawaiController extends Controller
             ]);
         }
 
-        if ($validated_pegawai['posisi'] == 'Guru') {
+        if ($validated_pegawai['posisi'] === 'Guru') {
             foreach ($validated_pegawai['id_mata_pelajaran'] as $_id_mata_pelajaran) {
                 $pegawai->guruMataPelajaran()->create([
                     'id_pegawai' => $pegawai->id_pegawai,
@@ -136,42 +137,33 @@ class PegawaiController extends Controller
     // app/Http/Controllers/PegawaiController.php
     public function update(Request $request, Pegawai $pegawai)
     {
-        $validated_pegawai = $request->validate($this->pegawaiValidationRules());
+        $pegawai_validation_rules_update = $this->pegawaiValidationRules();
+        $pegawai_validation_rules_update['nik'] = "required|string|min:16|max:20|unique:pegawai,nik,{$pegawai->id_pegawai},id_pegawai|unique:siswa,nik";
+        $pegawai_validation_rules_update['e_mail'] = "nullable|email|min:7|max:255|unique:pegawai,e_mail,{$pegawai->id_pegawai},id_pegawai|unique:siswa,e_mail";
+        $pegawai_validation_rules_update['username'] = "required|string|min:5|max:50|unique:users,username,{$pegawai->id_pegawai},id_pegawai";
+        
+        $validated_pegawai = $request->validate($pegawai_validation_rules_update);
 
-        if (empty($validated_pegawai['nip'])) {
-            $validated_pegawai['nip'] = null;
+        if ($validated_pegawai['posisi'] === 'Guru' && empty($validated_pegawai['id_mata_pelajaran'])) {
+            return redirect()->back()->withErrors(['id_mata_pelajaran' => 'Mata Pelajaran yang dipilih tidak valid.'])->withInput();
         }
 
-        if (empty($validated_pegawai['nipppk'])) {
-            $validated_pegawai['nipppk'] = null;
-        }
+        $nullable_fields = [
+            'nip',
+            'nipppk',
+            'jabatan',
+            'status_kepegawaian',
+            'ijazah_terakhir',
+            'tahun_ijazah',
+            'tahun_sertifikasi',
+            'no_sk',
+            'tanggal_sk_terakhir'
+        ];
 
-        if (empty($validated_pegawai['jabatan'])) {
-            $validated_pegawai['jabatan'] = null;
-        }
-
-        if (empty($validated_pegawai['status_kepegawaian'])) {
-            $validated_pegawai['status_kepegawaian'] = null;
-        }
-
-        if (empty($validated_pegawai['ijazah_terakhir'])) {
-            $validated_pegawai['ijazah_terakhir'] = null;
-        }
-
-        if (empty($validated_pegawai['tahun_ijazah'])) {
-            $validated_pegawai['tahun_ijazah'] = null;
-        }
-
-        if (empty($validated_pegawai['tahun_sertifikasi'])) {
-            $validated_pegawai['tahun_sertifikasi'] = null;
-        }
-
-        if (empty($validated_pegawai['no_sk'])) {
-            $validated_pegawai['no_sk'] = null;
-        }
-
-        if (empty($validated_pegawai['tanggal_sk_terakhir'])) {
-            $validated_pegawai['tanggal_sk_terakhir'] = null;
+        foreach ($nullable_fields as $field) {
+            if (empty($validated_pegawai[$field])) {
+                $validated_pegawai[$field] = null;
+            }
         }
 
         if ($request->gambar_delete == 1) {
@@ -183,21 +175,44 @@ class PegawaiController extends Controller
             if (!empty($request->old_foto)) {
                 Storage::disk('public')->delete($request->old_foto);
             }
-            $validated_pegawai['foto'] = $request->file('foto')->store('pegawai', 'public');
+            $validated_pegawai['foto'] = $request->file('foto')->store('foto_pegawai', 'public');
         } else {
             $validated_pegawai['foto'] = $pegawai->old_foto;
         }
 
         $pegawai->update($validated_pegawai);
 
-        if ($pegawai->posisi == 'Staf Tata Usaha' || $pegawai->posisi == 'Guru') {
+        if ($pegawai->posisi === 'Staf Tata Usaha' || $pegawai->posisi === 'Guru') {
             User::where('id_pegawai', $pegawai->id_pegawai)->update([
-                'username' => $validated_pegawai['username'], 
+                'username' => $validated_pegawai['username'],
                 'password' => bcrypt($validated_pegawai['password']),
                 'role' => $validated_pegawai['posisi']
             ]);
         } else {
             User::where('id_pegawai', $pegawai->id_pegawai)->delete();
+        }
+
+        if ($validated_pegawai['posisi'] === 'Guru') {
+            $new_mata_pelajaran = $validated_pegawai['id_mata_pelajaran'];
+            $old_mata_pelajaran = $pegawai->guruMataPelajaran->pluck('id_mata_pelajaran')->toArray();
+
+            $checked_mata_pelajaran = array_diff($new_mata_pelajaran, $old_mata_pelajaran);
+            $unchecked_mata_pelajaran = array_diff($old_mata_pelajaran, $new_mata_pelajaran);
+
+            foreach ($checked_mata_pelajaran as $id_mata_pelajaran) {
+                $pegawai->guruMataPelajaran()->create([
+                    'id_pegawai' => $pegawai->id_pegawai,
+                    'id_mata_pelajaran' => $id_mata_pelajaran
+                ]);
+            }
+
+            if (!empty($unchecked_mata_pelajaran)) {
+                $pegawai->guruMataPelajaran()
+                    ->whereIn('id_mata_pelajaran', $unchecked_mata_pelajaran)
+                    ->delete();
+            }
+        } else {
+            $pegawai->guruMataPelajaran()->delete();
         }
 
         return redirect()->route('pegawai.index')->with('success', 'Data pegawai berhasil diperbarui.');

@@ -13,11 +13,11 @@
                     <label for="id-kelas" class="form-label d-block">Kegiatan</label>
                     <div class="btn-group" id="kegiatan">
                         <input type="radio" class="btn-check" name="kegiatan" id="kegiatan-belajar-radio" value="Belajar"
-                            {{ old('kegiatan', 'Belajar') == 'Belajar' ? 'checked' : '' }}>
+                            {{ old('kegiatan', 'Belajar') === 'Belajar' ? 'checked' : '' }}>
                         <label class="btn btn-outline-primary" for="kegiatan-belajar-radio">Belajar</label>
 
                         <input type="radio" class="btn-check" name="kegiatan" id="kegiatan-istirahat-radio"
-                            value="Istirahat" {{ old('kegiatan') == 'Istirahat' ? 'checked' : '' }}>
+                            value="Istirahat" {{ old('kegiatan') === 'Istirahat' ? 'checked' : '' }}>
                         <label class="btn btn-outline-primary" for="kegiatan-istirahat-radio">Istirahat</label>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                     <label for="id-kelas" class="form-label">Kelas</label>
                     <select class="form-select @error('id_kelas') is-invalid @enderror" id="id-kelas" name="id_kelas"
                         {{ $kelas->isEmpty() ? 'disabled' : '' }} required>
-                        <option value="0">
+                        <option value="">
                             {{ $kelas->isNotEmpty() ? '-- Pilih Kelas --' : '-- Kelas Tidak Tersedia --' }}</option>
                         @foreach ($kelas as $_kelas)
                             <option value="{{ $_kelas->id_kelas }}"
@@ -51,7 +51,7 @@
                     <select class="form-select @error('id_guru_mata_pelajaran') is-invalid @enderror"
                         id="id-guru-mata-pelajaran" name="id_guru_mata_pelajaran"
                         {{ $guru_mata_pelajaran->isEmpty() ? 'disabled' : '' }} required>
-                        <option value="0">
+                        <option value="">
                             {{ $guru_mata_pelajaran->isNotEmpty() ? '-- Pilih Guru --' : '-- Guru Tidak Tersedia --' }}
                         </option>
                         @foreach ($mata_pelajaran as $_mata_pelajaran)
@@ -83,20 +83,20 @@
                 <div class="col-md-6">
                     <label for="hari" class="form-label">Hari</label>
                     <select class="form-select @error('hari') is-invalid @enderror" id="hari" name="hari" required>
-                        <option value="default">-- Pilih Hari --</option>
-                        <option value="Senin" {{ old('hari') == 'Senin' ? 'selected' : '' }}>Senin
+                        <option value="">-- Pilih Hari --</option>
+                        <option value="Senin" {{ old('hari') === 'Senin' ? 'selected' : '' }}>Senin
                         </option>
-                        <option value="Selasa" {{ old('hari') == 'Selasa' ? 'selected' : '' }}>
+                        <option value="Selasa" {{ old('hari') === 'Selasa' ? 'selected' : '' }}>
                             Selasa</option>
-                        <option value="Rabu" {{ old('hari') == 'Rabu' ? 'selected' : '' }}>Rabu
+                        <option value="Rabu" {{ old('hari') === 'Rabu' ? 'selected' : '' }}>Rabu
                         </option>
-                        <option value="Kamis" {{ old('hari') == 'Kamis' ? 'selected' : '' }}>Kamis
+                        <option value="Kamis" {{ old('hari') === 'Kamis' ? 'selected' : '' }}>Kamis
                         </option>
-                        <option value="Jumat" {{ old('hari') == 'Jumat' ? 'selected' : '' }}>Jumat
+                        <option value="Jumat" {{ old('hari') === 'Jumat' ? 'selected' : '' }}>Jumat
                         </option>
-                        <option value="Sabtu" {{ old('hari') == 'Sabtu' ? 'selected' : '' }}>Sabtu
+                        <option value="Sabtu" {{ old('hari') === 'Sabtu' ? 'selected' : '' }}>Sabtu
                         </option>
-                        <option value="Minggu" {{ old('hari') == 'Minggu' ? 'selected' : '' }}>
+                        <option value="Minggu" {{ old('hari') === 'Minggu' ? 'selected' : '' }}>
                             Minggu</option>
                     </select>
                     @error('hari')

@@ -46,7 +46,7 @@ class PengumumanController extends Controller
         $validated_pengumuman = $request->validate($this->pengumuman_validation_rules);
 
         if ($request->hasFile('gambar')) {
-            $validated_pengumuman['gambar'] = $request->file('gambar')->store('pengumuman', 'public');
+            $validated_pengumuman['gambar'] = $request->file('gambar')->store('gambar_pengumuman', 'public');
         }
 
         Pengumuman::create($validated_pengumuman);
@@ -92,7 +92,7 @@ class PengumumanController extends Controller
             if (!empty($request->old_gambar)) {
                 Storage::disk('public')->delete($request->old_gambar);
             }
-            $validated_pengumuman['gambar'] = $request->file('gambar')->store('pengumuman', 'public');
+            $validated_pengumuman['gambar'] = $request->file('gambar')->store('gambar_pengumuman', 'public');
         } else {
             $validated_pengumuman['gambar'] = $request->old_gambar;
         }

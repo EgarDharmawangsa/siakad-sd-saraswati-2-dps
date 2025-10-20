@@ -40,7 +40,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         
-                                        @if ($_jadwal_pelajaran->kegiatan == 'Belajar')
+                                        @if ($_jadwal_pelajaran->kegiatan === 'Belajar')
                                             <td>{{ $_jadwal_pelajaran->guruMataPelajaran->mataPelajaran->nama_mata_pelajaran }}</td>
                                             <td>{{ $_jadwal_pelajaran->guruMataPelajaran->pegawai->getPegawai() }}</td>
                                         @else

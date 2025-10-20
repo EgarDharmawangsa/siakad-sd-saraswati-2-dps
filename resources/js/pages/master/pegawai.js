@@ -129,7 +129,7 @@ if (posisi) {
 
     // Reset status kepegawaian saat posisi berubah
     function handlePosisiChange() {
-        status_kepegawaian.value = 'default'; // Reset ke opsi default
+        status_kepegawaian.value = ''; // Reset ke opsi default
         updateFields();
     }
 

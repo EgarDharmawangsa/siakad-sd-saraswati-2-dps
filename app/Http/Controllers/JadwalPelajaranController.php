@@ -11,10 +11,10 @@ use App\Models\MataPelajaran;
 class JadwalPelajaranController extends Controller
 {
     public $jadwal_pelajaran_validation_rules = [
-        'id_kelas' => 'nullable|integer|not_in:0',
-        'id_guru_mata_pelajaran' => 'nullable|integer|not_in:0',
+        'id_kelas' => 'nullable|integer',
+        'id_guru_mata_pelajaran' => 'nullable|integer',
         'kegiatan' => 'required|string|min:3|max:10|in:Belajar,Istirahat',
-        'hari' => 'required|string|min:3|max:10|not_in:default',
+        'hari' => 'required|string|min:3|max:10',
         'jam_mulai' => 'required|date_format:H:i',
         'jam_selesai' => 'required|date_format:H:i|after:jam_mulai'
     ];

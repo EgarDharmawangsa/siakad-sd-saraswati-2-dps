@@ -22,8 +22,8 @@
 
                 <div class="col-md-6">
                     <label for="wali" class="form-label">Wali</label>
-                    <select class="form-select @error('id_pegawai') is-invalid @enderror" id="wali" name="id_pegawai" {{ $guru->count() == 0 ? 'disabled' : '' }} required>
-                        <option value="0">{{ $guru->isNotEmpty() ? '-- Pilih Guru --' : '-- Guru Tidak Tersedia --' }}</option>
+                    <select class="form-select @error('id_pegawai') is-invalid @enderror" id="wali" name="id_pegawai" {{ $guru->isEmpty() ? 'disabled' : '' }} required>
+                        <option value="">{{ $guru->isNotEmpty() ? '-- Pilih Guru --' : '-- Guru Tidak Tersedia --' }}</option>
                         @foreach ($guru as $_guru)
                             <option value="{{ $_guru->id_pegawai }}" {{ old('id_pegawai', $kelas->id_pegawai) == $_guru->id_pegawai ? 'selected' : '' }}>{{ $_guru->getPegawai() }}</option>
                         @endforeach

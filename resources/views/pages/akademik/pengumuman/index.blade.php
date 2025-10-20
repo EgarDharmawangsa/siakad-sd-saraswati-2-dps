@@ -25,7 +25,7 @@
                             <td>{{ $_pengumuman->judul }}</td>
                             <td>{{ $_pengumuman->tanggal->format('d-m-Y') }}</td>
                             <td>{!! Str::limit($_pengumuman->isi, 40, '...') !!}</td>
-                            <td><span class="badge bg-{{ $_pengumuman->getStatus() == 'Terbit' ? 'success' : 'primary' }}">
+                            <td><span class="badge bg-{{ $_pengumuman->getStatus() === 'Terbit' ? 'success' : 'primary' }}">
                                     {{ $_pengumuman->getStatus() }}
                                 </span>
                             </td>

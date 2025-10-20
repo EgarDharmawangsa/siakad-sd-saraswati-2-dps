@@ -20,9 +20,9 @@
 
                 <div class="col-md-6">
                     <label for="peraih" class="form-label">Peraih</label>
-                    <select class="form-select @error('id_siswa') is-invalid @enderror" id="peraih" name="id_siswa" {{ $siswa->count() == 0 ? 'disabled' : '' }} required>
-                        {{ $siswa->count() == 0 ? 'disabled' : '' }} required>
-                        <option value="0">{{ $siswa->isNotEmpty() ? 'Pilih Siswa' : 'Siswa Tidak Tersedia' }}</option>
+                    <select class="form-select @error('id_siswa') is-invalid @enderror" id="peraih" name="id_siswa" {{ $siswa->count() === 0 ? 'disabled' : '' }} required>
+                        {{ $siswa->isEmpty() ? 'disabled' : '' }} required>
+                        <option value="">{{ $siswa->isNotEmpty() ? 'Pilih Siswa' : 'Siswa Tidak Tersedia' }}</option>
                         @foreach ($siswa as $_siswa)
                             <option value="{{ $_siswa->id_siswa }}"
                                 {{ old('id_siswa', $prestasi->id_siswa) == $_siswa->id_siswa ? 'selected' : '' }}>{{ $_siswa->nisn }} |
@@ -47,9 +47,9 @@
                 <div class="col-md-6">
                     <label for="jenis" class="form-label">Jenis</label>
                     <select class="form-select @error('jenis') is-invalid @enderror" id="jenis" name="jenis" required>
-                        <option value="default">-- Pilih Jenis --</option>
-                        <option value="Akademik" {{ old('jenis', $prestasi->jenis) == 'Akademik' ? 'selected' : '' }}>Akademik</option>
-                        <option value="Non-Akademik" {{ old('jenis', $prestasi->jenis) == 'Non-Akademik' ? 'selected' : '' }}>Non-Akademik</option>
+                        <option value="">-- Pilih Jenis --</option>
+                        <option value="Akademik" {{ old('jenis', $prestasi->jenis) === 'Akademik' ? 'selected' : '' }}>Akademik</option>
+                        <option value="Non-Akademik" {{ old('jenis', $prestasi->jenis) === 'Non-Akademik' ? 'selected' : '' }}>Non-Akademik</option>
                     </select>
                     @error('jenis')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -59,14 +59,14 @@
                 <div class="col-md-6">
                     <label for="peringkat" class="form-label">Peringkat</label>
                     <select class="form-select @error('peringkat') is-invalid @enderror" id="peringkat" name="peringkat" required>
-                        <option value="default">-- Pilih Peringkat --</option>
-                        <option value="1 (Pertama)" {{ old('peringkat', $prestasi->peringkat) == '1 (Pertama)' ? 'selected' : '' }}>1 (Pertama)</option>
-                        <option value="2 (Kedua)" {{ old('peringkat', $prestasi->peringkat) == '2 (Kedua)' ? 'selected' : '' }}>2 (Kedua)</option>
-                        <option value="3 (Ketiga)" {{ old('peringkat', $prestasi->peringkat) == '3 (Ketiga)' ? 'selected' : '' }}>3 (Ketiga)</option>
-                        <option value="Harapan 4" {{ old('peringkat', $prestasi->peringkat) == 'Harapan 4' ? 'selected' : '' }}>Harapan 1</option>
-                        <option value="Harapan 5" {{ old('peringkat', $prestasi->peringkat) == 'Harapan 5' ? 'selected' : '' }}>Harapan 2</option>
-                        <option value="Harapan 6" {{ old('peringkat', $prestasi->peringkat) == 'Harapan 6' ? 'selected' : '' }}>Harapan 3</option>
-                        <option value="Lainnya" {{ old('peringkat', $prestasi->peringkat) == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                        <option value="">-- Pilih Peringkat --</option>
+                        <option value="1 (Pertama)" {{ old('peringkat', $prestasi->peringkat) === '1 (Pertama)' ? 'selected' : '' }}>1 (Pertama)</option>
+                        <option value="2 (Kedua)" {{ old('peringkat', $prestasi->peringkat) === '2 (Kedua)' ? 'selected' : '' }}>2 (Kedua)</option>
+                        <option value="3 (Ketiga)" {{ old('peringkat', $prestasi->peringkat) === '3 (Ketiga)' ? 'selected' : '' }}>3 (Ketiga)</option>
+                        <option value="Harapan 4" {{ old('peringkat', $prestasi->peringkat) === 'Harapan 4' ? 'selected' : '' }}>Harapan 1</option>
+                        <option value="Harapan 5" {{ old('peringkat', $prestasi->peringkat) === 'Harapan 5' ? 'selected' : '' }}>Harapan 2</option>
+                        <option value="Harapan 6" {{ old('peringkat', $prestasi->peringkat) === 'Harapan 6' ? 'selected' : '' }}>Harapan 3</option>
+                        <option value="Lainnya" {{ old('peringkat', $prestasi->peringkat) === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                     </select>
                     @error('peringkat')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -86,14 +86,14 @@
                 <div class="col-md-6">
                     <label for="tingkat" class="form-label">Tingkat</label>
                     <select class="form-select @error('tingkat') is-invalid @enderror" id="tingkat" name="tingkat" required>
-                        <option value="default">-- Pilih Tingkat --</option>
-                        <option value="Sekolah" {{ old('tingkat', $prestasi->tingkat) == 'Sekolah' ? 'selected' : '' }}>Sekolah</option>
-                        <option value="Desa" {{ old('tingkat', $prestasi->tingkat) == 'Desa' ? 'selected' : '' }}>Desa</option>
-                        <option value="Kecamatan" {{ old('tingkat', $prestasi->tingkat) == 'Kecamatan' ? 'selected' : '' }}>Kecamatan</option>
-                        <option value="Kabupaten/Kota" {{ old('tingkat', $prestasi->tingkat) == 'Kabupaten/Kota' ? 'selected' : '' }}>Kabupaten/Kota</option>
-                        <option value="Provinsi" {{ old('tingkat', $prestasi->tingkat) == 'Provinsi' ? 'selected' : '' }}>Provinsi</option>
-                        <option value="Nasional" {{ old('tingkat', $prestasi->tingkat) == 'Nasional' ? 'selected' : '' }}>Nasional</option>
-                        <option value="Internasional" {{ old('tingkat', $prestasi->tingkat) == 'Internasional' ? 'selected' : '' }}>Internasional</option>
+                        <option value="">-- Pilih Tingkat --</option>
+                        <option value="Sekolah" {{ old('tingkat', $prestasi->tingkat) === 'Sekolah' ? 'selected' : '' }}>Sekolah</option>
+                        <option value="Desa" {{ old('tingkat', $prestasi->tingkat) === 'Desa' ? 'selected' : '' }}>Desa</option>
+                        <option value="Kecamatan" {{ old('tingkat', $prestasi->tingkat) === 'Kecamatan' ? 'selected' : '' }}>Kecamatan</option>
+                        <option value="Kabupaten/Kota" {{ old('tingkat', $prestasi->tingkat) === 'Kabupaten/Kota' ? 'selected' : '' }}>Kabupaten/Kota</option>
+                        <option value="Provinsi" {{ old('tingkat', $prestasi->tingkat) === 'Provinsi' ? 'selected' : '' }}>Provinsi</option>
+                        <option value="Nasional" {{ old('tingkat', $prestasi->tingkat) === 'Nasional' ? 'selected' : '' }}>Nasional</option>
+                        <option value="Internasional" {{ old('tingkat', $prestasi->tingkat) === 'Internasional' ? 'selected' : '' }}>Internasional</option>
                     </select>
                     @error('tingkat')
                         <div class="invalid-feedback">{{ $message }}</div>

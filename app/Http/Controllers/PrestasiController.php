@@ -11,12 +11,12 @@ class PrestasiController extends Controller
 {
     public $prestasi_validation_rules = [
         'nama_prestasi' => 'required|string|min:3|max:100',
-        'id_siswa' => 'required|integer|not_in:0|exists:siswa,id_siswa|unique:prestasi,id_siswa',
+        'id_siswa' => 'required|integer|exists:siswa,id_siswa',
         'penyelenggara' => 'required|string|min:3|max:50',
-        'jenis' => 'required|string|min:3|max:15|not_in:default',
-        'peringkat' => 'required|string|min:3|max:15|not_in:default',
+        'jenis' => 'required|string|min:3|max:15',
+        'peringkat' => 'required|string|min:3|max:15',
         'peringkat_lainnya' => 'nullable|string|min:3|max:50',
-        'tingkat' => 'required|string|min:3|max:15|not_in:default',
+        'tingkat' => 'required|string|min:3|max:15',
         'nama_wilayah' => 'required|string|min:3|max:25',
         'tanggal' => 'required|date|before_or_equal:today',
         'dokumentasi' => 'nullable|file|mimes:jpg,png,jpeg|max:10240'
@@ -56,7 +56,7 @@ class PrestasiController extends Controller
         $validated_prestasi = $request->validate($this->prestasi_validation_rules);
 
         if ($request->hasFile('dokumentasi')) {
-            $validated_prestasi['dokumentasi'] = $request->file('dokumentasi')->store('prestasi', 'public');
+            $validated_prestasi['dokumentasi'] = $request->file('dokumentasi')->store('dokumentasi_prestasi', 'public');
         }
 
         Prestasi::create($validated_prestasi);
@@ -105,7 +105,7 @@ class PrestasiController extends Controller
             if (!empty($request->old_dokumentasi)) {
                 Storage::disk('public')->delete($request->old_dokumentasi);
             }
-            $validated_prestasi['dokumentasi'] = $request->file('dokumentasi')->store('prestasi', 'public');
+            $validated_prestasi['dokumentasi'] = $request->file('dokumentasi')->store('dokumentasi_prestasi', 'public');
         } else {
             $validated_prestasi['dokumentasi'] = $prestasi->old_dokumentasi;
         }

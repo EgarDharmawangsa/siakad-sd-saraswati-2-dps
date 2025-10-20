@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class SemesterController extends Controller
 {
     public $semester_validation_rules = [
-        'jenis_semester' => 'required|string|min:3|max:10|not_in:default',
+        'jenis_semester' => 'required|string|min:3|max:10',
         'tanggal_mulai' => 'required|date|unique:semester,tanggal_mulai|after_or_equal:today',
         'tanggal_selesai' => 'required|date|unique:semester,tanggal_selesai|after:today|after:tanggal_mulai'
     ];

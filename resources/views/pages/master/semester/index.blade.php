@@ -28,7 +28,7 @@
                             <td>{{ $_semester->tanggal_mulai->format('d-m-Y') }}</td>
                             <td>{{ $_semester->tanggal_selesai->format('d-m-Y') }}</td>
                             <td><span
-                                    class="badge bg-{{ $_semester->getStatus() == 'Berjalan' ? 'success' : ($_semester->getStatus() == 'Menunggu' ? 'primary' : 'secondary') }}">
+                                    class="badge bg-{{ $_semester->getStatus() === 'Berjalan' ? 'success' : ($_semester->getStatus() === 'Menunggu' ? 'primary' : 'secondary') }}">
                                     {{ $_semester->getStatus() }}
                                 </span>
                             </td>

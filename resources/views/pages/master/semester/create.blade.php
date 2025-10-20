@@ -11,10 +11,10 @@
                 <div class="col-md-4">
                     <label for="jenis-semester" class="form-label">Jenis Semester</label>
                     <select class="form-select @error('jenis_semester') is-invalid @enderror" id="jenis-semester" name="jenis_semester" required>
-                        <option value="default">-- Pilih Jenis Semester --</option>
-                        <option value="Ganjil" {{ old('jenis_semester') == 'Ganjil' ? 'selected' : '' }}>Ganjil
+                        <option value="">-- Pilih Jenis Semester --</option>
+                        <option value="Ganjil" {{ old('jenis_semester') === 'Ganjil' ? 'selected' : '' }}>Ganjil
                         </option>
-                        <option value="Genap" {{ old('jenis_semester') == 'Genap' ? 'selected' : '' }}>Genap
+                        <option value="Genap" {{ old('jenis_semester') === 'Genap' ? 'selected' : '' }}>Genap
                         </option>
                     </select>
                     @error('jenis_semester')

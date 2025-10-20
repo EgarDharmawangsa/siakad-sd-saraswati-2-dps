@@ -6,20 +6,28 @@
         <hr>
 
         <div class="show-button-group">
-            <a href="{{ route('jadwal-pelajaran.index') }}" class="btn btn-secondary btn-sm me-1"><i
+            <a href="{{ route('jadwal-pelajaran.index') }}" class="btn btn-secondary btn-sm"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
             <a href="{{ route('jadwal-pelajaran.edit', $jadwal_pelajaran->id_jadwal_pelajaran) }}"
-                class="btn btn-warning btn-sm"><i class="bi bi-pencil me-2"></i>Edit</a>
+                class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+            <form action="{{ route('jadwal-pelajaran.destroy', $jadwal_pelajaran->id_jadwal_pelajaran) }}" method="POST" class="d-inline delete-form">
+                @csrf
+                @method('DELETE')
+
+                <button type="button" class="btn btn-danger btn-sm delete-button" data-bs-toggle="modal"
+                    data-bs-target="#delete-modal">
+                    <i class="bi bi-trash me-2"></i>Hapus</button>
+            </form>
         </div>
 
         <div class="row g-3">
             <div class="col-md-12">
                 <label for="id-kelas" class="form-label d-block">Kegiatan</label>
                 <div class="btn-group" id="kegiatan">
-                    <input type="radio" class="btn-check" id="kegiatan-belajar-radio" {{ $jadwal_pelajaran->kegiatan == 'Belajar' ? 'checked' : '' }} disabled>
+                    <input type="radio" class="btn-check" id="kegiatan-belajar-radio" {{ $jadwal_pelajaran->kegiatan === 'Belajar' ? 'checked' : '' }} disabled>
                     <label class="btn btn-outline-primary" for="kegiatan-belajar-radio">Belajar</label>
 
-                    <input type="radio" class="btn-check" id="kegiatan-istirahat-radio" {{ $jadwal_pelajaran->kegiatan == 'Istirahat' ? 'checked' : '' }} disabled>
+                    <input type="radio" class="btn-check" id="kegiatan-istirahat-radio" {{ $jadwal_pelajaran->kegiatan === 'Istirahat' ? 'checked' : '' }} disabled>
                     <label class="btn btn-outline-primary" for="kegiatan-istirahat-radio">Istirahat</label>
                 </div>
             </div>
