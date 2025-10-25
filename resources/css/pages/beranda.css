@@ -1,0 +1,11 @@
+.pengumuman-item {
+    transition: background-color 0.15s ease-in-out;
+}
+
+.pengumuman-item:hover {
+    background-color: #e9ecef;
+}
+
+.pengumuman-divider:where(:last-child) {
+    display: none;
+}
