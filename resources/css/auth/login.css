@@ -1,0 +1,27 @@
+.login-body {
+    background-color: #32344b;
+    padding: 0;
+}
+
+.login-form-card {
+    max-width: 22rem;
+    width: 100%;
+}
+
+.login-button {
+    background-color: #32344b;
+    border-color: #32344b;
+    color: white;
+}
+
+.login-button:hover, .login-button:active, .login-button:focus {
+    background-color: #1d1e29;
+    border-color: #1d1e29;
+    color: white;
+}
+
+@media (max-width: 576px) {
+    .login-body {
+        padding: 1rem;
+    }
+}

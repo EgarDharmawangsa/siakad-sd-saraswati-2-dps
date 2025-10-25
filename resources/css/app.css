@@ -4,6 +4,7 @@
 @import "flatpickr/dist/flatpickr.min.css";
 @import "./partials/navbar.css";
 @import "./partials/sidebar.css";
+@import "./auth/login.css";
 @import "./pages/master/semester.css";
 @import "./pages/master/mata_pelajaran.css";
 @import "./pages/akademik/pegawai.css";

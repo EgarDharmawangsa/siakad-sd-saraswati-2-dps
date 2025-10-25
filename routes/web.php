@@ -21,24 +21,34 @@ use App\Http\Controllers\PengumumanController;
 
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+// Middleware guest group
+Route::middleware('guest')->group(function () {
+    Route::get('/', [AuthController::class, 'redirect'])->name('redirect');
+    Route::get('/login', [AuthController::class, 'index'])->name('login');
+    Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
+});
 
-Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');  
+// Middleware auth group
+Route::middleware('auth')->group(function () {
+    Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');  
+    
+    // Route Master
+    Route::resource('/pegawai', PegawaiController::class);
+    Route::resource('/siswa', SiswaController::class);
+    Route::resource('/kelas', KelasController::class)->parameters(['kelas' => 'kelas']);
+    Route::resource('/semester', SemesterController::class);
+    Route::resource('/mata-pelajaran', MataPelajaranController::class);
+    Route::resource('/ekstrakurikuler', EkstrakurikulerController::class);
+    Route::resource('/peserta-ekstrakurikuler', PesertaEkstrakurikulerController::class);
+    // Route::resource('/profil', ProfilController::class);
+    
+    // Route Akademik
+    Route::resource('/jadwal-pelajaran', JadwalPelajaranController::class);
+    Route::resource('/nilai-mata-pelajaran', NilaiMataPelajaranController::class);
+    Route::resource('/nilai-ekstrakurikuler', NilaiEkstrakurikulerController::class);
+    Route::resource('/kehadiran', KehadiranController::class);
+    Route::resource('/prestasi', PrestasiController::class);
+    Route::resource('/pengumuman', PengumumanController::class);
 
-// Route Master
-Route::resource('/pegawai', PegawaiController::class);
-Route::resource('/siswa', SiswaController::class);
-Route::resource('/kelas', KelasController::class)->parameters(['kelas' => 'kelas']);
-Route::resource('/semester', SemesterController::class);
-Route::resource('/mata-pelajaran', MataPelajaranController::class);
-Route::resource('/ekstrakurikuler', EkstrakurikulerController::class);
-Route::resource('/peserta-ekstrakurikuler', PesertaEkstrakurikulerController::class);
-// Route::resource('/profil', ProfilController::class);
-
-// Route Akademik
-Route::resource('/jadwal-pelajaran', JadwalPelajaranController::class);
-Route::resource('/nilai-mata-pelajaran', NilaiMataPelajaranController::class);
-Route::resource('/nilai-ekstrakurikuler', NilaiEkstrakurikulerController::class);
-Route::resource('/kehadiran', KehadiranController::class);
-Route::resource('/prestasi', PrestasiController::class);
-Route::resource('/pengumuman', PengumumanController::class);
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});

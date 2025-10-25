@@ -9,27 +9,31 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    public function redirect()
+    {
+        return redirect()->route(auth()->guard('web')->check() ? 'beranda' : 'login');
+    }
+
     /**
      * Show the login form.
      */
-    public function showLoginForm()
+    public function index()
     {
-        return view('auth.login');
+        return view('auth.login', [
+            'judul' => 'Masuk'
+        ]);
     }
 
     /**
      * Handle login request.
      */
-    public function login(Request $request)
+    public function authenticate(Request $request)
     {
-        // Validasi input
-        $validator = Validator::make($request->all(), [
+        $credentials = $request->only('username', 'password');
+
+        $validator = Validator::make($credentials, [
             'username' => 'required|string',
-            'password' => 'required|string|min:6',
-        ], [
-            'username.required' => 'Username wajib diisi.',
-            'password.required' => 'Password wajib diisi.',
-            'password.min' => 'Password minimal 6 karakter.',
+            'password' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -38,17 +42,14 @@ class AuthController extends Controller
                 ->withInput();
         }
 
-        $credentials = $request->only('username', 'password');
-
-        // Attempt login
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             $request->session()->regenerate();
-            
-            return redirect()->intended('/dashboard')->with('success', 'Login berhasil!');
+            return redirect()->intended('beranda');
         }
 
+
         return redirect()->back()
-            ->withErrors(['login' => 'Username atau password salah.'])
+            ->with(['error' => 'Username atau kata sandi salah.'])
             ->withInput();
     }
 
@@ -58,10 +59,8 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        
-        return redirect('/login')->with('success', 'Logout berhasil!');
+        return redirect()->route('login')->with('success', 'Berhasil keluar.');
     }
 }

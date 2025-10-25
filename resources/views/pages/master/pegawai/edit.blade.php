@@ -176,7 +176,7 @@
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control @error('username') is-invalid @enderror"
                                 id="username" name="username" placeholder="Masukkan username"
-                                value="{{ old('username', $pegawai->userAuth->username) }}" required>
+                                value="{{ old('username', $pegawai->userAuth?->username) }}" required>
                             @error('username')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -256,7 +256,7 @@
                                                     name="id_mata_pelajaran[]"
                                                     class="form-check-input me-2 id-mata-pelajaran-checkbox"
                                                     value="{{ $_mata_pelajaran->id_mata_pelajaran }}"
-                                                    {{ in_array($_mata_pelajaran->id_mata_pelajaran, old('id_mata_pelajaran', $pegawai->guruMataPelajaran->pluck('id_mata_pelajaran')->toArray())) ? 'checked' : '' }}>{{ $_mata_pelajaran->nama_mata_pelajaran }}</label>
+                                                    {{ in_array($_mata_pelajaran->id_mata_pelajaran, old('id_mata_pelajaran', $pegawai->guruMataPelajaran?->pluck('id_mata_pelajaran')->toArray())) ? 'checked' : '' }}>{{ $_mata_pelajaran->nama_mata_pelajaran }}</label>
                                         </li>
                                     @endforeach
                                 </ul>

@@ -121,7 +121,7 @@
                     <div class="col-md-6">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control" id="username"
-                            value="{{ $pegawai->userAuth->username ?? '-' }}" readonly>
+                            value="{{ $pegawai->userAuth?->username ?? '-' }}" readonly>
                     </div>
                 </div>
             </div>
@@ -140,10 +140,10 @@
                         <div class="dropdown w-100" id="id-mata-pelajaran">
                             <button class="form-select text-start w-100" type="button"
                                 id="id-mata-pelajaran-dropdown-button" data-bs-toggle="dropdown" aria-expanded="false"
-                                {{ $pegawai->guruMataPelajaran->isEmpty() ? 'disabled' : '' }}>
-                                {{ $pegawai->guruMataPelajaran->isNotEmpty() ? $pegawai->guruMataPelajaran->count() . ' Mata Pelajaran' : '-' }}
+                                {{ $pegawai->guruMataPelajaran?->isEmpty() ? 'disabled' : '' }}>
+                                {{ $pegawai->guruMataPelajaran?->isNotEmpty() ? $pegawai->guruMataPelajaran->count() . ' Mata Pelajaran' : '-' }}
                             </button>
-                            @if ($pegawai->guruMataPelajaran->isNotEmpty())
+                            @if ($pegawai->guruMataPelajaran?->isNotEmpty())
                                 <ul class="dropdown-menu w-100 p-2" aria-labelledby="id-mata-pelajaran-dropdown-button">
                                     @foreach ($pegawai->guruMataPelajaran as $_guru_mata_pelajaran)
                                         <li>

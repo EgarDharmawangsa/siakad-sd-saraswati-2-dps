@@ -46,7 +46,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $_pegawai->nik }}</td>
                             <td>{{ $_pegawai->nama_pegawai }}</td>
-                            <td>{{ $_pegawai->userAuth->username ?? '-' }}</td>
+                            <td>{{ $_pegawai->userAuth?->username ?? '-' }}</td>
                             <td>{{ $_pegawai->jenis_kelamin }}</td>
                             <td>{{ $_pegawai->tempat_lahir }}</td>
                             <td>{{ $_pegawai->tanggal_lahir->format('d-m-Y') }}</td>
@@ -57,7 +57,7 @@
                             <td>{{ $_pegawai->no_telepon_seluler }}</td>
                             <td>{{ $_pegawai->e_mail ?? '-' }}</td>
                             <td>{{ $_pegawai->posisi }}</td>
-                            <td>{{ $_pegawai->guruMataPelajaran->isNotEmpty() ? $_pegawai->guruMataPelajaran->count() . ' Mata Pelajaran' : '-' }}</td>
+                            <td>{{ $_pegawai->guruMataPelajaran?->isNotEmpty() ? $_pegawai->guruMataPelajaran->count() . ' Mata Pelajaran' : '-' }}</td>
                             <td>{{ $_pegawai->status_kepegawaian ?? '-' }}</td>
                             <td>{{ $_pegawai->nip ?? '-' }}</td>
                             <td>{{ $_pegawai->nipppk ?? '-' }}</td>
