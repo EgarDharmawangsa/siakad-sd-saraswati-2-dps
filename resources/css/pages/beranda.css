@@ -1,3 +1,150 @@
+.col-sm-6.col-lg-3 {
+    margin: 0 0 1rem 0;
+}
+
+.icon-panel {
+    position: absolute;
+    opacity: 0.5;
+    right: 1.5rem;
+    top: 0.2rem;
+    font-size: 60px;
+}
+
+.pegawai-panel,
+.siswa-panel,
+.kelas-panel,
+.semester-panel,
+.mata-pelajaran-panel,
+.ekstrakurikuler-panel,
+.prestasi-panel,
+.pengumuman-panel {
+    color: white;
+}
+
+.pegawai-panel-link,
+.siswa-panel-link,
+.kelas-panel-link,
+.semester-panel-link,
+.mata-pelajaran-panel-link,
+.ekstrakurikuler-panel-link,
+.prestasi-panel-link,
+.pengumuman-panel-link {
+    border-radius: 0 0 12px 12px;
+}
+
+.content-card.pegawai-panel {
+    background-color: #007bff;
+}
+
+.pegawai-panel-link {
+    background-color: #0072ec;
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.pegawai-panel-link:hover {
+    background-color: #0167d4;
+}
+
+.content-card.siswa-panel {
+    background-color: #28a745;
+}
+
+.siswa-panel-link {
+    background-color: #218838;
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.siswa-panel-link:hover {
+    background-color: #1c7430;
+    border-color: #175e26;
+}
+
+.content-card.kelas-panel {
+    background-color: #fd7e14;
+}
+
+.kelas-panel-link {
+    background-color: #e46f0e;
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.kelas-panel-link:hover {
+    background-color: #c95f0b;
+}
+
+.content-card.semester-panel {
+    background-color: #6f42c1;
+}
+
+.semester-panel-link {
+    background-color: #5d36a8;
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.semester-panel-link:hover {
+    background-color: #4b2d85;
+}
+
+.content-card.mata-pelajaran-panel {
+    background-color: #1bb184;
+}
+
+.mata-pelajaran-panel-link {
+    background-color: #189d75;
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.mata-pelajaran-panel-link:hover {
+    background-color: #12775b;
+}
+
+.content-card.ekstrakurikuler-panel {
+    background-color: #dc3545;
+}
+
+.ekstrakurikuler-panel-link {
+    background-color: #c82333;
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.ekstrakurikuler-panel-link:hover {
+    background-color: #b71d2a;
+}
+
+.content-card.prestasi-panel {
+    background-color: #17a2b8;
+}
+
+.prestasi-panel-link {
+    background-color: #138496;
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.prestasi-panel-link:hover {
+    background-color: #117a8b;
+}
+
+.content-card.pengumuman-panel {
+    background-color: #3c4247;
+}
+
+.pengumuman-panel-link {
+    background-color: #343a40;
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.pengumuman-panel-link:hover {
+    background-color: #2c3034;
+}
+
 .pengumuman-item {
     transition: background-color 0.15s ease-in-out;
 }
@@ -6,6 +153,6 @@
     background-color: #e9ecef;
 }
 
-.pengumuman-divider:where(:last-child) {
+.pengumuman-divider:where(:last-child), .pengguna-aktif-divider:where(:last-child) {
     display: none;
 }
