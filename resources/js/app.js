@@ -8,6 +8,7 @@ import './components/cancel_modal.js'
 import './components/delete_modal.js';
 import './partials/navbar.js';
 import './partials/sidebar.js';
+import './pages/beranda.js';
 import './pages/master/ekstrakurikuler.js';
 import './pages/master/pegawai.js';
 import './pages/akademik/jadwal_pelajaran.js';
@@ -16,16 +17,22 @@ import './pages/akademik/pengumuman.js';
 
 const success_toast = document.getElementById('success-toast');
 const error_toast = document.getElementById('error-toast');
+const filter_modal_close_button = document.getElementById('filter-modal-close-button');
+const image_input = document.querySelector('.image-input');
+const image_preview = document.getElementById('image-preview');
+const image_delete_button = document.getElementById('image-delete-button');
+const image_delete = document.getElementById('image-delete');
 
 if (success_toast || error_toast) {
     const toast = new bootstrap.Toast(success_toast || error_toast);
     toast.show();
 }
 
-const image_input = document.querySelector('.image-input');
-const image_preview = document.getElementById('image-preview');
-const image_delete_button = document.getElementById('image-delete-button');
-const image_delete = document.getElementById('image-delete');
+if (filter_modal_close_button) {
+    filter_modal_close_button.addEventListener('click', () => {
+        filter_modal_close_button.blur();
+    });
+}
 
 if (image_input) {
     image_input.addEventListener('change', () => {

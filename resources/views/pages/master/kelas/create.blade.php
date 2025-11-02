@@ -21,11 +21,12 @@
 
                 <div class="col-md-6">
                     <label for="wali" class="form-label">Wali</label>
-                    <select class="form-select @error('id_pegawai') is-invalid @enderror" id="wali" name="id_pegawai" {{ $guru->isEmpty() ? 'disabled' : '' }} required>
+                    <select class="form-select @error('id_pegawai') is-invalid @enderror" id="wali" name="id_pegawai" {{ $guru->isEmpty() ? 'disabled' : '' }}>
                         <option value="">{{ $guru->isNotEmpty() ? '-- Pilih Guru --' : '-- Guru Tidak Tersedia --' }}</option>
-                        @foreach ($guru as $_guru)
-                            <option value="{{ $_guru->id_pegawai }}" {{ old('id_pegawai') === $_guru->id_pegawai ? 'selected' : '' }}>{{ $_guru->getPegawai() }}</option>
-                        @endforeach
+                        @forelse ($guru as $_guru)
+                            <option value="{{ $_guru->id_pegawai }}" {{ old('id_pegawai') === $_guru->id_pegawai ? 'selected' : '' }}>{{ $_guru->getFormatedNamaPegawai() }}</option>
+                        @empty
+                        @endforelse
                     </select>
                     @error('id_pegawai')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -33,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="text-end input-button-group">
+            <div class="form-buttons">
                 <button type="button" class="btn btn-danger me-1" id="cancel-button"
                     data-route="{{ route('kelas.index') }}" data-bs-toggle="modal"
                     data-bs-target="#cancel-modal">

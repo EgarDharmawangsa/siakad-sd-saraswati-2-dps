@@ -47,7 +47,7 @@
                     <div class="col-md-12 mt-5 mb-4 justify-content-center text-center">
                         @if ($pegawai->foto)
                             <img src="{{ asset("storage/{$pegawai->foto}") ?? asset('default_profile_photo/default_profile_photo.png') }}"
-                                alt="Foto Pegawai" class="img-fluid rounded-circle foto">
+                                alt="Foto Pegawai" class="img-fluid foto">
                         @else
                             <img src="{{ asset('default_profile_photo/default_profile_photo.png') }}" alt="Foto Pegawai"
                                 class="img-fluid rounded-circle foto">
@@ -145,14 +145,15 @@
                             </button>
                             @if ($pegawai->guruMataPelajaran?->isNotEmpty())
                                 <ul class="dropdown-menu w-100 p-2" aria-labelledby="id-mata-pelajaran-dropdown-button">
-                                    @foreach ($pegawai->guruMataPelajaran as $_guru_mata_pelajaran)
+                                    @forelse ($pegawai->guruMataPelajaran as $_guru_mata_pelajaran)
                                         <li>
                                             <label class="dropdown-item d-flex align-items-center">
                                                 <input type="checkbox" class="form-check-input me-2" checked disabled>
                                                 {{ $_guru_mata_pelajaran->mataPelajaran->nama_mata_pelajaran }}
                                             </label>
                                         </li>
-                                    @endforeach
+                                    @empty
+                                    @endforelse
                                 </ul>
                             @endif
                         </div>

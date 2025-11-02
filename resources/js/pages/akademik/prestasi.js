@@ -1,5 +1,5 @@
-const peringkat = document.getElementById('peringkat');
-const peringkat_lainnya = document.getElementById('peringkat-lainnya');
+const peringkat = document.getElementById('peringkat') || document.getElementById('peringkat-filter');
+const peringkat_lainnya = document.getElementById('peringkat-lainnya') || document.getElementById('peringkat-lainnya-filter');
 
 if (peringkat) {
     let peringkat_lainnya_value = '';

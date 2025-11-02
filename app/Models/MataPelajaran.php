@@ -15,11 +15,27 @@ class MataPelajaran extends Model
 
     protected $guarded = ['id_mata_pelajaran'];
 
-    public function nilaiMataPelajaran() {
+    public function scopeFilter($query, array $filters)
+    {
+        $order_by_option_value = ['desc', 'asc'];
+
+        $order_by_value = in_array(strtolower($filters['order_by'] ?? ''), $order_by_option_value) ? $filters['order_by'] : 'desc';
+        $query->orderBy('created_at', $order_by_value);
+
+        if (!empty($filters['nama_mata_pelajaran_filter'])) {
+            $query->where('nama_mata_pelajaran', 'like', "%{$filters['nama_mata_pelajaran_filter']}%");
+        }
+
+        return $query;
+    }
+
+    public function nilaiMataPelajaran()
+    {
         return $this->hasMany(NilaiMataPelajaran::class, 'id_mata_pelajaran', 'id_mata_pelajaran');
     }
 
-    public function guruMataPelajaran() {
+    public function guruMataPelajaran()
+    {
         return $this->hasMany(GuruMataPelajaran::class, 'id_mata_pelajaran', 'id_mata_pelajaran');
     }
 }

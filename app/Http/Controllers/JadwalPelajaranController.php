@@ -26,22 +26,19 @@ class JadwalPelajaranController extends Controller
     {
         $kelas = Kelas::with([
             'pegawai',
-            'jadwalPelajaran' => function($query) {
+            'jadwalPelajaran' => function ($query) {
                 $query->orderByRaw("
                     FIELD(hari, 'Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu')
                 ")->orderBy('jam_mulai');
             },
             'jadwalPelajaran.guruMataPelajaran.mataPelajaran',
             'jadwalPelajaran.guruMataPelajaran.pegawai'
-        ])
-            ->orderByRaw('CAST(nama_kelas AS UNSIGNED)')
-            ->orderByRaw('REGEXP_REPLACE(nama_kelas, "^[0-9]+", "")')
-            ->get();
+        ])->orderedNamaKelas()->paginate(20)->withQueryString();
 
         return view('pages.akademik.jadwal_pelajaran.index', [
             'judul' => 'Jadwal Pelajaran',
             'kelas' => $kelas
-        ]);   
+        ]);
     }
 
     /**
@@ -49,11 +46,7 @@ class JadwalPelajaranController extends Controller
      */
     public function create()
     {
-        $kelas = Kelas::query()
-            ->orderByRaw('CAST(nama_kelas AS UNSIGNED)')
-            ->orderByRaw('REGEXP_REPLACE(nama_kelas, "^[0-9]+", "")')
-            ->paginate(20)
-            ->withQueryString();
+        $kelas = Kelas::orderedNamaKelas()->get();
         $mata_pelajaran = MataPelajaran::latest()->get();
         $guru_mata_pelajaran = GuruMataPelajaran::all();
 
@@ -104,7 +97,7 @@ class JadwalPelajaranController extends Controller
      */
     public function edit(JadwalPelajaran $jadwalPelajaran)
     {
-        $kelas = Kelas::query()->orderByRaw('CAST(nama_kelas AS UNSIGNED)')->orderByRaw('REGEXP_REPLACE(nama_kelas, "^[0-9]+", "")')->paginate(20)->withQueryString();
+        $kelas = Kelas::orderedNamaKelas()->get();
         $mata_pelajaran = MataPelajaran::latest()->get();
         $guru_mata_pelajaran = GuruMataPelajaran::all();
 

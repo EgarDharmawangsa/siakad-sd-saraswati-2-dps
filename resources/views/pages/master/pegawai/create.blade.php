@@ -196,12 +196,12 @@
                         <div class="col-md-6">
                             <label for="foto" class="form-label">Foto<span
                                     class="text-muted mini-label ms-1">(Opsional)</span></label>
-                            <img class="foto mt-2 mb-3 rounded-circle d-none" id="image-preview">
+                            <img class="foto mt-2 mb-3 d-none" id="image-preview">
                             <button type="button" class="btn btn-danger btn-sm d-block mx-auto mb-4 d-none"
                                 id="image-delete-button"><i class="bi bi-trash me-2"></i> Hapus</button>
                             <input type="file" class="form-control @error('foto') is-invalid @enderror image-input"
                                 id="foto" name="foto">
-                            <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 10
+                            <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 2
                                 MB</span>
                             @error('foto')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -249,14 +249,15 @@
                                 </button>
                                 <ul class="dropdown-menu w-100 p-2 id-mata-pelajaran-dropdown-menu"
                                     aria-labelledby="id-mata-pelajaran-dropdown-button">
-                                    @foreach ($mata_pelajaran as $_mata_pelajaran)
+                                    @forelse ($mata_pelajaran as $_mata_pelajaran)
                                         <li><label class="dropdown-item"><input type="checkbox"
                                                     name="id_mata_pelajaran[]"
                                                     class="form-check-input me-2 id-mata-pelajaran-checkbox"
                                                     value="{{ $_mata_pelajaran->id_mata_pelajaran }}"
                                                     {{ in_array($_mata_pelajaran->id_mata_pelajaran, old('id_mata_pelajaran', [])) ? 'checked' : '' }}>{{ $_mata_pelajaran->nama_mata_pelajaran }}</label>
                                         </li>
-                                    @endforeach
+                                    @empty
+                                    @endforelse
                                 </ul>
                             </div>
                             @error('id_mata_pelajaran')
@@ -461,7 +462,7 @@
             </div>
 
             <!-- Tombol Submit -->
-            <div class="text-end input-button-group">
+            <div class="input-button-group">
                 <button type="button" class="btn btn-danger me-1" id="cancel-button"
                     data-route="{{ route('pegawai.index') }}" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>

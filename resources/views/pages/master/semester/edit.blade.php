@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            <div class="text-end input-button-group">
+            <div class="input-button-group">
                 <button type="button" class="btn btn-danger me-1" id="cancel-button"
                     data-route="{{ route('semester.index') }}" data-bs-toggle="modal"
                     data-bs-target="#cancel-modal">

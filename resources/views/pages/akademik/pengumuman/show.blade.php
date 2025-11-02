@@ -5,7 +5,7 @@
         <h5>Detail {{ $judul }}</h5>
         <hr>
 
-        <div class="show-button-group">
+        <div class="show-buttons">
             <a href="{{ route('pengumuman.index') }}" class="btn btn-secondary btn-sm"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
             <a href="{{ route('pengumuman.edit', $pengumuman->id_pengumuman) }}" class="btn btn-warning btn-sm mx-1"><i
@@ -31,7 +31,7 @@
         </small>
 
         @if ($pengumuman->gambar)
-            <img src="{{ asset(`storage/{$pengumuman->gambar}`) }}" alt="{{ $pengumuman->judul }}"
+            <img src="{{ asset("storage/{$pengumuman->gambar}") }}" alt="{{ $pengumuman->judul }}"
                 class="gambar my-4 rounded">
         @endif
 

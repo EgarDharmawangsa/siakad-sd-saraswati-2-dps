@@ -2,7 +2,7 @@
     margin: 0 0 1rem 0;
 }
 
-.icon-panel {
+.icon-count-card {
     position: absolute;
     opacity: 0.5;
     right: 1.5rem;
@@ -10,139 +10,179 @@
     font-size: 60px;
 }
 
-.pegawai-panel,
-.siswa-panel,
-.kelas-panel,
-.semester-panel,
-.mata-pelajaran-panel,
-.ekstrakurikuler-panel,
-.prestasi-panel,
-.pengumuman-panel {
+.pegawai-count-card,
+.siswa-count-card,
+.kelas-count-card,
+.semester-count-card,
+.mata-pelajaran-count-card,
+.ekstrakurikuler-count-card,
+.prestasi-count-card,
+.pengumuman-count-card {
     color: white;
 }
 
-.pegawai-panel-link,
-.siswa-panel-link,
-.kelas-panel-link,
-.semester-panel-link,
-.mata-pelajaran-panel-link,
-.ekstrakurikuler-panel-link,
-.prestasi-panel-link,
-.pengumuman-panel-link {
+.pegawai-count-card-link,
+.siswa-count-card-link,
+.kelas-count-card-link,
+.semester-count-card-link,
+.mata-pelajaran-count-card-link,
+.ekstrakurikuler-count-card-link,
+.prestasi-count-card-link,
+.pengumuman-count-card-link {
     border-radius: 0 0 12px 12px;
 }
 
-.content-card.pegawai-panel {
+.content-card.pegawai-count-card {
     background-color: #007bff;
 }
 
-.pegawai-panel-link {
+.pegawai-count-card-link {
     background-color: #0072ec;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
-.pegawai-panel-link:hover {
+.pegawai-count-card-link:hover {
     background-color: #0167d4;
 }
 
-.content-card.siswa-panel {
+.content-card.siswa-count-card {
     background-color: #28a745;
 }
 
-.siswa-panel-link {
-    background-color: #218838;
+.siswa-count-card-link {
+    background-color: #24913c;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
-.siswa-panel-link:hover {
-    background-color: #1c7430;
-    border-color: #175e26;
+.siswa-count-card-link:hover {
+    background-color: #1f8437;
 }
 
-.content-card.kelas-panel {
+.content-card.kelas-count-card {
     background-color: #fd7e14;
 }
 
-.kelas-panel-link {
+.kelas-count-card-link {
     background-color: #e46f0e;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
-.kelas-panel-link:hover {
+.kelas-count-card-link:hover {
     background-color: #c95f0b;
 }
 
-.content-card.semester-panel {
+.content-card.semester-count-card {
     background-color: #6f42c1;
 }
 
-.semester-panel-link {
+.semester-count-card-link {
     background-color: #5d36a8;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
-.semester-panel-link:hover {
+.semester-count-card-link:hover {
     background-color: #4b2d85;
 }
 
-.content-card.mata-pelajaran-panel {
+.content-card.mata-pelajaran-count-card {
     background-color: #1bb184;
 }
 
-.mata-pelajaran-panel-link {
+.mata-pelajaran-count-card-link {
     background-color: #189d75;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
-.mata-pelajaran-panel-link:hover {
+.mata-pelajaran-count-card-link:hover {
     background-color: #12775b;
 }
 
-.content-card.ekstrakurikuler-panel {
-    background-color: #dc3545;
+.content-card.ekstrakurikuler-count-card {
+    background-color: #e63849;
 }
 
-.ekstrakurikuler-panel-link {
+.ekstrakurikuler-count-card-link {
     background-color: #c82333;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
-.ekstrakurikuler-panel-link:hover {
+.ekstrakurikuler-count-card-link:hover {
     background-color: #b71d2a;
 }
 
-.content-card.prestasi-panel {
+.content-card.prestasi-count-card {
     background-color: #17a2b8;
 }
 
-.prestasi-panel-link {
+.prestasi-count-card-link {
     background-color: #138496;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
-.prestasi-panel-link:hover {
+.prestasi-count-card-link:hover {
     background-color: #117a8b;
 }
 
-.content-card.pengumuman-panel {
-    background-color: #3c4247;
+.content-card.pengumuman-count-card {
+    background-color: #454c51;
 }
 
-.pengumuman-panel-link {
+.pengumuman-count-card-link {
     background-color: #343a40;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
-.pengumuman-panel-link:hover {
+.pengumuman-count-card-link:hover {
     background-color: #2c3034;
+}
+
+.pegawai-distribution-color-box-label {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 8px;
+    border-radius: 2px;
+}
+
+.staf-tata-usaha-color-box-label {
+    background-color: #007bff;
+}
+
+.guru-color-box-label {
+    background-color: #28a745;
+}
+
+.pegawai-perpustakaan-color-box-label {
+    background-color: #fd7e14;
+}
+
+.satuan-pengamanan-color-box-label {
+    background-color: #6f42c1;
+}
+
+.pegawai-kebersihan-color-box-label {
+    background-color: #e63849;
+}
+
+.pegawai-distribution-list li {
+    display: flex;
+    align-items: center;
+}
+
+.pegawai-distribution-count-label {
+    margin-left: auto;
+}
+
+#prestasi-improvement-tahun-select {
+    width: 6rem;
 }
 
 .pengumuman-item {
@@ -153,6 +193,7 @@
     background-color: #e9ecef;
 }
 
-.pengumuman-divider:where(:last-child), .pengguna-aktif-divider:where(:last-child) {
+.pengumuman-divider:where(:last-child),
+.pengguna-aktif-divider:where(:last-child) {
     display: none;
 }

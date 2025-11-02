@@ -2,8 +2,37 @@
 
 @section('container')
     <div class="content-card">
-        <a href="{{ route('mata-pelajaran.create') }}" class="btn btn-success mb-4"><i class="bi bi-plus-lg me-2"></i>Tambah
-            Mata Pelajaran</a>
+        <div class="d-flex align-items-center flex-wrap mb-4">
+            <a href="{{ route('mata-pelajaran.create') }}" class="btn btn-success create-button"><i
+                    class="bi bi-plus-lg me-2"></i>Tambah
+                Mata Pelajaran</a>
+
+            <div class="modifier-buttons">
+                <div class="dropdown me-2">
+                    <a class="btn btn-secondary dropdown-toggle order-by-dropdown-toggle" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i
+                            class="bi bi-sort-down me-2"></i>{{ !request('order_by') || request('order_by') !== 'asc' ? 'Terbaru ke Lama' : 'Lama ke Terbaru' }}
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'desc' || !request('order_by') ? 'active' : '' }}"
+                                href="{{ request()->fullUrlWithQuery(['order_by' => 'desc']) }}">Terbaru ke Lama</a>
+                        </li>
+                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'asc' ? 'active' : '' }}"
+                                href="{{ request()->fullUrlWithQuery(['order_by' => 'asc']) }}">Lama ke Terbaru</a></li>
+                    </ul>
+                </div>
+
+                <div class="filter-modal-container">
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                        <i class="bi bi-funnel me-2"></i>Filter
+                    </button>
+
+                    @include('components.master.mata_pelajaran_filter_modal')
+                </div>
+            </div>
+        </div>
 
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
@@ -25,11 +54,11 @@
                                     class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
                                 <a href="{{ route('mata-pelajaran.edit', $_mata_pelajaran->id_mata_pelajaran) }}"
                                     class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form action="{{ route('mata-pelajaran.destroy', $_mata_pelajaran->id_mata_pelajaran) }}" method="POST"
-                                    class="d-inline delete-form">
+                                <form action="{{ route('mata-pelajaran.destroy', $_mata_pelajaran->id_mata_pelajaran) }}"
+                                    method="POST" class="d-inline delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    
+
                                     <button type="button" class="btn btn-danger btn-sm delete-button"
                                         data-bs-toggle="modal" data-bs-target="#delete-modal">
                                         <i class="bi bi-trash me-2"></i>Hapus</button>

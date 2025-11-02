@@ -73,7 +73,7 @@
                 <div class="col-md-6">
                     <label for="jam-mulai" class="form-label">Jam Mulai (WITA)</label>
                     <input type="text" class="form-control @error('jam_mulai') is-invalid @enderror" id="jam-mulai"
-                        name="jam_mulai" placeholder="Pilih jam mulai" value="{{ old('jam_mulai') }}" required>
+                        name="jam_mulai" placeholder="Tentukan jam mulai" value="{{ old('jam_mulai') }}" required>
                     @error('jam_mulai')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -82,14 +82,14 @@
                 <div class="col-md-6">
                     <label for="jam-selesai" class="form-label">Jam Selesai (WITA)</label>
                     <input type="text" class="form-control @error('jam_selesai') is-invalid @enderror" id="jam-selesai"
-                        name="jam_selesai" placeholder="Pilih jam selesai" value="{{ old('jam_selesai') }}" required>
+                        name="jam_selesai" placeholder="Tentukan jam selesai" value="{{ old('jam_selesai') }}" required>
                     @error('jam_selesai')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
 
-            <div class="text-end input-button-group">
+            <div class="form-buttons">
                 <button type="button" class="btn btn-danger me-1" id="cancel-button"
                     data-route="{{ route('ekstrakurikuler.index') }}" data-bs-toggle="modal"
                     data-bs-target="#cancel-modal">

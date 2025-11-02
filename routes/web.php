@@ -21,19 +21,20 @@ use App\Http\Controllers\PengumumanController;
 
 use Illuminate\Support\Facades\Auth;
 
+Route::get('/', [AuthController::class, 'redirect'])->name('redirect');
+
 // Middleware guest group
 Route::middleware('guest')->group(function () {
-    Route::get('/', [AuthController::class, 'redirect'])->name('redirect');
     Route::get('/login', [AuthController::class, 'index'])->name('login');
     Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 });
 
 // Middleware auth group
+Route::resource('/pegawai', PegawaiController::class);
 Route::middleware('auth')->group(function () {
     Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');  
     
     // Route Master
-    Route::resource('/pegawai', PegawaiController::class);
     Route::resource('/siswa', SiswaController::class);
     Route::resource('/kelas', KelasController::class)->parameters(['kelas' => 'kelas']);
     Route::resource('/semester', SemesterController::class);

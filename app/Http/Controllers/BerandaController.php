@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Pegawai;
 use App\Models\Siswa;
 use App\Models\Kelas;
@@ -12,12 +11,21 @@ use App\Models\Ekstrakurikuler;
 use App\Models\Prestasi;
 use App\Models\Pengumuman;
 
-use Illuminate\Support\Facades\DB;
-
-use Illuminate\Http\Request;
-
 class BerandaController extends Controller
 {
+    public function getPegawaiDistributionData()
+    {
+        $pegawai = Pegawai::all();
+
+        return [
+            'staf_tata_usaha' => $pegawai->where('posisi', 'Staf Tata Usaha')->count(),
+            'guru' => $pegawai->where('posisi', 'Guru')->count(),
+            'pegawai_perpustakaan' => $pegawai->where('posisi', 'Pegawai Perpustakaan')->count(),
+            'satuan_pengamanan' => $pegawai->where('posisi', 'Satuan Pengamanan')->count(),
+            'pegawai_kebersihan' => $pegawai->where('posisi', 'Pegawai Kebersihan')->count()
+        ];
+    }
+
     public function index()
     {
         $counted_pegawai = Pegawai::get()->count();
@@ -29,11 +37,6 @@ class BerandaController extends Controller
         $counted_prestasi = Prestasi::get()->count();
         $counted_pengumuman = Pengumuman::get()->count();
         $pengumuman = Pengumuman::query()->orderBy('tanggal', 'desc')->paginate(20)->withQueryString();
-        $pengguna_aktif = User::query()->whereIn('id_user', function ($query) {
-            $query->select('user_id')
-                ->from('sessions')
-                ->whereNotNull('user_id');
-        })->get();
 
         return view('pages.beranda', [
             'judul' => 'Beranda',
@@ -45,8 +48,29 @@ class BerandaController extends Controller
             'counted_ekstrakurikuler' => $counted_ekstrakurikuler,
             'counted_prestasi' => $counted_prestasi,
             'counted_pengumuman' => $counted_pengumuman,
-            'pengguna_aktif' => $pengguna_aktif,
-            'pengumuman' => $pengumuman
+            'pengumuman' => $pengumuman,
+            'pegawai_distribution_data' => $this->getPegawaiDistributionData()
         ]);
+    }
+
+    public function getPegawaiDistributionChartData()
+    {
+        return response()->json($this->getPegawaiDistributionData());
+    }
+
+    public function getPrestasiImprovementChartData()
+    {
+        $prestasi_improvement_raw_data = Prestasi::filter(request(['prestasi_improvement_tahun_filter']))->get();
+        $prestasi_improvement_data = [];
+        $total = 0;
+
+        for ($i = 1; $i <= 12; $i++) {
+            $amount_per_month = $prestasi_improvement_raw_data->firstWhere('month', $i);
+            $current_month_amount = $amount_per_month ? $amount_per_month->amount : 0;
+            $total += $current_month_amount;
+            $prestasi_improvement_data[] = $total;
+        }
+
+        return response()->json($prestasi_improvement_data);
     }
 }

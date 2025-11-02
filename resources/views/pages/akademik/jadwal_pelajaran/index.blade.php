@@ -11,7 +11,7 @@
         @forelse ($kelas as $_kelas)
             <div class="jadwal-pelajaran-container">
                 <h5 class="mb-0">Kelas : {{ $_kelas->nama_kelas }}</h5>
-                <p class="mt-2 mb-0 wali-kelas-label">Wali Kelas : {{ $_kelas->pegawai->getPegawai() }}</p>
+                <p class="mt-2 mb-0 wali-kelas-label">Wali Kelas : {{ $_kelas->pegawai->getFormatedNamaPegawai() }}</p>
                 <hr class="mb-3">
 
                 @php
@@ -42,7 +42,7 @@
                                         
                                         @if ($_jadwal_pelajaran->kegiatan === 'Belajar')
                                             <td>{{ $_jadwal_pelajaran->guruMataPelajaran->mataPelajaran->nama_mata_pelajaran }}</td>
-                                            <td>{{ $_jadwal_pelajaran->guruMataPelajaran->pegawai->getPegawai() }}</td>
+                                            <td>{{ $_jadwal_pelajaran->guruMataPelajaran->pegawai->getFormatedNamaPegawai() }}</td>
                                         @else
                                             <td colspan="2" class="text-center">Istirahat</td>
                                         @endif
@@ -76,5 +76,9 @@
         @empty
             <p class="empty-message text-center mb-0 p-3 rounded">Kelas tidak tersedia.</p>
         @endforelse
+
+        <div class="d-flex justify-content-end">
+            {{ $kelas->links() }}
+        </div>
     </div>
 @endsection

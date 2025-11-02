@@ -18,7 +18,8 @@ class Semester extends Model
         'tanggal_selesai' => 'datetime'
     ];
 
-    public function getTahunAjaran(): string {
+    public function getTahunAjaran(): string
+    {
         return $this->tanggal_mulai->format('Y') . '/' . $this->tanggal_selesai->format('Y');
     }
 
@@ -55,16 +56,26 @@ class Semester extends Model
         return $errors;
     }
 
-    public function nilaiEkstrakurikuler() {
+    public function scopeFilter($query, array $filters)
+    {
+        $order_by = in_array(strtolower($filters['order_by'] ?? ''), ['asc', 'desc']) ? strtolower($filters['order_by']) : 'desc';
+        $query->orderBy('tanggal_mulai', $order_by);
+
+        return $query;
+    }
+
+    public function nilaiEkstrakurikuler()
+    {
         return $this->hasMany(NilaiEkstrakurikuler::class, 'id_semester', 'id_semester');
     }
 
-    public function nilaiMataPelajaran() {
+    public function nilaiMataPelajaran()
+    {
         return $this->hasMany(NilaiMataPelajaran::class, 'id_semester', 'id_semester');
     }
 
-    public function kehadiran() {
+    public function kehadiran()
+    {
         return $this->hasMany(Kehadiran::class, 'id_semester', 'id_semester');
     }
-    
 }

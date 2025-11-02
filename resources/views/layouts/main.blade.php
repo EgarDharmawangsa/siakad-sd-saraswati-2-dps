@@ -22,8 +22,21 @@
                 </div>
             </div>
         @endif
+
+        @if (session()->has('error'))
+            <div class="toast align-items-center text-bg-danger border-0" id="error-toast" role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body text-white">
+                        {{ session('error') }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="close"></button>
+                </div>
+            </div>
+        @endif
     </div>
-    
+
     @include('partials.navbar')
 
     <div class="d-flex flex-grow-1">

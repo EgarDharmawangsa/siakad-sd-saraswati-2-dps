@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unique('id_pegawai');
             $table->unique('id_siswa');
             $table->string('username', 50)->unique();
-            $table->string('password', 255);
+            $table->string('password');
             $table->string('role');
             // $table->string('name');
             // $table->string('email')->unique();

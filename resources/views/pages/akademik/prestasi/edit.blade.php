@@ -20,14 +20,14 @@
 
                 <div class="col-md-6">
                     <label for="peraih" class="form-label">Peraih</label>
-                    <select class="form-select @error('id_siswa') is-invalid @enderror" id="peraih" name="id_siswa" {{ $siswa->count() === 0 ? 'disabled' : '' }} required>
+                    <select class="form-select @error('id_siswa') is-invalid @enderror" id="peraih" name="id_siswa" {{ $siswa->isEmpty() ? 'disabled' : '' }} required>
                         {{ $siswa->isEmpty() ? 'disabled' : '' }} required>
                         <option value="">{{ $siswa->isNotEmpty() ? 'Pilih Siswa' : 'Siswa Tidak Tersedia' }}</option>
-                        @foreach ($siswa as $_siswa)
+                        @forelse ($siswa as $_siswa)
                             <option value="{{ $_siswa->id_siswa }}"
-                                {{ old('id_siswa', $prestasi->id_siswa) == $_siswa->id_siswa ? 'selected' : '' }}>{{ $_siswa->nisn }} |
-                                {{ $_siswa->nama_siswa }}</option>
-                        @endforeach
+                                {{ old('id_siswa', $prestasi->id_siswa) == $_siswa->id_siswa ? 'selected' : '' }}>{{ $_siswa->getFormatedNamaSiswa() }}</option>
+                        @empty
+                        @endforelse
                     </select>
                     @error('id_siswa')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -133,12 +133,11 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                     <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 10 MB</span>
-                    <input type="hidden" name="old_dokumentasi" value="{{ $prestasi->dokumentasi }}">
-                    <input type="hidden" name="dokumentasi_delete" id="image-delete" value="0">
+                    <input type="hidden" name="image_delete" id="image-delete" value="0">
                 </div>
             </div>
 
-            <div class="text-end input-button-group">
+            <div class="form-buttons">
                 <button type="button" class="btn btn-danger me-1" id="cancel-button"
                     data-route="{{ route('prestasi.index') }}" data-bs-toggle="modal"
                     data-bs-target="#cancel-modal">

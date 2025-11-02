@@ -5,7 +5,7 @@
         <h5>Detail {{ $judul }}</h5>
         <hr>
 
-        <div class="show-button-group">
+        <div class="show-buttons">
             <a href="{{ route('mata-pelajaran.index') }}" class="btn btn-secondary btn-sm"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
             <a href="{{ route('mata-pelajaran.edit', $mata_pelajaran->id_mata_pelajaran) }}" class="btn btn-warning btn-sm mx-1"><i

@@ -20,21 +20,24 @@ class Pegawai extends Model
         'tanggal_sk_terakhir' => 'date'
     ];
 
-    public function getPegawai()
+    public function getFormatedNamaPegawai()
     {
         $nip = $this->nip ?? $this->nipppk ?? '-';
         return "{$nip} | {$this->nama_pegawai}";
     }
 
-    public function kelas() {
+    public function kelas()
+    {
         return $this->hasOne(Kelas::class, 'id_pegawai', 'id_pegawai');
     }
 
-    public function guruMataPelajaran() {
+    public function guruMataPelajaran()
+    {
         return $this->hasMany(GuruMataPelajaran::class, 'id_pegawai', 'id_pegawai');
     }
 
-    public function userAuth() {
+    public function userAuth()
+    {
         return $this->hasOne(User::class, 'id_pegawai', 'id_pegawai');
     }
 }

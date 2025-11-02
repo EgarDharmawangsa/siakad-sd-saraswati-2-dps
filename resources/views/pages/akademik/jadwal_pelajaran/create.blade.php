@@ -29,11 +29,12 @@
                         {{ $kelas->isEmpty() ? 'disabled' : '' }} required>
                         <option value="">
                             {{ $kelas->isNotEmpty() ? '-- Pilih Kelas --' : '-- Kelas Tidak Tersedia --' }}</option>
-                        @foreach ($kelas as $_kelas)
+                        @forelse ($kelas as $_kelas)
                             <option value="{{ $_kelas->id_kelas }}"
                                 {{ old('id_kelas') == $_kelas->id_kelas ? 'selected' : '' }}>{{ $_kelas->nama_kelas }}
                             </option>
-                        @endforeach
+                        @empty
+                        @endforelse
                     </select>
                     @error('id_kelas')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -54,26 +55,26 @@
                         <option value="">
                             {{ $guru_mata_pelajaran->isNotEmpty() ? '-- Pilih Guru --' : '-- Guru Tidak Tersedia --' }}
                         </option>
-                        @foreach ($mata_pelajaran as $_mata_pelajaran)
+                        @forelse ($mata_pelajaran as $_mata_pelajaran)
                             @php
-                                $guruUntukMapel = $guru_mata_pelajaran->where(
+                                $grouped_guru_mata_pelajaran = $guru_mata_pelajaran->where(
                                     'id_mata_pelajaran',
                                     $_mata_pelajaran->id_mata_pelajaran,
                                 );
                             @endphp
-                            @if ($guruUntukMapel->isNotEmpty())
+                            @if ($grouped_guru_mata_pelajaran->isNotEmpty())
                                 <optgroup label="{{ $_mata_pelajaran->nama_mata_pelajaran }}">
-                                    @foreach ($guruUntukMapel as $_guru_mata_pelajaran)
-                                        <option value="{{ $_guru_mata_pelajaran->id_guru_mata_pelajaran }}"
-                                            data-bs-mata-pelajaran="{{ $_guru_mata_pelajaran->mataPelajaran->nama_mata_pelajaran }}"
-                                            {{ old('id_guru_mata_pelajaran') == $_guru_mata_pelajaran->id_guru_mata_pelajaran ? 'selected' : '' }}>
-                                            {{ $_guru_mata_pelajaran->pegawai->getPegawai() }}
+                                    @foreach ($grouped_guru_mata_pelajaran as $_grouped_guru_mata_pelajaran)
+                                        <option value="{{ $_grouped_guru_mata_pelajaran->id_guru_mata_pelajaran }}"
+                                            data-bs-mata-pelajaran="{{ $_grouped_guru_mata_pelajaran->mataPelajaran->nama_mata_pelajaran }}"
+                                            {{ old('id_guru_mata_pelajaran') == $_grouped_guru_mata_pelajaran->id_guru_mata_pelajaran ? 'selected' : '' }}>
+                                            {{ $_grouped_guru_mata_pelajaran->pegawai->getFormatedNamaPegawai() }}
                                         </option>
                                     @endforeach
                                 </optgroup>
                             @endif
-                        @endforeach
-
+                        @empty
+                        @endforelse
                     </select>
                     @error('id_guru_mata_pelajaran')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -123,7 +124,7 @@
                 </div>
             </div>
 
-            <div class="text-end input-button-group">
+            <div class="input-button-group">
                 <button type="button" class="btn btn-danger me-1" id="cancel-button"
                     data-route="{{ route('jadwal-pelajaran.index') }}" data-bs-toggle="modal"
                     data-bs-target="#cancel-modal">

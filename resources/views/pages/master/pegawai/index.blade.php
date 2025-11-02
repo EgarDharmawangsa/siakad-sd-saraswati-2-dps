@@ -2,8 +2,32 @@
 
 @section('container')
     <div class="content-card">
-        <a href="{{ route('pegawai.create') }}" class="btn btn-success mb-4"><i class="bi bi-plus-lg me-2"></i>Tambah
-            Pegawai</a>
+        <div class="d-flex align-items-center flex-wrap mb-4">
+            <a href="{{ route('pegawai.create') }}" class="btn btn-success"><i class="bi bi-plus-lg me-2"></i>Tambah
+                Pegawai</a>
+
+            <div class="dropdown order-by-dropdown">
+                <a class="btn btn-secondary dropdown-toggle order-by-dropdown-toggle" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-sort-down me-2"></i>
+                    @if (request('order_by') === 'desc' || !request('order_by'))
+                        Terbaru ke Lama
+                    @else
+                        Lama ke Terbaru
+                    @endif
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item order-by-dropdown-item"
+                            href="{{ request()->fullUrlWithQuery(['order_by' => 'desc']) }}"
+                            {{ request('order_by') === 'desc' || !request('order_by') ? 'active' : '' }}>Terbaru ke Lama</a>
+                    </li>
+                    <li><a class="dropdown-item order-by-dropdown-item"
+                            href="{{ request()->fullUrlWithQuery(['order_by' => 'asc']) }}"
+                            {{ request('order_by') === 'asc' ? 'active' : '' }}>Lama ke Terbaru</a></li>
+                </ul>
+            </div>
+        </div>
 
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
@@ -57,7 +81,8 @@
                             <td>{{ $_pegawai->no_telepon_seluler }}</td>
                             <td>{{ $_pegawai->e_mail ?? '-' }}</td>
                             <td>{{ $_pegawai->posisi }}</td>
-                            <td>{{ $_pegawai->guruMataPelajaran?->isNotEmpty() ? $_pegawai->guruMataPelajaran->count() . ' Mata Pelajaran' : '-' }}</td>
+                            <td>{{ $_pegawai->posisi === 'Guru' ? $_pegawai->guruMataPelajaran?->count() . ' Mata Pelajaran' : '-' }}
+                            </td>
                             <td>{{ $_pegawai->status_kepegawaian ?? '-' }}</td>
                             <td>{{ $_pegawai->nip ?? '-' }}</td>
                             <td>{{ $_pegawai->nipppk ?? '-' }}</td>
@@ -79,7 +104,7 @@
                                     class="d-inline delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    
+
                                     <button type="button" class="btn btn-danger btn-sm delete-button"
                                         data-bs-toggle="modal" data-bs-target="#delete-modal">
                                         <i class="bi bi-trash me-2"></i>Hapus</button>

@@ -23,7 +23,7 @@ class EkstrakurikulerController extends Controller
      */
     public function index()
     {
-        $ekstrakurikuler = Ekstrakurikuler::latest()->paginate(20)->withQueryString();
+        $ekstrakurikuler = Ekstrakurikuler::filter(request()->all())->paginate(20)->withQueryString();
 
         return view('pages.master.ekstrakurikuler.index', [
             'judul' => 'Ekstrakurikuler',

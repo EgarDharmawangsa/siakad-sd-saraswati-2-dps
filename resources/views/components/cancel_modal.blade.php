@@ -1,4 +1,4 @@
-<div class="modal fade" id="cancel-modal" tabindex="-1" aria-labelledby="cancel-modal-label" aria-hidden="true">
+<div class="modal fade" id="cancel-modal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="cancel-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center">
             <div class="modal-body">

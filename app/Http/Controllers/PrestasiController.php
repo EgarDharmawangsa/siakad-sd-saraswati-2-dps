@@ -27,11 +27,14 @@ class PrestasiController extends Controller
      */
     public function index()
     {
-        $prestasi = Prestasi::latest()->paginate(20)->withQueryString();
+        $prestasi = Prestasi::with('siswa')->filter(request()->all())->paginate(20)->withQueryString();
+
+        $siswa = Siswa::latest()->get();
 
         return view('pages.akademik.prestasi.index', [
             'judul' => 'Prestasi',
-            'prestasi' => $prestasi
+            'prestasi' => $prestasi,
+            'siswa' => $siswa
         ]);
     }
 
@@ -96,18 +99,18 @@ class PrestasiController extends Controller
     {
         $validated_prestasi = $request->validate($this->prestasi_validation_rules);
 
-        if ($request->dokumentasi_delete == 1) {
-            if (!empty($request->old_dokumentasi)) {
-                Storage::disk('public')->delete($request->old_dokumentasi);
+        if ($request->image_delete == 1) {
+            if (!empty($prestasi->dokumentasi)) {
+                Storage::disk('public')->delete($prestasi->dokumentasi);
             }
             $validated_prestasi['dokumentasi'] = null;
         } elseif ($request->hasFile('dokumentasi')) {
-            if (!empty($request->old_dokumentasi)) {
-                Storage::disk('public')->delete($request->old_dokumentasi);
+            if (!empty($prestasi->dokumentasi)) {
+                Storage::disk('public')->delete($prestasi->dokumentasi);
             }
             $validated_prestasi['dokumentasi'] = $request->file('dokumentasi')->store('dokumentasi_prestasi', 'public');
         } else {
-            $validated_prestasi['dokumentasi'] = $prestasi->old_dokumentasi;
+            $validated_prestasi['dokumentasi'] = $prestasi->dokumentasi;
         }
 
         if (empty($validated_prestasi['peringkat_lainnya'])) {

@@ -12,29 +12,46 @@ class Siswa extends Model
 
     protected $guarded = ['id_siswa'];
 
-    public function prestasi() {
+    public function getFormatedNamaSiswa()
+    {
+        return "{$this->nisn} | {$this->nama_siswa}";
+    }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $sort_by = in_array(strtolower($filters['sort_by'] ?? ''), ['asc', 'desc']) ? strtolower($filters['sort_by']) : 'desc';
+        $query->orderBy('created_at', $sort_by);
+
+        return $query;
+    }
+
+    public function prestasi()
+    {
         return $this->hasMany(Prestasi::class, 'id_siswa', 'id_siswa');
     }
 
-    public function kehadiran() {
+    public function kehadiran()
+    {
         return $this->hasMany(Kehadiran::class, 'id_siswa', 'id_siswa');
     }
 
-    public function nilaiMataPelajaran() {
+    public function nilaiMataPelajaran()
+    {
         return $this->hasMany(NilaiMataPelajaran::class, 'id_siswa', 'id_siswa');
     }
 
-    public function userAuth() {
+    public function userAuth()
+    {
         return $this->hasOne(User::class, 'id_siswa', 'id_siswa');
     }
 
-    public function pesertaEkstrakurikuler() {
+    public function pesertaEkstrakurikuler()
+    {
         return $this->hasMany(PesertaEkstrakurikuler::class, 'id_siswa', 'id_siswa');
     }
 
-    public function kelas() {
+    public function kelas()
+    {
         return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
     }
-
-
 }

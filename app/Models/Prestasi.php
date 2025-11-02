@@ -12,7 +12,92 @@ class Prestasi extends Model
 
     protected $guarded = ['id_prestasi'];
 
-    public function siswa() {
+    protected $casts = [
+        'tanggal' => 'datetime'
+    ];
+
+    public function scopeFilter($query, array $filters)
+    {
+        $order_by_option_value = ['desc', 'asc'];
+        $jenis_option_value = ['Akademik', 'Non-Akademik'];
+        $peringkat_option_value = [
+            '1 (pertama)',
+            '2 (kedua)',
+            '3 (ketiga)',
+            'harapan 1',
+            'harapan 2',
+            'harapan 3',
+            'lainnya'
+        ];
+        $tingkat_option_value = [
+            'desa',
+            'kecamatan',
+            'kabupaten/kota',
+            'provinsi',
+            'nasional',
+            'internasional'
+        ];
+
+        if (request()->routeIs('beranda')) {
+            $prestasi_improvement_tahun_value = !empty($filters['prestasi_improvement_tahun_filter']) ? $filters['prestasi_improvement_tahun_filter'] : date('Y');
+
+            if (!is_numeric($prestasi_improvement_tahun_value)) {
+                $prestasi_improvement_tahun_value = date('Y');
+            }
+
+            $query->whereYear('tanggal', $prestasi_improvement_tahun_value)
+                ->selectRaw('MONTH(tanggal) as month, COUNT(*) as amount')
+                ->groupBy('month')
+                ->orderBy('month');
+        } else {
+            $order_by_value = in_array(strtolower($filters['order_by'] ?? ''), $order_by_option_value) ? $filters['order_by'] : 'desc';
+            $query->orderBy('tanggal', $order_by_value);
+
+            if (!empty($filters['nama_prestasi_filter'])) {
+                $query->where('nama_prestasi', 'like', "%{$filters['nama_prestasi_filter']}%");
+            }
+
+            if (!empty($filters['peraih_filter'])) {
+                $query->whereHas('siswa', fn($q) => $q->where('nama_siswa', 'like', '%' . $filters['peraih_filter'] . '%'));
+            }
+
+            if (!empty($filters['penyelenggara_filter'])) {
+                $query->where('penyelenggara', 'like', "%{$filters['penyelenggara_filter']}%");
+            }
+
+            if (!empty($filters['jenis_filter'])) {
+                $jenis_filter_value = in_array(strtolower($filters['jenis_filter']), $jenis_option_value) ? $filters['jenis_filter'] : '';
+                $query->where('jenis', 'like', "%{$jenis_filter_value}%");
+            }
+
+            if (!empty($filters['peringkat_filter'])) {
+                $peringkat_option_value = in_array(strtolower($filters['peringkat_filter']), $peringkat_option_value) ? $filters['peringkat_filter'] : '';
+                $query->where('peringkat', 'like', "%{$peringkat_option_value}%");
+            }
+
+            if (!empty($filters['peringkat_lainnya'])) {
+                $query->where('peringkat', 'like', "%{$filters['peringkat_lainnya']}%");
+            }
+
+            if (!empty($filters['tingkat_filter'])) {
+                $tingkat_filter_value = in_array(strtolower($filters['tingkat_filter']), $tingkat_option_value) ? $filters['tingkat_filter'] : '';
+                $query->where('tingkat', 'like', "%{$tingkat_filter_value}%");
+            }
+
+            if (!empty($filters['nama_wilayah_filter'])) {
+                $query->where('nama_wilayah', 'like', "%{$filters['nama_wilayah_filter']}%");
+            }
+
+            if (!empty($filters['tanggal_filter'])) {
+                $query->whereDate('tanggal', $filters['tanggal_filter']);
+            }
+        }
+
+        return $query;
+    }
+
+    public function siswa()
+    {
         return $this->belongsTo(Siswa::class, 'id_siswa', 'id_siswa');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MataPelajaran;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class MataPelajaranController extends Controller
 {
@@ -16,7 +17,7 @@ class MataPelajaranController extends Controller
      */
     public function index()
     {
-        $mata_pelajaran = MataPelajaran::latest()->paginate(20)->withQueryString();
+        $mata_pelajaran = MataPelajaran::filter(request()->all())->paginate(20)->withQueryString();
 
         return view('pages.master.mata_pelajaran.index', [
             'judul' => 'Mata Pelajaran',
@@ -89,8 +90,12 @@ class MataPelajaranController extends Controller
      */
     public function destroy(MataPelajaran $mataPelajaran)
     {
-        $mataPelajaran->delete();
-
-        return redirect()->route('mata-pelajaran.index')->with('success', 'Mata Pelajaran berhasil dihapus.');
+        try {
+            $mataPelajaran->delete();
+    
+            return redirect()->route('mata-pelajaran.index')->with('success', 'Mata Pelajaran berhasil dihapus.');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('error', 'Mata Pelajaran gagal dihapus karena masih terhubung dengan Pegawai.');
+        }
     }
 }

@@ -1,4 +1,3 @@
-// document.addEventListener('DOMContentLoaded', function () {
 const username = document.getElementById('username');
 const password = document.getElementById('password');
 const posisi = document.getElementById('posisi');
@@ -36,8 +35,9 @@ if (id_mata_pelajaran_checkboxes) {
 }
 
 if (posisi) {
+    const posisi_old_value = posisi.value;
     // Fungsi update field
-    function updateFields() {
+    function updateFields(posisi_old_value) {
         const posisi_value = posisi.value;
         const status_kepegawaian_value = status_kepegawaian.value;
         const status_sertifikasi_value = status_sertifikasi
@@ -99,7 +99,12 @@ if (posisi) {
         ) {
             // Staf TU (1), Guru (2), Perpus (3)
             if (username) username.disabled = false;
-            if (password) password.disabled = false;
+            if (password) {
+                password.disabled = false;
+                if (window.location.pathname.endsWith('/edit') && (posisi_old_value === 'Pegawai Perpustakaan' || posisi_old_value === 'Satuan Pengamanan' || posisi_old_value === 'Pegawai Kebersihan')) {
+                    password.setAttribute('required', true);
+                }  
+            }
             if (status_kepegawaian) status_kepegawaian.disabled = false;
         }
 
@@ -130,15 +135,14 @@ if (posisi) {
     // Reset status kepegawaian saat posisi berubah
     function handlePosisiChange() {
         status_kepegawaian.value = ''; // Reset ke opsi default
-        updateFields();
+        updateFields(posisi_old_value);
     }
 
     // Inisialisasi
-    updateFields();
+    updateFields(posisi_old_value);
     posisi.addEventListener('change', handlePosisiChange);
     if (status_kepegawaian)
-        status_kepegawaian.addEventListener('change', updateFields);
+        status_kepegawaian.addEventListener('change', () => updateFields(posisi_old_value));
     if (status_sertifikasi)
-        status_sertifikasi.addEventListener('change', updateFields);
+        status_sertifikasi.addEventListener('change', () => updateFields(posisi_old_value));
 }
-// });

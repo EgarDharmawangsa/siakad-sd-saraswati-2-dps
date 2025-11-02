@@ -41,13 +41,13 @@
             <div class="col-md-6">
                 <label for="mata-pelajaran" class="form-label">Mata Pelajaran</label>
                 <input type="text" class="form-control" id="mata-pelajaran"
-                    value="{{ $jadwal_pelajaran->guruMataPelajaran?->mataPelajaran->nama_mata_pelajaran ?? '-' }}" readonly>
+                    value="{{ $jadwal_pelajaran->guruMataPelajaran?->mataPelajaran?->nama_mata_pelajaran ?? '-' }}" readonly>
             </div>
 
             <div class="col-md-6">
                 <label for="id_guru" class="form-label">Guru</label>
                 <input type="text" class="form-control" id="id_guru"
-                    value="{{ $jadwal_pelajaran->guruMataPelajaran?->pegawai->getPegawai() ?? '-' }}" readonly>
+                    value="{{ $jadwal_pelajaran->guruMataPelajaran?->pegawai?->getFormatedNamaPegawai() ?? '-' }}" readonly>
             </div>
 
             <div class="col-md-6">

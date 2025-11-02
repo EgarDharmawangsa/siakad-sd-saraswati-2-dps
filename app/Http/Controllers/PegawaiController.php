@@ -25,8 +25,8 @@ class PegawaiController extends Controller
             'alamat' => 'required|string|min:10|max:255',
             'no_telepon_rumah' => 'nullable|string|min:10|max:15',
             'no_telepon_seluler' => 'required|string|min:10|max:15',
-            'username' => 'required|string|min:5|max:50|unique:users,username',
-            'password' => 'required|string|min:8|max:255',
+            'username' => 'nullable|string|min:5|max:50|unique:users,username',
+            'password' => 'nullable|string|min:8|max:255',
             'e_mail' => 'nullable|email|min:7|max:255|unique:pegawai,e_mail|unique:siswa,e_mail',
             'jabatan' => 'nullable|string|min:3|max:30',
             'status_perkawinan' => 'required|min:3|max:10|string',
@@ -46,7 +46,7 @@ class PegawaiController extends Controller
 
     public function index()
     {
-        $pegawai = Pegawai::latest()->paginate(30)->withQueryString();
+        $pegawai = Pegawai::with('guruMataPelajaran')->filter(request(['order_by']))->paginate(30)->withQueryString();
 
         return view('pages.master.pegawai.index', [
             'judul' => 'Pegawai',
@@ -75,10 +75,6 @@ class PegawaiController extends Controller
     {
         $validated_pegawai = $request->validate($this->pegawaiValidationRules());
 
-        if ($validated_pegawai['posisi'] === 'Guru' && empty($validated_pegawai['id_mata_pelajaran'])) {
-            return redirect()->back()->withErrors(['id_mata_pelajaran' => 'Mata Pelajaran yang dipilih tidak valid.'])->withInput();
-        }
-
         if ($request->hasFile('foto')) {
             $validated_pegawai['foto'] = $request->file('foto')->store('foto_pegawai', 'public');
         }
@@ -94,7 +90,7 @@ class PegawaiController extends Controller
             ]);
         }
 
-        if ($validated_pegawai['posisi'] === 'Guru') {
+        if ($validated_pegawai['posisi'] === 'Guru' && !empty($validated_pegawai['id_mata_pelajaran'])) {
             foreach ($validated_pegawai['id_mata_pelajaran'] as $_id_mata_pelajaran) {
                 $pegawai->guruMataPelajaran()->create([
                     'id_pegawai' => $pegawai->id_pegawai,
@@ -139,18 +135,12 @@ class PegawaiController extends Controller
     {
         $pegawai_validation_rules_update = $this->pegawaiValidationRules();
         $pegawai_validation_rules_update['nik'] = "required|string|min:16|max:20|unique:pegawai,nik,{$pegawai->id_pegawai},id_pegawai|unique:siswa,nik";
+        $pegawai_validation_rules_update['nip'] = "nullable|string|min:18|max:20|unique:pegawai,nip,{$pegawai->id_pegawai},id_pegawai";
+        $pegawai_validation_rules_update['nipppk'] = "nullable|string|min:18|max:20|unique:pegawai,nipppk,{$pegawai->id_pegawai},id_pegawai";
         $pegawai_validation_rules_update['e_mail'] = "nullable|email|min:7|max:255|unique:pegawai,e_mail,{$pegawai->id_pegawai},id_pegawai|unique:siswa,e_mail";
-        $pegawai_validation_rules_update['username'] = "required|string|min:5|max:50|unique:users,username,{$pegawai->id_pegawai},id_pegawai";
+        $pegawai_validation_rules_update['username'] = "nullable|string|min:5|max:50|unique:users,username,{$pegawai->id_pegawai},id_pegawai";
 
-        if (($request->posisi === 'Staf Tata Usaha' || $request->posisi === 'Guru') && $request->password === '') {
-            $pegawai_validation_rules_update['password'] = 'nullable';
-        }
-        
         $validated_pegawai = $request->validate($pegawai_validation_rules_update);
-
-        if ($validated_pegawai['posisi'] === 'Guru' && empty($validated_pegawai['id_mata_pelajaran'])) {
-            return redirect()->back()->withErrors(['id_mata_pelajaran' => 'Mata Pelajaran yang dipilih tidak valid.'])->withInput();
-        }
 
         $nullable_fields = [
             'nip',
@@ -170,33 +160,38 @@ class PegawaiController extends Controller
             }
         }
 
-        if ($request->gambar_delete == 1) {
-            if (!empty($request->old_foto)) {
-                Storage::disk('public')->delete($request->old_foto);
+        if ($request->image_delete == 1) {
+            if (!empty($pegawai->foto)) {
+                Storage::disk('public')->delete($pegawai->foto);
             }
             $validated_pegawai['foto'] = null;
         } elseif ($request->hasFile('foto')) {
-            if (!empty($request->old_foto)) {
-                Storage::disk('public')->delete($request->old_foto);
+            if (!empty($pegawai->foto)) {
+                Storage::disk('public')->delete($pegawai->foto);
             }
             $validated_pegawai['foto'] = $request->file('foto')->store('foto_pegawai', 'public');
         } else {
-            $validated_pegawai['foto'] = $pegawai->old_foto;
+            $validated_pegawai['foto'] = $pegawai->foto;
         }
 
         $pegawai->update($validated_pegawai);
 
         if ($pegawai->posisi === 'Staf Tata Usaha' || $pegawai->posisi === 'Guru') {
-            User::where('id_pegawai', $pegawai->id_pegawai)->update([
+            $user_data = [
                 'username' => $validated_pegawai['username'],
-                'password' => bcrypt($validated_pegawai['password']),
                 'role' => $validated_pegawai['posisi']
-            ]);
+            ];
+
+            if (!empty(trim($validated_pegawai['password']))) {
+                $user_data['password'] = bcrypt($validated_pegawai['password']);
+            }
+
+            User::where('id_pegawai', $pegawai->id_pegawai)->update($user_data);
         } else {
             User::where('id_pegawai', $pegawai->id_pegawai)->delete();
         }
 
-        if ($validated_pegawai['posisi'] === 'Guru') {
+        if ($validated_pegawai['posisi'] === 'Guru' && !empty($validated_pegawai['id_mata_pelajaran'])) {
             $new_mata_pelajaran = $validated_pegawai['id_mata_pelajaran'];
             $old_mata_pelajaran = $pegawai->guruMataPelajaran->pluck('id_mata_pelajaran')->toArray();
 

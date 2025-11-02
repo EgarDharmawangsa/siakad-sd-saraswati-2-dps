@@ -17,7 +17,7 @@ class SemesterController extends Controller
      */
     public function index()
     {
-        $semester = Semester::query()->orderBy('tanggal_mulai', 'desc')->paginate(20)->withQueryString();
+        $semester = Semester::filter(request(['order_by']))->paginate(20)->withQueryString();
 
         return view('pages.master.semester.index', [
             'judul' => 'Semester',

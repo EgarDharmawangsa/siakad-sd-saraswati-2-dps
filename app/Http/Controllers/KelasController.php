@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Pegawai;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 
 class KelasController extends Controller
@@ -13,15 +14,13 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelas = Kelas::with('pegawai')
-            ->orderByRaw('CAST(nama_kelas AS UNSIGNED)')
-            ->orderByRaw('REGEXP_REPLACE(nama_kelas, "^[0-9]+", "")')
-            ->paginate(20)
-            ->withQueryString();
+        $kelas = Kelas::with('pegawai')->filter(request()->all())->paginate(20)->withQueryString();
+        $siswa = Siswa::all();
 
         return view('pages.master.kelas.index', [
             'judul' => 'Kelas',
-            'kelas' => $kelas
+            'kelas' => $kelas,
+            'siswa' => $siswa
         ]);
     }
 
@@ -45,7 +44,7 @@ class KelasController extends Controller
     {
         $kelas_validation_rules = [
             'nama_kelas' => 'required|string|min:2|max:5|unique:kelas,nama_kelas|regex:/^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{2,5}$/',
-            'id_pegawai' => 'required|integer|exists:pegawai,id_pegawai|unique:kelas,id_pegawai',
+            'id_pegawai' => 'nullable|integer|exists:pegawai,id_pegawai|unique:kelas,id_pegawai',
         ];
 
         $validated_kelas = $request->validate($kelas_validation_rules);
@@ -60,9 +59,12 @@ class KelasController extends Controller
      */
     public function show(Kelas $kelas)
     {
+        $siswa_in_kelas = Kelas::getSiswaInKelas()->get();
+
         return view('pages.master.kelas.show', [
             'judul' => 'Kelas',
-            'kelas' => $kelas
+            'kelas' => $kelas,
+            'siswa_in_kelas' => $siswa_in_kelas
         ]);
     }
 
@@ -71,12 +73,14 @@ class KelasController extends Controller
      */
     public function edit(Kelas $kelas)
     {
-        $guru = Pegawai::where('posisi', 2)->latest()->get();
+        $guru = Pegawai::where('posisi', 'Guru')->latest()->get();
+        $siswa_in_kelas = Kelas::getSiswaInKelas()->get();
 
         return view('pages.master.kelas.edit', [
             'judul' => 'Kelas',
             'kelas' => $kelas,
-            'guru' => $guru
+            'guru' => $guru,
+            'siswa_in_kelas' => $siswa_in_kelas
         ]);
     }
 
@@ -87,7 +91,7 @@ class KelasController extends Controller
     {
         $kelas_validation_rules_update = [
             'nama_kelas' => "required|string|min:2|max:5|unique:kelas,nama_kelas,{$kelas->id_kelas},id_kelas|regex:/^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{2,5}$/",
-            'id_pegawai' => "required|integer|exists:pegawai,id_pegawai|unique:kelas,id_pegawai,{$kelas->id_kelas},id_kelas"
+            'id_pegawai' => "nullable|integer|exists:pegawai,id_pegawai|unique:kelas,id_pegawai,{$kelas->id_kelas},id_kelas"
         ];
 
         $validated_kelas = $request->validate($kelas_validation_rules_update);

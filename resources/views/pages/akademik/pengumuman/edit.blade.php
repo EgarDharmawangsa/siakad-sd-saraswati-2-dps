@@ -49,12 +49,11 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                     <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 10 MB</span>
-                    <input type="hidden" name="old_gambar" value="{{ $pengumuman->gambar }}">
-                    <input type="hidden" name="gambar_delete" id="image-delete" value="0">
+                    <input type="hidden" name="image_delete" id="image-delete" value="0">
                 </div>
             </div>
 
-            <div class="text-end input-button-group">
+            <div class="form-buttons">
                 <button type="button" class="btn btn-danger me-1" id="cancel-button"
                     data-route="{{ route('pengumuman.index') }}" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>

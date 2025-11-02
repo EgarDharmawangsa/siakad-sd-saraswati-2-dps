@@ -5,7 +5,7 @@
         <h5>Detail {{ $judul }}</h5>
         <hr>
 
-        <div class="show-button-group">
+        <div class="show-buttons">
             <a href="{{ route('ekstrakurikuler.index') }}" class="btn btn-secondary btn-sm"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
             <a href="{{ route('ekstrakurikuler.edit', $ekstrakurikuler->id_ekstrakurikuler) }}"

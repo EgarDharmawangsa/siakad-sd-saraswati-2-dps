@@ -20,7 +20,7 @@ class PengumumanController extends Controller
      */
     public function index()
     {
-        $pengumuman = Pengumuman::query()->orderBy('tanggal', 'desc')->paginate(20)->withQueryString();
+        $pengumuman = Pengumuman::filter(request()->all())->paginate(20)->withQueryString();
 
         return view('pages.akademik.pengumuman.index', [
             'judul' => 'Pengumuman',
@@ -83,18 +83,18 @@ class PengumumanController extends Controller
     {
         $validated_pengumuman = $request->validate($this->pengumuman_validation_rules);
 
-        if ($request->gambar_delete == 1) {
-            if (!empty($request->old_gambar)) {
-                Storage::disk('public')->delete($request->old_gambar);
+        if ($request->image_delete == 1) {
+            if (!empty($pengumuman->gambar)) {
+                Storage::disk('public')->delete($pengumuman->gambar);
             }
             $validated_pengumuman['gambar'] = null;
         } elseif ($request->hasFile('gambar')) {
-            if (!empty($request->old_gambar)) {
-                Storage::disk('public')->delete($request->old_gambar);
+            if (!empty($pengumuman->gambar)) {
+                Storage::disk('public')->delete($pengumuman->gambar);
             }
             $validated_pengumuman['gambar'] = $request->file('gambar')->store('gambar_pengumuman', 'public');
         } else {
-            $validated_pengumuman['gambar'] = $request->old_gambar;
+            $validated_pengumuman['gambar'] = $pengumuman->gambar;
         }
 
         $pengumuman->update($validated_pengumuman);
