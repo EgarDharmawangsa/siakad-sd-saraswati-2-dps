@@ -71,7 +71,7 @@
 }
 
 .kelas-count-card-link:hover {
-    background-color: #c95f0b;
+    background-color: #cf6815;
 }
 
 .content-card.semester-count-card {
@@ -85,7 +85,7 @@
 }
 
 .semester-count-card-link:hover {
-    background-color: #4b2d85;
+    background-color: #50318e;
 }
 
 .content-card.mata-pelajaran-count-card {
@@ -99,7 +99,7 @@
 }
 
 .mata-pelajaran-count-card-link:hover {
-    background-color: #12775b;
+    background-color: #1a8f6e;
 }
 
 .content-card.ekstrakurikuler-count-card {
@@ -127,7 +127,7 @@
 }
 
 .prestasi-count-card-link:hover {
-    background-color: #117a8b;
+    background-color: #117786;
 }
 
 .content-card.pengumuman-count-card {
@@ -191,9 +191,4 @@
 
 .pengumuman-item:hover {
     background-color: #e9ecef;
-}
-
-.pengumuman-divider:where(:last-child),
-.pengguna-aktif-divider:where(:last-child) {
-    display: none;
 }

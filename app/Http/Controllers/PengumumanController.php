@@ -81,9 +81,13 @@ class PengumumanController extends Controller
      */
     public function update(Request $request, Pengumuman $pengumuman)
     {
-        $validated_pengumuman = $request->validate($this->pengumuman_validation_rules);
+        $pengumuman_validation_rules_update = $this->pengumuman_validation_rules;
+        $pengumuman_validation_rules_update['tanggal'] = "required|date|after_or_equal:{$pengumuman->getFormatedTanggal()}";
+        $pengumuman_validation_rules_update['image_delete'] = 'required|integer';
+        
+        $validated_pengumuman = $request->validate($pengumuman_validation_rules_update);
 
-        if ($request->image_delete == 1) {
+        if ($validated_pengumuman['image_delete'] == 1) {
             if (!empty($pengumuman->gambar)) {
                 Storage::disk('public')->delete($pengumuman->gambar);
             }

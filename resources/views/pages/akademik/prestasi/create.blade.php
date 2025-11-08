@@ -23,11 +23,10 @@
                     <select class="form-select @error('id_siswa') is-invalid @enderror" id="peraih" name="id_siswa"
                         {{ $siswa->isEmpty() ? 'disabled' : '' }} required>
                         <option value="">{{ $siswa->isNotEmpty() ? 'Pilih Siswa' : 'Siswa Tidak Tersedia' }}</option>
-                        @forelse ($siswa as $_siswa)
+                        @foreach ($siswa as $_siswa)
                             <option value="{{ $_siswa->id_siswa }}"
                                 {{ old('id_siswa') == $_siswa->id_siswa ? 'selected' : '' }}>{{ $_siswa->getFormatedNamaSiswa() }}</option>
-                        @empty
-                        @endforelse
+                        @endforeach
                     </select>
                     @error('id_siswa')
                         <div class="invalid-feedback">{{ $message }}</div>

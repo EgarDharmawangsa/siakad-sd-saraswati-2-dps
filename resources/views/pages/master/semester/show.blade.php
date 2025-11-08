@@ -5,7 +5,7 @@
         <h5>Detail {{ $judul }}</h5>
         <hr>
 
-        <div class="show-button-group">
+        <div class="show-buttons">
             <a href="{{ route('semester.index') }}" class="btn btn-secondary btn-sm"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
             <a href="{{ route('semester.edit', $semester->id_semester) }}" class="btn btn-warning btn-sm mx-1"><i
@@ -22,8 +22,8 @@
 
         <div class="row g-3">
             <div class="col-md-6">
-                <label for="jenis-semester" class="form-label">Jenis Semester</label>
-                <input type="text" class="form-control" id="jenis-semester" value="{{ $semester->jenis_semester }}"
+                <label for="jenis" class="form-label">Jenis Semester</label>
+                <input type="text" class="form-control" id="jenis" value="{{ $semester->jenis }}"
                     readonly>
             </div>
 
@@ -36,13 +36,13 @@
             <div class="col-md-6">
                 <label for="tanggal-mulai" class="form-label">Tanggal Mulai</label>
                 <input type="text" class="form-control" id="tanggal-mulai"
-                    value="{{ $semester->tanggal_mulai->format('d-m-Y') }}" readonly>
+                    value="{{ $semester->getFormatedTanggal('tanggal_mulai') }}" readonly>
             </div>
 
             <div class="col-md-6">
                 <label for="tanggal-selesai" class="form-label">Tanggal Selesai</label>
                 <input type="text" class="form-control" id="tanggal-selesai"
-                    value="{{ $semester->tanggal_selesai->format('d-m-Y') }}" readonly>
+                    value="{{ $semester->getFormatedTanggal('tanggal_selesai') }}" readonly>
             </div>
 
             <div class="col-md-6">

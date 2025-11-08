@@ -70,8 +70,6 @@ if (pegawai_distribution_chart && prestasi_improvement_chart) {
         const prestasi_improvement_chart_response = await fetch(`/api/prestasi-improvement?prestasi_improvement_tahun_filter=${prestasi_improvement_tahun_value}`);
         const prestasi_improvement_chart_data = await prestasi_improvement_chart_response.json();
 
-        console.log(prestasi_improvement_chart_data);
-
         if (prestasi_improvement_chart_instance) {
             prestasi_improvement_chart_instance.destroy();
         }

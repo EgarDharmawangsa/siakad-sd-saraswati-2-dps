@@ -61,7 +61,7 @@
                             <td>{{ $_prestasi->peringkat }}</td>
                             <td>{{ $_prestasi->peringkat_lainnya ?? '-' }}</td>
                             <td>{{ $_prestasi->penyelenggara }}</td>
-                            <td>{{ $_prestasi->tanggal->format('d-m-Y') }}</td>
+                            <td>{{ $_prestasi->getFormatedTanggal() }}</td>
                             <td class="aksi-column">
                                 <a href="{{ route('prestasi.show', $_prestasi->id_prestasi) }}"
                                     class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
@@ -87,7 +87,7 @@
             </table>
         </div>
 
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end mt-2">
             {{ $prestasi->links() }}
         </div>
     </div>

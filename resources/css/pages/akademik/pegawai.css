@@ -1,15 +1,3 @@
-#pegawai-tab .nav-item .nav-link:not(.active) {
-    color: #6c757d;
-}
-
-#pegawai-tab .nav-item .nav-link:not(.active):hover {
-    border-bottom: transparent;
-}
-
-#pegawai-tab .nav-item .nav-link.active {
-    font-weight: 500;
-}
-
 .id-mata-pelajaran-dropdown-menu {
     max-height: 15rem;
     overflow-y: auto;

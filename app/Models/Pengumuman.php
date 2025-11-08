@@ -4,6 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
+
+/**
+ * @property Carbon $tanggal
+ * @property string|null $gambar
+ */
 
 class Pengumuman extends Model
 {
@@ -16,20 +22,29 @@ class Pengumuman extends Model
     protected $guarded = ['id_pengumuman'];
 
     protected $casts = [
-        'tanggal' => 'datetime'
+        'tanggal' => 'datetime',
     ];
+
+    public function getFormatedTanggal(bool $day_format = false)
+    {
+        $formated_tanggal = $day_format ? $this->tanggal->translatedFormat('l, d F Y') : $this->tanggal->translatedFormat('d F Y');
+
+        return $formated_tanggal;
+    }
 
     public function getStatus()
     {
-        return $this->tanggal->lte(today()) ? 'Terbit' : 'Menunggu';
+        $status = $this->tanggal->lte(today()) ? 'Terbit' : 'Menunggu';
+
+        return $status;
     }
 
     public function scopeFilter($query, array $filters)
     {
-        $order_by_option_value = ['desc', 'asc'];
-        $status_filter_option_value = ['terbit', 'menunggu'];
+        $order_by_array = ['desc', 'asc'];
+        $status_array = ['menunggu', 'terbit'];
 
-        $order_by_value = in_array(strtolower($filters['order_by'] ?? ''), $order_by_option_value) ? $filters['order_by'] : 'desc';
+        $order_by_value = in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
         $query->orderBy('tanggal', $order_by_value);
 
         if (!empty($filters['judul_filter'])) {
@@ -45,12 +60,12 @@ class Pengumuman extends Model
         }
 
         if (!empty($filters['status_filter'])) {
-            $status_filter_value = in_array(strtolower($filters['status_filter']), $status_filter_option_value) ? $filters['status_filter'] : '';
+            $status_filter_value = in_array(strtolower($filters['status_filter']), $status_array) ? $filters['status_filter'] : '';
 
-            if ($status_filter_value === 'terbit') {
-                $query->where('tanggal', '<=', today());
-            } elseif ($status_filter_value === 'menunggu') {
+            if ($status_filter_value === 'menunggu') {
                 $query->where('tanggal', '>', today());
+            } elseif ($status_filter_value === 'terbit') {
+                $query->where('tanggal', '<=', today());
             }
         }
 

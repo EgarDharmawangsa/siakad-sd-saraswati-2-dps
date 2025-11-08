@@ -14,7 +14,7 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelas = Kelas::with('pegawai')->filter(request()->all())->paginate(20)->withQueryString();
+        $kelas = Kelas::with('pegawai')->filter(request()->except('kelas_filter'))->paginate(20)->withQueryString();
         $siswa = Siswa::all();
 
         return view('pages.master.kelas.index', [
@@ -59,12 +59,9 @@ class KelasController extends Controller
      */
     public function show(Kelas $kelas)
     {
-        $siswa_in_kelas = Kelas::getSiswaInKelas()->get();
-
         return view('pages.master.kelas.show', [
             'judul' => 'Kelas',
-            'kelas' => $kelas,
-            'siswa_in_kelas' => $siswa_in_kelas
+            'kelas' => $kelas
         ]);
     }
 
@@ -74,13 +71,11 @@ class KelasController extends Controller
     public function edit(Kelas $kelas)
     {
         $guru = Pegawai::where('posisi', 'Guru')->latest()->get();
-        $siswa_in_kelas = Kelas::getSiswaInKelas()->get();
 
         return view('pages.master.kelas.edit', [
             'judul' => 'Kelas',
             'kelas' => $kelas,
-            'guru' => $guru,
-            'siswa_in_kelas' => $siswa_in_kelas
+            'guru' => $guru
         ]);
     }
 

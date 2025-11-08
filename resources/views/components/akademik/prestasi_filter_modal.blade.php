@@ -8,7 +8,7 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('prestasi.index') }}">
+                <form id="filter-modal-form" action="{{ route('prestasi.index') }}">
                     <div class="mb-3">
                         <label for="nama-prestasi-filter" class="form-label">Nama Prestasi</label>
                         <input type="text" class="form-control" id="nama-prestasi-filter" name="nama_prestasi_filter"
@@ -18,8 +18,7 @@
                     <div class="mb-3">
                         <label for="peraih-filter" class="form-label">Peraih</label>
                         <input type="text" class="form-control" id="peraih-filter" name="peraih_filter"
-                            value="{{ request('peraih_filter') }}" placeholder="Masukkan peraih"
-                            {{ $siswa->isEmpty() ? 'disabled' : '' }}>
+                            value="{{ request('peraih_filter') }}" placeholder="Masukkan peraih">
                     </div>
 
                     <div class="mb-3">
@@ -32,10 +31,10 @@
                         <label for="jenis-filter" class="form-label">Jenis</label>
                         <select class="form-select" id="jenis-filter" name="jenis_filter">
                             <option value="">-- Pilih Jenis --</option>
-                            <option value="Akademik" {{ request('jenis_filter') === 'Akademik' ? 'selected' : '' }}>
+                            <option value="akademik" {{ request('jenis_filter') === 'akademik' ? 'selected' : '' }}>
                                 Akademik</option>
-                            <option value="Non-Akademik"
-                                {{ request('jenis_filter') === 'Non-Akademik' ? 'selected' : '' }}>Non-Akademik
+                            <option value="non-akademik"
+                                {{ request('jenis_filter') === 'non-akademik' ? 'selected' : '' }}>Non-Akademik
                             </option>
                         </select>
                     </div>
@@ -44,25 +43,25 @@
                         <label for="peringkat-filter" class="form-label">Peringkat</label>
                         <select class="form-select" id="peringkat-filter" name="peringkat_filter">
                             <option value="">-- Pilih Peringkat --</option>
-                            <option value="1 (Pertama)"
-                                {{ request('peringkat_filter') === '1 (Pertama)' ? 'selected' : '' }}>
+                            <option value="1 (pertama)"
+                                {{ request('peringkat_filter') === '1 (pertama)' ? 'selected' : '' }}>
                                 1 (Pertama)</option>
-                            <option value="2 (Kedua)"
-                                {{ request('peringkat_filter') === '2 (Kedua)' ? 'selected' : '' }}>
+                            <option value="2 (kedua)"
+                                {{ request('peringkat_filter') === '2 (kedua)' ? 'selected' : '' }}>
                                 2 (Kedua)</option>
-                            <option value="3 (Ketiga)"
-                                {{ request('peringkat_filter') === '3 (Ketiga)' ? 'selected' : '' }}>
+                            <option value="3 (ketiga)"
+                                {{ request('peringkat_filter') === '3 (ketiga)' ? 'selected' : '' }}>
                                 3 (Ketiga)</option>
-                            <option value="Harapan 1"
-                                {{ request('peringkat_filter') === 'Harapan 1' ? 'selected' : '' }}>
+                            <option value="harapan 1"
+                                {{ request('peringkat_filter') === 'harapan 1' ? 'selected' : '' }}>
                                 Harapan 1</option>
-                            <option value="Harapan 2"
-                                {{ request('peringkat_filter') === 'Harapan 2' ? 'selected' : '' }}>
+                            <option value="harapan 2"
+                                {{ request('peringkat_filter') === 'harapan 2' ? 'selected' : '' }}>
                                 Harapan 2</option>
-                            <option value="Harapan 3"
-                                {{ request('peringkat_filter') === 'Harapan 3' ? 'selected' : '' }}>
+                            <option value="harapan 3"
+                                {{ request('peringkat_filter') === 'harapan 3' ? 'selected' : '' }}>
                                 Harapan 3</option>
-                            <option value="Lainnya" {{ request('peringkat_filter') === 'Lainnya' ? 'selected' : '' }}>
+                            <option value="lainnya" {{ request('peringkat_filter') === 'lainnya' ? 'selected' : '' }}>
                                 Lainnya</option>
                         </select>
                     </div>
@@ -78,22 +77,22 @@
                         <label for="tingkat-filter" class="form-label">Tingkat</label>
                         <select class="form-select" id="tingkat-filter" name="tingkat_filter">
                             <option value="">-- Pilih Tingkat --</option>
-                            <option value="Sekolah" {{ request('tingkat_filter') === 'Sekolah' ? 'selected' : '' }}>
+                            <option value="sekolah" {{ request('tingkat_filter') === 'sekolah' ? 'selected' : '' }}>
                                 Sekolah</option>
-                            <option value="Desa" {{ request('tingkat_filter') === 'Desa' ? 'selected' : '' }}>
+                            <option value="desa" {{ request('tingkat_filter') === 'desa' ? 'selected' : '' }}>
                                 Desa</option>
-                            <option value="Kecamatan"
-                                {{ request('tingkat_filter') === 'Kecamatan' ? 'selected' : '' }}>
+                            <option value="kecamatan"
+                                {{ request('tingkat_filter') === 'kecamatan' ? 'selected' : '' }}>
                                 Kecamatan</option>
-                            <option value="Kabupaten/Kota"
-                                {{ request('tingkat_filter') === 'Kabupaten/Kota' ? 'selected' : '' }}>
+                            <option value="kabupaten/kota"
+                                {{ request('tingkat_filter') === 'kabupaten/kota' ? 'selected' : '' }}>
                                 kabupaten/Kota</option>
-                            <option value="Provinsi" {{ request('tingkat_filter') === 'Provinsi' ? 'selected' : '' }}>
+                            <option value="provinsi" {{ request('tingkat_filter') === 'provinsi' ? 'selected' : '' }}>
                                 Provinsi</option>
-                            <option value="Nasional" {{ request('tingkat_filter') === 'Nasional' ? 'selected' : '' }}>
+                            <option value="nasional" {{ request('tingkat_filter') === 'nasional' ? 'selected' : '' }}>
                                 Nasional</option>
-                            <option value="Internasional"
-                                {{ request('tingkat_filter') === 'Internasional' ? 'selected' : '' }}>
+                            <option value="internasional"
+                                {{ request('tingkat_filter') === 'internasional' ? 'selected' : '' }}>
                                 Internasional</option>
                         </select>
                     </div>
@@ -110,7 +109,8 @@
                             value="{{ request('tanggal_filter') }}">
                     </div>
 
-                    <div class="text-center form-buttons mb-2">
+                    <div class="form-buttons justify-content-between">
+                        <button type="button" id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
                         <button type="submit" class="btn btn-primary">Terapkan</button>
                     </div>
                 </form>

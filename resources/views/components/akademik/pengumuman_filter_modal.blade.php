@@ -8,7 +8,7 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('pengumuman.index') }}">
+                <form id="filter-modal-form" action="{{ route('pengumuman.index') }}">
                     <div class="mb-3">
                         <label for="judul-filter" class="form-label">Judul</label>
                         <input type="text" class="form-control" id="judul-filter" name="judul_filter"
@@ -38,7 +38,8 @@
                         </select>
                     </div>
 
-                    <div class="text-center form-buttons mb-2">
+                    <div class="form-buttons justify-content-between">
+                        <button type="button" id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
                         <button type="submit" class="btn btn-primary">Terapkan</button>
                     </div>
                 </form>

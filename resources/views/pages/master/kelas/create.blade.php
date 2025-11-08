@@ -23,10 +23,9 @@
                     <label for="wali" class="form-label">Wali</label>
                     <select class="form-select @error('id_pegawai') is-invalid @enderror" id="wali" name="id_pegawai" {{ $guru->isEmpty() ? 'disabled' : '' }}>
                         <option value="">{{ $guru->isNotEmpty() ? '-- Pilih Guru --' : '-- Guru Tidak Tersedia --' }}</option>
-                        @forelse ($guru as $_guru)
+                        @foreach ($guru as $_guru)
                             <option value="{{ $_guru->id_pegawai }}" {{ old('id_pegawai') === $_guru->id_pegawai ? 'selected' : '' }}>{{ $_guru->getFormatedNamaPegawai() }}</option>
-                        @empty
-                        @endforelse
+                        @endforeach
                     </select>
                     @error('id_pegawai')
                         <div class="invalid-feedback">{{ $message }}</div>

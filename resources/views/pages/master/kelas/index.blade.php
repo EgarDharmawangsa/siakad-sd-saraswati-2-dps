@@ -12,14 +12,11 @@
                     <a class="btn btn-secondary dropdown-toggle order-by-dropdown-toggle" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i
-                            class="bi bi-sort-down me-2"></i>{{ !request('order_by') || (request('order_by') !== 'desc' && request('order_by') !== 'asc') ? 'Nama Kelas' : (request('order_by') === 'desc' ? 'Terbaru ke Lama' : 'Lama ke Terbaru') }}
+                            class="bi bi-sort-down me-2"></i>{{ !request('order_by') || request('order_by') !== 'asc' ? 'Terbaru ke Lama' : 'Lama ke Terbaru' }}
                     </a>
 
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item order-by-dropdown-item {{ !request('order_by') ? 'active' : '' }}"
-                                href="{{ route('kelas.index') }}">Nama Kelas</a>
-                        </li>
-                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'desc' ? 'active' : '' }}"
+                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'desc' || !request('order_by') ? 'active' : '' }}"
                                 href="{{ request()->fullUrlWithQuery(['order_by' => 'desc']) }}">Terbaru ke Lama</a>
                         </li>
                         <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'asc' ? 'active' : '' }}"
@@ -81,7 +78,7 @@
             </table>
         </div>
 
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end mt-2">
             {{ $kelas->links() }}
         </div>
     </div>

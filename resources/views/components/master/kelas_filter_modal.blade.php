@@ -8,7 +8,7 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('kelas.index') }}">
+                <form id="filter-modal-form" action="{{ route('kelas.index') }}">
                     <div class="mb-3">
                         <label for="nama-kelas-filter" class="form-label">Nama Kelas</label>
                         <input type="text" class="form-control" id="nama-kelas-filter" name="nama_kelas_filter"
@@ -21,7 +21,8 @@
                             value="{{ request('wali_kelas_filter') }}" placeholder="Masukkan wali kelas">
                     </div>
 
-                    <div class="text-center form-buttons mb-2">
+                    <div class="form-buttons justify-content-between">
+                        <button type="button" id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
                         <button type="submit" class="btn btn-primary">Terapkan</button>
                     </div>
                 </form>

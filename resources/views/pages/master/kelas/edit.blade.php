@@ -26,12 +26,11 @@
                         {{ $guru->isEmpty() ? 'disabled' : '' }}>
                         <option value="">{{ $guru->isNotEmpty() ? '-- Pilih Guru --' : '-- Guru Tidak Tersedia --' }}
                         </option>
-                        @forelse ($guru as $_guru)
+                        @foreach ($guru as $_guru)
                             <option value="{{ $_guru->id_pegawai }}"
                                 {{ old('id_pegawai', $kelas->id_pegawai) == $_guru->id_pegawai ? 'selected' : '' }}>
                                 {{ $_guru->getFormatedNamaPegawai() }}</option>
-                        @empty
-                        @endforelse
+                        @endforeach
                     </select>
                     @error('id_pegawai')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -51,15 +50,15 @@
                             </thead>
 
                             <tbody>
-                                @forelse ($siswa_in_kelas as $_siswa_in_kelas)
-                                    <tr>
+                                @forelse ($kelas->getSiswaInKelas() as $_siswa_in_kelas)
+                                    {{-- <tr>
                                         <td>{{ $_siswa_in_kelas->nomor_urut }}</td>
                                         <td>{{ $_siswa_in_kelas->nisn }}</td>
                                         <td>{{ $_siswa_in_kelas->nama_siswa }}</td>
-                                    </tr>
+                                    </tr> --}}
                                 @empty
                                     <tr class="text-center">
-                                        <td colspan="5">Belum memiliki Anggota.</td>
+                                        <td colspan="5">Belum memiliki Siswa.</td>
                                     </tr>
                                 @endforelse
                             </tbody>

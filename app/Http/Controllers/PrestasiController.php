@@ -97,9 +97,12 @@ class PrestasiController extends Controller
      */
     public function update(Request $request, Prestasi $prestasi)
     {
-        $validated_prestasi = $request->validate($this->prestasi_validation_rules);
+        $prestasi_validation_rultes_update = $this->prestasi_validation_rules;
+        $prestasi_validation_rultes_update['image_delete'] = 'required|integer';
 
-        if ($request->image_delete == 1) {
+        $validated_prestasi = $request->validate($prestasi_validation_rultes_update);
+
+        if ($validated_prestasi['image_delete'] == 1) {
             if (!empty($prestasi->dokumentasi)) {
                 Storage::disk('public')->delete($prestasi->dokumentasi);
             }

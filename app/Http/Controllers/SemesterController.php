@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class SemesterController extends Controller
 {
     public $semester_validation_rules = [
-        'jenis_semester' => 'required|string|min:3|max:10',
-        'tanggal_mulai' => 'required|date|unique:semester,tanggal_mulai|after_or_equal:today',
+        'jenis' => 'required|string|min:3|max:10',
+        'tanggal_mulai' => 'required|date|unique:semester,tanggal_mulai|after_or_equal:today|before:tanggal_selesai',
         'tanggal_selesai' => 'required|date|unique:semester,tanggal_selesai|after:today|after:tanggal_mulai'
     ];
     /**
@@ -17,7 +17,7 @@ class SemesterController extends Controller
      */
     public function index()
     {
-        $semester = Semester::filter(request(['order_by']))->paginate(20)->withQueryString();
+        $semester = Semester::filter(request()->all())->paginate(20)->withQueryString();
 
         return view('pages.master.semester.index', [
             'judul' => 'Semester',
@@ -82,7 +82,7 @@ class SemesterController extends Controller
     {
         $semester_update_validation_rules = $this->semester_validation_rules;
     
-        $semester_update_validation_rules['tanggal_mulai'] = "required|date|unique:semester,tanggal_mulai,{$semester->id_semester},id_semester|after_or_equal:today";
+        $semester_update_validation_rules['tanggal_mulai'] = "required|date|unique:semester,tanggal_mulai,{$semester->id_semester},id_semester|after_or_equal:today|before:tanggal_selesai";
         $semester_update_validation_rules['tanggal_selesai'] = "required|date|unique:semester,tanggal_selesai,{$semester->id_semester},id_semester|after:today|after:tanggal_mulai";
 
         $validated_semester = $request->validate($semester_update_validation_rules);

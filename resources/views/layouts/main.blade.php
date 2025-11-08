@@ -8,7 +8,7 @@
     @vite('resources/js/app.js')
 </head>
 
-<body class="d-flex flex-column vh-100 p-0 m-0">
+<body id="page-body" class="d-flex flex-column vh-100 p-0 m-0" data-route-name="{{ Route::currentRouteName() }}">
     <div class="toast-container position-fixed start-50 translate-middle-x">
         @if (session()->has('success'))
             <div class="toast align-items-center border-0" id="success-toast" role="alert" aria-live="assertive"

@@ -59,8 +59,8 @@
                             <td>{!! Str::limit($_ekstrakurikuler->alamat_pembina, 40, '...') !!}</td>
                             <td>{{ $_ekstrakurikuler->no_telepon }}</td>
                             <td>{{ $_ekstrakurikuler->hari }}</td>
-                            <td>{{ $_ekstrakurikuler->jam_mulai }}</td>
-                            <td>{{ $_ekstrakurikuler->jam_selesai }}</td>
+                            <td>{{ $_ekstrakurikuler->getFormatedJam('jam_mulai') }}</td>
+                            <td>{{ $_ekstrakurikuler->getFormatedJam('jam_selesai') }}</td>
                             <td class="aksi-column">
                                 <a href="{{ route('ekstrakurikuler.show', $_ekstrakurikuler->id_ekstrakurikuler) }}"
                                     class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
@@ -86,7 +86,7 @@
             </table>
         </div>
 
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end mt-2">
             {{ $ekstrakurikuler->links() }}
         </div>
     </div>

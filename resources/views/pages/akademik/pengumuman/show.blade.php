@@ -23,7 +23,7 @@
         <h4 class="mb-2 mt-3">{{ $pengumuman->judul }}</h4>
 
         <small class="text-muted mb-3 d-block">Diterbitkan pada
-            {{ $pengumuman->tanggal->translatedFormat('l, d F Y') }}
+            {{ $pengumuman->getFormatedTanggal(true) }}
             <span
                 class="badge bg-{{ $pengumuman->getStatus() === 'Terbit' ? 'success' : 'primary' }} ms-1">
                 {{ $pengumuman->getStatus() }}

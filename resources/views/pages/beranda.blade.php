@@ -181,7 +181,7 @@
                             </small>
                             <p class="mb-0">{{ Str::limit(strip_tags($_pengumuman->isi), 150, '...') }}</p>
                         </a>
-                        <hr class="mt-0 pengumuman-divider">
+                        <hr class="mt-0 {{ $loop->last ? 'd-none' : '' }}">
                     @endif
                 @empty
                     <p class="text-center">Belum ada Pengumuman.</p>

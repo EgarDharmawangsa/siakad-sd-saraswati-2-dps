@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+/**
+ * @property Carbon $jam_mulai
+ * @property Carbon $jam_selesai
+ */
 
 class Ekstrakurikuler extends Model
 {
@@ -17,20 +21,32 @@ class Ekstrakurikuler extends Model
 
         protected $guarded = ['id_ekstrakurikuler'];
 
-        protected function jamMulai(): Attribute
-        {
-                return Attribute::make(get: fn($value) => Carbon::createFromFormat('H:i:s', $value)->format('H:i'),);
-        }
+        protected $casts = [
+                'jam_mulai' => 'datetime',
+                'jam_selesai' => 'datetime'
+        ];
 
-        protected function jamSelesai(): Attribute
+        public function getFormatedJam(string $column)
         {
-                return Attribute::make(get: fn($value) => Carbon::createFromFormat('H:i:s', $value)->format('H:i'),);
+                $column_array = ['jam_mulai', 'jam_selesai'];
+
+                if (!in_array($column, $column_array)) {
+                        return null;
+                }
+
+                $formated_jam = $this->{$column}?->format('H:i');
+
+                if (!empty($formated_jam)) {
+                        return $formated_jam;
+                } else {
+                        return '-';
+                }
         }
 
         public function scopeFilter($query, array $filters)
         {
-                $order_by_option_value = ['desc', 'asc'];
-                $hari_option_value = [
+                $order_by_array = ['desc', 'asc'];
+                $hari_array = [
                         'senin',
                         'selasa',
                         'rabu',
@@ -40,7 +56,7 @@ class Ekstrakurikuler extends Model
                         'minggu'
                 ];
 
-                $order_by_value = in_array(strtolower($filters['order_by'] ?? ''), $order_by_option_value) ? $filters['order_by'] : 'desc';
+                $order_by_value = in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
                 $query->orderBy('created_at', $order_by_value);
 
                 if (!empty($filters['nama_ekstrakurikuler_filter'])) {
@@ -60,7 +76,7 @@ class Ekstrakurikuler extends Model
                 }
 
                 if (!empty($filters['hari_filter'])) {
-                        $hari_filter_value = in_array(strtolower($filters['hari_filter']), $hari_option_value) ? $filters['hari_filter'] : '';
+                        $hari_filter_value = in_array(strtolower($filters['hari_filter']), $hari_array) ? $filters['hari_filter'] : '';
                         $query->where('hari', 'like', "%{$hari_filter_value}%");
                 }
 

@@ -9,34 +9,34 @@
             @csrf
 
             <div class="row g-3">
-                <div class="col-md-12">
-                    <label for="id-kelas" class="form-label d-block">Kegiatan</label>
-                    <div class="btn-group" id="kegiatan">
-                        <input type="radio" class="btn-check" name="kegiatan" id="kegiatan-belajar-radio" value="Belajar"
-                            {{ old('kegiatan', 'Belajar') === 'Belajar' ? 'checked' : '' }}>
-                        <label class="btn btn-outline-primary" for="kegiatan-belajar-radio">Belajar</label>
-
-                        <input type="radio" class="btn-check" name="kegiatan" id="kegiatan-istirahat-radio"
-                            value="Istirahat" {{ old('kegiatan') === 'Istirahat' ? 'checked' : '' }}>
-                        <label class="btn btn-outline-primary" for="kegiatan-istirahat-radio">Istirahat</label>
-                    </div>
-                </div>
-
-
                 <div class="col-md-6">
                     <label for="id-kelas" class="form-label">Kelas</label>
                     <select class="form-select @error('id_kelas') is-invalid @enderror" id="id-kelas" name="id_kelas"
                         {{ $kelas->isEmpty() ? 'disabled' : '' }} required>
                         <option value="">
                             {{ $kelas->isNotEmpty() ? '-- Pilih Kelas --' : '-- Kelas Tidak Tersedia --' }}</option>
-                        @forelse ($kelas as $_kelas)
+                        @foreach ($kelas as $_kelas)
                             <option value="{{ $_kelas->id_kelas }}"
                                 {{ old('id_kelas') == $_kelas->id_kelas ? 'selected' : '' }}>{{ $_kelas->nama_kelas }}
                             </option>
-                        @empty
-                        @endforelse
+                        @endforeach
                     </select>
                     @error('id_kelas')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-md-6">
+                    <label for="kegiatan" class="form-label">Kegiatan</label>
+                    <select class="form-select @error('kegiatan') is-invalid @enderror" id="kegiatan" name="kegiatan"
+                        required>
+                        <option value="">-- Pilih Kegiatan --</option>
+                        <option value="Belajar" {{ old('kegiatan') === 'Belajar' ? 'selected' : '' }}>
+                            Belajar</option>
+                        <option value="Istirahat" {{ old('kegiatan') === 'Istirahat' ? 'selected' : '' }}>
+                            Istirahat</option>
+                    </select>
+                    @error('kegiatan')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
@@ -51,11 +51,11 @@
                     <label for="id-guru-mata-pelajaran" class="form-label">Guru</label>
                     <select class="form-select @error('id_guru_mata_pelajaran') is-invalid @enderror"
                         id="id-guru-mata-pelajaran" name="id_guru_mata_pelajaran"
-                        {{ $guru_mata_pelajaran->isEmpty() ? 'disabled' : '' }} required>
+                        data-guru-mata-pelajaran="{{ $guru_mata_pelajaran->toJson() }}" required>
                         <option value="">
                             {{ $guru_mata_pelajaran->isNotEmpty() ? '-- Pilih Guru --' : '-- Guru Tidak Tersedia --' }}
                         </option>
-                        @forelse ($mata_pelajaran as $_mata_pelajaran)
+                        @foreach ($mata_pelajaran as $_mata_pelajaran)
                             @php
                                 $grouped_guru_mata_pelajaran = $guru_mata_pelajaran->where(
                                     'id_mata_pelajaran',
@@ -66,15 +66,14 @@
                                 <optgroup label="{{ $_mata_pelajaran->nama_mata_pelajaran }}">
                                     @foreach ($grouped_guru_mata_pelajaran as $_grouped_guru_mata_pelajaran)
                                         <option value="{{ $_grouped_guru_mata_pelajaran->id_guru_mata_pelajaran }}"
-                                            data-bs-mata-pelajaran="{{ $_grouped_guru_mata_pelajaran->mataPelajaran->nama_mata_pelajaran }}"
+                                            data-mata-pelajaran="{{ $_grouped_guru_mata_pelajaran->mataPelajaran->nama_mata_pelajaran }}"
                                             {{ old('id_guru_mata_pelajaran') == $_grouped_guru_mata_pelajaran->id_guru_mata_pelajaran ? 'selected' : '' }}>
                                             {{ $_grouped_guru_mata_pelajaran->pegawai->getFormatedNamaPegawai() }}
                                         </option>
                                     @endforeach
                                 </optgroup>
                             @endif
-                        @empty
-                        @endforelse
+                        @endforeach
                     </select>
                     @error('id_guru_mata_pelajaran')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -124,7 +123,7 @@
                 </div>
             </div>
 
-            <div class="input-button-group">
+            <div class="form-buttons">
                 <button type="button" class="btn btn-danger me-1" id="cancel-button"
                     data-route="{{ route('jadwal-pelajaran.index') }}" data-bs-toggle="modal"
                     data-bs-target="#cancel-modal">

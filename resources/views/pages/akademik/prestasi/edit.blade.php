@@ -20,14 +20,13 @@
 
                 <div class="col-md-6">
                     <label for="peraih" class="form-label">Peraih</label>
-                    <select class="form-select @error('id_siswa') is-invalid @enderror" id="peraih" name="id_siswa" {{ $siswa->isEmpty() ? 'disabled' : '' }} required>
+                    <select class="form-select @error('id_siswa') is-invalid @enderror" id="peraih" name="id_siswa"
                         {{ $siswa->isEmpty() ? 'disabled' : '' }} required>
                         <option value="">{{ $siswa->isNotEmpty() ? 'Pilih Siswa' : 'Siswa Tidak Tersedia' }}</option>
-                        @forelse ($siswa as $_siswa)
+                        @foreach ($siswa as $_siswa)
                             <option value="{{ $_siswa->id_siswa }}"
                                 {{ old('id_siswa', $prestasi->id_siswa) == $_siswa->id_siswa ? 'selected' : '' }}>{{ $_siswa->getFormatedNamaSiswa() }}</option>
-                        @empty
-                        @endforelse
+                        @endforeach
                     </select>
                     @error('id_siswa')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -113,7 +112,7 @@
                 <div class="col-md-6">
                     <label for="tanggal" class="form-label">Tanggal</label>
                     <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal"
-                        name="tanggal" value="{{ old('tanggal', $pengumuman->tanggal->format('Y-m-d')) }}" required>
+                        name="tanggal" value="{{ old('tanggal', $prestasi->tanggal->format('Y-m-d')) }}" required>
                     @error('tanggal')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

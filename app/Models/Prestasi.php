@@ -3,6 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+
+/**
+ * @property Carbon $tanggal
+ * @property string|null $dokumentasi
+ */
 
 class Prestasi extends Model
 {
@@ -16,11 +22,18 @@ class Prestasi extends Model
         'tanggal' => 'datetime'
     ];
 
+    public function getFormatedTanggal()
+    {
+        $formated_tanggal = $this->tanggal->translatedFormat('d F Y');
+
+        return $formated_tanggal;
+    }
+
     public function scopeFilter($query, array $filters)
     {
-        $order_by_option_value = ['desc', 'asc'];
-        $jenis_option_value = ['Akademik', 'Non-Akademik'];
-        $peringkat_option_value = [
+        $order_by_array = ['desc', 'asc'];
+        $jenis_array = ['akademik', 'non-akademik'];
+        $peringkat_array = [
             '1 (pertama)',
             '2 (kedua)',
             '3 (ketiga)',
@@ -29,7 +42,7 @@ class Prestasi extends Model
             'harapan 3',
             'lainnya'
         ];
-        $tingkat_option_value = [
+        $tingkat_array = [
             'desa',
             'kecamatan',
             'kabupaten/kota',
@@ -50,7 +63,7 @@ class Prestasi extends Model
                 ->groupBy('month')
                 ->orderBy('month');
         } else {
-            $order_by_value = in_array(strtolower($filters['order_by'] ?? ''), $order_by_option_value) ? $filters['order_by'] : 'desc';
+            $order_by_value = in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
             $query->orderBy('tanggal', $order_by_value);
 
             if (!empty($filters['nama_prestasi_filter'])) {
@@ -58,7 +71,7 @@ class Prestasi extends Model
             }
 
             if (!empty($filters['peraih_filter'])) {
-                $query->whereHas('siswa', fn($q) => $q->where('nama_siswa', 'like', '%' . $filters['peraih_filter'] . '%'));
+                $query->whereHas('siswa', fn($query) => $query->where('nama_siswa', 'like', '%' . $filters['peraih_filter'] . '%'));
             }
 
             if (!empty($filters['penyelenggara_filter'])) {
@@ -66,13 +79,13 @@ class Prestasi extends Model
             }
 
             if (!empty($filters['jenis_filter'])) {
-                $jenis_filter_value = in_array(strtolower($filters['jenis_filter']), $jenis_option_value) ? $filters['jenis_filter'] : '';
+                $jenis_filter_value = in_array(strtolower($filters['jenis_filter']), $jenis_array) ? $filters['jenis_filter'] : '';
                 $query->where('jenis', 'like', "%{$jenis_filter_value}%");
             }
 
             if (!empty($filters['peringkat_filter'])) {
-                $peringkat_option_value = in_array(strtolower($filters['peringkat_filter']), $peringkat_option_value) ? $filters['peringkat_filter'] : '';
-                $query->where('peringkat', 'like', "%{$peringkat_option_value}%");
+                $peringkat_filter_value = in_array(strtolower($filters['peringkat_filter']), $peringkat_array) ? $filters['peringkat_filter'] : '';
+                $query->where('peringkat', 'like', "%{$peringkat_filter_value}%");
             }
 
             if (!empty($filters['peringkat_lainnya'])) {
@@ -80,7 +93,7 @@ class Prestasi extends Model
             }
 
             if (!empty($filters['tingkat_filter'])) {
-                $tingkat_filter_value = in_array(strtolower($filters['tingkat_filter']), $tingkat_option_value) ? $filters['tingkat_filter'] : '';
+                $tingkat_filter_value = in_array(strtolower($filters['tingkat_filter']), $tingkat_array) ? $filters['tingkat_filter'] : '';
                 $query->where('tingkat', 'like', "%{$tingkat_filter_value}%");
             }
 

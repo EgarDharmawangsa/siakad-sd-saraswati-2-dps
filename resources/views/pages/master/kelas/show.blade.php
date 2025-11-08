@@ -45,15 +45,15 @@
                         </thead>
 
                         <tbody>
-                            @forelse ($siswa_in_kelas as $_siswa_in_kelas)
-                                <tr>
+                            @forelse ($kelas->getSiswaInKelas() as $_siswa_in_kelas)
+                                {{-- <tr>
                                     <td>{{ $_siswa_in_kelas->nomor_urut }}</td>
                                     <td>{{ $_siswa_in_kelas->nisn }}</td>
                                     <td>{{ $_siswa_in_kelas->nama_siswa }}</td>
-                                </tr>
+                                </tr> --}}
                             @empty
                                 <tr class="text-center">
-                                    <td colspan="5">Belum memiliki Anggota.</td>
+                                    <td colspan="5">Belum memiliki Siswa.</td>
                                 </tr>
                             @endforelse
                         </tbody>

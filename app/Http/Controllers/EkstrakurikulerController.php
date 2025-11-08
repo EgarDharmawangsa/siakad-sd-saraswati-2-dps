@@ -15,7 +15,7 @@ class EkstrakurikulerController extends Controller
         'no_telepon' => 'required|string|min:10|max:15',
         'hari' => 'required|string|min:3|max:10',
         'jam_mulai' => 'required|date_format:H:i',
-        'jam_selesai' => 'required|date_format:H:i'
+        'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
     ];
     
     /**

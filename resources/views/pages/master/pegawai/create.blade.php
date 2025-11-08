@@ -10,19 +10,19 @@
             <!-- Tab Navigation -->
             <ul class="nav nav-tabs" id="pegawai-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="data-pribadi-tab" data-bs-toggle="tab" data-bs-target="#data-pribadi"
+                    <button class="nav-link active" id="data-pribadi-tab-button" data-bs-toggle="tab" data-bs-target="#data-pribadi-tab"
                         type="button">Data pribadi</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="data-kepegawaian-tab" data-bs-toggle="tab"
-                        data-bs-target="#data-kepegawaian" type="button">Data Kepegawaian</button>
+                    <button class="nav-link" id="data-kepegawaian-tab-button" data-bs-toggle="tab"
+                        data-bs-target="#data-kepegawaian-tab" type="button">Data Kepegawaian</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="data-pendidikan-tab" data-bs-toggle="tab" data-bs-target="#data-pendidikan"
+                    <button class="nav-link" id="data-pendidikan-tab-button" data-bs-toggle="tab" data-bs-target="#data-pendidikan-tab"
                         type="button">Pendidikan & Sertifikasi</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="data-sk-tab" data-bs-toggle="tab" data-bs-target="#data-sk"
+                    <button class="nav-link" id="data-sk-tab-button" data-bs-toggle="tab" data-bs-target="#data-sk-tab"
                         type="button">Data SK</button>
                 </li>
             </ul>
@@ -30,7 +30,7 @@
             <!-- Tab Content -->
             <div class="tab-content mb-0" id="pegawai-tab-content">
                 <!-- DATA PRIBADI -->
-                <div class="tab-pane fade show active" id="data-pribadi" role="tabpanel">
+                <div class="tab-pane fade show active" id="data-pribadi-tab" role="tabpanel">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="nik" class="form-label">NIK</label>
@@ -52,8 +52,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-                            <select class="form-select @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin"
+                            <label for="jenis-kelamin" class="form-label">Jenis Kelamin</label>
+                            <select class="form-select @error('jenis_kelamin') is-invalid @enderror" id="jenis-kelamin"
                                 name="jenis_kelamin" required>
                                 <option value="">-- Pilih Jenis Kelamin --</option>
                                 <option value="Laki-Laki" {{ old('jenis_kelamin') === 'Laki-Laki' ? 'selected' : '' }}>
@@ -211,7 +211,7 @@
                 </div>
 
                 <!-- DATA KEPEGAWAIAN -->
-                <div class="tab-pane fade" id="data-kepegawaian" role="tabpanel">
+                <div class="tab-pane fade" id="data-kepegawaian-tab" role="tabpanel">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="posisi" class="form-label">Posisi</label>
@@ -383,7 +383,7 @@
                 </div>
 
                 <!-- PENDIDIKAN & SERTIFIKASI -->
-                <div class="tab-pane fade" id="data-pendidikan" role="tabpanel">
+                <div class="tab-pane fade" id="data-pendidikan-tab" role="tabpanel">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="ijazah-terakhir" class="form-label">Ijazah Terakhir<span
@@ -436,7 +436,7 @@
                 </div>
 
                 <!-- DATA SK -->
-                <div class="tab-pane fade" id="data-sk" role="tabpanel">
+                <div class="tab-pane fade" id="data-sk-tab" role="tabpanel">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="no-sk" class="form-label">Nomor SK</label>
@@ -462,7 +462,7 @@
             </div>
 
             <!-- Tombol Submit -->
-            <div class="input-button-group">
+            <div class="form-buttons">
                 <button type="button" class="btn btn-danger me-1" id="cancel-button"
                     data-route="{{ route('pegawai.index') }}" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>

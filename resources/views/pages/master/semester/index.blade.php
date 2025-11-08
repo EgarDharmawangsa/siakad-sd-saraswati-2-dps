@@ -3,29 +3,34 @@
 @section('container')
     <div class="content-card">
         <div class="d-flex align-items-center flex-wrap mb-4">
-            <a href="{{ route('semester.create') }}" class="btn btn-success"><i class="bi bi-plus-lg me-2"></i>Tambah
+            <a href="{{ route('semester.create') }}" class="btn btn-success create-button"><i
+                    class="bi bi-plus-lg me-2"></i>Tambah
                 Semester</a>
 
-            <div class="dropdown order-by-dropdown">
-                <a class="btn btn-secondary dropdown-toggle order-by-dropdown-toggle" href="#" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-sort-down me-2"></i>
-                    @if (request('order_by') === 'desc' || !request('order_by'))
-                        Terbaru ke Lama
-                    @else
-                        Lama ke Terbaru
-                    @endif
-                </a>
+            <div class="modifier-buttons">
+                <div class="dropdown me-2">
+                    <a class="btn btn-secondary dropdown-toggle order-by-dropdown-toggle" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i
+                            class="bi bi-sort-down me-2"></i>{{ !request('order_by') || request('order_by') !== 'asc' ? 'Terbaru ke Lama' : 'Lama ke Terbaru' }}
+                    </a>
 
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item order-by-dropdown-item"
-                            href="{{ request()->fullUrlWithQuery(['order_by' => 'desc']) }}"
-                            {{ request('order_by') === 'desc' || !request('order_by') ? 'active' : '' }}>Terbaru ke Lama</a>
-                    </li>
-                    <li><a class="dropdown-item order-by-dropdown-item"
-                            href="{{ request()->fullUrlWithQuery(['order_by' => 'asc']) }}"
-                            {{ request('order_by') === 'asc' ? 'active' : '' }}>Lama ke Terbaru</a></li>
-                </ul>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'desc' || !request('order_by') ? 'active' : '' }}"
+                                href="{{ request()->fullUrlWithQuery(['order_by' => 'desc']) }}">Terbaru ke Lama</a>
+                        </li>
+                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'asc' ? 'active' : '' }}"
+                                href="{{ request()->fullUrlWithQuery(['order_by' => 'asc']) }}">Lama ke Terbaru</a></li>
+                    </ul>
+                </div>
+
+                <div class="filter-modal-container">
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                        <i class="bi bi-funnel me-2"></i>Filter
+                    </button>
+
+                    @include('components.master.semester_filter_modal')
+                </div>
             </div>
         </div>
 
@@ -47,10 +52,10 @@
                     @forelse ($semester as $_semester)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $_semester->jenis_semester }}</td>
+                            <td>{{ $_semester->jenis }}</td>
                             <td>{{ $_semester->getTahunAjaran() }}</td>
-                            <td>{{ $_semester->tanggal_mulai->format('d-m-Y') }}</td>
-                            <td>{{ $_semester->tanggal_selesai->format('d-m-Y') }}</td>
+                            <td>{{ $_semester->getFormatedTanggal('tanggal_mulai') }}</td>
+                            <td>{{ $_semester->getFormatedTanggal('tanggal_selesai') }}</td>
                             <td><span
                                     class="badge bg-{{ $_semester->getStatus() === 'Berjalan' ? 'success' : ($_semester->getStatus() === 'Menunggu' ? 'primary' : 'secondary') }}">
                                     {{ $_semester->getStatus() }}
@@ -81,7 +86,7 @@
             </table>
         </div>
 
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end mt-2">
             {{ $semester->links() }}
         </div>
     </div>

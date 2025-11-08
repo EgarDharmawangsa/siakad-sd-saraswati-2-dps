@@ -52,7 +52,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $_pengumuman->judul }}</td>
-                            <td>{{ $_pengumuman->tanggal->format('d-m-Y') }}</td>
+                            <td>{{ $_pengumuman->getFormatedTanggal() }}</td>
                             <td>{!! strip_tags(Str::limit($_pengumuman->isi, 40, '...')) !!}</td>
                             <td><span class="badge bg-{{ $_pengumuman->getStatus() === 'Terbit' ? 'success' : 'primary' }}">
                                     {{ $_pengumuman->getStatus() }}
@@ -83,7 +83,7 @@
             </table>
         </div>
 
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end mt-2">
             {{ $pengumuman->links() }}
         </div>
     </div>

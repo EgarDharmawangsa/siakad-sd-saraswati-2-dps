@@ -46,7 +46,7 @@ class PegawaiController extends Controller
 
     public function index()
     {
-        $pegawai = Pegawai::with('guruMataPelajaran')->filter(request(['order_by']))->paginate(30)->withQueryString();
+        $pegawai = Pegawai::with('guruMataPelajaran')->filter(request()->all())->paginate(30)->withQueryString();
 
         return view('pages.master.pegawai.index', [
             'judul' => 'Pegawai',
@@ -139,6 +139,7 @@ class PegawaiController extends Controller
         $pegawai_validation_rules_update['nipppk'] = "nullable|string|min:18|max:20|unique:pegawai,nipppk,{$pegawai->id_pegawai},id_pegawai";
         $pegawai_validation_rules_update['e_mail'] = "nullable|email|min:7|max:255|unique:pegawai,e_mail,{$pegawai->id_pegawai},id_pegawai|unique:siswa,e_mail";
         $pegawai_validation_rules_update['username'] = "nullable|string|min:5|max:50|unique:users,username,{$pegawai->id_pegawai},id_pegawai";
+        $pegawai_validation_rules_update['image_delete'] = 'required|integer';
 
         $validated_pegawai = $request->validate($pegawai_validation_rules_update);
 
@@ -151,7 +152,7 @@ class PegawaiController extends Controller
             'tahun_ijazah',
             'tahun_sertifikasi',
             'no_sk',
-            'tanggal_sk_terakhir'
+            'tanggal_sk_terakhir',
         ];
 
         foreach ($nullable_fields as $field) {
@@ -160,7 +161,7 @@ class PegawaiController extends Controller
             }
         }
 
-        if ($request->image_delete == 1) {
+        if ($validated_pegawai['image_delete'] == 1) {
             if (!empty($pegawai->foto)) {
                 Storage::disk('public')->delete($pegawai->foto);
             }
@@ -212,6 +213,7 @@ class PegawaiController extends Controller
             }
         } else {
             $pegawai->guruMataPelajaran()->delete();
+            $pegawai->kelas()->update(['id_pegawai' => null]);
         }
 
         return redirect()->route('pegawai.index')->with('success', 'Data pegawai berhasil diperbarui.');

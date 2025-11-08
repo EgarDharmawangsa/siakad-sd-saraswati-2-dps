@@ -8,11 +8,6 @@
     background-color: #ececec;
 }
 
-.jadwal-pelajaran-container:not(:last-child),
-.jadwal-pelajaran-table:not(:last-child) {
-    margin-bottom: 1rem;
-}
-
 .jadwal-pelajaran-container {
     border: 2px solid #dee2e6;
     border-radius: 8px;

@@ -13,7 +13,7 @@ class JadwalPelajaranController extends Controller
     public $jadwal_pelajaran_validation_rules = [
         'id_kelas' => 'nullable|integer',
         'id_guru_mata_pelajaran' => 'nullable|integer',
-        'kegiatan' => 'required|string|min:3|max:10|in:Belajar,Istirahat',
+        'kegiatan' => 'required|string|min:3|max:10',
         'hari' => 'required|string|min:3|max:10',
         'jam_mulai' => 'required|date_format:H:i',
         'jam_selesai' => 'required|date_format:H:i|after:jam_mulai'
@@ -24,16 +24,11 @@ class JadwalPelajaranController extends Controller
      */
     public function index()
     {
-        $kelas = Kelas::with([
-            'pegawai',
-            'jadwalPelajaran' => function ($query) {
-                $query->orderByRaw("
-                    FIELD(hari, 'Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu')
-                ")->orderBy('jam_mulai');
-            },
-            'jadwalPelajaran.guruMataPelajaran.mataPelajaran',
-            'jadwalPelajaran.guruMataPelajaran.pegawai'
-        ])->orderedNamaKelas()->paginate(20)->withQueryString();
+        $kelas = Kelas::withJadwalPelajaran(request()->all())
+            ->filter(request()->except('nama_kelas_filter'))
+            ->orderedNamaKelas()
+            ->paginate(20)
+            ->withQueryString();
 
         return view('pages.akademik.jadwal_pelajaran.index', [
             'judul' => 'Jadwal Pelajaran',

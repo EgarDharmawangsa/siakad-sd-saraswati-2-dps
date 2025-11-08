@@ -8,7 +8,7 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('ekstrakurikuler.index') }}">
+                <form id="filter-modal-form" action="{{ route('ekstrakurikuler.index') }}">
                     <div class="mb-3">
                         <label for="nama-ekstrakurikuler-filter" class="form-label">Nama Ekstrakurikuler</label>
                         <input type="text" class="form-control" id="nama-ekstrakurikuler-filter" name="nama_ekstrakurikuler_filter"
@@ -29,7 +29,7 @@
 
                     <div class="mb-3">
                         <label for="no-telepon-filter" class="form-label">No. Telepon</label>
-                        <input type="text" class="form-control" id="no-telepon-filter" name="no_telepon_filter"
+                        <input type="number" class="form-control" id="no-telepon-filter" name="no_telepon_filter"
                             value="{{ request('no_telepon_filter') }}" placeholder="Masukkan no. telepon">
                     </div>
 
@@ -37,13 +37,13 @@
                         <label for="hari-filter" class="form-label">Hari</label>
                         <select class="form-select" id="hari-filter" name="hari_filter">
                             <option value="">-- Pilih Hari --</option>
-                            <option value="Senin" {{ request('hari_filter') === 'Senin' ? 'selected' : '' }}>Senin</option>
-                            <option value="Selasa" {{ request('hari_filter') === 'Selasa' ? 'selected' : '' }}>Selasa</option>
-                            <option value="Rabu" {{ request('hari_filter') === 'Rabu' ? 'selected' : '' }}>Rabu</option>
-                            <option value="Kamis" {{ request('hari_filter') === 'Kamis' ? 'selected' : '' }}>Kamis</option>
-                            <option value="Jumat" {{ request('hari_filter') === 'Jumat' ? 'selected' : '' }}>Jumat</option>
-                            <option value="Sabtu" {{ request('hari_filter') === 'Sabtu' ? 'selected' : '' }}>Sabtu</option>
-                            <option value="Minggu" {{ request('hari_filter') === 'Minggu' ? 'selected' : '' }}>Minggu</option>
+                            <option value="senin" {{ request('hari_filter') === 'senin' ? 'selected' : '' }}>Senin</option>
+                            <option value="selasa" {{ request('hari_filter') === 'selasa' ? 'selected' : '' }}>Selasa</option>
+                            <option value="rabu" {{ request('hari_filter') === 'rabu' ? 'selected' : '' }}>Rabu</option>
+                            <option value="kamis" {{ request('hari_filter') === 'kamis' ? 'selected' : '' }}>Kamis</option>
+                            <option value="jumat" {{ request('hari_filter') === 'jumat' ? 'selected' : '' }}>Jumat</option>
+                            <option value="sabtu" {{ request('hari_filter') === 'sabtu' ? 'selected' : '' }}>Sabtu</option>
+                            <option value="minggu" {{ request('hari_filter') === 'minggu' ? 'selected' : '' }}>Minggu</option>
                         </select>
                     </div>
 
@@ -59,7 +59,8 @@
                             value="{{ request('jam_selesai_filter') }}" placeholder="Tentukan jam selesai">
                     </div>
 
-                    <div class="text-center form-buttons mb-2">
+                    <div class="form-buttons justify-content-between">
+                        <button type="button" id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
                         <button type="submit" class="btn btn-primary">Terapkan</button>
                     </div>
                 </form>

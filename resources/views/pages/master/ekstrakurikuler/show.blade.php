@@ -53,13 +53,13 @@
 
             <div class="col-md-6">
                 <label for="jam-mulai" class="form-label">Jam Mulai</label>
-                <input type="text" class="form-control" id="jam-mulai" value="{{ $ekstrakurikuler->jam_mulai }}"
+                <input type="text" class="form-control" id="jam-mulai" value="{{ $ekstrakurikuler->getFormatedJam('jam_mulai') }}"
                     readonly>
             </div>
 
             <div class="col-md-6">
                 <label for="jam-selesai" class="form-label">Jam Selesai</label>
-                <input type="text" class="form-control" id="jam-selesai" value="{{ $ekstrakurikuler->jam_selesai }}"
+                <input type="text" class="form-control" id="jam-selesai" value="{{ $ekstrakurikuler->getFormatedJam('jam_selesai') }}"
                     readonly>
             </div>
         </div>

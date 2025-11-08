@@ -198,7 +198,7 @@
             </table>
         </div>
 
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end mt-2">
             {{ $siswa->links() }}
         </div>
     </div>

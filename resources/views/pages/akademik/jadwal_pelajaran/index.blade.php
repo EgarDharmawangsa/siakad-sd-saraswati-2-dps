@@ -2,16 +2,27 @@
 
 @section('container')
     <div class="content-card">
-        @if ($kelas->isNotEmpty())
-            <a href="{{ route('jadwal-pelajaran.create') }}" class="btn btn-success mb-4"><i
+        <div class="d-flex align-items-center flex-wrap mb-4">
+            <a href="{{ route('jadwal-pelajaran.create') }}" class="btn btn-success create-button"><i
                     class="bi bi-plus-lg me-2"></i>Tambah
                 Jadwal Pelajaran</a>
-        @endif
+
+            <div class="modifier-buttons">
+                <div class="filter-modal-container">
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                        <i class="bi bi-funnel me-2"></i>Filter
+                    </button>
+
+                    @include('components.akademik.jadwal_pelajaran_filter_modal')
+                </div>
+            </div>
+        </div>
 
         @forelse ($kelas as $_kelas)
-            <div class="jadwal-pelajaran-container">
+            <div class="jadwal-pelajaran-container {{ !$loop->last ? 'mb-3' : '' }}">
                 <h5 class="mb-0">Kelas : {{ $_kelas->nama_kelas }}</h5>
-                <p class="mt-2 mb-0 wali-kelas-label">Wali Kelas : {{ $_kelas->pegawai->getFormatedNamaPegawai() }}</p>
+                <p class="mt-2 mb-0 wali-kelas-label">Wali Kelas : {{ $_kelas->pegawai?->getFormatedNamaPegawai() ?? '-' }}
+                </p>
                 <hr class="mb-3">
 
                 @php
@@ -39,23 +50,26 @@
                                 @foreach ($jadwal_pelajaran as $_jadwal_pelajaran)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        
+
                                         @if ($_jadwal_pelajaran->kegiatan === 'Belajar')
-                                            <td>{{ $_jadwal_pelajaran->guruMataPelajaran->mataPelajaran->nama_mata_pelajaran }}</td>
-                                            <td>{{ $_jadwal_pelajaran->guruMataPelajaran->pegawai->getFormatedNamaPegawai() }}</td>
+                                            <td>{{ $_jadwal_pelajaran->guruMataPelajaran->mataPelajaran->nama_mata_pelajaran }}
+                                            </td>
+                                            <td>{{ $_jadwal_pelajaran->guruMataPelajaran->pegawai->getFormatedNamaPegawai() }}
+                                            </td>
                                         @else
                                             <td colspan="2" class="text-center">Istirahat</td>
                                         @endif
 
-                                        <td>{{ $_jadwal_pelajaran->jam_mulai }}</td>
-                                        <td>{{ $_jadwal_pelajaran->jam_selesai }}</td>
+                                        <td>{{ $_jadwal_pelajaran->getFormatedJam('jam_mulai') }}</td>
+                                        <td>{{ $_jadwal_pelajaran->getFormatedJam('jam_selesai') }}</td>
                                         <td class="aksi-column">
                                             <a href="{{ route('jadwal-pelajaran.show', $_jadwal_pelajaran->id_jadwal_pelajaran) }}"
                                                 class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
                                             <a href="{{ route('jadwal-pelajaran.edit', $_jadwal_pelajaran->id_jadwal_pelajaran) }}"
                                                 class="btn btn-warning btn-sm mx-1"><i
                                                     class="bi bi-pencil me-2"></i>Edit</a>
-                                            <form action="{{ route('jadwal-pelajaran.destroy', $_jadwal_pelajaran->id_jadwal_pelajaran) }}"
+                                            <form
+                                                action="{{ route('jadwal-pelajaran.destroy', $_jadwal_pelajaran->id_jadwal_pelajaran) }}"
                                                 method="POST" class="d-inline delete-form">
                                                 @csrf
                                                 @method('DELETE')

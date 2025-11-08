@@ -5,7 +5,7 @@
         <h5>Detail {{ $judul }}</h5>
         <hr>
 
-        <div class="show-button-group">
+        <div class="show-buttons">
             <a href="{{ route('pegawai.index') }}" class="btn btn-secondary btn-sm"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
             <a href="{{ route('pegawai.edit', $pegawai->id_pegawai) }}" class="btn btn-warning btn-sm mx-1"><i
@@ -80,7 +80,7 @@
                     <div class="col-md-6">
                         <label for="tanggal-lahir" class="form-label">Tanggal Lahir</label>
                         <input type="text" class="form-control" id="tanggal-lahir"
-                            value="{{ $pegawai->tanggal_lahir->format('d-m-Y') }}" readonly>
+                            value="{{ $pegawai->getFormatedTanggal() }}" readonly>
                     </div>
 
                     <div class="col-md-6">
@@ -186,13 +186,13 @@
                     <div class="col-md-6">
                         <label for="permulaan-kerja" class="form-label">Tanggal Permulaan Kerja</label>
                         <input type="text" class="form-control" id="permulaan-kerja"
-                            value="{{ $pegawai->permulaan_kerja->format('d-m-Y') }}" readonly>
+                            value="{{ $pegawai->getFormatedTanggal() }}" readonly>
                     </div>
 
                     <div class="col-md-6">
                         <label for="permulaan-kerja-sds2" class="form-label">Tanggal Permulaan Kerja (RASDA)</label>
                         <input type="text" class="form-control" id="permulaan-kerja-sds2"
-                            value="{{ $pegawai->permulaan_kerja_sds2->format('d-m-Y') }}" readonly>
+                            value="{{ $pegawai->getFormatedTanggal() }}" readonly>
                     </div>
                 </div>
             </div>
@@ -238,7 +238,7 @@
                     <div class="col-md-6">
                         <label for="tanggal-sk-terakhir" class="form-label">Tanggal SK Terakhir</label>
                         <input type="text" class="form-control" id="tanggal-sk-terakhir"
-                            value="{{ $pegawai->tanggal_sk_terakhir ?? '-' }}" readonly>
+                            value="{{ $pegawai->getFormatedTanggal('tanggal_sk_terakhir') }}" readonly>
                     </div>
                 </div>
             </div>
