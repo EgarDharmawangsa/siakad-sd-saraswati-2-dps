@@ -1,13 +1,3 @@
-.empty-message {
-    background-color: #f2f2f2;
-    border: 1px solid #dee2e6;
-    font-size: 14px;
-}
-
-.empty-message:hover {
-    background-color: #ececec;
-}
-
 .jadwal-pelajaran-container {
     border: 2px solid #dee2e6;
     border-radius: 8px;

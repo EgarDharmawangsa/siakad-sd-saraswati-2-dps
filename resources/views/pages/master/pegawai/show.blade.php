@@ -6,9 +6,9 @@
         <hr>
 
         <div class="show-buttons">
-            <a href="{{ route('pegawai.index') }}" class="btn btn-secondary btn-sm"><i
+            <a href="{{ route('pegawai.index') }}" class="btn btn-secondary btn-sm me-1"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
-            <a href="{{ route('pegawai.edit', $pegawai->id_pegawai) }}" class="btn btn-warning btn-sm mx-1"><i
+            <a href="{{ route('pegawai.edit', $pegawai->id_pegawai) }}" class="btn btn-warning btn-sm me-1"><i
                     class="bi bi-pencil me-2"></i>Edit</a>
             <form action="{{ route('pegawai.destroy', $pegawai->id_pegawai) }}" method="POST" class="d-inline delete-form">
                 @csrf

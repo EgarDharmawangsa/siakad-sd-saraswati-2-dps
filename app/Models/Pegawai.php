@@ -36,7 +36,7 @@ class Pegawai extends Model
 
     public function getFormatedNamaPegawai()
     {
-        $formated_nama_pegawai = $this->nip ?? $this->nipppk ?? '-' . ' | ' . $this->nama_pegawai;
+        $formated_nama_pegawai = ($this->nip ?? $this->nipppk ?? '-') . ' | ' . $this->nama_pegawai;
 
         return $formated_nama_pegawai;
     }
@@ -158,7 +158,7 @@ class Pegawai extends Model
         }
 
         if (!empty($filters['guru_mata_pelajaran_filter'])) {
-            $query->whereHas('guruMataPelajaran.mataPelajaran', fn($query) => $query->where('nama_mata_pelajaran', 'like', "%{$filters['guru_mata_pelajaran_filter']}%"));
+            $query->whereHas('guruMataPelajaran.mataPelajaran', fn($query) => $query->where('guru_mata_pelajaran', 'like', "%{$filters['guru_mata_pelajaran_filter']}%"));
         }
 
         if (!empty($filters['nip_filter'])) {

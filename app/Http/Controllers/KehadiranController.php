@@ -12,7 +12,9 @@ class KehadiranController extends Controller
      */
     public function index()
     {
-        return view('pages.akademik.kehadiran.index');
+        return view('pages.akademik.kehadiran.index', [
+            'judul' => 'Kehadiran'
+        ]);
     }
 
     /**

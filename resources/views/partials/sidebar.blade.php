@@ -73,13 +73,13 @@
             <li class="nav-item">
                 <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
                     href="#nilai-menu" role="button"
-                    aria-expanded="{{ request()->routeIs('nilai-mata-pelajaran.') || request()->routeIs('nilai-ekstrakurikuler.') ? 'true' : 'false' }}"
+                    aria-expanded="{{ request()->routeIs('nilai-mata-pelajaran.*') || request()->routeIs('nilai-ekstrakurikuler.*') ? 'true' : 'false' }}"
                     aria-controls="nilai-menu">
                     <span><i class="bi bi-clipboard-data me-2"></i>Nilai</span>
                     <i class="bi bi-triangle-fill nilai-menu-icon"></i>
                 </a>
 
-                <div class="collapse {{ request()->routeIs('nilai-mata-pelajaran.') || request()->routeIs('nilai-ekstrakurikuler.') ? 'show' : '' }}"
+                <div class="collapse {{ request()->routeIs('nilai-mata-pelajaran.*') || request()->routeIs('nilai-ekstrakurikuler.*') ? 'show' : '' }}"
                     id="nilai-menu">
                     <ul class="nav flex-column ms-3">
                         <li class="nav-item">

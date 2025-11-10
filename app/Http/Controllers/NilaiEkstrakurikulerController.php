@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\NilaiEkstrakurikuler;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 
 class NilaiEkstrakurikulerController extends Controller
@@ -12,7 +13,14 @@ class NilaiEkstrakurikulerController extends Controller
      */
     public function index()
     {
-        return view('pages.akademik.nilai_ekstrakurikuler.index');
+        $nilai_ekstrakurikuler = NilaiEkstrakurikuler::paginate(30)->withQueryString();
+        $siswa = Siswa::all();
+
+        return view('pages.akademik.nilai_ekstrakurikuler.index', [
+            'judul' => 'Nilai Ekstrakurikuler',
+            'nilai_ekstrakurikuler' => $nilai_ekstrakurikuler,
+            'siswa' => $siswa
+        ]);
     }
 
     /**

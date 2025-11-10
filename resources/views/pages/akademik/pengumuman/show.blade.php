@@ -6,9 +6,9 @@
         <hr>
 
         <div class="show-buttons">
-            <a href="{{ route('pengumuman.index') }}" class="btn btn-secondary btn-sm"><i
+            <a href="{{ route('pengumuman.index') }}" class="btn btn-secondary btn-sm me-1"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
-            <a href="{{ route('pengumuman.edit', $pengumuman->id_pengumuman) }}" class="btn btn-warning btn-sm mx-1"><i
+            <a href="{{ route('pengumuman.edit', $pengumuman->id_pengumuman) }}" class="btn btn-warning btn-sm me-1"><i
                     class="bi bi-pencil me-2"></i>Edit</a>
             <form action="{{ route('pengumuman.destroy', $pengumuman->id_pengumuman) }}" method="POST" class="d-inline delete-form">
                 @csrf

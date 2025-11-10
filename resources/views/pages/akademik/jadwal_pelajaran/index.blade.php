@@ -2,17 +2,16 @@
 
 @section('container')
     <div class="content-card">
-        <div class="d-flex align-items-center flex-wrap mb-4">
-            <a href="{{ route('jadwal-pelajaran.create') }}" class="btn btn-success create-button"><i
-                    class="bi bi-plus-lg me-2"></i>Tambah
+        <div class="index-buttons">
+            <a href="{{ route('jadwal-pelajaran.create') }}" class="btn btn-success"><i class="bi bi-plus-lg me-2"></i>Tambah
                 Jadwal Pelajaran</a>
 
             <div class="modifier-buttons">
-                <div class="filter-modal-container">
+                <div>
                     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
                         <i class="bi bi-funnel me-2"></i>Filter
                     </button>
-
+    
                     @include('components.akademik.jadwal_pelajaran_filter_modal')
                 </div>
             </div>
@@ -91,8 +90,10 @@
             <p class="empty-message text-center mb-0 p-3 rounded">Kelas tidak tersedia.</p>
         @endforelse
 
-        <div class="d-flex justify-content-end">
-            {{ $kelas->links() }}
-        </div>
+        @if ($kelas->hasPages())
+            <div class="d-flex justify-content-end">
+                {{ $kelas->links() }}
+            </div>
+        @endif
     </div>
 @endsection

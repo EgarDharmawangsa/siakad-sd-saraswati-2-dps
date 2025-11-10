@@ -59,7 +59,7 @@ class Kelas extends Model
         if ($order_by_value === 'nama_kelas') {
             $query->orderedNamaKelas();
         } else {
-            $query->orderBy('create_at', $order_by_value);
+            $query->orderBy('created_at', $order_by_value);
         }
 
         if (!empty($filters['nama_kelas_filter']) || !empty($filters['kelas_filter'])) {

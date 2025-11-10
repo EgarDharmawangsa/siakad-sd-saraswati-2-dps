@@ -43,8 +43,16 @@
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
+.index-buttons {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
 .modifier-buttons {
     display: flex;
+    align-items: center;
+    justify-content: end;
     flex-wrap: wrap;
     margin-left: auto;
 }
@@ -57,12 +65,26 @@
     background-color: rgb(220, 220, 220);
 }
 
+.filter-modal-container {
+    margin-left: 0.5rem;
+}
+
 #filter-modal-close-button:hover {
     background-color: rgb(220, 220, 220);
 }
 
 #filter-modal-close-button:focus {
     box-shadow: none;
+}
+
+.empty-message {
+    background-color: #f2f2f2;
+    border: 1px solid #dee2e6;
+    font-size: 14px;
+}
+
+.empty-message:hover {
+    background-color: #ececec;
 }
 
 .table {
@@ -233,18 +255,19 @@ td {
     }
 }
 
-@media (max-width: 510px) {
-    .create-button {
-        margin-right: 0.5rem;
+@media (max-width: 490px) {
+    .index-buttons {
+        flex-direction: column;
+        align-items: stretch;
     }
 
     .modifier-buttons {
-        margin: 0.5rem 0 0 0;
+        margin: 0.5rem 0 0 auto;
     }
 }
 
-@media (max-width: 313px) {
+@media (max-width: 290px) {
     .filter-modal-container {
-        margin-top: 0.5rem;
+        margin: 0.5rem 0 0;
     }
 }

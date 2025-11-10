@@ -6,9 +6,9 @@
         <hr>
 
         <div class="show-buttons">
-            <a href="{{ route('semester.index') }}" class="btn btn-secondary btn-sm"><i
+            <a href="{{ route('semester.index') }}" class="btn btn-secondary btn-sm me-1"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
-            <a href="{{ route('semester.edit', $semester->id_semester) }}" class="btn btn-warning btn-sm mx-1"><i
+            <a href="{{ route('semester.edit', $semester->id_semester) }}" class="btn btn-warning btn-sm me-1"><i
                     class="bi bi-pencil me-2"></i>Edit</a>
             <form action="{{ route('semester.destroy', $semester->id_semester) }}" method="POST" class="d-inline delete-form">
                 @csrf
