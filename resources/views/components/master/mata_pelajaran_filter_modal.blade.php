@@ -9,18 +9,17 @@
             </div>
             <div class="modal-body">
                 <form id="filter-modal-form" action="{{ route('mata-pelajaran.index') }}">
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="nama-mata-pelajaran-filter" class="form-label">Nama Mata Pelajaran</label>
                         <input type="text" class="form-control" id="nama-mata-pelajaran-filter"
                             name="nama_mata_pelajaran_filter" value="{{ request('nama_mata_pelajaran_filter') }}"
                             placeholder="Masukkan nama mata pelajaran">
                     </div>
-
-                    <div class="form-buttons justify-content-between">
-                        <button type="button" id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
-                        <button type="submit" class="btn btn-primary">Terapkan</button>
-                    </div>
                 </form>
+            </div>
+            <div class="modal-footer form-buttons justify-content-between mt-0">
+                <button id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
+                <button id="filter-modal-apply-button" class="btn btn-primary">Terapkan</button>
             </div>
         </div>
     </div>

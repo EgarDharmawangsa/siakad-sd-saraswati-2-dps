@@ -156,6 +156,10 @@ tr td {
     z-index: 3050;
 }
 
+.modal-content {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+}
+
 .modal-backdrop {
     z-index: 3000;
     background-color: rgba(0, 0, 0, 0.5);
@@ -169,10 +173,6 @@ tr td {
 
 .modal-title {
     color: black;
-}
-
-.modal-content {
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
 }
 
 .bi.warning-modal-icon {

@@ -20,6 +20,7 @@ const success_toast = document.getElementById('success-toast');
 const error_toast = document.getElementById('error-toast');
 const filter_modal_close_button = document.getElementById('filter-modal-close-button');
 const filter_modal_form = document.getElementById('filter-modal-form');
+const filter_modal_apply_button = document.getElementById('filter-modal-apply-button');
 const filter_modal_clear_button = document.getElementById('filter-modal-clear-button');
 const password = document.getElementById('password');
 const password_toggle_button = document.getElementById('password-toggle-button');
@@ -47,6 +48,12 @@ if (filter_modal_close_button && filter_modal_clear_button) {
             });
             document.activeElement.blur();
         });
+    });
+}
+
+if (filter_modal_apply_button) {
+    filter_modal_apply_button.addEventListener('click', () => {
+        filter_modal_form.submit();
     });
 }
 

@@ -53,17 +53,16 @@
                             value="{{ request('jam_mulai_filter') }}" placeholder="Tentukan jam mulai">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="jam-selesai-filter" class="form-label">Jam Selesai</label>
                         <input type="text" class="form-control" id="jam-selesai-filter" name="jam_selesai_filter"
                             value="{{ request('jam_selesai_filter') }}" placeholder="Tentukan jam selesai">
                     </div>
-
-                    <div class="form-buttons justify-content-between">
-                        <button type="button" id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
-                        <button type="submit" class="btn btn-primary">Terapkan</button>
-                    </div>
                 </form>
+            </div>
+            <div class="modal-footer form-buttons justify-content-between mt-0">
+                <button id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
+                <button id="filter-modal-apply-button" class="btn btn-primary">Terapkan</button>
             </div>
         </div>
     </div>

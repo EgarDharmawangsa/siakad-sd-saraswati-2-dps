@@ -27,7 +27,7 @@
                             value="{{ request('isi_filter') }}" placeholder="Masukkan isi">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="status-filter" class="form-label">Status</label>
                         <select class="form-select" id="status-filter" name="status_filter">
                             <option value="">-- Pilih Status --</option>
@@ -37,12 +37,11 @@
                             </option>
                         </select>
                     </div>
-
-                    <div class="form-buttons justify-content-between">
-                        <button type="button" id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
-                        <button type="submit" class="btn btn-primary">Terapkan</button>
-                    </div>
                 </form>
+            </div>
+            <div class="modal-footer form-buttons justify-content-between mt-0">
+                <button id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
+                <button id="filter-modal-apply-button" class="btn btn-primary">Terapkan</button>
             </div>
         </div>
     </div>

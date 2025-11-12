@@ -103,17 +103,16 @@
                             value="{{ request('nama_wilayah_filter') }}" placeholder="Masukkan nama wilayah">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="tanggal-filter" class="form-label">Tanggal</label>
                         <input type="date" class="form-control" id="tanggal-filter" name="tanggal_filter"
                             value="{{ request('tanggal_filter') }}">
                     </div>
-
-                    <div class="form-buttons justify-content-between">
-                        <button type="button" id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
-                        <button type="submit" class="btn btn-primary">Terapkan</button>
-                    </div>
                 </form>
+            </div>
+            <div class="modal-footer form-buttons justify-content-between mt-0">
+                <button id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
+                <button id="filter-modal-apply-button" class="btn btn-primary">Terapkan</button>
             </div>
         </div>
     </div>

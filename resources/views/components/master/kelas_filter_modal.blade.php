@@ -15,17 +15,16 @@
                             value="{{ request('nama_kelas_filter') }}" placeholder="Masukkan nama kelas">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="wali-kelas-filter" class="form-label">Wali Kelas</label>
                         <input type="text" class="form-control" id="wali-kelas-filter" name="wali_kelas_filter"
                             value="{{ request('wali_kelas_filter') }}" placeholder="Masukkan wali kelas">
                     </div>
-
-                    <div class="form-buttons justify-content-between">
-                        <button type="button" id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
-                        <button type="submit" class="btn btn-primary">Terapkan</button>
-                    </div>
                 </form>
+            </div>
+            <div class="modal-footer form-buttons justify-content-between mt-0">
+                <button id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
+                <button id="filter-modal-apply-button" class="btn btn-primary">Terapkan</button>
             </div>
         </div>
     </div>

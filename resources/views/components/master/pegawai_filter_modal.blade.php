@@ -148,7 +148,7 @@
                                         value="{{ request('e_mail_filter') }}">
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-2">
                                     <label for="username-filter" class="form-label">Username</label>
                                     <input type="text" class="form-control" id="username-filter"
                                         name="username_filter" value="{{ request('username_filter') }}"
@@ -302,7 +302,7 @@
                                         value="{{ request('permulaan_kerja_filter') }}">
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-2">
                                     <label for="permulaan-kerja-sds2-filter" class="form-label">Permulaan Kerja
                                         (RASDA)</label>
                                     <input type="date" class="form-control" id="permulaan-kerja-sds2-filter"
@@ -343,7 +343,7 @@
                                     </select>
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-2">
                                     <label for="tahun-sertifikasi-filter" class="form-label">Tahun Sertifikasi</label>
                                     <input type="text" class="form-control" id="tahun-sertifikasi-filter"
                                         name="tahun_sertifikasi_filter"
@@ -360,7 +360,7 @@
                                         value="{{ request('no_sk_filter') }}" placeholder="Masukkan nomor SK">
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-2">
                                     <label for="tgl-sk-terakhir-filter" class="form-label">Tanggal SK Terakhir</label>
                                     <input type="text" class="form-control" id="tgl-sk-terakhir-filter"
                                         name="tanggal_sk_terakhir_filter"
@@ -370,12 +370,11 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-buttons justify-content-between">
-                        <button type="button" id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
-                        <button type="submit" class="btn btn-primary">Terapkan</button>
-                    </div>
                 </form>
+            </div>
+            <div class="modal-footer form-buttons justify-content-between mt-0">
+                <button id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
+                <button id="filter-modal-apply-button" class="btn btn-primary">Terapkan</button>
             </div>
         </div>
     </div>
