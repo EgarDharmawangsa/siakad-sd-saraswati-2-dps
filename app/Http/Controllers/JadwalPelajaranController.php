@@ -24,8 +24,7 @@ class JadwalPelajaranController extends Controller
      */
     public function index()
     {
-        $kelas = Kelas::withJadwalPelajaran(request()->all())
-            ->filter(request()->except('nama_kelas_filter'))
+        $kelas = Kelas::withJadwalPelajaran(request()->except('nama_kelas_filter'))
             ->orderedNamaKelas()
             ->paginate(20)
             ->withQueryString();

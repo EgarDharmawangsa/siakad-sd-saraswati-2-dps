@@ -41,13 +41,13 @@
 }
 
 .nav-link.active-sidebar-link {
-    background: #28ad60;
+    background-color: #28ad60;
     font-weight: bold;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 #sidebar .nav-link.nav-link.active-sidebar-link:hover {
-    background: #1c7b44;
+    background-color: #1c7b44;
 }
 
 @media (max-width: 992px) {

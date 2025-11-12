@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,10 +36,10 @@ class AppServiceProvider extends ServiceProvider
             $validator = new \Illuminate\Validation\Validator($translator, $data, $rules, $messages, $customAttributes);
 
             $names = [];
-            foreach ((array)$rules as $attribute => $rule) {
+            foreach ((array)$rules as $attribute) {
                 if (!is_string($attribute)) continue;
 
-                $names[$attribute] = $exceptions[$attribute] 
+                $names[$attribute] = $exceptions[$attribute]
                     ?? ucwords(str_replace('_', ' ', $attribute));
             }
 
@@ -47,5 +47,9 @@ class AppServiceProvider extends ServiceProvider
 
             return $validator;
         });
+
+        Gate::define('staf-tata-usaha', fn($user) => $user->role === 'Staf Tata Usaha');
+        Gate::define('guru', fn($user) => $user->role === 'Guru');
+        Gate::define('siswa', fn($user) => $user->role === 'Siswa');
     }
 }

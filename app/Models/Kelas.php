@@ -37,14 +37,12 @@ class Kelas extends Model
     {
         $query->with([
             'pegawai',
-            'jadwalPelajaran' => function ($query) use ($filters) {
-                $query->filter($filters)
-                    ->orderByRaw("FIELD(hari, 'Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu')")
-                    ->orderBy('jam_mulai')
-                    ->with(['guruMataPelajaran.mataPelajaran', 'guruMataPelajaran.pegawai']);
-            }
+            'jadwalPelajaran'
         ])->whereHas('jadwalPelajaran', function ($query) use ($filters) {
-            $query->where('hari', 'like', "%{$filters['hari_filter']}%");
+            $query->filter($filters)
+                ->orderByRaw("FIELD(hari, 'Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu')")
+                ->orderBy('jam_mulai')
+                ->with(['guruMataPelajaran.mataPelajaran', 'guruMataPelajaran.pegawai']);
         });
 
         return $query;

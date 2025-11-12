@@ -17,6 +17,40 @@
     scrollbar-color: #c1c1c1 white;
 }
 
+.error-body {
+    background-color: #27293a;
+    color: white;
+}
+
+.error-content-card {
+    background-color: #32344b;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.error-code {
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.error-description {
+    font-size: 15px;
+}
+
+.btn.error-button {
+    background-color: #28ad60;
+    border-color: #28ad60;
+    color: white;
+}
+
+.btn.error-button:hover,
+.btn.error-button:focus,
+.btn.error-button:active {
+    background-color: #1c7b44;
+    border-color: #1c7b44;
+    color: white;
+}
+
 .container-fluid.content-container {
     flex: 1;
     padding: 1.5rem;

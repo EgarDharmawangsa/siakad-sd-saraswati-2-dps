@@ -11,7 +11,7 @@
                     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
                         <i class="bi bi-funnel me-2"></i>Filter
                     </button>
-    
+
                     @include('components.akademik.jadwal_pelajaran_filter_modal')
                 </div>
             </div>
@@ -22,14 +22,14 @@
                 <h5 class="mb-0">Kelas : {{ $_kelas->nama_kelas }}</h5>
                 <p class="mt-2 mb-0 wali-kelas-label">Wali Kelas : {{ $_kelas->pegawai?->getFormatedNamaPegawai() ?? '-' }}
                 </p>
-                <hr class="mb-3">
+                <hr>
 
                 @php
                     $jadwal_per_hari = $_kelas->jadwalPelajaran->groupBy('hari');
                 @endphp
 
                 @forelse ($jadwal_per_hari as $hari => $jadwal_pelajaran)
-                    <div class="table-responsive jadwal-pelajaran-table">
+                    <div class="table-responsive jadwal-pelajaran-table mt-3">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>

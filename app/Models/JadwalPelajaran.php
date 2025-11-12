@@ -77,6 +77,10 @@ class JadwalPelajaran extends Model
             'minggu'
         ];
 
+        if (!empty($filters['kelas_filter'])) {
+            $query->whereHas('kelas', fn($query) => $query->where('nama_kelas', 'like', '%' . $filters['kelas_filter'] . '%'));
+        }
+
         if (!empty($filters['kegiatan_filter'])) {
             $kegiatan_filter_value = in_array(strtolower($filters['kegiatan_filter']), $kegiatan_array) ? $filters['kegiatan_filter'] : '';
             $query->where('kegiatan', 'like', "%{$kegiatan_filter_value}%");

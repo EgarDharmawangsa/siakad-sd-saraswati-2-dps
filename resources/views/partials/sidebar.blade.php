@@ -21,6 +21,14 @@
                 </a>
             </li>
 
+            <!-- Guru -->
+            <li class="nav-item">
+                <a href="{{ route('guru.index') }}"
+                    class="nav-link {{ request()->routeIs('guru.*') ? 'active-sidebar-link' : '' }}">
+                    <i class="bi bi-person-workspace me-2"></i>Guru
+                </a>
+            </li>
+
             <!-- Siswa -->
             <li class="nav-item">
                 <a href="{{ route('siswa.index') }}"

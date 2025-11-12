@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\MataPelajaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
 
 class PegawaiController extends Controller
 {
@@ -46,10 +47,18 @@ class PegawaiController extends Controller
 
     public function index()
     {
-        $pegawai = Pegawai::with('guruMataPelajaran')->filter(request()->all())->paginate(30)->withQueryString();
+        if (Gate::any(['staf-tata-usaha', 'guru'])) {
+            $judul = 'Pegawai';
+            $pegawai = Pegawai::with('guruMataPelajaran')->filter(request()->all())->paginate(30)->withQueryString();
+        } else if (Gate::allows('siswa')) {
+            $judul = 'Guru';
+            $pegawai = Pegawai::where('posisi', 'Guru')->with('guruMataPelajaran')->filter(request()->all())->paginate(30)->withQueryString();
+        } else {
+            abort(404, 'Halaman tidak ditemukan.');
+        }
 
         return view('pages.master.pegawai.index', [
-            'judul' => 'Pegawai',
+            'judul' => $judul,
             'pegawai' => $pegawai
         ]);
     }
@@ -107,8 +116,17 @@ class PegawaiController extends Controller
      */
     public function show(Pegawai $pegawai)
     {
+        // if (Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (Gate::any(['staf-tata-usaha', 'guru'])) {
+            $judul = 'Pegawai';
+        } else if (Gate::allows('siswa')) {
+            $judul = 'Guru';
+        } else {
+            abort(404, 'Halaman tidak ditemukan.');
+        }
+
         return view('pages.master.pegawai.show', [
-            'judul' => 'Pegawai',
+            'judul' => $judul,
             'pegawai' => $pegawai
         ]);
     }

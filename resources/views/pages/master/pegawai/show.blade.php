@@ -80,7 +80,7 @@
                     <div class="col-md-6">
                         <label for="tanggal-lahir" class="form-label">Tanggal Lahir</label>
                         <input type="text" class="form-control" id="tanggal-lahir"
-                            value="{{ $pegawai->getFormatedTanggal() }}" readonly>
+                            value="{{ $pegawai->getFormatedTanggal('tanggal_lahir') }}" readonly>
                     </div>
 
                     <div class="col-md-6">
@@ -186,13 +186,13 @@
                     <div class="col-md-6">
                         <label for="permulaan-kerja" class="form-label">Tanggal Permulaan Kerja</label>
                         <input type="text" class="form-control" id="permulaan-kerja"
-                            value="{{ $pegawai->getFormatedTanggal() }}" readonly>
+                            value="{{ $pegawai->getFormatedTanggal('permulaan_kerja') }}" readonly>
                     </div>
 
                     <div class="col-md-6">
                         <label for="permulaan-kerja-sds2" class="form-label">Tanggal Permulaan Kerja (RASDA)</label>
                         <input type="text" class="form-control" id="permulaan-kerja-sds2"
-                            value="{{ $pegawai->getFormatedTanggal() }}" readonly>
+                            value="{{ $pegawai->getFormatedTanggal('permulaan_kerja_sds2') }}" readonly>
                     </div>
                 </div>
             </div>

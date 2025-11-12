@@ -19,9 +19,8 @@ use App\Http\Controllers\NilaiEkstrakurikulerController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\PengumumanController;
 
-use Illuminate\Support\Facades\Auth;
-
-Route::get('/', [AuthController::class, 'redirect'])->name('redirect');
+// Redirect
+Route::fallback([AuthController::class, 'redirect'])->name('redirect');
 
 // Middleware guest group
 Route::middleware('guest')->group(function () {
@@ -30,11 +29,13 @@ Route::middleware('guest')->group(function () {
 });
 
 // Middleware auth group
-Route::resource('/pegawai', PegawaiController::class);
 Route::middleware('auth')->group(function () {
-    Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');  
-    
+    Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
+
     // Route Master
+    Route::resource('/pegawai', PegawaiController::class);
+    Route::get('/guru', [PegawaiController::class, 'index'])->name('guru.index')->middleware('role:siswa');
+    Route::get('/guru/{pegawai}', [PegawaiController::class, 'show'])->name('guru.show')->middleware('role:siswa');
     Route::resource('/siswa', SiswaController::class);
     Route::resource('/kelas', KelasController::class)->parameters(['kelas' => 'kelas']);
     Route::resource('/semester', SemesterController::class);
@@ -42,7 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/ekstrakurikuler', EkstrakurikulerController::class);
     Route::resource('/peserta-ekstrakurikuler', PesertaEkstrakurikulerController::class);
     // Route::resource('/profil', ProfilController::class);
-    
+
     // Route Akademik
     Route::resource('/jadwal-pelajaran', JadwalPelajaranController::class);
     Route::resource('/nilai-mata-pelajaran', NilaiMataPelajaranController::class);

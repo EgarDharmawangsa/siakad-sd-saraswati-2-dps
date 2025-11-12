@@ -40,16 +40,15 @@ if (success_toast || error_toast) {
     toast.show();
 }
 
-if (filter_modal_close_button) {
-    filter_modal_close_button.addEventListener('click', () => {
-        filter_modal_close_button.blur();
-    });
-}
+if (filter_modal_close_button && filter_modal_clear_button) {
+    const filter_modal_array = [filter_modal_close_button, filter_modal_clear_button,];
 
-if (filter_modal_clear_button) {
-    filter_modal_clear_button.addEventListener('click', () => {
-        filter_modal_form.querySelectorAll('input, select').forEach((input) => {
-            input.value = '';
+    filter_modal_array.forEach((_filter_modal_array) => {
+        _filter_modal_array.addEventListener('click', () => {
+            filter_modal_form.querySelectorAll('input, select').forEach((input) => {
+                    input.value = '';
+                });
+            document.activeElement.blur();
         });
     });
 }

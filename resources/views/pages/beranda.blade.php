@@ -106,7 +106,7 @@
                 <h5>Distribusi Pegawai</h5>
                 <hr>
 
-                <canvas id="pegawai-distribution-chart" class="mt-3 p-3"></canvas>
+                <canvas id="pegawai-distribution-chart" class="my-3 p-3"></canvas>
 
                 <ul class="list-unstyled mb-0 pegawai-distribution-list">
                     <li>
@@ -141,7 +141,7 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="col-md-8">
             <div class="content-card">
                 <h5>Peningkatan Prestasi</h5>
@@ -166,28 +166,37 @@
         </div>
     </div>
 
-    <div class="row g-3">
-        <div class="col-md-12">
-            <div class="content-card">
-                <h5>Pengumuman</h5>
-                <hr>
+    @can('staf-tata-usaha')
+        <div class="row g-3">
+            <div class="col-md-12">
+                <div class="content-card">
+                    <h5>Pengumuman</h5>
+                    <hr>
 
-                @forelse ($pengumuman as $_pengumuman)
-                    @if ($_pengumuman->getStatus() === 'Terbit')
-                        <a href="{{ route('pengumuman.show', $_pengumuman->id_pengumuman) }}"
-                            class="pengumuman-item text-decoration-none text-dark d-block p-3 rounded">
-                            <h5 class="mb-2">{{ $_pengumuman->judul }}</h5>
-                            <small class="text-muted mb-3 d-block">
-                                Diterbitkan pada {{ $_pengumuman->tanggal->translatedFormat('l, d F Y') }}
-                            </small>
-                            <p class="mb-0">{{ Str::limit(strip_tags($_pengumuman->isi), 150, '...') }}</p>
-                        </a>
-                        <hr class="mt-0 {{ $loop->last ? 'd-none' : '' }}">
+                    @forelse ($pengumuman as $_pengumuman)
+                        @if ($_pengumuman->getStatus() === 'Terbit')
+                            <a href="{{ route('pengumuman.show', $_pengumuman->id_pengumuman) }}"
+                                class="pengumuman-item text-decoration-none text-dark d-block p-3 rounded">
+                                <h5 class="mb-2">{{ $_pengumuman->judul }}</h5>
+                                <small class="text-muted mb-3 d-block">
+                                    Diterbitkan pada {{ $_pengumuman->tanggal->translatedFormat('l, d F Y') }}
+                                </small>
+                                <p class="mb-0">{{ Str::limit(strip_tags($_pengumuman->isi), 150, '...') }}</p>
+                            </a>
+                            <hr class="mt-0 {{ $loop->last ? 'd-none' : '' }}">
+                        @endif
+                    @empty
+                        <p class="text-center">Belum ada Pengumuman.</p>
+                    @endforelse
+
+                    @if ($pengumuman->hasPages())
+                        <hr class="mt-0">
+                        <div class="d-flex justify-content-end mt-2">
+                            {{ $pengumuman->links() }}
+                        </div>
                     @endif
-                @empty
-                    <p class="text-center">Belum ada Pengumuman.</p>
-                @endforelse
+                </div>
             </div>
         </div>
-    </div>
+    @endcan
 @endsection
