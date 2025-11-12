@@ -1,5 +1,5 @@
 const kegiatan = document.getElementById('kegiatan') || document.getElementById('kegiatan-filter');
-const mata_pelajaran = document.getElementById('mata-pelajaran') || document.getElementById('mata-pelajaran-filter');
+const mata_pelajaran = document.getElementById('mata-pelajaran');
 const id_guru_mata_pelajaran = document.getElementById('id-guru-mata-pelajaran') || document.getElementById('guru-filter');
 
 if (kegiatan && id_guru_mata_pelajaran && mata_pelajaran) {

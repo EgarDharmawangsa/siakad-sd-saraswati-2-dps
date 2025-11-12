@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string|null $foto
+ */
+
 class Siswa extends Model
 {
     protected $table = 'siswa';

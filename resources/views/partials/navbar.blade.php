@@ -13,7 +13,7 @@
                         ? asset('storage/' . auth()->user()->pegawai->foto)
                         : (auth()->user()->siswa?->foto
                             ? asset('storage/' . auth()->user()->siswa->foto)
-                            : asset('default_profile_photo/default_profile_photo.png')) }}"
+                            : asset('images/default_profile_photo/default_profile_photo.png')) }}"
                         alt="Profile" class="profile-avatar me-1">
                     <span
                         class="profile-name">{{ Str::limit(auth()->user()->pegawai?->nama_pegawai ?? auth()->user()->siswa?->nama_siswa, 20, '...') }}</span>
@@ -26,7 +26,7 @@
                     <li>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class="dropdown-item profile-logout-button">Keluar</button>
+                            <button type="submit" class="dropdown-item profile-logout-button"><i class="bi bi-box-arrow-right me-2"></i>Keluar</button>
                         </form>
                     </li>
                 </ul>

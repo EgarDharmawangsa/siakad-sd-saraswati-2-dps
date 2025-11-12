@@ -136,6 +136,18 @@ tr td {
     width: 1%;
 }
 
+.btn.password-toggle-button {
+    background-color: #f8f9fa;
+    border-color: #ced4da;
+    color: black;
+}
+
+.btn.password-toggle-button:hover {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+    color: black;
+}
+
 .text-truncate {
     max-width: 15rem;
 }

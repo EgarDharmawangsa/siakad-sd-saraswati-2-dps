@@ -21,19 +21,16 @@ const error_toast = document.getElementById('error-toast');
 const filter_modal_close_button = document.getElementById('filter-modal-close-button');
 const filter_modal_form = document.getElementById('filter-modal-form');
 const filter_modal_clear_button = document.getElementById('filter-modal-clear-button');
+const password = document.getElementById('password');
+const password_toggle_button = document.getElementById('password-toggle-button');
+const password_eye_icon = document.getElementById('password-eye-icon');
 const image_input = document.querySelector('.image-input');
 const image_preview = document.getElementById('image-preview');
 const image_delete_button = document.getElementById('image-delete-button');
 const image_delete = document.getElementById('image-delete');
 const jam_array = [];
-jam_array[0] =
-    document.getElementById('jam-mulai') ||
-    document.getElementById('jam-mulai-filter');
-jam_array[1] =
-    document.getElementById('jam-selesai') ||
-    document.getElementById('jam-selesai-filter');
-
-const route_name_value = page_body.dataset.routeName;
+jam_array[0] = document.getElementById('jam-mulai') || document.getElementById('jam-mulai-filter');
+jam_array[1] = document.getElementById('jam-selesai') || document.getElementById('jam-selesai-filter');
 
 if (success_toast || error_toast) {
     const toast = new bootstrap.Toast(success_toast || error_toast);
@@ -41,15 +38,24 @@ if (success_toast || error_toast) {
 }
 
 if (filter_modal_close_button && filter_modal_clear_button) {
-    const filter_modal_array = [filter_modal_close_button, filter_modal_clear_button,];
+    const filter_modal_array = [filter_modal_close_button, filter_modal_clear_button];
 
     filter_modal_array.forEach((_filter_modal_array) => {
         _filter_modal_array.addEventListener('click', () => {
             filter_modal_form.querySelectorAll('input, select').forEach((input) => {
-                    input.value = '';
-                });
+                input.value = '';
+            });
             document.activeElement.blur();
         });
+    });
+}
+
+if (password_toggle_button && password && password_eye_icon) {
+    password_toggle_button.addEventListener('click', function () {
+        const isHidden = password.type === 'password';
+        password.type = isHidden ? 'text' : 'password';
+        password_eye_icon.className = isHidden ? 'bi bi-eye-slash' : 'bi bi-eye';
+        password_toggle_button.setAttribute('aria-label', isHidden ? 'Sembunyikan password' : 'Lihat password');
     });
 }
 
@@ -92,7 +98,8 @@ if (image_delete_button) {
     });
 }
 
-if (!route_name_value.includes('.show') && jam_array) {
+if (page_body && jam_array) {
+    const route_name_value = page_body.dataset.routeName;
     const flatpickr_option = {
         allowInput: true,
         enableTime: true,
@@ -101,7 +108,9 @@ if (!route_name_value.includes('.show') && jam_array) {
         time_24hr: true,
     };
 
-    jam_array.forEach((_jam_array) => {
-        if (_jam_array) flatpickr(_jam_array, flatpickr_option);
-    });
+    if (!route_name_value.includes('.show')) {
+        jam_array.forEach((_jam_array) => {
+            if (_jam_array) flatpickr(_jam_array, flatpickr_option);
+        });
+    }
 }

@@ -1,6 +1,5 @@
 .login-body {
-    background-color: #32344b;
-    padding: 0;
+    background-color: #f4f5fa;
 }
 
 .login-form-card {
@@ -8,16 +7,41 @@
     width: 100%;
 }
 
-.login-button {
-    background-color: #32344b;
-    border-color: #32344b;
+.logo-container {
+    width: 7rem;
+    height: 7rem;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login-logo {
+    width: 4.5rem;
+    height: auto;
+}
+
+.login-title {
+    margin-top: 1.7rem;
+}
+
+.btn.login-button {
+    background-color: #28ad60;
+    border-color: #28ad60;
     color: white;
 }
 
-.login-button:hover, .login-button:active, .login-button:focus {
-    background-color: #1d1e29;
-    border-color: #1d1e29;
+.btn.login-button:hover,
+.btn.login-button:focus,
+.btn.login-button:active {
+    background-color: #1c7b44;
+    border-color: #1c7b44;
     color: white;
+}
+
+.login-copyright-label {
+    font-size: 13px;
 }
 
 @media (max-width: 576px) {

@@ -46,7 +46,7 @@
                 <div class="row g-3">
                     <div class="col-md-12 mt-5 mb-4 justify-content-center text-center">
                         @if ($pegawai->foto)
-                            <img src="{{ asset("storage/{$pegawai->foto}") ?? asset('default_profile_photo/default_profile_photo.png') }}"
+                            <img src="{{ asset("storage/{$pegawai->foto}") ?? asset('images/default_profile_photo/default_profile_photo.png') }}"
                                 alt="Foto Pegawai" class="img-fluid foto">
                         @else
                             <img src="{{ asset('default_profile_photo/default_profile_photo.png') }}" alt="Foto Pegawai"
@@ -60,8 +60,8 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="nama_pegawai" class="form-label">Nama Pegawai</label>
-                        <input type="text" class="form-control" id="nama_pegawai" value="{{ $pegawai->nama_pegawai }}"
+                        <label for="nama-pegawai" class="form-label">Nama Pegawai</label>
+                        <input type="text" class="form-control" id="nama-pegawai" value="{{ $pegawai->nama_pegawai }}"
                             readonly>
                     </div>
 

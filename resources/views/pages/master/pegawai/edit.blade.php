@@ -11,16 +11,16 @@
             <!-- Tab Navigation -->
             <ul class="nav nav-tabs" id="pegawai-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="data-pribadi-tab-button" data-bs-toggle="tab" data-bs-target="#data-pribadi-tab"
-                        type="button">Data pribadi</button>
+                    <button class="nav-link active" id="data-pribadi-tab-button" data-bs-toggle="tab"
+                        data-bs-target="#data-pribadi-tab" type="button">Data pribadi</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="data-kepegawaian-tab-button" data-bs-toggle="tab"
                         data-bs-target="#data-kepegawaian-tab" type="button">Data Kepegawaian</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="data-pendidikan-tab-button" data-bs-toggle="tab" data-bs-target="#data-pendidikan-tab"
-                        type="button">Pendidikan & Sertifikasi</button>
+                    <button class="nav-link" id="data-pendidikan-tab-button" data-bs-toggle="tab"
+                        data-bs-target="#data-pendidikan-tab" type="button">Pendidikan & Sertifikasi</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="data-sk-tab-button" data-bs-toggle="tab" data-bs-target="#data-sk-tab"
@@ -43,9 +43,9 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="nama_pegawai" class="form-label">Nama Pegawai</label>
+                            <label for="nama-pegawai" class="form-label">Nama Pegawai</label>
                             <input type="text" class="form-control @error('nama_pegawai') is-invalid @enderror"
-                                id="nama_pegawai" name="nama_pegawai" placeholder="Masukkan nama pegawai"
+                                id="nama-pegawai" name="nama_pegawai" placeholder="Masukkan nama pegawai"
                                 value="{{ old('nama_pegawai', $pegawai->nama_pegawai) }}" required>
                             @error('nama_pegawai')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -53,8 +53,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-                            <select class="form-select @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin"
+                            <label for="jenis-kelamin" class="form-label">Jenis Kelamin</label>
+                            <select class="form-select @error('jenis_kelamin') is-invalid @enderror" id="jenis-kelamin"
                                 name="jenis_kelamin" required>
                                 <option value="">-- Pilih Jenis Kelamin --</option>
                                 <option value="Laki-Laki"
@@ -70,9 +70,9 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
+                            <label for="tempat-lahir" class="form-label">Tempat Lahir</label>
                             <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror"
-                                id="tempat_lahir" name="tempat_lahir" placeholder="Masukkan tempat lahir"
+                                id="tempat-lahir" name="tempat_lahir" placeholder="Masukkan tempat lahir"
                                 value="{{ old('tempat_lahir', $pegawai->tempat_lahir) }}" required>
                             @error('tempat_lahir')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -80,9 +80,9 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
+                            <label for="tanggal-lahir" class="form-label">Tanggal Lahir</label>
                             <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror"
-                                id="tanggal_lahir" name="tanggal_lahir" placeholder="Masukkan tanggal lahir"
+                                id="tanggal-lahir" name="tanggal_lahir" placeholder="Masukkan tanggal lahir"
                                 value="{{ old('tanggal_lahir', $pegawai->tanggal_lahir->format('Y-m-d')) }}" required>
                             @error('tanggal_lahir')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -122,9 +122,9 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="status_perkawinan" class="form-label">Status Perkawinan</label>
+                            <label for="status-perkawinan" class="form-label">Status Perkawinan</label>
                             <select class="form-select @error('status_perkawinan') is-invalid @enderror"
-                                id="status_perkawinan" name="status_perkawinan" required>
+                                id="status-perkawinan" name="status_perkawinan" required>
                                 <option value="">-- Pilih Status Perkawinan --</option>
                                 <option value="Sudah"
                                     {{ old('status_perkawinan', $pegawai->status_perkawinan) === 'Sudah' ? 'selected' : '' }}>
@@ -155,10 +155,10 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="no_telepon_rumah" class="form-label">No. Telepon Rumah<span
+                            <label for="no-telepon-rumah" class="form-label">No. Telepon Rumah<span
                                     class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('no_telepon_rumah') is-invalid @enderror"
-                                id="no_telepon_rumah" name="no_telepon_rumah" placeholder="Masukkan no. telepon rumah"
+                                id="no-telepon-rumah" name="no_telepon_rumah" placeholder="Masukkan no. telepon rumah"
                                 value="{{ old('no_telepon_rumah', $pegawai->no_telepon_rumah) }}">
                             @error('no_telepon_rumah')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -166,9 +166,9 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="no_telepon_seluler" class="form-label">No. Telepon Seluler</label>
+                            <label for="no-telepon-seluler" class="form-label">No. Telepon Seluler</label>
                             <input type="number" class="form-control @error('no_telepon_seluler') is-invalid @enderror"
-                                id="no_telepon_seluler" name="no_telepon_seluler"
+                                id="no-telepon-seluler" name="no_telepon_seluler"
                                 placeholder="Masukkan no. telepon seluler"
                                 value="{{ old('no_telepon_seluler', $pegawai->no_telepon_seluler) }}" required>
                             @error('no_telepon_seluler')
@@ -177,10 +177,10 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="e_mail" class="form-label">E-Mail<span
+                            <label for="e-mail" class="form-label">E-Mail<span
                                     class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="email" class="form-control @error('e_mail') is-invalid @enderror"
-                                id="e_mail" name="e_mail" placeholder="Masukkan e-mail"
+                                id="e-mail" name="e_mail" placeholder="Masukkan e-mail"
                                 value="{{ old('e_mail', $pegawai->e_mail) }}">
                             @error('e_mail')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -199,9 +199,15 @@
 
                         <div class="col-md-6">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                id="password" name="password" placeholder="Masukkan password"
-                                value="{{ old('password') }}">
+                            <div class="input-group">
+                                <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                    id="password" name="password" placeholder="Masukkan password"
+                                    value="{{ old('password') }}">
+                                <button class="btn btn-outline-secondary password-toggle-button" type="button"
+                                    id="password-toggle-button" aria-label="Lihat password">
+                                    <i class="bi bi-eye" id="password-eye-icon"></i>
+                                </button>
+                            </div>
                             @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -211,13 +217,11 @@
                             <label for="foto" class="form-label">Foto<span
                                     class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <img src='{{ $pegawai->foto ? asset("storage/{$pegawai->foto}") : '' }}'
-                                class="foto mt-2 mb-3 {{ $pegawai->foto ? '' : 'd-none' }}"
-                                id="image-preview">
+                                class="foto mt-2 mb-3 {{ $pegawai->foto ? '' : 'd-none' }}" id="image-preview">
                             <button type="button"
                                 class="btn btn-danger btn-sm d-block mx-auto mb-4 {{ $pegawai->foto ? '' : 'd-none' }}"
                                 id="image-delete-button"><i class="bi bi-trash me-2"></i>Hapus</button>
-                            <input type="file"
-                                class="form-control @error('foto') is-invalid @enderror image-input"
+                            <input type="file" class="form-control @error('foto') is-invalid @enderror image-input"
                                 id="foto" name="foto">
                             @error('foto')
                                 <div class="invalid-feedback">{{ $message }}</div>
