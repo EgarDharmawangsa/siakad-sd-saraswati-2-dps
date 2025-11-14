@@ -22,13 +22,13 @@
 
         <h4 class="mb-2 mt-3">{{ $pengumuman->judul }}</h4>
 
-        <small class="text-muted mb-3 d-block">Diterbitkan pada
-            {{ $pengumuman->getFormatedTanggal(true) }}
+        <div class="d-flex align-items-center mb-3">
+            <small class="text-muted me-2 d-block">Diterbitkan pada {{ $pengumuman->getFormatedTanggal(true) }}</small>
             <span
-                class="badge bg-{{ $pengumuman->getStatus() === 'Terbit' ? 'success' : 'primary' }} ms-1">
+                class="badge bg-{{ $pengumuman->getStatus() === 'Terbit' ? 'success' : 'primary' }}">
                 {{ $pengumuman->getStatus() }}
             </span>
-        </small>
+        </div>
 
         @if ($pengumuman->gambar)
             <img src="{{ asset("storage/{$pengumuman->gambar}") }}" alt="{{ $pengumuman->judul }}"

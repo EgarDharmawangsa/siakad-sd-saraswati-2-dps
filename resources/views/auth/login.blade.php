@@ -9,7 +9,7 @@
 </head>
 
 <body class="d-flex align-items-center justify-content-center vh-100 m-0 login-body">
-    <div class="toast-container position-fixed start-50 translate-middle-x">
+    <div class="login-toast-container position-fixed start-50 translate-middle-x">
         @if (session()->has('success'))
             <div class="toast align-items-center border-0" id="success-toast" role="alert" aria-live="assertive"
                 aria-atomic="true">

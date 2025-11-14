@@ -3,7 +3,14 @@
         <div class="container-fluid px-3">
             <button class="btn d-lg-none sidebar-toggle-button me-2" id="toggle-sidebar"><i
                     class="bi bi-list fs-2"></i></button>
-            <a class="navbar-brand" href="{{ route('beranda') }}">SIAKAD RASDA</a>
+
+            <a class="navbar-brand d-flex align-items-center" href="{{ route('beranda') }}">
+                <img src="{{ asset('images/saraswati_logo.png') }}" alt="SD Saraswati 2 Denpasar" class="navbar-logo me-2">
+                <div class="d-flex flex-column">
+                    <small class="navbar-small-title">SISTEM INFORMASI AKADEMIK</small>
+                    <small class="navbar-title">SD SARASWATI 2 DENPASAR</small>
+                </div>
+            </a>
 
             <div class="dropdown profile-dropdown ms-auto">
                 <div class="profile-divider"></div>
@@ -26,7 +33,8 @@
                     <li>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class="dropdown-item profile-logout-button"><i class="bi bi-box-arrow-right me-2"></i>Keluar</button>
+                            <button type="submit" class="dropdown-item profile-logout-button"><i
+                                    class="bi bi-box-arrow-right me-2"></i>Keluar</button>
                         </form>
                     </li>
                 </ul>

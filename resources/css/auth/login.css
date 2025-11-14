@@ -2,6 +2,11 @@
     background-color: #f4f5fa;
 }
 
+.login-toast-container {
+    top: 1rem;
+    z-index: 2000;
+}
+
 .login-form-card {
     max-width: 22rem;
     width: 100%;

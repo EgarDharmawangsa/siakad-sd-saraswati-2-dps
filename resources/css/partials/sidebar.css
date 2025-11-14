@@ -1,6 +1,6 @@
 #sidebar {
     width: 15rem;
-    padding: 5rem 1rem 0;
+    padding: 5rem 1rem 1rem;
     background-color: #27293a;
     color: white;
     transition: transform 0.3s ease;
