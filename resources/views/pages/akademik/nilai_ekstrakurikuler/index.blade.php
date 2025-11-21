@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="content-card">
+    <div class="content-card mb-4">
         <div class="index-buttons">
             <div class="ms-auto">
                 <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">

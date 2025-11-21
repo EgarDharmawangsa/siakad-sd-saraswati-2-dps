@@ -1,5 +1,6 @@
 .login-body {
-    background-color: #f4f5fa;
+    background-color: #eef0f8;
+    overflow-x: hidden;
 }
 
 .login-toast-container {
@@ -16,7 +17,7 @@
     width: 7rem;
     height: 7rem;
     background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
     top: 0;
     left: 50%;
     transform: translate(-50%, -50%);

@@ -14,7 +14,8 @@
 @import "./pages/akademik/pengumuman.css";
 
 * {
-    scrollbar-color: #c1c1c1 white;
+    scrollbar-color: #32344b #c4c9da;
+    scrollbar-width: thin;
 }
 
 .error-body {
@@ -25,7 +26,7 @@
 .error-content-card {
     background-color: #32344b;
     border-radius: 12px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
 }
 
 .error-code {
@@ -55,18 +56,18 @@
     flex: 1;
     padding: 1.5rem;
     margin: 3.3rem 0 0 15rem;
-    background-color: #f4f5fa;
+    background-color: #eef0f8;
     overflow-x: hidden;
 }
 
 .toast-container {
     top: 4.5rem;
-    z-index: 2000;
+    z-index: 9999;
 }
 
 .toast {
     background-color: #28ad60;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
 }
 
 .content-card {
@@ -74,7 +75,7 @@
     background-color: white;
     border-radius: 12px;
     padding: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
 }
 
 .index-buttons {
@@ -152,16 +153,8 @@ tr td {
     max-width: 15rem;
 }
 
-.modal {
-    z-index: 3050;
-}
-
-.modal-content {
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
-}
-
 .modal-backdrop {
-    z-index: 3000;
+    z-index: 9999999;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(10px);
@@ -169,6 +162,19 @@ tr td {
 
 .modal-backdrop.show {
     opacity: 1;
+}
+
+.modal {
+    z-index: 99999999;
+}
+
+.modal-dialog {
+    padding: 1rem;
+}
+
+.modal-content {
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
 }
 
 .modal-title {
@@ -287,17 +293,6 @@ td {
 @media (max-width: 992px) {
     .container-fluid.content-container {
         margin-left: 0;
-    }
-}
-
-@media (max-width: 576px) {
-    .container-fluid.content-container {
-        padding: 1rem;
-    }
-
-    .modal-dialog {
-        margin: 0;
-        padding: 1rem;
     }
 }
 

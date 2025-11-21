@@ -1,9 +1,12 @@
 import Chart from 'chart.js/auto';
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 const pegawai_distribution_chart = document.getElementById('pegawai-distribution-chart');
 const prestasi_improvement_chart = document.getElementById('prestasi-improvement-chart');
 const prestasi_improvement_tahun_filter_form = document.getElementById('prestasi-improvement-tahun-filter-form');
 const prestasi_improvement_tahun_select = document.getElementById('prestasi-improvement-tahun-select');
+const semester_calendar = document.getElementById('semester-calendar');
 
 if (pegawai_distribution_chart && prestasi_improvement_chart) {
     let pegawai_distribution_chart_instance = null;
@@ -99,25 +102,28 @@ if (pegawai_distribution_chart && prestasi_improvement_chart) {
             ]
         };
 
-        prestasi_improvement_chart_instance = new Chart(prestasi_improvement_chart, {
-            type: 'line',
-            data: prestasi_improvement_chart_config,
-            options: {
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1
+        prestasi_improvement_chart_instance = new Chart(
+            prestasi_improvement_chart,
+            {
+                type: 'line',
+                data: prestasi_improvement_chart_config,
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
                         }
                     }
                 }
             }
-        });
+        );
     };
 
     pegawai_distribution_chart_function();
@@ -127,5 +133,24 @@ if (pegawai_distribution_chart && prestasi_improvement_chart) {
 if (prestasi_improvement_tahun_filter_form) {
     prestasi_improvement_tahun_select.addEventListener('change', () => {
         prestasi_improvement_tahun_filter_form.submit();
-    })
+    });
+}
+
+if (semester_calendar) {
+    const semester_calendar_instance = new Calendar(semester_calendar, {
+        plugins: [dayGridPlugin],
+        initialView: 'dayGridMonth',
+        events: '/api/semester-calendar',
+        buttonText: {
+            today: 'Hari ini',
+            month: 'Bulan',
+            week: 'Minggu',
+            day: 'Hari',
+            list: 'Daftar'
+        },
+        locale: 'id',
+        height: 500
+    });
+
+    semester_calendar_instance.render();
 }

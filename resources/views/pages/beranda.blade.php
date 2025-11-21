@@ -100,8 +100,8 @@
         </div>
     </div>
 
-    <div class="row g-3 mb-3">
-        <div class="col-md-4">
+    <div class="row g-3">
+        <div class="col-md-4 mt-0 mb-3">
             <div class="content-card">
                 <h5>Distribusi Pegawai</h5>
                 <hr>
@@ -142,7 +142,7 @@
             </div>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-md-8 mt-0 mb-3">
             <div class="content-card">
                 <h5>Peningkatan Prestasi</h5>
                 <hr>
@@ -161,12 +161,74 @@
                     </select>
                 </form>
 
-                <canvas id="prestasi-improvement-chart" class="mt-3 p-3"></canvas>
+                <canvas id="prestasi-improvement-chart"></canvas>
             </div>
         </div>
     </div>
 
-    @can('staf-tata-usaha')
+    <div class="row g-3 mb-2">
+        <div class="col-md-6 mt-0 mb-3">
+            <div class="content-card">
+                <h5>Kalender Semester</h5>
+                <hr>
+
+                <div id="semester-calendar"></div>
+            </div>
+        </div>
+        <div class="col-md-6 mt-0 mb-3">
+            <div class="content-card">
+                <h5>Pengguna Aktif <span class="text-muted mini-label">(Online)</span></h5>
+                <hr>
+
+                <div class="active-users-container">
+                    {{-- Staf Tata Usaha --}}
+                    <h6 class="mt-3 mb-0">Staf Tata Usaha</h6>
+
+                    @forelse ($active_users['Staf Tata Usaha'] ?? [] as $_active_users)
+                        <div class="d-flex align-items-center mt-3">
+                            <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo/default_profile_photo.png') }}"
+                                alt="Foto Pegawai" class="profile-avatar me-2">
+                            <p class="m-0">{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</p>
+                        </div>
+                    @empty
+                        <p class="text-center text-muted mt-3 mb-0">Tidak ada Staf Tata Usaha yang aktif.</p>
+                    @endforelse
+
+                    <hr>
+
+                    {{-- Guru --}}
+                    <h6 class="mt-3 mb-0">Guru</h6>
+
+                    @forelse ($active_users['Guru'] ?? [] as $_active_users)
+                        <div class="d-flex align-items-center mt-3">
+                            <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo/default_profile_photo.png') }}"
+                                alt="Foto Pegawai" class="profile-avatar me-2">
+                            <p class="m-0">{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</p>
+                        </div>
+                    @empty
+                        <p class="text-center text-muted mt-3 mb-0">Tidak ada Guru yang aktif.</p>
+                    @endforelse
+
+                    <hr>
+
+                    {{-- Siswa --}}
+                    <h6 class="mt-3 mb-0">Siswa</h6>
+
+                    @forelse ($active_users['Siswa'] ?? [] as $_active_users)
+                        <div class="d-flex align-items-center mt-3">
+                            <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo/default_profile_photo.png') }}"
+                                alt="Foto Pegawai" class="profile-avatar me-2">
+                            <p class="m-0">{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</p>
+                        </div>
+                    @empty
+                        <p class="text-center text-muted mt-3 mb-0">Tidak ada Siswa yang aktif.</p>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- @canany(['guru', 'siswa'])
         <div class="row g-3">
             <div class="col-md-12">
                 <div class="content-card">
@@ -198,5 +260,5 @@
                 </div>
             </div>
         </div>
-    @endcan
+    @endcanany --}}
 @endsection

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property string $nama_siswa
  * @property string|null $foto
  */
 

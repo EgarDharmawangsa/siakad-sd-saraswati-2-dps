@@ -42,11 +42,16 @@
     <div class="d-flex flex-grow-1">
         @include('partials.sidebar')
 
-        <div class="container-fluid content-container">
+        <div class="container-fluid content-container d-flex flex-column">
 
-            <h3 class="mt-2 mb-4">{{ $judul }}</h3>
+            <h3 class="mt-1 mb-3">{{ $judul }}</h3>
 
             @yield('container')
+
+            <footer class="mt-auto">
+                <p class="text-muted text-center my-0 login-copyright-label">&copy; 2025 SIAKAD RASDA. All rights
+                    reserved.</p>
+            </footer>
         </div>
     </div>
 

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="content-card">
+    <div class="content-card mb-4">
         <div class="d-flex align-items-center flex-wrap mb-4">
             <a href="{{ route('siswa.create') }}" class="btn btn-success"><i class="bi bi-plus-lg me-2"></i>Tambah
                 Siswa</a>

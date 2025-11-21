@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="content-card">
+    <div class="content-card mb-4">
         <div class="index-buttons">
             <a href="{{ route('jadwal-pelajaran.create') }}" class="btn btn-success"><i class="bi bi-plus-lg me-2"></i>Tambah
                 Jadwal Pelajaran</a>

@@ -53,7 +53,8 @@
 @media (max-width: 992px) {
     #sidebar {
         background-color: rgba(39, 41, 58, 0.9);
-        box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+        box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+            rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
         backdrop-filter: blur(10px);
         padding-top: 1rem;
         position: fixed;
@@ -61,7 +62,7 @@
         left: 0;
         height: 100%;
         transform: translateX(-100%);
-        z-index: 3000;
+        z-index: 999999;
     }
 
     #sidebar.show {

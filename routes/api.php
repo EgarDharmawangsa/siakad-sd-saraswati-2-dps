@@ -7,3 +7,4 @@ use App\Http\Controllers\BerandaController;
 
 Route::get('/pegawai-distribution', [BerandaController::class, 'getPegawaiDistributionChartData'])->name('pegawai-distribution');
 Route::get('/prestasi-improvement', [BerandaController::class, 'getPrestasiImprovementChartData'])->name('prestasi-improvement');
+Route::get('/semester-calendar', [BerandaController::class, 'getSemesterCalendarData'])->name('semester-calendar');

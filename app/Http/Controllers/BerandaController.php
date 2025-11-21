@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Pegawai;
 use App\Models\Siswa;
 use App\Models\Kelas;
@@ -36,6 +37,11 @@ class BerandaController extends Controller
         $counted_ekstrakurikuler = Ekstrakurikuler::get()->count();
         $counted_prestasi = Prestasi::get()->count();
         $counted_pengumuman = Pengumuman::get()->count();
+        $active_users = User::query()->whereIn('id_user', function ($query) {
+            $query->select('user_id')
+                ->from('sessions')
+                ->whereNotNull('user_id');
+        })->get()->groupBy('role');
         $pengumuman = Pengumuman::query()->orderBy('tanggal', 'desc')->paginate(20)->withQueryString();
 
         return view('pages.beranda', [
@@ -49,7 +55,8 @@ class BerandaController extends Controller
             'counted_prestasi' => $counted_prestasi,
             'counted_pengumuman' => $counted_pengumuman,
             'pengumuman' => $pengumuman,
-            'pegawai_distribution_data' => $this->getPegawaiDistributionData()
+            'pegawai_distribution_data' => $this->getPegawaiDistributionData(),
+            'active_users' => $active_users
         ]);
     }
 
@@ -72,5 +79,37 @@ class BerandaController extends Controller
         }
 
         return response()->json($prestasi_improvement_data);
+    }
+
+    public function getSemesterCalendarData()
+    {
+        $semester = Semester::all();
+        $semester_array = [];
+        $color_event_array = [
+            '#C0392B',
+            '#E67E22',
+            '#27AE60',
+            '#2980B9',
+            '#2E86C1',
+            '#8E44AD'
+        ];
+        $index_loop = 0;
+
+        foreach ($semester as $_semester) {
+            $semester_array[] = [
+                'title' => "{$_semester->jenis} {$_semester->getTahunAjaran()} ({$_semester->getStatus()})",
+                'start' => $_semester->tanggal_mulai,
+                'end' => $_semester->tanggal_selesai,
+                'color' => $color_event_array[$index_loop]
+            ];
+
+            if ($index_loop === 6) {
+                $index_loop = 0;
+            }
+
+            $index_loop++;
+        }
+
+        return response()->json($semester_array);
     }
 }

@@ -37,7 +37,7 @@
         @endif
     </div>
 
-    <div class="content-card login-form-card position-relative px-4 py-5">
+    <div class="content-card login-form-card position-relative px-4 pt-5 pb-4">
         <div class="logo-container d-flex align-items-center justify-content-center position-absolute rounded-circle">
             <img src="{{ asset('images/saraswati_logo.png') }}" alt="Saraswati" class="login-logo mb-2">
         </div>

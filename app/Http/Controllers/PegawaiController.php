@@ -116,7 +116,6 @@ class PegawaiController extends Controller
      */
     public function show(Pegawai $pegawai)
     {
-        // if (Gate::any(['staf-tata-usaha', 'guru'])) {
         if (Gate::any(['staf-tata-usaha', 'guru'])) {
             $judul = 'Pegawai';
         } else if (Gate::allows('siswa')) {

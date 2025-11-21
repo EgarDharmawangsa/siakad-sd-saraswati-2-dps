@@ -29,6 +29,7 @@
 .ekstrakurikuler-count-card-link,
 .prestasi-count-card-link,
 .pengumuman-count-card-link {
+    font-size: 14px;
     border-radius: 0 0 12px 12px;
 }
 
@@ -43,7 +44,7 @@
 }
 
 .pegawai-count-card-link:hover {
-    background-color: #0167d4;
+    background-color: #0362c7;
 }
 
 .content-card.siswa-count-card {
@@ -51,13 +52,13 @@
 }
 
 .siswa-count-card-link {
-    background-color: #24913c;
+    background-color: #228a39;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
 .siswa-count-card-link:hover {
-    background-color: #1f8437;
+    background-color: #1c7230;
 }
 
 .content-card.kelas-count-card {
@@ -65,13 +66,13 @@
 }
 
 .kelas-count-card-link {
-    background-color: #e46f0e;
+    background-color: #d8690e;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
 .kelas-count-card-link:hover {
-    background-color: #cf6815;
+    background-color: #b05a13;
 }
 
 .content-card.semester-count-card {
@@ -79,13 +80,13 @@
 }
 
 .semester-count-card-link {
-    background-color: #5d36a8;
+    background-color: #56329a;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
 .semester-count-card-link:hover {
-    background-color: #50318e;
+    background-color: #482c80;
 }
 
 .content-card.mata-pelajaran-count-card {
@@ -93,13 +94,13 @@
 }
 
 .mata-pelajaran-count-card-link {
-    background-color: #189d75;
+    background-color: #18946f;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
 .mata-pelajaran-count-card-link:hover {
-    background-color: #1a8f6e;
+    background-color: #187e61;
 }
 
 .content-card.ekstrakurikuler-count-card {
@@ -107,13 +108,13 @@
 }
 
 .ekstrakurikuler-count-card-link {
-    background-color: #c82333;
+    background-color: #b41f2e;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
 .ekstrakurikuler-count-card-link:hover {
-    background-color: #b71d2a;
+    background-color: #951a24;
 }
 
 .content-card.prestasi-count-card {
@@ -121,13 +122,13 @@
 }
 
 .prestasi-count-card-link {
-    background-color: #138496;
+    background-color: #117f8f;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
 .prestasi-count-card-link:hover {
-    background-color: #117786;
+    background-color: #136976;
 }
 
 .content-card.pengumuman-count-card {
@@ -135,13 +136,13 @@
 }
 
 .pengumuman-count-card-link {
-    background-color: #343a40;
+    background-color: #2e3237;
     color: #fff;
     transition: background-color 0.2s ease;
 }
 
 .pengumuman-count-card-link:hover {
-    background-color: #2c3034;
+    background-color: #1c1e20;
 }
 
 .pegawai-distribution-color-box-label {
@@ -191,4 +192,71 @@
 
 .pengumuman-item:hover {
     background-color: #e9ecef;
+}
+
+#semester-calendar .fc-header-toolbar {
+    margin: 1rem 0;
+}
+
+.fc-toolbar-chunk .fc-toolbar-title {
+    font-size: 20px;
+}
+
+.fc-today-button.fc-button.fc-button-primary,
+.fc-button.fc-button-primary {
+    font-size: 14px;
+    padding: 0.375rem 0.75rem;
+    opacity: 1;
+    background-color: #32344b;
+    border-color: #32344b;
+    border-radius: 6px;
+    transition: background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out;
+}
+
+.fc-header-toolbar .fc-toolbar-chunk .fc-button-group {
+    margin-left: 0.5rem;
+}
+
+.fc-today-button.fc-button.fc-button-primary:hover,
+.fc-toolbar-chunk .fc-today-button.fc-button.fc-button-primary:active,
+.fc-button.fc-button-primary:hover,
+.fc-toolbar-chunk .fc-button-group .fc-button.fc-button-primary:active {
+    background-color: #414460;
+    border-color: #414460;
+}
+
+.fc-toolbar-chunk .fc-today-button.fc-button.fc-button-primary:focus,
+.fc-toolbar-chunk .fc-button-group .fc-button.fc-button-primary:focus {
+    box-shadow: none;
+}
+
+.fc-button-group .fc-button {
+    border: none;
+}
+
+.fc-col-header-cell-cushion,
+.fc-daygrid-day-number {
+    color: black;
+    text-decoration: none;
+}
+
+.fc-event-time {
+    display: none;
+}
+
+.active-users-container {
+    max-height: 30rem;
+    overflow-y: auto;
+}
+
+@media (max-width: 440px) {
+    #semester-calendar .fc-header-toolbar {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
+
+    .fc-toolbar-chunk .fc-toolbar-title {
+        margin-top: 1rem;
+    }
 }

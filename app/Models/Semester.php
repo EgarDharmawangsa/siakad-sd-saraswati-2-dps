@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 /**
+ * @property string $jenis
  * @property \Illuminate\Support\Carbon $tanggal_mulai
  * @property \Illuminate\Support\Carbon $tanggal_selesai
  */

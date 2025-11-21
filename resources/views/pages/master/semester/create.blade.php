@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="content-card">
+    <div class="content-card mb-4">
         <h5>Tambah {{ $judul }}</h5>
         <hr>
 
