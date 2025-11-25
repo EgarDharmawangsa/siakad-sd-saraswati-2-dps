@@ -19,6 +19,16 @@
                 </div>
 
                 <div class="col-md-6">
+                    <label for="penyelenggara" class="form-label">Penyelenggara</label>
+                    <input type="text" class="form-control @error('penyelenggara') is-invalid @enderror"
+                        id="penyelenggara" name="penyelenggara" placeholder="Masukkan penyelenggara"
+                        value="{{ old('penyelenggara', $prestasi->penyelenggara) }}" required>
+                    @error('penyelenggara')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-md-6">
                     <label for="peraih" class="form-label">Peraih</label>
                     <select class="form-select @error('id_siswa') is-invalid @enderror" id="peraih" name="id_siswa"
                         {{ $siswa->isEmpty() ? 'disabled' : '' }} required>
@@ -29,16 +39,6 @@
                         @endforeach
                     </select>
                     @error('id_siswa')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="col-md-6">
-                    <label for="penyelenggara" class="form-label">Penyelenggara</label>
-                    <input type="text" class="form-control @error('penyelenggara') is-invalid @enderror"
-                        id="penyelenggara" name="penyelenggara" placeholder="Masukkan penyelenggara"
-                        value="{{ old('penyelenggara', $prestasi->penyelenggara) }}" required>
-                    @error('penyelenggara')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
@@ -100,11 +100,11 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="nama-wilayah" class="form-label">Nama Wilayah</label>
-                    <input type="text" class="form-control @error('nama_wilayah') is-invalid @enderror"
-                        id="nama-wilayah" name="nama_wilayah" placeholder="Masukkan nama wilayah"
-                        value="{{ old('nama_wilayah', $prestasi->nama_wilayah) }}" required>
-                    @error('nama_wilayah')
+                    <label for="wilayah" class="form-label">Wilayah</label>
+                    <input type="text" class="form-control @error('wilayah') is-invalid @enderror"
+                        id="wilayah" name="wilayah" placeholder="Masukkan wilayah"
+                        value="{{ old('wilayah', $prestasi->wilayah) }}" required>
+                    @error('wilayah')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

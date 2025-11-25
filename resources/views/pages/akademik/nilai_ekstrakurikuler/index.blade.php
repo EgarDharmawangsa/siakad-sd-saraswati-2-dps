@@ -3,12 +3,33 @@
 @section('container')
     <div class="content-card mb-4">
         <div class="index-buttons">
-            <div class="ms-auto">
-                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
-                    <i class="bi bi-funnel me-2"></i>Filter
-                </button>
+            <a href="{{ route('pengumuman.create') }}" class="btn btn-success"><i class="bi bi-plus-lg me-2"></i>Tambah
+                Pengumuman</a>
 
-                @include('components.akademik.nilai_ekstrakurikuler_filter_modal')
+            <div class="modifier-buttons">
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle order-by-dropdown-toggle" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i
+                            class="bi bi-sort-down me-2"></i>{{ request('order_by') === 'asc' ? 'Lama ke Terbaru' : 'Terbaru ke Lama' }}
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') !== 'asc' || !request('order_by') ? 'active' : '' }}"
+                                href="{{ request()->fullUrlWithQuery(['order_by' => 'desc']) }}">Terbaru ke Lama</a>
+                        </li>
+                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'asc' ? 'active' : '' }}"
+                                href="{{ request()->fullUrlWithQuery(['order_by' => 'asc']) }}">Lama ke Terbaru</a></li>
+                    </ul>
+                </div>
+
+                <div class="filter-modal-container">
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                        <i class="bi bi-funnel me-2"></i>Filter
+                    </button>
+
+                    @include('components.akademik.pengumuman_filter_modal')
+                </div>
             </div>
         </div>
 
@@ -20,8 +41,8 @@
                             <th>No.</th>
                             <th>NISN</th>
                             <th>Nama Siswa</th>
-                            <th>Semester</th>
                             <th>Ekstrakurikuler</th>
+                            <th>Semester</th>
                             <th>Nilai</th>
                             <th>Aksi</th>
                         </tr>
@@ -31,7 +52,11 @@
                         @forelse ($nilai_ekstrakurikuler as $_nilai_ekstrakurikuler)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                {{-- <td>{{ $_pengumuman->judul }}</td> --}}
+                                {{-- <td>{{ $_nilai_ekstrakurikuler->siswa->nisn }}</td>
+                                <td>{{ $_nilai_ekstrakurikuler->siswa->nama_siswa }}</td>
+                                <td>{{ $_nilai_ekstrakurikuler->ekstrakurikuler->nama_ekstrakurikuler }}</td>
+                                <td>{{ $_nilai_ekstrakurikuler->semester }}</td>
+                                <td>{{ $_nilai_ekstrakurikuler->nilai }}</td> --}}
                                 <td class="aksi-column">
                                     <a href="{{ route('nilai-ekstrakurikuler.show', $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler) }}"
                                         class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>

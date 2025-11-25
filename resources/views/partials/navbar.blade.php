@@ -20,7 +20,7 @@
                         ? asset('storage/' . auth()->user()->pegawai->foto)
                         : (auth()->user()->siswa?->foto
                             ? asset('storage/' . auth()->user()->siswa->foto)
-                            : asset('images/default_profile_photo/default_profile_photo.png')) }}"
+                            : asset('images/default_profile_photo.png')) }}"
                         alt="Profile" class="profile-avatar me-1">
                     <span
                         class="profile-name">{{ Str::limit(auth()->user()->pegawai?->nama_pegawai ?? auth()->user()->siswa?->nama_siswa, 20, '...') }}</span>

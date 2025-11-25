@@ -38,12 +38,13 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        {{-- <th>Siswa</th> --}}
                         <th>Nama Prestasi</th>
-                        <th>Jenis</th>
-                        <th>Tingkat</th>
-                        <th>Peringkat</th>
+                        <th>Siswa</th>
                         <th>Penyelenggara</th>
+                        <th>Jenis</th>
+                        <th>Peringkat</th>
+                        <th>Tingkat</th>
+                        <th>Wilayah</th>
                         <th>Tanggal</th>
                         <th>Aksi</th>
                     </tr>
@@ -54,12 +55,12 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $_prestasi->nama_prestasi }}</td>
+                            <td>{{ $_prestasi->penyelenggara }}</td>
                             <td>{{ $_prestasi->siswa->getFormatedNamaSiswa() }}</td>
                             <td>{{ $_prestasi->jenis }}</td>
+                            <td>{{ $_prestasi->peringkat ?? $_prestasi->peringkat_lainnya }}</td>
                             <td>{{ $_prestasi->tingkat }}</td>
-                            <td>{{ $_prestasi->peringkat }}</td>
-                            <td>{{ $_prestasi->peringkat_lainnya ?? '-' }}</td>
-                            <td>{{ $_prestasi->penyelenggara }}</td>
+                            <td>{{ $_prestasi->wilayah }}</td>
                             <td>{{ $_prestasi->getFormatedTanggal() }}</td>
                             <td class="aksi-column">
                                 <a href="{{ route('prestasi.show', $_prestasi->id_prestasi) }}"
@@ -79,7 +80,7 @@
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="9">Belum ada Prestasi.</td>
+                            <td colspan="10">Belum ada Prestasi.</td>
                         </tr>
                     @endforelse
                 </tbody>

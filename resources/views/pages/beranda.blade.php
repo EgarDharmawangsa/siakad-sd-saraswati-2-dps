@@ -7,7 +7,7 @@
                 <div class="p-3">
                     <i class="bi bi-person-badge icon-count-card"></i>
                     <h3>{{ $counted_pegawai }}</h3>
-                    <p class="m-0">Pegawai</p>
+                    <div>Pegawai</div>
                 </div>
                 <a class="text-decoration-none d-block p-2 pe-3 text-end text-white pegawai-count-card-link"
                     href="{{ route('pegawai.index') }}">Lihat
@@ -19,7 +19,7 @@
                 <div class="p-3">
                     <i class="bi bi-people-fill icon-count-card"></i>
                     <h3>{{ $counted_siswa }}</h3>
-                    <p class="m-0">Siswa</p>
+                    <div>Siswa</div>
                 </div>
                 <a class="text-decoration-none d-block p-2 pe-3 text-end text-white siswa-count-card-link"
                     href="{{ route('siswa.index') }}">Lihat
@@ -31,7 +31,7 @@
                 <div class="p-3">
                     <i class="bi bi-door-open icon-count-card"></i>
                     <h3>{{ $counted_kelas }}</h3>
-                    <p class="m-0">Kelas</p>
+                    <div>Kelas</div>
                 </div>
                 <a class="text-decoration-none d-block p-2 pe-3 text-end text-white kelas-count-card-link"
                     href="{{ route('kelas.index') }}">Lihat
@@ -43,7 +43,7 @@
                 <div class="p-3">
                     <i class="bi bi-calendar-range icon-count-card"></i>
                     <h3>{{ $counted_semester }}</h3>
-                    <p class="m-0">Semester</p>
+                    <div>Semester</div>
                 </div>
                 <a class="text-decoration-none d-block p-2 pe-3 text-end text-white semester-count-card-link"
                     href="{{ route('semester.index') }}">Lihat
@@ -55,7 +55,7 @@
                 <div class="p-3">
                     <i class="bi bi-book icon-count-card"></i>
                     <h3>{{ $counted_mata_pelajaran }}</h3>
-                    <p class="m-0">Mata Pelajaran</p>
+                    <div>Mata Pelajaran</div>
                 </div>
                 <a class="text-decoration-none d-block p-2 pe-3 text-end text-white mata-pelajaran-count-card-link"
                     href="{{ route('mata-pelajaran.index') }}">Lihat
@@ -67,7 +67,7 @@
                 <div class="p-3">
                     <i class="bi bi-person-up icon-count-card"></i>
                     <h3>{{ $counted_ekstrakurikuler }}</h3>
-                    <p class="m-0">Ekstrakurikuler</p>
+                    <div>Ekstrakurikuler</div>
                 </div>
                 <a class="text-decoration-none d-block p-2 pe-3 text-end text-white ekstrakurikuler-count-card-link"
                     href="{{ route('mata-pelajaran.index') }}">Lihat
@@ -79,7 +79,7 @@
                 <div class="p-3">
                     <i class="bi bi-award icon-count-card"></i>
                     <h3>{{ $counted_prestasi }}</h3>
-                    <p class="m-0">Prestasi</p>
+                    <div>Prestasi</div>
                 </div>
                 <a class="text-decoration-none d-block p-2 pe-3 text-end text-white prestasi-count-card-link"
                     href="{{ route('prestasi.index') }}">Lihat
@@ -91,7 +91,7 @@
                 <div class="p-3">
                     <i class="bi bi-megaphone icon-count-card"></i>
                     <h3>{{ $counted_pengumuman }}</h3>
-                    <p class="m-0">Pengumuman</p>
+                    <div>Pengumuman</div>
                 </div>
                 <a class="text-decoration-none d-block p-2 pe-3 text-end text-white pengumuman-count-card-link"
                     href="{{ route('pengumuman.index') }}">Lihat
@@ -186,9 +186,9 @@
 
                     @forelse ($active_users['Staf Tata Usaha'] ?? [] as $_active_users)
                         <div class="d-flex align-items-center mt-3">
-                            <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo/default_profile_photo.png') }}"
+                            <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo.png') }}"
                                 alt="Foto Pegawai" class="profile-avatar me-2">
-                            <p class="m-0">{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</p>
+                            <div>{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</div>
                         </div>
                     @empty
                         <p class="text-center text-muted mt-3 mb-0">Tidak ada Staf Tata Usaha yang aktif.</p>
@@ -203,7 +203,7 @@
                         <div class="d-flex align-items-center mt-3">
                             <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo/default_profile_photo.png') }}"
                                 alt="Foto Pegawai" class="profile-avatar me-2">
-                            <p class="m-0">{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</p>
+                            <div>{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</div>
                         </div>
                     @empty
                         <p class="text-center text-muted mt-3 mb-0">Tidak ada Guru yang aktif.</p>
@@ -218,7 +218,7 @@
                         <div class="d-flex align-items-center mt-3">
                             <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo/default_profile_photo.png') }}"
                                 alt="Foto Pegawai" class="profile-avatar me-2">
-                            <p class="m-0">{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</p>
+                            <div>{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</div>
                         </div>
                     @empty
                         <p class="text-center text-muted mt-3 mb-0">Tidak ada Siswa yang aktif.</p>

@@ -20,8 +20,7 @@
         @forelse ($kelas as $_kelas)
             <div class="jadwal-pelajaran-container {{ !$loop->last ? 'mb-3' : '' }}">
                 <h5 class="mb-0">Kelas : {{ $_kelas->nama_kelas }}</h5>
-                <p class="mt-2 mb-0 wali-kelas-label">Wali Kelas : {{ $_kelas->pegawai?->getFormatedNamaPegawai() ?? '-' }}
-                </p>
+                <div class="mt-2 wali-kelas-label">Wali Kelas : {{ $_kelas->pegawai?->getFormatedNamaPegawai() ?? '-' }}</div>
                 <hr>
 
                 @php

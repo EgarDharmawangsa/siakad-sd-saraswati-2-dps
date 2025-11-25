@@ -31,10 +31,11 @@
         </div>
 
         @if ($pengumuman->gambar)
-            <img src="{{ asset("storage/{$pengumuman->gambar}") }}" alt="{{ $pengumuman->judul }}"
-                class="gambar my-4 rounded">
+            <img src="{{ asset("storage/{$pengumuman->gambar}") }}" alt="Gambar Pengumuman"
+                class="image-content my-4 rounded">
         @endif
 
         <p>{!! $pengumuman->isi !!}</p>
     </div>
 @endsection
+
