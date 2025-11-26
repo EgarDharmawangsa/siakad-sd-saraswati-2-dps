@@ -30,7 +30,7 @@ class Ekstrakurikuler extends Model
         {
                 $column_array = ['jam_mulai', 'jam_selesai'];
 
-                if (!in_array($column, $column_array)) {
+                if (!\in_array($column, $column_array)) {
                         return null;
                 }
 
@@ -56,7 +56,7 @@ class Ekstrakurikuler extends Model
                         'minggu'
                 ];
 
-                $order_by_value = in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
+                $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
                 $query->orderBy('created_at', $order_by_value);
 
                 if (!empty($filters['nama_ekstrakurikuler_filter'])) {
@@ -76,7 +76,7 @@ class Ekstrakurikuler extends Model
                 }
 
                 if (!empty($filters['hari_filter'])) {
-                        $hari_filter_value = in_array(strtolower($filters['hari_filter']), $hari_array) ? $filters['hari_filter'] : '';
+                        $hari_filter_value = \in_array(strtolower($filters['hari_filter']), $hari_array) ? $filters['hari_filter'] : '';
                         $query->where('hari', 'like', "%{$hari_filter_value}%");
                 }
 

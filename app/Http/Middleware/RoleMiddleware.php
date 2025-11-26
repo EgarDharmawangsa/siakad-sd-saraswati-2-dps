@@ -20,7 +20,7 @@ class RoleMiddleware
         $user_role_slug = Str::slug(Auth::user()->role);
         $roles = array_map(fn($r) => Str::slug($r), $roles);
 
-        if (in_array($user_role_slug, $roles)) {
+        if (\in_array($user_role_slug, $roles)) {
             return $next($request);
         } else {
             abort(404, 'Halaman tidak ditemukan.');

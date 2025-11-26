@@ -26,7 +26,16 @@
                         class="profile-name">{{ Str::limit(auth()->user()->pegawai?->nama_pegawai ?? auth()->user()->siswa?->nama_siswa, 20, '...') }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#">Profil</a></li>
+                    @canany(['staf-tata-usaha', 'guru'])
+                        <li><a class="dropdown-item"
+                                href="{{ route('pegawai.show', Auth::user()->pegawai->id_pegawai) }}">Profil</a></li>
+                    @endcanany
+
+                    @can('siswa')
+                        <li><a class="dropdown-item" href="{{ route('siswa.show', Auth::user()->siswa->id_siswa) }}">Profil</a>
+                        </li>
+                    @endcan
+
                     <li>
                         <hr class="profile-dropdown-divider">
                     </li>

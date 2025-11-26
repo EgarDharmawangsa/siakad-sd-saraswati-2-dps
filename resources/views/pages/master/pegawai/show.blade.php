@@ -46,10 +46,10 @@
                 <div class="row g-3">
                     <div class="col-md-12 mt-5 mb-4 justify-content-center text-center">
                         @if ($pegawai->foto)
-                            <img src="{{ asset("storage/{$pegawai->foto}") ?? asset('images/default_profile_photo.png') }}"
+                            <img src="{{ asset("storage/{$pegawai->foto}") }}"
                                 alt="Foto Pegawai" class="img-fluid foto">
                         @else
-                            <img src="{{ asset('default_profile_photo/default_profile_photo.png') }}" alt="Foto Pegawai"
+                            <img src="{{ asset('images/default_profile_photo.png') }}" alt="Foto Pegawai"
                                 class="img-fluid rounded-circle foto">
                         @endif
                     </div>

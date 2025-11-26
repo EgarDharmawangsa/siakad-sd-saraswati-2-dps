@@ -29,8 +29,8 @@ class JadwalPelajaran extends Model
         $query = self::query()
             ->where('id_kelas', $id_kelas)
             ->where('hari', $hari)
-            ->where('jam_mulai', '<=', $selesai)
-            ->where('jam_selesai', '>=', $mulai);
+            ->where('jam_mulai', '<', $selesai)
+            ->where('jam_selesai', '>', $mulai);
 
         if ($ignore_id) {
             $query->where('id_jadwal_pelajaran', '!=', $ignore_id);
@@ -51,7 +51,7 @@ class JadwalPelajaran extends Model
     {
         $column_array = ['jam_mulai', 'jam_selesai'];
 
-        if (!in_array($column, $column_array)) {
+        if (!\in_array($column, $column_array)) {
             return null;
         }
 
@@ -82,7 +82,7 @@ class JadwalPelajaran extends Model
         }
 
         if (!empty($filters['kegiatan_filter'])) {
-            $kegiatan_filter_value = in_array(strtolower($filters['kegiatan_filter']), $kegiatan_array) ? $filters['kegiatan_filter'] : '';
+            $kegiatan_filter_value = \in_array(strtolower($filters['kegiatan_filter']), $kegiatan_array) ? $filters['kegiatan_filter'] : '';
             $query->where('kegiatan', 'like', "%{$kegiatan_filter_value}%");
         }
 
@@ -95,7 +95,7 @@ class JadwalPelajaran extends Model
         }
 
         if (!empty($filters['hari_filter'])) {
-            $hari_filter_value = in_array(strtolower($filters['hari_filter']), $hari_array) ? $filters['hari_filter'] : '';
+            $hari_filter_value = \in_array(strtolower($filters['hari_filter']), $hari_array) ? $filters['hari_filter'] : '';
             $query->where('hari', 'like', "%{$hari_filter_value}%");
         }
 

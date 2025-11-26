@@ -18,13 +18,13 @@
                     <div class="mb-2">
                         <label for="wali-kelas-filter" class="form-label">Wali Kelas</label>
                         <input type="text" class="form-control" id="wali-kelas-filter" name="wali_kelas_filter"
-                            value="{{ request('wali_kelas_filter') }}" placeholder="Masukkan wali kelas">
+                            value="{{ request('wali_kelas_filter') }}" placeholder="Masukkan wali kelas (nip/nipppk/nama)">
                     </div>
                 </form>
             </div>
             <div class="modal-footer form-buttons justify-content-between mt-0">
-                <button id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
-                <button id="filter-modal-apply-button" class="btn btn-primary">Terapkan</button>
+                <button id="filter-modal-clear-button" class="btn btn-danger"><i class="bi bi-eraser me-2"></i>Bersihkan</button>
+                <button id="filter-modal-apply-button" class="btn btn-primary"><i class="bi bi-check-lg me-2"></i>Terapkan</button>
             </div>
         </div>
     </div>

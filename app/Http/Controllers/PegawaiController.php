@@ -68,7 +68,7 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        $mata_pelajaran = MataPelajaran::all();
+        $mata_pelajaran = MataPelajaran::latest()->get();
 
         return view('pages.master.pegawai.create', [
             'judul' => 'Pegawai',
@@ -135,7 +135,7 @@ class PegawaiController extends Controller
      */
     public function edit(Pegawai $pegawai)
     {
-        $mata_pelajaran = MataPelajaran::all();
+        $mata_pelajaran = MataPelajaran::latest()->get();
 
         return view('pages.master.pegawai.edit', [
             'judul' => 'Pegawai',

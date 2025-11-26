@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
 
         $exceptions = [
             'nisn' => 'NISN',
-            'nip'  => 'NIP',
+            'nip'  => 'NIP'
         ];
 
         Validator::resolver(function ($translator, $data, $rules, $messages, $customAttributes) use ($exceptions) {
@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
 
             $names = [];
             foreach ((array)$rules as $attribute) {
-                if (!is_string($attribute)) continue;
+                if (!\is_string($attribute)) continue;
 
                 $names[$attribute] = $exceptions[$attribute]
                     ?? ucwords(str_replace('_', ' ', $attribute));

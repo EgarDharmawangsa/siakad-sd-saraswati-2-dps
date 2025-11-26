@@ -19,7 +19,7 @@ class MataPelajaran extends Model
     {
         $order_by_array = ['desc', 'asc'];
 
-        $order_by_value = in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
+        $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
         $query->orderBy('created_at', $order_by_value);
 
         if (!empty($filters['nama_mata_pelajaran_filter'])) {

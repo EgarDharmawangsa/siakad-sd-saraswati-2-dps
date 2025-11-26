@@ -37,13 +37,15 @@ class Kelas extends Model
     {
         $query->with([
             'pegawai',
-            'jadwalPelajaran'
-        ])->whereHas('jadwalPelajaran', function ($query) use ($filters) {
-            $query->filter($filters)
-                ->orderByRaw("FIELD(hari, 'Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu')")
-                ->orderBy('jam_mulai')
-                ->with(['guruMataPelajaran.mataPelajaran', 'guruMataPelajaran.pegawai']);
-        });
+            'jadwalPelajaran' => fn($query) =>
+                $query->filter($filters)
+                    ->orderByRaw("FIELD(hari, 'Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu')")
+                    ->orderBy('jam_mulai')
+                    ->with(['guruMataPelajaran.mataPelajaran', 'guruMataPelajaran.pegawai'])
+        ])->whereHas(
+            'jadwalPelajaran', fn($query) =>
+                $query->filter($filters)
+        );
 
         return $query;
     }
@@ -52,7 +54,7 @@ class Kelas extends Model
     {
         $order_by_array = ['desc', 'asc'];
 
-        $order_by_value = in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'nama_kelas';
+        $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'nama_kelas';
 
         if ($order_by_value === 'nama_kelas') {
             $query->orderedNamaKelas();
@@ -65,8 +67,18 @@ class Kelas extends Model
             $query->where('nama_kelas', 'like', "%{$nama_kelas_filter_value}%");
         }
 
-        if (!empty($filters['nama_wali'])) {
-            $query->whereHas('pegawai', fn($query) => $query->where('posisi', 'Guru')->where('nama_pegawai', 'like', '%' . $filters['nama_wali'] . '%'));
+        if (!empty($filters['wali_kelas_filter'])) {
+            $query->whereHas(
+                'pegawai',
+                fn($query) =>
+                $query->where('posisi', 'Guru')
+                    ->where(
+                        fn($query) =>
+                        $query->where('nip', 'like', '%' . $filters['wali_kelas_filter'] . '%')
+                            ->orWhere('nipppk', 'like', '%' . $filters['wali_kelas_filter'] . '%')
+                            ->orWhere('nama_pegawai', 'like', '%' . $filters['wali_kelas_filter'] . '%')
+                    )
+            );
         }
 
         return $query;

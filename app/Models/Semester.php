@@ -35,7 +35,7 @@ class Semester extends Model
     {
         $column_array = ['tanggal_mulai', 'tanggal_selesai'];
 
-        if (!in_array($column, $column_array)) {
+        if (!\in_array($column, $column_array)) {
             return null;
         }
 
@@ -82,11 +82,11 @@ class Semester extends Model
         $jenis_filter_array = ['ganjil', 'genap'];
         $status_filter_array = ['menunggu', 'berjalan', 'selesai'];
 
-        $order_by_value = in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
+        $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
         $query->orderBy('tanggal_mulai', $order_by_value);
 
         if (!empty($filters['jenis_filter'])) {
-            $jenis_filter_value = in_array(strtolower($filters['jenis_filter']), $jenis_filter_array) ? $filters['jenis_filter'] : '';
+            $jenis_filter_value = \in_array(strtolower($filters['jenis_filter']), $jenis_filter_array) ? $filters['jenis_filter'] : '';
             $query->where('jenis', 'like', "%{$jenis_filter_value}%");
         }
 
@@ -117,7 +117,7 @@ class Semester extends Model
         }
 
         if (!empty($filters['status_filter'])) {
-            $status_filter_value = in_array(strtolower($filters['status_filter']), $status_filter_array) ? $filters['status_filter'] : '';
+            $status_filter_value = \in_array(strtolower($filters['status_filter']), $status_filter_array) ? $filters['status_filter'] : '';
 
             if ($status_filter_value === 'menunggu') {
                 $query->where('tanggal_mulai', '>', now());

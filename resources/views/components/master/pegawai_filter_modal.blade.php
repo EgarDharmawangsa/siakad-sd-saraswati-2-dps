@@ -34,7 +34,7 @@
                             <div class="mt-3">
                                 <div class="mb-3">
                                     <label for="nik-filter" class="form-label">NIK</label>
-                                    <input type="text" class="form-control" id="nik-filter" name="nik_filter"
+                                    <input type="number" class="form-control" id="nik-filter" name="nik_filter"
                                         value="{{ request('nik_filter') }}" placeholder="Masukkan NIK">
                                 </div>
 
@@ -219,13 +219,13 @@
 
                                 <div class="mb-3">
                                     <label for="nip-filter" class="form-label">NIP</label>
-                                    <input type="text" class="form-control" id="nip-filter" name="nip_filter"
+                                    <input type="number" class="form-control" id="nip-filter" name="nip_filter"
                                         value="{{ request('nip_filter') }}" placeholder="Masukkan NIP">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="nipppk-filter" class="form-label">NIPPPK</label>
-                                    <input type="text" class="form-control" id="nipppk-filter"
+                                    <input type="number" class="form-control" id="nipppk-filter"
                                         name="nipppk_filter" value="{{ request('nipppk_filter') }}"
                                         placeholder="Masukkan NIPPPK">
                                 </div>
@@ -322,7 +322,7 @@
 
                                 <div class="mb-3">
                                     <label for="tahun-ijazah-filter" class="form-label">Tahun Ijazah</label>
-                                    <input type="text" class="form-control" id="tahun-ijazah-filter"
+                                    <input type="number" class="form-control" id="tahun-ijazah-filter"
                                         name="tahun_ijazah_filter" value="{{ request('tahun_ijazah_filter') }}"
                                         placeholder="Masukkan tahun ijazah">
                                 </div>
@@ -345,7 +345,7 @@
 
                                 <div class="mb-2">
                                     <label for="tahun-sertifikasi-filter" class="form-label">Tahun Sertifikasi</label>
-                                    <input type="text" class="form-control" id="tahun-sertifikasi-filter"
+                                    <input type="number" class="form-control" id="tahun-sertifikasi-filter"
                                         name="tahun_sertifikasi_filter"
                                         value="{{ request('tahun_sertifikasi_filter') }}"
                                         placeholder="Masukkan tahun sertifikasi">
@@ -373,8 +373,8 @@
                 </form>
             </div>
             <div class="modal-footer form-buttons justify-content-between mt-0">
-                <button id="filter-modal-clear-button" class="btn btn-danger">Bersihkan</button>
-                <button id="filter-modal-apply-button" class="btn btn-primary">Terapkan</button>
+                <button id="filter-modal-clear-button" class="btn btn-danger"><i class="bi bi-eraser me-2"></i>Bersihkan</button>
+                <button id="filter-modal-apply-button" class="btn btn-primary"><i class="bi bi-check-lg me-2"></i>Terapkan</button>
             </div>
         </div>
     </div>

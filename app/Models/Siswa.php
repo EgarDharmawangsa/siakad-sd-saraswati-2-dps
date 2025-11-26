@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property int $id_siswa
  * @property string $nama_siswa
  * @property string|null $foto
  */
@@ -24,7 +25,7 @@ class Siswa extends Model
 
     public function scopeFilter($query, array $filters)
     {
-        $sort_by = in_array(strtolower($filters['sort_by'] ?? ''), ['asc', 'desc']) ? strtolower($filters['sort_by']) : 'desc';
+        $sort_by = \in_array(strtolower($filters['sort_by'] ?? ''), ['asc', 'desc']) ? strtolower($filters['sort_by']) : 'desc';
         $query->orderBy('created_at', $sort_by);
 
         return $query;

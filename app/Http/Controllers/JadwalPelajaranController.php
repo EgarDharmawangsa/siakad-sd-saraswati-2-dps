@@ -59,6 +59,12 @@ class JadwalPelajaranController extends Controller
     {
         $validated_jadwal_pelajaran = $request->validate($this->jadwal_pelajaran_validation_rules);
 
+        if ($validated_jadwal_pelajaran['kegiatan'] === 'Belajar' && empty($validated_jadwal_pelajaran['id_guru_mata_pelajaran'])) {
+            $id_guru_mata_pelajaran_error = ['id_guru_mata_pelajaran' => 'Guru Mata Pelajaran wajib diisi.'];
+
+            return back()->withErrors($id_guru_mata_pelajaran_error)->withInput();
+        }
+
         $errors = JadwalPelajaran::getJamValidationErrors(
             $validated_jadwal_pelajaran['id_kelas'],
             $validated_jadwal_pelajaran['hari'],

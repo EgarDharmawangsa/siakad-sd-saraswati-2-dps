@@ -20,14 +20,15 @@
         @forelse ($kelas as $_kelas)
             <div class="jadwal-pelajaran-container {{ !$loop->last ? 'mb-3' : '' }}">
                 <h5 class="mb-0">Kelas : {{ $_kelas->nama_kelas }}</h5>
-                <div class="mt-2 wali-kelas-label">Wali Kelas : {{ $_kelas->pegawai?->getFormatedNamaPegawai() ?? '-' }}</div>
+                <div class="mt-2 wali-kelas-label">Wali Kelas : {{ $_kelas->pegawai?->getFormatedNamaPegawai() ?? '-' }}
+                </div>
                 <hr>
 
                 @php
                     $jadwal_per_hari = $_kelas->jadwalPelajaran->groupBy('hari');
                 @endphp
 
-                @forelse ($jadwal_per_hari as $hari => $jadwal_pelajaran)
+                @foreach ($jadwal_per_hari as $hari => $jadwal_pelajaran)
                     <div class="table-responsive jadwal-pelajaran-table mt-3">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
@@ -81,12 +82,10 @@
                             </tbody>
                         </table>
                     </div>
-                @empty
-                    <p class="empty-message text-center mb-0 p-3 rounded">Belum ada Jadwal Pelajaran.</p>
-                @endforelse
+                @endforeach
             </div>
         @empty
-            <p class="empty-message text-center mb-0 p-3 rounded">Kelas tidak tersedia.</p>
+            <p class="empty-message text-center mb-0 p-3 rounded">Belum ada Jadwal Pelajaran.</p>
         @endforelse
 
         @if ($kelas->hasPages())

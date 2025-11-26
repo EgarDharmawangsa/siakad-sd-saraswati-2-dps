@@ -45,7 +45,7 @@ class Pegawai extends Model
     {
         $column_array = ['tanggal_lahir', 'permulaan_kerja', 'permulaan_kerja_sds2', 'tanggal_sk_terakhir'];
 
-        if (!in_array($column, $column_array)) {
+        if (!\in_array($column, $column_array)) {
             return null;
         }
 
@@ -96,7 +96,7 @@ class Pegawai extends Model
         ];
         $status_sertifikasi_array = ['sudah', 'belum'];
 
-        $order_by_value = in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
+        $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
         $query->orderBy('created_at', $order_by_value);
 
         // Data Pribadi
@@ -109,7 +109,7 @@ class Pegawai extends Model
         }
 
         if (!empty($filters['jenis_kelamin_filter'])) {
-            $jenis_kelamin_filter_value = in_array(strtolower($filters['jenis_kelamin_filter']), $jenis_kelamin_array) ? $filters['jenis_kelamin_filter'] : '';
+            $jenis_kelamin_filter_value = \in_array(strtolower($filters['jenis_kelamin_filter']), $jenis_kelamin_array) ? $filters['jenis_kelamin_filter'] : '';
             $query->where('jenis_kelamin', 'like', "%{$jenis_kelamin_filter_value}%");
         }
 
@@ -122,12 +122,12 @@ class Pegawai extends Model
         }
 
         if (!empty($filters['agama_filter'])) {
-            $agama_filter_value = in_array(strtolower($filters['agama_filter']), $agama_array) ? $filters['agama_filter'] : '';
+            $agama_filter_value = \in_array(strtolower($filters['agama_filter']), $agama_array) ? $filters['agama_filter'] : '';
             $query->where('agama', 'like', "%{$agama_filter_value}%");
         }
 
         if (!empty($filters['status_perkawinan_filter'])) {
-            $status_perkawinan_filter_value = in_array(strtolower($filters['status_perkawinan_filter']), $status_perkawinan_array) ? $filters['status_perkawinan_filter'] : '';
+            $status_perkawinan_filter_value = \in_array(strtolower($filters['status_perkawinan_filter']), $status_perkawinan_array) ? $filters['status_perkawinan_filter'] : '';
             $query->where('status_perkawinan', 'like', "%{$status_perkawinan_filter_value}%");
         }
 
@@ -153,7 +153,7 @@ class Pegawai extends Model
 
         // Data Kepegawaian
         if (!empty($filters['posisi_filter'])) {
-            $posisi_filter_value = in_array(strtolower($filters['posisi_filter']), $posisi_array) ? $filters['posisi_filter'] : '';
+            $posisi_filter_value = \in_array(strtolower($filters['posisi_filter']), $posisi_array) ? $filters['posisi_filter'] : '';
             $query->where('posisi', 'like', "%{$posisi_filter_value}%");
         }
 
@@ -170,7 +170,7 @@ class Pegawai extends Model
         }
 
         if (!empty($filters['jabatan_filter'])) {
-            $jabatan_filter_value = in_array(strtolower($filters['jabatan_filter']), $jabatan_array) ? $filters['jabatan_filter'] : '';
+            $jabatan_filter_value = \in_array(strtolower($filters['jabatan_filter']), $jabatan_array) ? $filters['jabatan_filter'] : '';
             $query->where('jabatan', 'like', "%{$jabatan_filter_value}%");
         }
 
@@ -192,7 +192,7 @@ class Pegawai extends Model
         }
 
         if (!empty($filters['status_sertifikasi_filter'])) {
-            $status_sertifikasi_filter_value = in_array(strtolower($filters['status_sertifikasi_filter']), $status_sertifikasi_array) ? $filters['status_sertifikasi_filter'] : '';
+            $status_sertifikasi_filter_value = \in_array(strtolower($filters['status_sertifikasi_filter']), $status_sertifikasi_array) ? $filters['status_sertifikasi_filter'] : '';
             $query->where('status_sertifikasi', 'like', "%{$status_sertifikasi_filter_value}%");
         }
 
