@@ -10,6 +10,7 @@
 @import "./pages/master/mata_pelajaran.css";
 @import "./pages/akademik/pegawai.css";
 @import "./pages/akademik/jadwal_pelajaran.css";
+@import "./pages/akademik/nilai_ekstrakurikuler.css";
 @import "./pages/akademik/prestasi.css";
 @import "./pages/akademik/pengumuman.css";
 
@@ -27,11 +28,13 @@
     background-color: #32344b;
     border-radius: 12px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+    padding: 0.8rem 1.5rem 1.5rem;
 }
 
 .error-code {
     font-size: 60px;
     font-weight: bold;
+    margin-bottom: 0.7rem;
 }
 
 .error-description {

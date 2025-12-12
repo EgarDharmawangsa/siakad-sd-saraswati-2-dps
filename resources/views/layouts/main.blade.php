@@ -56,6 +56,7 @@
         </div>
     </div>
 
+    @include('components.auth.log_out_modal')
     @include('components.delete_modal')
     @include('components.cancel_modal')
 </body>

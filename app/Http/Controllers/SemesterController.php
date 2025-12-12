@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Semester;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SemesterController extends Controller
 {
@@ -17,6 +18,10 @@ class SemesterController extends Controller
      */
     public function index()
     {
+        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+            abort(404);
+        }
+
         $semester = Semester::filter(request()->all())->paginate(20)->withQueryString();
 
         return view('pages.master.semester.index', [
@@ -30,6 +35,10 @@ class SemesterController extends Controller
      */
     public function create()
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         return view('pages.master.semester.create', [
             'judul' => 'Semester'
         ]);
@@ -40,6 +49,10 @@ class SemesterController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $validated_semester = $request->validate($this->semester_validation_rules);
 
         $errors = Semester::getTanggalValidationErrors($validated_semester['tanggal_mulai'], $validated_semester['tanggal_selesai']);
@@ -58,6 +71,10 @@ class SemesterController extends Controller
      */
     public function show(Semester $semester)
     {
+        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+            abort(404);
+        }
+        
         return view('pages.master.semester.show', [
             'judul' => 'Semester',
             'semester' => $semester
@@ -69,6 +86,10 @@ class SemesterController extends Controller
      */
     public function edit(Semester $semester)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         return view('pages.master.semester.edit', [
             'judul' => 'Semester',
             'semester' => $semester
@@ -80,6 +101,10 @@ class SemesterController extends Controller
     */
     public function update(Request $request, Semester $semester)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $semester_update_validation_rules = $this->semester_validation_rules;
     
         $semester_update_validation_rules['tanggal_mulai'] = "required|date|unique:semester,tanggal_mulai,{$semester->id_semester},id_semester|after_or_equal:today|before:tanggal_selesai";
@@ -103,6 +128,10 @@ class SemesterController extends Controller
      */
     public function destroy(Semester $semester)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $semester->delete();
 
         return redirect()->route('semester.index')->with('success', 'Semester berhasil dihapus.');

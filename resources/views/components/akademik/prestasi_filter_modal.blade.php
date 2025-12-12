@@ -15,11 +15,13 @@
                             value="{{ request('nama_prestasi_filter') }}" placeholder="Masukkan nama prestasi">
                     </div>
 
-                    <div class="mb-3">
-                        <label for="peraih-filter" class="form-label">Peraih</label>
-                        <input type="text" class="form-control" id="peraih-filter" name="peraih_filter"
-                            value="{{ request('peraih_filter') }}" placeholder="Masukkan peraih (nisn/nama)">
-                    </div>
+                    @canany(['staf-tata-usaha', 'guru'])
+                        <div class="mb-3">
+                            <label for="peraih-filter" class="form-label">Peraih</label>
+                            <input type="text" class="form-control" id="peraih-filter" name="peraih_filter"
+                                value="{{ request('peraih_filter') }}" placeholder="Masukkan peraih (nisn/nama)">
+                        </div>
+                    @endcanany
 
                     <div class="mb-3">
                         <label for="penyelenggara-filter" class="form-label">Penyelenggara</label>

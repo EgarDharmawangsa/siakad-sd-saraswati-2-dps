@@ -40,10 +40,10 @@
                         <hr class="profile-dropdown-divider">
                     </li>
                     <li>
-                        <form action="{{ route('logout') }}" method="POST">
+                        <form action="{{ route('log-out') }}" method="POST" id="log-out-form">
                             @csrf
-                            <button type="submit" class="dropdown-item profile-logout-button"><i
-                                    class="bi bi-box-arrow-right me-2"></i>Keluar</button>
+                            <button type="button" class="dropdown-item" id="log-out-button" data-bs-toggle="modal"
+                                data-bs-target="#log-out-modal"><i class="bi bi-box-arrow-right me-2"></i>Keluar</button>
                         </form>
                     </li>
                 </ul>

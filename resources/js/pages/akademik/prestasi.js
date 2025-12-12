@@ -18,7 +18,7 @@ if (peringkat) {
             }
         } else {
             peringkat_lainnya.setAttribute('disabled', true);
-            peringkat_lainnya_value = peringkat_lainnya.value;
+            // peringkat_lainnya_value = peringkat_lainnya.value;
             peringkat_lainnya.value = '';
         }
     });

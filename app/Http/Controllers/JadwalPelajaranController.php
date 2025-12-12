@@ -7,6 +7,7 @@ use App\Models\Kelas;
 use Illuminate\Http\Request;
 use App\Models\GuruMataPelajaran;
 use App\Models\MataPelajaran;
+use Illuminate\Support\Facades\Gate;
 
 class JadwalPelajaranController extends Controller
 {
@@ -40,6 +41,10 @@ class JadwalPelajaranController extends Controller
      */
     public function create()
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $kelas = Kelas::orderedNamaKelas()->get();
         $mata_pelajaran = MataPelajaran::latest()->get();
         $guru_mata_pelajaran = GuruMataPelajaran::all();
@@ -57,6 +62,10 @@ class JadwalPelajaranController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $validated_jadwal_pelajaran = $request->validate($this->jadwal_pelajaran_validation_rules);
 
         if ($validated_jadwal_pelajaran['kegiatan'] === 'Belajar' && empty($validated_jadwal_pelajaran['id_guru_mata_pelajaran'])) {
@@ -97,6 +106,10 @@ class JadwalPelajaranController extends Controller
      */
     public function edit(JadwalPelajaran $jadwalPelajaran)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $kelas = Kelas::orderedNamaKelas()->get();
         $mata_pelajaran = MataPelajaran::latest()->get();
         $guru_mata_pelajaran = GuruMataPelajaran::all();
@@ -115,6 +128,10 @@ class JadwalPelajaranController extends Controller
      */
     public function update(Request $request, JadwalPelajaran $jadwalPelajaran)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $validated_jadwal_pelajaran = $request->validate($this->jadwal_pelajaran_validation_rules);
 
         $errors = JadwalPelajaran::getJamValidationErrors(
@@ -143,6 +160,10 @@ class JadwalPelajaranController extends Controller
      */
     public function destroy(JadwalPelajaran $jadwalPelajaran)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+        
         $jadwalPelajaran->delete();
 
         return redirect()->route('jadwal-pelajaran.index')->with('success', 'Jadwal Pelajaran berhasil dihapus.');

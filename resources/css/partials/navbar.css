@@ -97,11 +97,11 @@ nav.navbar {
     color: white;
 }
 
-.dropdown-item.profile-logout-button {
+#log-out-button {
     color: rgb(255, 30, 30);
 }
 
-.dropdown-item.profile-logout-button:hover {
+#log-out-button:hover {
     background-color: red;
     color: white;
 }

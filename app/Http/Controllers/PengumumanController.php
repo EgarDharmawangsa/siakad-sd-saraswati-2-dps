@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengumuman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
 
 class PengumumanController extends Controller
 {
@@ -20,6 +21,10 @@ class PengumumanController extends Controller
      */
     public function index()
     {
+        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+            abort(404);
+        }
+
         $pengumuman = Pengumuman::filter(request()->all())->paginate(20)->withQueryString();
 
         return view('pages.akademik.pengumuman.index', [
@@ -33,6 +38,10 @@ class PengumumanController extends Controller
      */
     public function create()
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         return view('pages.akademik.pengumuman.create', [
             'judul' => 'Pengumuman'
         ]);
@@ -43,6 +52,10 @@ class PengumumanController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $validated_pengumuman = $request->validate($this->pengumuman_validation_rules);
 
         if ($request->hasFile('gambar')) {
@@ -70,6 +83,10 @@ class PengumumanController extends Controller
      */
     public function edit(Pengumuman $pengumuman)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         return view('pages.akademik.pengumuman.edit', [
             'judul' => 'Pengumuman',
             'pengumuman' => $pengumuman
@@ -81,6 +98,10 @@ class PengumumanController extends Controller
      */
     public function update(Request $request, Pengumuman $pengumuman)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $pengumuman_validation_rules_update = $this->pengumuman_validation_rules;
         $pengumuman_validation_rules_update['tanggal'] = "required|date|after_or_equal:{$pengumuman->getFormatedTanggal()}";
         $pengumuman_validation_rules_update['image_delete'] = 'required|integer';
@@ -111,6 +132,10 @@ class PengumumanController extends Controller
      */
     public function destroy(Pengumuman $pengumuman)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+        
         $pengumuman->delete();
 
         if (!empty($pengumuman->gambar)) {

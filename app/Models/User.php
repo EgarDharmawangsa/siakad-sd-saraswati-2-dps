@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 /**
  * @property string $role
@@ -29,7 +30,7 @@ class User extends Authenticatable
     // ];
 
     protected $primaryKey = 'id_user';
-    
+
     protected $guarded = ['id_user'];
 
     /**
@@ -47,7 +48,7 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    
+
     protected function casts(): array
     {
         return [
@@ -56,11 +57,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function siswa() {
+    public function siswa()
+    {
         return $this->belongsTo(Siswa::class, 'id_siswa', 'id_siswa');
     }
 
-    public function pegawai() {
+    public function pegawai()
+    {
         return $this->belongsTo(Pegawai::class, 'id_pegawai', 'id_pegawai');
     }
 }

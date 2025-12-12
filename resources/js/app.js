@@ -5,6 +5,7 @@ import './bootstrap';
 import * as bootstrap from 'bootstrap';
 import flatpickr from 'flatpickr';
 
+import './components/auth/log_out_modal.js';
 import './components/cancel_modal.js';
 import './components/delete_modal.js';
 import './partials/navbar.js';
@@ -12,6 +13,7 @@ import './partials/sidebar.js';
 import './pages/beranda.js';
 import './pages/master/pegawai.js';
 import './pages/akademik/jadwal_pelajaran.js';
+import './pages/akademik/nilai_ekstrakurikuler.js';
 import './pages/akademik/prestasi.js';
 import './pages/akademik/pengumuman.js';
 

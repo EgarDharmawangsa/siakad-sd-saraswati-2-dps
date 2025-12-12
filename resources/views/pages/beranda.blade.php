@@ -201,7 +201,7 @@
 
                     @forelse ($active_users['Guru'] ?? [] as $_active_users)
                         <div class="d-flex align-items-center mt-3">
-                            <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo/default_profile_photo.png') }}"
+                            <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo.png') }}"
                                 alt="Foto Pegawai" class="profile-avatar me-2">
                             <div>{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</div>
                         </div>
@@ -216,7 +216,7 @@
 
                     @forelse ($active_users['Siswa'] ?? [] as $_active_users)
                         <div class="d-flex align-items-center mt-3">
-                            <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo/default_profile_photo.png') }}"
+                            <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo.png') }}"
                                 alt="Foto Pegawai" class="profile-avatar me-2">
                             <div>{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</div>
                         </div>

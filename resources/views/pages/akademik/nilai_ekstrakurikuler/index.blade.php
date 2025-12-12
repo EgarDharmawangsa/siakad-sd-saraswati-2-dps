@@ -2,21 +2,17 @@
 
 @section('container')
     <div class="content-card mb-4">
-        <div class="index-buttons">
-            <div class="modifier-buttons">
-                <div class="filter-modal-container">
-                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
-                        <i class="bi bi-funnel me-2"></i>Filter
-                    </button>
+        <div class="d-flex justify-content-end mb-4">
+            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                <i class="bi bi-funnel me-2"></i>Filter
+            </button>
 
-                    @include('components.akademik.nilai_ekstrakurikuler_filter_modal')
-                </div>
-            </div>
+            @include('components.akademik.nilai_ekstrakurikuler_filter_modal')
         </div>
 
         {{-- @if ($siswa->isNotEmpty())  --}}
-        {{-- <form action="{{ route('nilai.store') }}" method="POST"> --}}
-        <form action="" method="POST">
+        <form action="{{ route('nilai-ekstrakurikuler.update') }}" method="POST" id="nilai-ekstrakurikuler-form">
+            @method('PATCH')
             @csrf
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover">
@@ -35,42 +31,36 @@
                         {{-- @forelse ($nilai_ekstrakurikuler as $_nilai_ekstrakurikuler) --}}
                         <tr>
                             {{-- <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $_nilai_ekstrakurikuler->siswa->getFormatedNamaSiswa() }}</td>
-                                    <td>{{ $_nilai_ekstrakurikuler->ekstrakurikuler->nama_ekstrakurikuler }}</td>
-                                    <td>{{ $_nilai_ekstrakurikuler->semester }}</td>
-                                    <td>{{ $_nilai_ekstrakurikuler->nilai }}</td> --}}
+                            <td><input type="hidden" name="nilai_ekstrakurikuler[]" value="{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}"></td>
+                            <td>{{ $_nilai_ekstrakurikuler->siswa->getFormatedNamaSiswa() }}</td>
+                            <td>{{ $_nilai_ekstrakurikuler->ekstrakurikuler->nama_ekstrakurikuler }}</td>
+                            <td>{{ $_nilai_ekstrakurikuler->semester }}</td>
+                            <td><input type="text" name="nilai[]" class="form-control nilai-input" value="{{ $_nilai_ekstrakurikuler->nilai }}" min="0" max="100"></td> --}}
 
                             {{-- Data Dummy --}}
                             <td>1</td>
                             <td>220040026 | I Komang Egar Suarama Dharmawangsa</td>
-                            <td>
-                                Menggambar
-                                <input type="hidden" name="id_ekstrakurikuler[]" value="1">
-                            </td>
-                            <td>
-                                1
-                                <input type="hidden" name="id_semester[]" value="1">
-                            </td>
-                            <td>
-                                <input type="hidden" name="id_siswa[]" value="1">
-                                <input type="text" name="nilai[]" class="form-control nilai-input" value="90">
-                            </td>
+                            <td>Menggambar</td>
+                            <td>1</td>
+                            <td><input type="number" name="nilai[]" class="form-control nilai-input" value="90" min="0" max="100"></td>
 
                             {{-- <td class="aksi-column">
                                         <a href="{{ route('nilai-ekstrakurikuler.show', $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler) }}"
                                             class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
-                                        <a href="{{ route('nilai-ekstrakurikuler.edit', $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler) }}"
-                                            class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                        <form
-                                            action="{{ route('nilai-ekstrakurikuler.destroy', $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler) }}"
-                                            method="POST" class="d-inline delete-form">
-                                            @csrf
-                                            @method('DELETE')
+                                        @can('staf-tata-usaha')
+                                            <a href="{{ route('nilai-ekstrakurikuler.edit', $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler) }}"
+                                                class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                            <form
+                                                action="{{ route('nilai-ekstrakurikuler.destroy', $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler) }}"
+                                                method="POST" class="d-inline delete-form">
+                                                @csrf
+                                                @method('DELETE')
 
-                                            <button type="button" class="btn btn-danger btn-sm delete-button"
-                                                data-bs-toggle="modal" data-bs-target="#delete-modal">
-                                                <i class="bi bi-trash me-2"></i>Hapus</button>
-                                        </form>
+                                                <button type="button" class="btn btn-danger btn-sm delete-button"
+                                                    data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                                    <i class="bi bi-trash me-2"></i>Hapus</button>
+                                            </form>
+                                        @endcan
                                     </td> --}}
                         </tr>
                         {{-- @empty
@@ -88,9 +78,11 @@
                 </div>
             @endif
 
-            <button type="submit" class="btn btn-primary mt-4"><i class="bi bi-floppy me-2"></i>Simpan</button>
-            <p class="mini-label mt-2 mb-0"><span class="text-danger fw-bold">Peringatan:</span> Simpan nilai
-                sebelum berpindah ke halaman atau daftar berikutnya.</p>
+            <div class="d-flex justify-content-between rounded-3 mt-4 p-3 nilai-submit-container">
+                <p class="mini-label nilai-submit-warning-text">Simpan nilai sebelum berpindah ke halaman atau daftar
+                    berikutnya!</p>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-floppy me-2"></i>Simpan</button>
+            </div>
         </form>
         {{-- @else
             <p class="empty-message text-center mb-0 p-3 rounded">Siswa tidak tersedia.</p>

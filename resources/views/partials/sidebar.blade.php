@@ -13,21 +13,25 @@
                 </a>
             </li>
 
-            <!-- Pegawai -->
-            <li class="nav-item">
-                <a href="{{ route('pegawai.index') }}"
-                    class="nav-link {{ request()->routeIs('pegawai.*') ? 'active-sidebar-link' : '' }}">
-                    <i class="bi bi-person-badge me-2"></i>Pegawai
-                </a>
-            </li>
+            @canany(['staf-tata-usaha', 'guru'])
+                <!-- Pegawai -->
+                <li class="nav-item">
+                    <a href="{{ route('pegawai.index') }}"
+                        class="nav-link {{ request()->routeIs('pegawai.*') ? 'active-sidebar-link' : '' }}">
+                        <i class="bi bi-person-badge me-2"></i>Pegawai
+                    </a>
+                </li>
+            @endcanany
 
-            <!-- Guru -->
-            <li class="nav-item">
-                <a href="{{ route('guru.index') }}"
-                    class="nav-link {{ request()->routeIs('guru.*') ? 'active-sidebar-link' : '' }}">
-                    <i class="bi bi-person-workspace me-2"></i>Guru
-                </a>
-            </li>
+            @can('siswa')
+                <!-- Guru -->
+                <li class="nav-item">
+                    <a href="{{ route('guru.index') }}"
+                        class="nav-link {{ request()->routeIs('guru.*') ? 'active-sidebar-link' : '' }}">
+                        <i class="bi bi-person-workspace me-2"></i>Guru
+                    </a>
+                </li>
+            @endcan
 
             <!-- Siswa -->
             <li class="nav-item">
@@ -37,29 +41,31 @@
                 </a>
             </li>
 
-            <!-- Kelas -->
-            <li class="nav-item">
-                <a href="{{ route('kelas.index') }}"
-                    class="nav-link {{ request()->routeIs('kelas.*') ? 'active-sidebar-link' : '' }}">
-                    <i class="bi bi-door-open me-2"></i>Kelas
-                </a>
-            </li>
+            @canany(['staf-tata-usaha', 'guru'])
+                <!-- Kelas -->
+                <li class="nav-item">
+                    <a href="{{ route('kelas.index') }}"
+                        class="nav-link {{ request()->routeIs('kelas.*') ? 'active-sidebar-link' : '' }}">
+                        <i class="bi bi-door-open me-2"></i>Kelas
+                    </a>
+                </li>
 
-            <!-- Semester -->
-            <li class="nav-item">
-                <a href="{{ route('semester.index') }}"
-                    class="nav-link {{ request()->routeIs('semester.*') ? 'active-sidebar-link' : '' }}">
-                    <i class="bi bi-calendar-range me-2"></i>Semester
-                </a>
-            </li>
+                <!-- Semester -->
+                <li class="nav-item">
+                    <a href="{{ route('semester.index') }}"
+                        class="nav-link {{ request()->routeIs('semester.*') ? 'active-sidebar-link' : '' }}">
+                        <i class="bi bi-calendar-range me-2"></i>Semester
+                    </a>
+                </li>
 
-            <!-- Mata Pelajaran -->
-            <li class="nav-item">
-                <a href="{{ route('mata-pelajaran.index') }}"
-                    class="nav-link {{ request()->routeIs('mata-pelajaran.*') ? 'active-sidebar-link' : '' }}">
-                    <i class="bi bi-book me-2"></i>Mata Pelajaran
-                </a>
-            </li>
+                <!-- Mata Pelajaran -->
+                <li class="nav-item">
+                    <a href="{{ route('mata-pelajaran.index') }}"
+                        class="nav-link {{ request()->routeIs('mata-pelajaran.*') ? 'active-sidebar-link' : '' }}">
+                        <i class="bi bi-book me-2"></i>Mata Pelajaran
+                    </a>
+                </li>
+            @endcanany
 
             <!-- Jadwal Pelajaran -->
             <li class="nav-item">
@@ -122,13 +128,15 @@
                 </a>
             </li>
 
-            <!-- Pengumuman -->
-            <li class="nav-item">
-                <a href="{{ route('pengumuman.index') }}"
-                    class="nav-link {{ request()->routeIs('pengumuman.*') ? 'active-sidebar-link' : '' }}">
-                    <i class="bi bi-megaphone me-2"></i>Pengumuman
-                </a>
-            </li>
+            @canany(['staf-tata-usaha', 'guru'])
+                <!-- Pengumuman -->
+                <li class="nav-item">
+                    <a href="{{ route('pengumuman.index') }}"
+                        class="nav-link {{ request()->routeIs('pengumuman.*') ? 'active-sidebar-link' : '' }}">
+                        <i class="bi bi-megaphone me-2"></i>Pengumuman
+                    </a>
+                </li>
+            @endcanany
         </ul>
     </div>
 @endauth

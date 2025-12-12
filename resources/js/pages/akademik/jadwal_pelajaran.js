@@ -17,8 +17,8 @@ if (kegiatan && id_guru_mata_pelajaran && mata_pelajaran) {
             mata_pelajaran.value = mata_pelajaran_value;
         } else {
             id_guru_mata_pelajaran.disabled = true;
-            id_guru_mata_pelajaran_value = id_guru_mata_pelajaran.value;
-            mata_pelajaran_value = mata_pelajaran.value;
+            // id_guru_mata_pelajaran_value = id_guru_mata_pelajaran.value;
+            // mata_pelajaran_value = mata_pelajaran.value;
             id_guru_mata_pelajaran.value = '';
             mata_pelajaran.value = '';
         }

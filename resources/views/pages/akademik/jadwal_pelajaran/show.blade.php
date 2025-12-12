@@ -8,16 +8,18 @@
         <div class="show-buttons">
             <a href="{{ route('jadwal-pelajaran.index') }}" class="btn btn-secondary btn-sm me-1"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
-            <a href="{{ route('jadwal-pelajaran.edit', $jadwal_pelajaran->id_jadwal_pelajaran) }}" class="btn btn-warning btn-sm me-1"><i
-                    class="bi bi-pencil me-2"></i>Edit</a>
-            <form action="{{ route('jadwal-pelajaran.destroy', $jadwal_pelajaran->id_jadwal_pelajaran) }}" method="POST" class="d-inline delete-form">
-                @csrf
-                @method('DELETE')
+            @can('staf-tata-usaha')
+                <a href="{{ route('jadwal-pelajaran.edit', $jadwal_pelajaran->id_jadwal_pelajaran) }}" class="btn btn-warning btn-sm me-1"><i
+                        class="bi bi-pencil me-2"></i>Edit</a>
+                <form action="{{ route('jadwal-pelajaran.destroy', $jadwal_pelajaran->id_jadwal_pelajaran) }}" method="POST" class="d-inline delete-form">
+                    @csrf
+                    @method('DELETE')
 
-                <button type="button" class="btn btn-danger btn-sm delete-button" data-bs-toggle="modal"
-                    data-bs-target="#delete-modal">
-                    <i class="bi bi-trash me-2"></i>Hapus</button>
-            </form>
+                    <button type="button" class="btn btn-danger btn-sm delete-button" data-bs-toggle="modal"
+                        data-bs-target="#delete-modal">
+                        <i class="bi bi-trash me-2"></i>Hapus</button>
+                </form>
+            @endcan
         </div>
 
         <div class="row g-3">

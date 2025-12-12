@@ -9,11 +9,13 @@
             </div>
             <div class="modal-body">
                 <form id="filter-modal-form" action="{{ route('nilai-ekstrakurikuler.index') }}">
-                    <div class="mb-3">
-                        <label for="siswa-filter" class="form-label">Siswa</label>
-                        <input type="text" class="form-control" id="siswa-filter" name="siswa_filter"
-                            value="{{ request('siswa_filter') }}" placeholder="Masukkan siswa (nisn/nama)">
-                    </div>
+                    @canany(['staf-tata-usaha', 'guru'])
+                        <div class="mb-3">
+                            <label for="siswa-filter" class="form-label">Siswa</label>
+                            <input type="text" class="form-control" id="siswa-filter" name="siswa_filter"
+                                value="{{ request('siswa_filter') }}" placeholder="Masukkan siswa (nisn/nama)">
+                        </div>
+                    @endcanany
 
                     <div class="mb-3">
                         <label for="ekstrakurikuler-filter" class="form-label">Ekstrakurikuler</label>

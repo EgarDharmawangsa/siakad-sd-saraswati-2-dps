@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ekstrakurikuler;
+use App\Models\PesertaEkstrakurikuler;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class EkstrakurikulerController extends Controller
 {
@@ -23,7 +25,13 @@ class EkstrakurikulerController extends Controller
      */
     public function index()
     {
-        $ekstrakurikuler = Ekstrakurikuler::filter(request()->all())->paginate(20)->withQueryString();
+        if (Gate::any(['staf-tata-usaha', 'guru'])) {
+            $ekstrakurikuler = Ekstrakurikuler::filter(request()->all())->paginate(20)->withQueryString();
+        } else if (Gate::allows('siswa')) {
+            $ekstrakurikuler = PesertaEkstrakurikuler::with('ekstrakurikuler')->where('id_siswa', Auth::user()->siswa->id_siswa)->paginate(20)->withQueryString();
+        } else {
+            abort(404);
+        }
 
         return view('pages.master.ekstrakurikuler.index', [
             'judul' => 'Ekstrakurikuler',
@@ -36,6 +44,10 @@ class EkstrakurikulerController extends Controller
      */
     public function create()
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         return view('pages.master.ekstrakurikuler.create', [
             'judul' => 'Ekstrakurikuler'
         ]);
@@ -46,6 +58,10 @@ class EkstrakurikulerController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $validated_ekstrakurikuler = $request->validate($this->ekstrakurikuler_validation_rules);
 
         Ekstrakurikuler::create($validated_ekstrakurikuler);
@@ -69,6 +85,10 @@ class EkstrakurikulerController extends Controller
      */
     public function edit(Ekstrakurikuler $ekstrakurikuler)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         return view('pages.master.ekstrakurikuler.edit', [
             'judul' => 'Ekstrakurikuler',
             'ekstrakurikuler' => $ekstrakurikuler
@@ -80,6 +100,10 @@ class EkstrakurikulerController extends Controller
      */
     public function update(Request $request, Ekstrakurikuler $ekstrakurikuler)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $ekstrakurikuler_validation_rules_update = $this->ekstrakurikuler_validation_rules;
 
         $ekstrakurikuler_validation_rules_update['nama_ekstrakurikuler'] = "required|string|min:3|max:25|unique:ekstrakurikuler,nama_ekstrakurikuler,{$ekstrakurikuler->id_ekstrakurikuler},id_ekstrakurikuler";
@@ -96,6 +120,10 @@ class EkstrakurikulerController extends Controller
      */
     public function destroy(Ekstrakurikuler $ekstrakurikuler)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+        
         $ekstrakurikuler->delete();
 
         return redirect()->route('ekstrakurikuler.index')->with('success', 'Ekstrakurikuler berhasil dihapus.');

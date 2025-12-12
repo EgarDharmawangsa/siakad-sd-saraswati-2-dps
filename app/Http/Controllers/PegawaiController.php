@@ -54,7 +54,7 @@ class PegawaiController extends Controller
             $judul = 'Guru';
             $pegawai = Pegawai::where('posisi', 'Guru')->with('guruMataPelajaran')->filter(request()->all())->paginate(30)->withQueryString();
         } else {
-            abort(404, 'Halaman tidak ditemukan.');
+            abort(404);
         }
 
         return view('pages.master.pegawai.index', [
@@ -68,6 +68,10 @@ class PegawaiController extends Controller
      */
     public function create()
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $mata_pelajaran = MataPelajaran::latest()->get();
 
         return view('pages.master.pegawai.create', [
@@ -82,6 +86,10 @@ class PegawaiController extends Controller
     // app/Http/Controllers/PegawaiController.php
     public function store(Request $request)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $validated_pegawai = $request->validate($this->pegawaiValidationRules());
 
         if ($request->hasFile('foto')) {
@@ -118,10 +126,10 @@ class PegawaiController extends Controller
     {
         if (Gate::any(['staf-tata-usaha', 'guru'])) {
             $judul = 'Pegawai';
-        } else if (Gate::allows('siswa')) {
+        } else if (Gate::allows('siswa') && $pegawai->posisi === 'Guru') {
             $judul = 'Guru';
         } else {
-            abort(404, 'Halaman tidak ditemukan.');
+            abort(404);
         }
 
         return view('pages.master.pegawai.show', [
@@ -135,6 +143,10 @@ class PegawaiController extends Controller
      */
     public function edit(Pegawai $pegawai)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $mata_pelajaran = MataPelajaran::latest()->get();
 
         return view('pages.master.pegawai.edit', [
@@ -150,6 +162,10 @@ class PegawaiController extends Controller
     // app/Http/Controllers/PegawaiController.php
     public function update(Request $request, Pegawai $pegawai)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $pegawai_validation_rules_update = $this->pegawaiValidationRules();
         $pegawai_validation_rules_update['nik'] = "required|string|min:16|max:20|unique:pegawai,nik,{$pegawai->id_pegawai},id_pegawai|unique:siswa,nik";
         $pegawai_validation_rules_update['nip'] = "nullable|string|min:18|max:20|unique:pegawai,nip,{$pegawai->id_pegawai},id_pegawai";
@@ -241,6 +257,10 @@ class PegawaiController extends Controller
      */
     public function destroy(Pegawai $pegawai)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+        
         $pegawai->delete();
 
         User::where('id_pegawai', $pegawai->id_pegawai)->delete();

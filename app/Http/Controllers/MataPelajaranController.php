@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MataPelajaran;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Gate;
 
 class MataPelajaranController extends Controller
 {
@@ -17,6 +18,10 @@ class MataPelajaranController extends Controller
      */
     public function index()
     {
+        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+            abort(404);
+        }
+
         $mata_pelajaran = MataPelajaran::filter(request()->all())->paginate(20)->withQueryString();
 
         return view('pages.master.mata_pelajaran.index', [
@@ -30,6 +35,10 @@ class MataPelajaranController extends Controller
      */
     public function create()
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         return view('pages.master.mata_pelajaran.create', [
             'judul' => 'Mata Pelajaran'
         ]);
@@ -40,6 +49,10 @@ class MataPelajaranController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $validated_mata_pelajaran = $request->validate($this->kelas_validation_rules);
 
         MataPelajaran::create($validated_mata_pelajaran);
@@ -52,6 +65,10 @@ class MataPelajaranController extends Controller
      */
     public function show(MataPelajaran $mataPelajaran)
     {
+        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+            abort(404);
+        }
+
         return view('pages.master.mata_pelajaran.show', [
             'judul' => 'Mata Pelajaran',
             'mata_pelajaran' => $mataPelajaran
@@ -63,6 +80,10 @@ class MataPelajaranController extends Controller
      */
     public function edit(MataPelajaran $mataPelajaran)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         return view('pages.master.mata_pelajaran.edit', [
             'judul' => 'Mata Pelajaran',
             'mata_pelajaran' => $mataPelajaran
@@ -74,6 +95,10 @@ class MataPelajaranController extends Controller
      */
     public function update(Request $request, MataPelajaran $mataPelajaran)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         $kelas_validation_rules_update = $this->kelas_validation_rules;
 
         $kelas_validation_rules_update['nama_mata_pelajaran'] = "required|string|min:3|max:25|unique:mata_pelajaran,nama_mata_pelajaran,{$mataPelajaran->id_mata_pelajaran},id_mata_pelajaran";
@@ -90,6 +115,10 @@ class MataPelajaranController extends Controller
      */
     public function destroy(MataPelajaran $mataPelajaran)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         try {
             $mataPelajaran->delete();
     
