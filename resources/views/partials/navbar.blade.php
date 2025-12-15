@@ -23,18 +23,12 @@
                             : asset('images/default_profile_photo.png')) }}"
                         alt="Profile" class="profile-avatar me-1">
                     <span
-                        class="profile-name">{{ Str::limit(auth()->user()->pegawai?->nama_pegawai ?? auth()->user()->siswa?->nama_siswa, 20, '...') }}</span>
+                        class="profile-name">{{ Str::limit(Auth::user()->pegawai?->nama_pegawai ?? Auth::user()->siswa?->nama_siswa, 20, '...') }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    @canany(['staf-tata-usaha', 'guru'])
-                        <li><a class="dropdown-item"
-                                href="{{ route('pegawai.show', Auth::user()->pegawai->id_pegawai) }}">Profil</a></li>
-                    @endcanany
-
-                    @can('siswa')
-                        <li><a class="dropdown-item" href="{{ route('siswa.show', Auth::user()->siswa->id_siswa) }}">Profil</a>
-                        </li>
-                    @endcan
+                    <li>
+                        <a class="dropdown-item" href="{{ route('profil') }}">Profil</a>
+                    </li>
 
                     <li>
                         <hr class="profile-dropdown-divider">

@@ -8,23 +8,25 @@
         <div class="show-buttons">
             <a href="{{ route('semester.index') }}" class="btn btn-secondary btn-sm me-1"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
-            <a href="{{ route('semester.edit', $semester->id_semester) }}" class="btn btn-warning btn-sm me-1"><i
-                    class="bi bi-pencil me-2"></i>Edit</a>
-            <form action="{{ route('semester.destroy', $semester->id_semester) }}" method="POST" class="d-inline delete-form">
-                @csrf
-                @method('DELETE')
+            @can('staf-tata-usaha')
+                <a href="{{ route('semester.edit', $semester->id_semester) }}" class="btn btn-warning btn-sm me-1"><i
+                        class="bi bi-pencil me-2"></i>Edit</a>
+                <form action="{{ route('semester.destroy', $semester->id_semester) }}" method="POST"
+                    class="d-inline delete-form">
+                    @csrf
+                    @method('DELETE')
 
-                <button type="button" class="btn btn-danger btn-sm delete-button" data-bs-toggle="modal"
-                    data-bs-target="#delete-modal">
-                    <i class="bi bi-trash me-2"></i>Hapus</button>
-            </form>
+                    <button type="button" class="btn btn-danger btn-sm delete-button" data-bs-toggle="modal"
+                        data-bs-target="#delete-modal">
+                        <i class="bi bi-trash me-2"></i>Hapus</button>
+                </form>
+            @endcan
         </div>
 
         <div class="row g-3">
             <div class="col-md-6">
                 <label for="jenis" class="form-label">Jenis Semester</label>
-                <input type="text" class="form-control" id="jenis" value="{{ $semester->jenis }}"
-                    readonly>
+                <input type="text" class="form-control" id="jenis" value="{{ $semester->jenis }}" readonly>
             </div>
 
             <div class="col-md-6">

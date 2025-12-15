@@ -48,8 +48,12 @@ class AppServiceProvider extends ServiceProvider
             return $validator;
         });
 
+        // Main Gates
         Gate::define('staf-tata-usaha', fn($user) => $user->role === 'Staf Tata Usaha');
         Gate::define('guru', fn($user) => $user->role === 'Guru');
         Gate::define('siswa', fn($user) => $user->role === 'Siswa');
+
+        // Specific Gate
+        Gate::define('pegawai-profile-edit', fn($user) => $user->role === 'Staf Tata Usaha' || ($user->role === 'Guru' && request()->routeIs('profil')));
     }
 }

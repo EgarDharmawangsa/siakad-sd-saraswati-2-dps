@@ -6,18 +6,24 @@
         <hr>
 
         <div class="show-buttons">
-            <a href="{{ route('pegawai.index') }}" class="btn btn-secondary btn-sm me-1"><i
+            <a href="{{ request()->routeIs('pegawai.show') ? route('pegawai.index') : route('beranda') }}" class="btn btn-secondary btn-sm me-1"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
-            <a href="{{ route('pegawai.edit', $pegawai->id_pegawai) }}" class="btn btn-warning btn-sm me-1"><i
-                    class="bi bi-pencil me-2"></i>Edit</a>
-            <form action="{{ route('pegawai.destroy', $pegawai->id_pegawai) }}" method="POST" class="d-inline delete-form">
-                @csrf
-                @method('DELETE')
 
-                <button type="button" class="btn btn-danger btn-sm delete-button" data-bs-toggle="modal"
-                    data-bs-target="#delete-modal">
-                    <i class="bi bi-trash me-2"></i>Hapus</button>
-            </form>
+            @can('pegawai-profile-edit')
+                <a href="{{ request()->routeIs('pegawai.show') ? route('pegawai.edit', $pegawai->id_pegawai) : route('profil.edit') }}"
+                    class="btn btn-warning btn-sm me-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+            @endcan
+
+            @can('staf-tata-usaha')
+                <form action="{{ route('pegawai.destroy', $pegawai->id_pegawai) }}" method="POST" class="d-inline delete-form">
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="button" class="btn btn-danger btn-sm delete-button" data-bs-toggle="modal"
+                        data-bs-target="#delete-modal">
+                        <i class="bi bi-trash me-2"></i>Hapus</button>
+                </form>
+            @endcan
         </div>
 
         <ul class="nav nav-tabs" id="pegawai-tab" role="tablist">
@@ -46,8 +52,7 @@
                 <div class="row g-3">
                     <div class="col-md-12 mt-5 mb-4 justify-content-center text-center">
                         @if ($pegawai->foto)
-                            <img src="{{ asset("storage/{$pegawai->foto}") }}"
-                                alt="Foto Pegawai" class="img-fluid foto">
+                            <img src="{{ asset("storage/{$pegawai->foto}") }}" alt="Foto Pegawai" class="img-fluid foto">
                         @else
                             <img src="{{ asset('images/default_profile_photo.png') }}" alt="Foto Pegawai"
                                 class="img-fluid rounded-circle foto">

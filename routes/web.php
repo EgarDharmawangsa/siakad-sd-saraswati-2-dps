@@ -11,6 +11,7 @@ use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\MataPelajaranController;
 use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\PesertaEkstrakurikulerController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JadwalPelajaranController;
 use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\NilaiMataPelajaranController;
@@ -42,6 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/mata-pelajaran', MataPelajaranController::class)->middleware('role:staf-tata-usaha,guru');
     Route::resource('/ekstrakurikuler', EkstrakurikulerController::class);
     // Route::resource('/peserta-ekstrakurikuler', PesertaEkstrakurikulerController::class)->middleware('role:staf-tata-usaha,guru');
+    Route::get('/profil', [ProfileController::class, 'index'])->name('profil');
+    Route::get('/profil/edit', [ProfileController::class, 'edit'])->name('profil.edit');
 
     // Route Akademik
     Route::resource('/jadwal-pelajaran', JadwalPelajaranController::class);
