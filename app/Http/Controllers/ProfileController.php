@@ -13,7 +13,7 @@ class ProfileController extends Controller
     public function index()
     {
         $judul = 'Profil';
-        
+
         if (Gate::any(['staf-tata-usaha', 'guru'])) {
             $pegawai = Pegawai::where('id_pegawai', Auth::user()->pegawai->id_pegawai)->first();
             $view = view('pages.master.pegawai.show', [

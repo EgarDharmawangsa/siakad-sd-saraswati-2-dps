@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
@@ -55,5 +56,6 @@ class AppServiceProvider extends ServiceProvider
 
         // Specific Gate
         Gate::define('pegawai-profile-edit', fn($user) => $user->role === 'Staf Tata Usaha' || ($user->role === 'Guru' && request()->routeIs('profil')));
+        Gate::define('pegawai-profile-update', fn($user, $pegawai) => $user->role === 'Staf Tata Usaha' || ($pegawai && $user->pegawai?->id_pegawai === $pegawai->id_pegawai));
     }
 }

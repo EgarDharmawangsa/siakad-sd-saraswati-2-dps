@@ -43,8 +43,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('/mata-pelajaran', MataPelajaranController::class)->middleware('role:staf-tata-usaha,guru');
     Route::resource('/ekstrakurikuler', EkstrakurikulerController::class);
     // Route::resource('/peserta-ekstrakurikuler', PesertaEkstrakurikulerController::class)->middleware('role:staf-tata-usaha,guru');
+
+    // Route Profile
     Route::get('/profil', [ProfileController::class, 'index'])->name('profil');
     Route::get('/profil/edit', [ProfileController::class, 'edit'])->name('profil.edit');
+    Route::put('/profil/pegawai/update', [PegawaiController::class, 'update'])->name('profil-pegawai.update');
+    Route::put('/profil/siswa/update', [SiswaController::class, 'update'])->name('profil-siswa.update');
 
     // Route Akademik
     Route::resource('/jadwal-pelajaran', JadwalPelajaranController::class);

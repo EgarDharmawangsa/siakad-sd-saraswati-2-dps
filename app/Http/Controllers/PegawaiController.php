@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\MataPelajaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class PegawaiController extends Controller
@@ -160,9 +161,13 @@ class PegawaiController extends Controller
      * Update the specified resource in storage.
      */
     // app/Http/Controllers/PegawaiController.php
-    public function update(Request $request, Pegawai $pegawai)
+    public function update(Request $request, ?Pegawai $pegawai)
     {
-        if (!Gate::allows('staf-tata-usaha')) {
+        if (request()->routeIs('profil-pegawai.update') || !$pegawai->exists) {
+            $pegawai = Auth::user()->pegawai;
+        }
+
+        if (!Gate::allows('pegawai-profile-update', $pegawai)) {
             abort(404);
         }
 
@@ -249,6 +254,10 @@ class PegawaiController extends Controller
             $pegawai->kelas()->update(['id_pegawai' => null]);
         }
 
+        if (request()->routeIs('profil-pegawai.update')) {
+            return redirect()->route('profil')->with('success', 'Profil berhasil diperbarui.');
+        }
+
         return redirect()->route('pegawai.index')->with('success', 'Data pegawai berhasil diperbarui.');
     }
 
@@ -260,7 +269,7 @@ class PegawaiController extends Controller
         if (!Gate::allows('staf-tata-usaha')) {
             abort(404);
         }
-        
+
         $pegawai->delete();
 
         User::where('id_pegawai', $pegawai->id_pegawai)->delete();

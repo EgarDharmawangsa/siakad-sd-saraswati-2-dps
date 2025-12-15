@@ -5,7 +5,7 @@
         <h5>Edit {{ $judul }}</h5>
         <hr>
 
-        <form action="{{ route('pegawai.update', $pegawai->id_pegawai) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ request()->routeIs('pegawai.edit') ? route('pegawai.update', $pegawai->id_pegawai) : route('profil-pegawai.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <!-- Tab Navigation -->
