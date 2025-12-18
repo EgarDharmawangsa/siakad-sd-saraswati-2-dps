@@ -10,7 +10,6 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\MataPelajaranController;
 use App\Http\Controllers\EkstrakurikulerController;
-use App\Http\Controllers\PesertaEkstrakurikulerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JadwalPelajaranController;
 use App\Http\Controllers\KehadiranController;
@@ -42,7 +41,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('/semester', SemesterController::class)->middleware('role:staf-tata-usaha,guru');
     Route::resource('/mata-pelajaran', MataPelajaranController::class)->middleware('role:staf-tata-usaha,guru');
     Route::resource('/ekstrakurikuler', EkstrakurikulerController::class);
-    // Route::resource('/peserta-ekstrakurikuler', PesertaEkstrakurikulerController::class)->middleware('role:staf-tata-usaha,guru');
 
     // Route Profile
     Route::get('/profil', [ProfileController::class, 'index'])->name('profil');
@@ -52,15 +50,18 @@ Route::middleware('auth')->group(function () {
 
     // Route Akademik
     Route::resource('/jadwal-pelajaran', JadwalPelajaranController::class);
-    Route::resource('/nilai-mata-pelajaran', NilaiMataPelajaranController::class)->except(['create', 'store', 'show', 'edit', 'destroy']);
-    Route::resource('/nilai-ekstrakurikuler', NilaiEkstrakurikulerController::class)->except(['create', 'store', 'show', 'edit', 'destroy']);
-    Route::patch('/nilai-ekstrakurikuler/update', [NilaiEkstrakurikulerController::class, 'update'])->name('nilai-ekstrakurikuler.update')->middleware('role:staf-tata-usaha,guru');
     Route::resource('/kehadiran', KehadiranController::class);
     Route::resource('/prestasi', PrestasiController::class);
     Route::resource('/pengumuman', PengumumanController::class);
 
+    // Route Nilai Mata Pelajaran (Route Akademik)
+    Route::resource('/nilai-mata-pelajaran', NilaiMataPelajaranController::class)->except(['create', 'store', 'destroy']);
+    Route::patch('/nilai-mata-pelajaran/update', [NilaiMataPelajaranController::class, 'update'])->name('nilai-mata-pelajaran.mass-update')->middleware('role:staf-tata-usaha,guru');
+
+    // Route Nilai Ekstrakurikuler (Route Akademik)
+    Route::resource('/nilai-ekstrakurikuler', NilaiEkstrakurikulerController::class)->except(['create', 'store', 'edit', 'destroy']);
+    Route::patch('/nilai-ekstrakurikuler/update', [NilaiEkstrakurikulerController::class, 'update'])->name('nilai-ekstrakurikuler.update')->middleware('role:staf-tata-usaha,guru');
+
     // Route Log Out
     Route::post('/log-out', [AuthController::class, 'logOut'])->name('log-out');
 });
-
-// skipped: kehadiran, nilai-mata-pelajaran, peserta-ekstrakurikuler

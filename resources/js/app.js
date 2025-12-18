@@ -13,7 +13,6 @@ import './partials/sidebar.js';
 import './pages/beranda.js';
 import './pages/master/pegawai.js';
 import './pages/akademik/jadwal_pelajaran.js';
-import './pages/akademik/nilai_ekstrakurikuler.js';
 import './pages/akademik/prestasi.js';
 import './pages/akademik/pengumuman.js';
 
@@ -31,6 +30,8 @@ const image_input = document.querySelector('.image-input');
 const image_preview = document.getElementById('image-preview');
 const image_delete_button = document.getElementById('image-delete-button');
 const image_delete = document.getElementById('image-delete');
+const nilai_form = document.getElementById('nilai-form');
+const nilai_inputs = document.querySelectorAll('.nilai-input');
 const jam_array = [];
 jam_array[0] = document.getElementById('jam-mulai') || document.getElementById('jam-mulai-filter');
 jam_array[1] = document.getElementById('jam-selesai') || document.getElementById('jam-selesai-filter');
@@ -122,4 +123,24 @@ if (page_body && jam_array) {
             if (_jam_array) flatpickr(_jam_array, flatpickr_option);
         });
     }
+}
+
+if (nilai_form) {
+    nilai_form.addEventListener('submit', () => {
+        nilai_inputs.forEach((nilai_input) => {
+            if (!nilai_input.dataset.change) {
+                const hidden_input = nilai_input.previousElementSibling;
+                hidden_input.remove();
+                nilai_input.remove();
+            }
+        })
+    });
+}
+
+if (nilai_inputs) {
+    nilai_inputs.forEach((nilai_input) => {
+        nilai_input.addEventListener('change', () => {
+            this.DataTransferItem.change = 1;
+        })
+    });
 }

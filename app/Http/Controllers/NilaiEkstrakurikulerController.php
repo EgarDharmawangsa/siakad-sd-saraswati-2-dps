@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\NilaiEkstrakurikuler;
+use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\Ekstrakurikuler;
 use App\Models\Semester;
@@ -25,6 +26,7 @@ class NilaiEkstrakurikulerController extends Controller
             abort(404);
         }
 
+        $kelas = Kelas::orderedNamaKelas()->get();
         $siswa = Siswa::get();
         $ekstrakurikuler = Ekstrakurikuler::latest()->get();
         $semester = Semester::latest()->get();
@@ -32,6 +34,7 @@ class NilaiEkstrakurikulerController extends Controller
         return view('pages.akademik.nilai_ekstrakurikuler.index', [
             'judul' => 'Nilai Ekstrakurikuler',
             'nilai_ekstrakurikuler' => $nilai_ekstrakurikuler,
+            'kelas' => $kelas,
             'siswa' => $siswa,
             'ekstrakurikuler' => $ekstrakurikuler,
             'semester' => $semester
@@ -59,7 +62,10 @@ class NilaiEkstrakurikulerController extends Controller
      */
     public function show(NilaiEkstrakurikuler $nilaiEkstrakurikuler)
     {
-        //
+        return view('pages.akademik.nilai_ekstrakurikuler.show', [
+            'judul' => 'Nilai Ekstrakurikuler',
+            'nilai_ekstrakurikuler' => $nilaiEkstrakurikuler
+        ]);
     }
 
     /**
@@ -80,8 +86,8 @@ class NilaiEkstrakurikulerController extends Controller
         }
 
         $nilai_ekstrakurikuler_validation_rules = [
-            'id.*' => 'required|exists:nilai_ekstrakurikulers,id_nilai_ekstrakurikuler',
-            'nilai.*' => 'required|integer|min:0|max:100',
+            'id.*' => 'required|exists:nilai_ekstrakurikuler,id_nilai_ekstrakurikuler',
+            'nilai.*' => 'required|integer|min:0|max:100'
         ];
 
         $validated_nilai_ekstrakurikuler = $request->validate($nilai_ekstrakurikuler_validation_rules);

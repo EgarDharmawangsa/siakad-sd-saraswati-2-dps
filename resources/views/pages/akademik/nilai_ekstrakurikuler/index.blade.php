@@ -42,7 +42,8 @@
                             <td>220040026 | I Komang Egar Suarama Dharmawangsa</td>
                             <td>Menggambar</td>
                             <td>1</td>
-                            <td><input type="number" name="nilai[]" class="form-control nilai-input" value="90" min="0" max="100"></td>
+                            <td><input type="number" name="nilai[]" class="form-control nilai-input" value="90"
+                                    min="0" max="100"></td>
 
                             {{-- <td class="aksi-column">
                                         <a href="{{ route('nilai-ekstrakurikuler.show', $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler) }}"

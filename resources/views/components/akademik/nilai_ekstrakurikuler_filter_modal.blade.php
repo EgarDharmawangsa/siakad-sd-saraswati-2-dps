@@ -9,6 +9,22 @@
             </div>
             <div class="modal-body">
                 <form id="filter-modal-form" action="{{ route('nilai-ekstrakurikuler.index') }}">
+                    <div class="mb-3">
+                        <label for="kelas-filter" class="form-label">Kelas</label>
+                        <select class="form-select" id="kelas-filter" name="kelas_filter"
+                            {{ $kelas->isEmpty() ? 'disabled' : '' }}>
+                            <option value="">
+                                {{ $kelas->isNotEmpty() ? '-- Pilih Kelas --' : '-- Kelas Tidak Tersedia --' }}
+                            </option>
+                            @foreach ($kelas as $_kelas)
+                                <option value="{{ $_kelas->id_kelas }}"
+                                    {{ old('kelas_filter') === $_kelas->id_kelas ? 'selected' : '' }}>
+                                    {{ $_kelas->nama_kelas }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     @canany(['staf-tata-usaha', 'guru'])
                         <div class="mb-3">
                             <label for="siswa-filter" class="form-label">Siswa</label>
@@ -56,8 +72,10 @@
                 </form>
             </div>
             <div class="modal-footer form-buttons justify-content-between mt-0">
-                <button id="filter-modal-clear-button" class="btn btn-danger"><i class="bi bi-eraser me-2"></i>Bersihkan</button>
-                <button id="filter-modal-apply-button" class="btn btn-primary"><i class="bi bi-check-lg me-2"></i>Terapkan</button>
+                <button id="filter-modal-clear-button" class="btn btn-danger"><i
+                        class="bi bi-eraser me-2"></i>Bersihkan</button>
+                <button id="filter-modal-apply-button" class="btn btn-primary"><i
+                        class="bi bi-check-lg me-2"></i>Terapkan</button>
             </div>
         </div>
     </div>

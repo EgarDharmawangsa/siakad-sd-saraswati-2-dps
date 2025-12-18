@@ -10,9 +10,16 @@ class NilaiEkstrakurikuler extends Model
 
     public function scopeFilter($query, array $filters)
     {
+        if (!empty($filters['kelas_filter'])) {
+            $query->whereHas('pesertaEkstrakurikuler.siswa.kelas', fn($query) => $query->where('id_kelas', 'like', '%' . $filters['kelas_filter'] . '%'));
+        }
+
         if (!empty($filters['siswa_filter'])) {
-            $query->whereHas('pesertaEkstrakurikuler.siswa', fn($query) => 
-                $query->where(fn($query) => 
+            $query->whereHas(
+                'pesertaEkstrakurikuler.siswa',
+                fn($query) =>
+                $query->where(
+                    fn($query) =>
                     $query->where('nisn', 'like', '%' . $filters['siswa_filter'] . '%')
                         ->orWhere('nama_siswa', 'like', '%' . $filters['siswa_filter'] . '%')
                 )
@@ -20,13 +27,17 @@ class NilaiEkstrakurikuler extends Model
         }
 
         if (!empty($filters['ekstrakurikuler_filter'])) {
-            $query->whereHas('pesertaEkstrakurikuler.ekstrakurikuler', fn($query) => 
+            $query->whereHas(
+                'pesertaEkstrakurikuler.ekstrakurikuler',
+                fn($query) =>
                 $query->where('id_ekstrakurikuler', 'like', '%' . $filters['ekstrakurikuler_filter'] . '%')
             );
         }
 
         if (!empty($filters['semester_filter'])) {
-            $query->whereHas('semester', fn($query) => 
+            $query->whereHas(
+                'semester',
+                fn($query) =>
                 $query->where('id_semester', 'like', '%' . $filters['semester_filter'] . '%')
             );
         }
