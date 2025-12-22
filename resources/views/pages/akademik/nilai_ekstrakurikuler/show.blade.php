@@ -14,15 +14,15 @@
             <div class="col-md-6">
                 <label for="siswa" class="form-label">Siswa</label>
                 <input type="text" class="form-control" id="siswa"
-                    value="{{ $nilai_ekstrakurikuler->siswa->getFormatedNamaSiswa() }}" readonly>
+                    value="{{ $nilai_ekstrakurikuler->pesertaEkstrakurikuler->siswa->getFormatedNamaSiswa() }}" readonly>
             </div>
         </div>
 
         <div class="row g-3">
             <div class="col-md-6">
-                <label for="nama-ekstrakurikuler" class="form-label">Nama Ekstrakurikuler</label>
-                <input type="text" class="form-control" id="nama-ekstrakurikuler"
-                    value="{{ $nilai_ekstrakurikuler->nama_ekstrakurikuler }}" readonly>
+                <label for="ekstrakurikuler" class="form-label">Ekstrakurikuler</label>
+                <input type="text" class="form-control" id="ekstrakurikuler"
+                    value="{{ $nilai_ekstrakurikuler->pesertaEkstrakurikuler->ekstrakurikuler->nama_ekstrakurikuler }}" readonly>
             </div>
         </div>
 

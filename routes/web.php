@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
 
     // Route Nilai Ekstrakurikuler (Route Akademik)
     Route::resource('/nilai-ekstrakurikuler', NilaiEkstrakurikulerController::class)->except(['create', 'store', 'edit', 'destroy']);
-    Route::patch('/nilai-ekstrakurikuler/update', [NilaiEkstrakurikulerController::class, 'update'])->name('nilai-ekstrakurikuler.update')->middleware('role:staf-tata-usaha,guru');
+    Route::patch('/nilai-ekstrakurikuler/update', [NilaiEkstrakurikulerController::class, 'update'])->name('nilai-ekstrakurikuler.mass-update')->middleware('role:staf-tata-usaha,guru');
 
     // Route Log Out
     Route::post('/log-out', [AuthController::class, 'logOut'])->name('log-out');

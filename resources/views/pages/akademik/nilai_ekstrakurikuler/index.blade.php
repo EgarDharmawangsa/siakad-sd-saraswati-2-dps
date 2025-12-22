@@ -11,7 +11,7 @@
         </div>
 
         {{-- @if ($siswa->isNotEmpty())  --}}
-        <form action="{{ route('nilai-ekstrakurikuler.update') }}" method="POST" id="nilai-ekstrakurikuler-form">
+        <form action="{{ route('nilai-ekstrakurikuler.mass-update') }}" method="POST" id="nilai-ekstrakurikuler-form">
             @method('PATCH')
             @csrf
             <div class="table-responsive">
@@ -32,8 +32,8 @@
                         <tr>
                             {{-- <td>{{ $loop->iteration }}</td>
                             <td><input type="hidden" name="nilai_ekstrakurikuler[]" value="{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}"></td>
-                            <td>{{ $_nilai_ekstrakurikuler->siswa->getFormatedNamaSiswa() }}</td>
-                            <td>{{ $_nilai_ekstrakurikuler->ekstrakurikuler->nama_ekstrakurikuler }}</td>
+                            <td>{{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->siswa->getFormatedNamaSiswa() }}</td>
+                            <td>{{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->ekstrakurikuler->nama_ekstrakurikuler }}</td>
                             <td>{{ $_nilai_ekstrakurikuler->semester }}</td>
                             <td><input type="text" name="nilai[]" class="form-control nilai-input" value="{{ $_nilai_ekstrakurikuler->nilai }}" min="0" max="100"></td> --}}
 

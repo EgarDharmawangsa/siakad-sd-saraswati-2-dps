@@ -109,7 +109,7 @@ class NilaiMataPelajaranController extends Controller
                     ]);
             }
         } else {
-            // nanti disini untuk update single 
+            $nilaiMataPelajaran->update($validated_nilai_mata_pelajaran);
         }
 
         return back()->with('success', 'Nilai Mata Pelajaran berhasil disimpan.');

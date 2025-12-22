@@ -11,7 +11,7 @@
         </div>
 
         {{-- @if ($siswa->isNotEmpty())  --}}
-        <form action="{{ route('nilai-mata-pelajaran.update') }}" method="POST" id="nilai-form">
+        <form action="{{ route('nilai-mata-pelajaran.mass-update') }}" method="POST" id="nilai-form">
             @method('PATCH')
             @csrf
             <div class="table-responsive">
