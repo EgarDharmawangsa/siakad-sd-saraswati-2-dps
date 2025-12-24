@@ -57,7 +57,8 @@
                             <td>{{ $_semester->getTahunAjaran() }}</td>
                             <td>{{ $_semester->getFormatedTanggal('tanggal_mulai') }}</td>
                             <td>{{ $_semester->getFormatedTanggal('tanggal_selesai') }}</td>
-                            <td><span
+                            <td>
+                                <span
                                     class="badge bg-{{ $_semester->getStatus() === 'Berjalan' ? 'success' : ($_semester->getStatus() === 'Menunggu' ? 'primary' : 'secondary') }}">
                                     {{ $_semester->getStatus() }}
                                 </span>

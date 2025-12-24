@@ -13,6 +13,7 @@ import './partials/sidebar.js';
 import './pages/beranda.js';
 import './pages/master/pegawai.js';
 import './pages/akademik/jadwal_pelajaran.js';
+import './pages/akademik/kehadiran.js';
 import './pages/akademik/prestasi.js';
 import './pages/akademik/pengumuman.js';
 
@@ -30,8 +31,9 @@ const image_input = document.querySelector('.image-input');
 const image_preview = document.getElementById('image-preview');
 const image_delete_button = document.getElementById('image-delete-button');
 const image_delete = document.getElementById('image-delete');
-const nilai_form = document.getElementById('nilai-form');
-const nilai_inputs = document.querySelectorAll('.nilai-input');
+const nilai_or_kehadiran_form = document.getElementById('nilai-form' || 'kehadiran-form');
+const nilai_or_kehadiran_inputs = document.querySelectorAll('.nilai-input, .kehadiran-input');
+
 const jam_array = [];
 jam_array[0] = document.getElementById('jam-mulai') || document.getElementById('jam-mulai-filter');
 jam_array[1] = document.getElementById('jam-selesai') || document.getElementById('jam-selesai-filter');
@@ -125,22 +127,30 @@ if (page_body && jam_array) {
     }
 }
 
-if (nilai_form) {
-    nilai_form.addEventListener('submit', () => {
-        nilai_inputs.forEach((nilai_input) => {
-            if (!nilai_input.dataset.change) {
-                const hidden_input = nilai_input.previousElementSibling;
-                hidden_input.remove();
-                nilai_input.remove();
-            }
-        })
+if (nilai_or_kehadiran_inputs) {
+    nilai_or_kehadiran_inputs.forEach(_nilai_or_kehadiran_inputs => {
+        _nilai_or_kehadiran_inputs.addEventListener('change', function () {
+            this.dataset.change = "1";
+        });
     });
 }
 
-if (nilai_inputs) {
-    nilai_inputs.forEach((nilai_input) => {
-        nilai_input.addEventListener('change', () => {
-            this.DataTransferItem.change = 1;
-        })
+if (nilai_or_kehadiran_form) {
+    nilai_or_kehadiran_form.addEventListener('submit', () => {
+
+        nilai_or_kehadiran_inputs.forEach(_nilai_or_kehadiran_inputs => {
+            if (_nilai_or_kehadiran_inputs.dataset.change !== "1") {
+                const row_key = _nilai_or_kehadiran_inputs.dataset.row;
+
+                _nilai_or_kehadiran_inputs.remove();
+
+                if (row_key) {
+                    const hidden = document.querySelector(
+                        `input[type="hidden"][data-row="${row_key}"]`
+                    );
+                    if (hidden) hidden.remove();
+                }
+            }
+        });
     });
 }

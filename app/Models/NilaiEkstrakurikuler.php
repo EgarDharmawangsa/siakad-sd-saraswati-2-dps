@@ -10,6 +10,11 @@ class NilaiEkstrakurikuler extends Model
 
     public function scopeFilter($query, array $filters)
     {
+        $order_by_array = ['desc', 'asc'];
+
+        $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
+        $query->orderBy('tanggal', $order_by_value);
+
         if (!empty($filters['kelas_filter'])) {
             $query->whereHas('pesertaEkstrakurikuler.siswa.kelas', fn($query) => $query->where('id_kelas', 'like', '%' . $filters['kelas_filter'] . '%'));
         }

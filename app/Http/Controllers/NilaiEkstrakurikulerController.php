@@ -19,9 +19,9 @@ class NilaiEkstrakurikulerController extends Controller
     public function index()
     {
         if (Gate::any(['staf-tata-usaha', 'guru']))
-            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['siswa', 'ekstrakurikuler', 'semester'])->filter(request()->all())->paginate(30)->withQueryString();
+            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->filter(request()->all())->paginate(30)->withQueryString();
         else if (Gate::allows('siswa')) {
-            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['siswa', 'ekstrakurikuler', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->all())->paginate(30)->withQueryString();
+            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->all())->paginate(30)->withQueryString();
         } else {
             abort(404);
         }
@@ -44,18 +44,29 @@ class NilaiEkstrakurikulerController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    // public function create()
-    // {
-    //     //
-    // }
+    public function create()
+    {
+        if (!Gate::allows('guru')) {
+            abort(404);
+        }
+
+        $ekstrakurikuler = Ekstrakurikuler::latest()->get();
+        $semester = Semester::latest()->get();
+
+        return view('pages.akademik.nilai_ekstrakurikuler.create', [
+            'judul' => 'Nilai Ekstrakurikuler',
+            'ekstrakurikuler' => $ekstrakurikuler,
+            'semester' => $semester
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
+    public function store(Request $request)
+    {
+        //
+    }
 
     /**
      * Display the specified resource.
@@ -85,16 +96,22 @@ class NilaiEkstrakurikulerController extends Controller
             abort(404);
         }
 
-        $nilai_ekstrakurikuler_validation_rules = [
-            'id.*' => 'required|exists:nilai_ekstrakurikuler,id_nilai_ekstrakurikuler',
-            'nilai.*' => 'required|integer|min:0|max:100'
-        ];
+        $validated_nilai_ekstrakurikuler = $request->validate([
+            'id_nilai_ekstrakurikuler' => 'required|array',
+            'id_nilai_ekstrakurikuler.*' => 'required|exists:nilai_ekstrakurikuler,id_nilai_ekstrakurikuler',
+            'nilai' => 'required|array',
+            'nilai.*' => 'nullable|integer|min:0|max:100'
+        ]);
 
-        $validated_nilai_ekstrakurikuler = $request->validate($nilai_ekstrakurikuler_validation_rules);
+        foreach ($validated_nilai_ekstrakurikuler['id_nilai_ekstrakurikuler'] as $_id_nilai_ekstrakurikuler) {
+            if (!\array_key_exists($_id_nilai_ekstrakurikuler, $validated_nilai_ekstrakurikuler['nilai'])) {
+                continue;
+            }
 
-        foreach ($validated_nilai_ekstrakurikuler['id_nilai_ekstrakurikuler'] as $key => $id_nilai_ekstrakurikuler) {
-            NilaiEkstrakurikuler::where('id_nilai_ekstrakurikuler', $id_nilai_ekstrakurikuler)
-                ->update(['nilai' => $validated_nilai_ekstrakurikuler['nilai'][$key]]);
+            NilaiEkstrakurikuler::where('id_nilai_ekstrakurikuler', $_id_nilai_ekstrakurikuler)->where('nilai', '!=', $validated_nilai_ekstrakurikuler['nilai'][$_id_nilai_ekstrakurikuler])
+                ->update([
+                    'nilai' => $validated_nilai_ekstrakurikuler['nilai'][$_id_nilai_ekstrakurikuler]
+                ]);
         }
 
         return back()->with('success', 'Nilai Ekstrakurikuler berhasil disimpan.');

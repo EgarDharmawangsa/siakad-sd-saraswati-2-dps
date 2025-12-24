@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id_siswa
+ * @property int $nisn
+ * @property int $nomor_urut
  * @property string $nama_siswa
  * @property string|null $foto
  */
@@ -18,9 +20,18 @@ class Siswa extends Model
 
     protected $guarded = ['id_siswa'];
 
-    public function getFormatedNamaSiswa()
+    public function getFormatedNamaSiswa($nomor_urut_siswa = false)
     {
-        return "{$this->nisn} | {$this->nama_siswa}";
+        $formated_nama_siswa = $nomor_urut_siswa ? "{$this->nomor_urut} | {$this->nisn} | {$this->nama_siswa}" : "{$this->nisn} | {$this->nama_siswa}";
+
+        return $formated_nama_siswa;
+    }
+
+    public function getOrderedNomorUrutSiswa($kelas_siswa) {
+        $siswa_in_kelas = Siswa::query()->where('id_kelas', $kelas_siswa)->orderBy('nomor_urut')->get();
+        $ordered_nomor_urut = $siswa_in_kelas->pluck('nomor_urut')->toArray();
+
+        return $ordered_nomor_urut;
     }
 
     public function scopeFilter($query, array $filters)

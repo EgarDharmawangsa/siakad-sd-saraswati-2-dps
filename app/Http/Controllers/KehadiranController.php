@@ -12,26 +12,29 @@ class KehadiranController extends Controller
      */
     public function index()
     {
+        $kehadiran = Kehadiran::with(['siswa', 'ekstrakurikuler'])->paginate(10)->withQueryString();
+
         return view('pages.akademik.kehadiran.index', [
-            'judul' => 'Kehadiran'
+            'judul' => 'Kehadiran',
+            'kehadiran' => $kehadiran
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+    // public function create()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+    // public function store(Request $request)
+    // {
+    //     //
+    // }
 
     /**
      * Display the specified resource.
@@ -44,10 +47,10 @@ class KehadiranController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Kehadiran $kehadiran)
-    {
-        //
-    }
+    // public function edit(Kehadiran $kehadiran)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -60,8 +63,8 @@ class KehadiranController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Kehadiran $kehadiran)
-    {
-        //
-    }
+    // public function destroy(Kehadiran $kehadiran)
+    // {
+    //     //
+    // }
 }

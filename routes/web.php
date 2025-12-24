@@ -50,17 +50,21 @@ Route::middleware('auth')->group(function () {
 
     // Route Akademik
     Route::resource('/jadwal-pelajaran', JadwalPelajaranController::class);
-    Route::resource('/kehadiran', KehadiranController::class);
     Route::resource('/prestasi', PrestasiController::class);
     Route::resource('/pengumuman', PengumumanController::class);
-
+    
     // Route Nilai Mata Pelajaran (Route Akademik)
-    Route::resource('/nilai-mata-pelajaran', NilaiMataPelajaranController::class)->except(['create', 'store', 'destroy']);
+    Route::resource('/nilai-mata-pelajaran', NilaiMataPelajaranController::class)->except(['destroy']);
     Route::patch('/nilai-mata-pelajaran/update', [NilaiMataPelajaranController::class, 'update'])->name('nilai-mata-pelajaran.mass-update')->middleware('role:staf-tata-usaha,guru');
-
+    
     // Route Nilai Ekstrakurikuler (Route Akademik)
-    Route::resource('/nilai-ekstrakurikuler', NilaiEkstrakurikulerController::class)->except(['create', 'store', 'edit', 'destroy']);
+    Route::resource('/nilai-ekstrakurikuler', NilaiEkstrakurikulerController::class)->except(['edit', 'destroy']);
     Route::patch('/nilai-ekstrakurikuler/update', [NilaiEkstrakurikulerController::class, 'update'])->name('nilai-ekstrakurikuler.mass-update')->middleware('role:staf-tata-usaha,guru');
+    
+    // Route Kehadiran (Route Akademik)
+    Route::resource('/kehadiran', KehadiranController::class)->except(['edit', 'destroy']);
+    Route::patch('/kehadiran/update', [KehadiranController::class, 'update'])->name('kehadiran.mass-update')->middleware('role:staf-tata-usaha,guru');
+
 
     // Route Log Out
     Route::post('/log-out', [AuthController::class, 'logOut'])->name('log-out');

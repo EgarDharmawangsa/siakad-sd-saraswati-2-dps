@@ -24,9 +24,9 @@ class Semester extends Model
         'tanggal_selesai' => 'date'
     ];
 
-    public function getTahunAjaran($jenis = false): string
+    public function getTahunAjaran($jenis_semester = false): string
     {
-        $tahun_ajaran = $jenis
+        $tahun_ajaran = $jenis_semester
             ? $this->jenis . ' ' . $this->tanggal_mulai->format('Y') . '/' . $this->tanggal_selesai->format('Y')
             : $this->tanggal_mulai->format('Y') . '/' . $this->tanggal_selesai->format('Y');
 

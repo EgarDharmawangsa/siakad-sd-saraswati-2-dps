@@ -10,7 +10,6 @@
 @import "./pages/master/mata_pelajaran.css";
 @import "./pages/akademik/pegawai.css";
 @import "./pages/akademik/jadwal_pelajaran.css";
-@import "./pages/akademik/nilai_ekstrakurikuler.css";
 @import "./pages/akademik/prestasi.css";
 @import "./pages/akademik/pengumuman.css";
 
@@ -304,9 +303,30 @@ td {
     min-width: 5rem;
 }
 
+.submit-warning-container {
+    align-items: center;
+    background-color: rgba(255, 255, 0, 0.126);
+    border: 2px solid yellow;
+}
+
+.submit-warning-text {
+    margin-bottom: 0;
+}
+
 @media (max-width: 992px) {
     .container-fluid.content-container {
         margin-left: 0;
+    }
+}
+
+@media (max-width: 620px) {
+    .submit-warning-container {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .submit-warning-text {
+        margin-bottom: 1rem;
     }
 }
 
