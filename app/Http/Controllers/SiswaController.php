@@ -2,67 +2,140 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\Siswa;
-use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Http\Request; 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage; 
+use App\Http\Requests\StoreSiswaRequest;
+use App\Http\Requests\UpdateSiswaRequest;
 
 class SiswaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
+        $siswa = Siswa::with('kelas:id_kelas,nama_kelas')
+            ->filter($request->all()) 
+            ->paginate(10) 
+            ->withQueryString(); 
+
         return view('pages.master.siswa.index', [
             'judul' => 'Data Siswa',
-            'siswa' => Siswa::paginate(50)->withQueryString()
+            'siswa' => $siswa
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $kelas = Kelas::select('id_kelas', 'nama_kelas')->get();
+
+        return view('pages.master.siswa.create', [
+            'kelas' => $kelas,
+            'judul' => 'Tambah Siswa'
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreSiswaRequest $request)
     {
-        //
+        DB::transaction(function () use ($request) {
+            $data = $request->validated();
+
+            $userData = [
+                'username' => $data['username'],
+                'password' => Hash::make($data['password']),
+                'role'     => 'siswa'
+            ];
+
+            unset($data['username'], $data['password'], $data['konfirmasi_password']);
+
+            if (isset($data['kelas_id'])) {
+                $data['id_kelas'] = $data['kelas_id'];
+                unset($data['kelas_id']);
+            }
+
+            $siswa = Siswa::create($data);
+
+            $siswa->userAuth()->create($userData);
+        });
+
+        return redirect()->route('siswa.index')
+            ->with('success', 'Data siswa berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Siswa $siswa)
     {
-        //
+        $siswa->load('kelas', 'userAuth');
+
+        return view('pages.master.siswa.show', [
+            'siswa' => $siswa,
+            'judul' => 'Detail Siswa'
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Siswa $siswa)
     {
-        //
+        $kelas = Kelas::select('id_kelas', 'nama_kelas')->get();
+
+        return view('pages.master.siswa.edit', [
+            'siswa' => $siswa,
+            'kelas' => $kelas,
+            'judul' => 'Edit Siswa'
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Siswa $siswa)
+    public function update(UpdateSiswaRequest $request, Siswa $siswa)
     {
-        //
+        $data = $request->validated();
+
+        if ($siswa->userAuth) {
+            $dataUser = [
+                'username' => $data['username'],
+            ];
+
+            if (!empty($data['password'])) {
+                $dataUser['password'] = Hash::make($data['password']);
+            }
+
+            $siswa->userAuth->update($dataUser);
+        }
+
+        unset($data['username']);
+        unset($data['password']);
+        unset($data['konfirmasi_password']);
+        
+        if (isset($data['kelas_id'])) {
+            $data['id_kelas'] = $data['kelas_id'];
+            unset($data['kelas_id']);
+        }
+
+        if ($request->hasFile('foto')) {
+            if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
+                Storage::disk('public')->delete($siswa->foto);
+            }
+            $data['foto'] = $request->file('foto')->store('siswa-images', 'public');
+        }
+
+        $siswa->update($data);
+
+        return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Siswa $siswa)
     {
-        //
+        if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
+            Storage::disk('public')->delete($siswa->foto);
+        }
+
+        if ($siswa->userAuth) {
+            $siswa->userAuth()->delete();
+        }
+
+        $nama = $siswa->nama_siswa;
+        $siswa->delete();
+
+        return redirect()->route('siswa.index')
+            ->with('success', "Data siswa $nama berhasil dihapus!");
     }
 }

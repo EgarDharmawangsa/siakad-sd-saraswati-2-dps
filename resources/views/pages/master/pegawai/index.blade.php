@@ -141,7 +141,6 @@
                 </tbody>
             </table>
         </div>
-
         @if ($pegawai->hasPages())
             <div class="d-flex justify-content-end mt-2">
                 {{ $pegawai->links() }}
