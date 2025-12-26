@@ -3,7 +3,7 @@
 @section('container')
     <div class="content-card mb-4">
         <div class="index-buttons">
-            @can('guru')
+            @can('staf-tata-usaha')
                 <a href="{{ route('nilai-ekstrakurikuler.create') }}" class="btn btn-success"><i
                         class="bi bi-plus-lg me-2"></i>Tambah Nilai Ekstrakurikuler</a>
             @endcan
@@ -107,7 +107,7 @@
                                 </td>
 
                                 <td>
-                                    {{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->siswa->getFormatedNamaSiswa(true) }}
+                                    {{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->siswa->getFormatedNamaSiswa() }}
                                 </td>
 
                                 <td>

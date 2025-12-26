@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
 
     // Route Master
-    Route::resource('/pegawai', PegawaiController::class);
+    Route::resource('/pegawai', PegawaiController::class)->middleware('role:staf-tata-usaha,guru');
     Route::get('/guru', [PegawaiController::class, 'index'])->name('guru.index')->middleware('role:siswa');
     Route::get('/guru/{pegawai}', [PegawaiController::class, 'show'])->name('guru.show')->middleware('role:siswa');
     Route::resource('/siswa', SiswaController::class);

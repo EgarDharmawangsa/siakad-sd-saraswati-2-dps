@@ -31,21 +31,17 @@ class NilaiEkstrakurikuler extends Model
             );
         }
 
-        if (!empty($filters['ekstrakurikuler_filter'])) {
-            $query->whereHas(
-                'pesertaEkstrakurikuler.ekstrakurikuler',
-                fn($query) =>
-                $query->where('id_ekstrakurikuler', 'like', '%' . $filters['ekstrakurikuler_filter'] . '%')
-            );
-        }
+        $query->whereHas(
+            'pesertaEkstrakurikuler.ekstrakurikuler',
+            fn($query) =>
+            $query->where('id_ekstrakurikuler', 'like', '%' . ($filters['ekstrakurikuler_filter'] ?? Ekstrakurikuler::value('nama_ekstrakurikuler') . '%')
+        ));
 
-        if (!empty($filters['semester_filter'])) {
-            $query->whereHas(
-                'semester',
-                fn($query) =>
-                $query->where('id_semester', 'like', '%' . $filters['semester_filter'] . '%')
-            );
-        }
+        $query->whereHas(
+            'semester',
+            fn($query) =>
+            $query->where('id_semester', 'like', '%' . ($filters['semester_filter'] ?? Semester::activeSemester()->value('id_semester')) . '%')
+        );
 
         if (!empty($filters['nilai_filter'])) {
             $query->where('nilai', 'like', "%{$filters['nilai_filter']}%");

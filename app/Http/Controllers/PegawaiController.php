@@ -171,15 +171,15 @@ class PegawaiController extends Controller
             abort(404);
         }
 
-        $pegawai_validation_rules_update = $this->pegawaiValidationRules();
-        $pegawai_validation_rules_update['nik'] = "required|string|min:16|max:20|unique:pegawai,nik,{$pegawai->id_pegawai},id_pegawai|unique:siswa,nik";
-        $pegawai_validation_rules_update['nip'] = "nullable|string|min:18|max:20|unique:pegawai,nip,{$pegawai->id_pegawai},id_pegawai";
-        $pegawai_validation_rules_update['nipppk'] = "nullable|string|min:18|max:20|unique:pegawai,nipppk,{$pegawai->id_pegawai},id_pegawai";
-        $pegawai_validation_rules_update['e_mail'] = "nullable|email|min:7|max:255|unique:pegawai,e_mail,{$pegawai->id_pegawai},id_pegawai|unique:siswa,e_mail";
-        $pegawai_validation_rules_update['username'] = "nullable|string|min:5|max:50|unique:users,username,{$pegawai->id_pegawai},id_pegawai";
-        $pegawai_validation_rules_update['image_delete'] = 'required|integer';
+        $pegawai_update_validation_rules = $this->pegawaiValidationRules();
+        $pegawai_update_validation_rules['nik'] = "required|string|min:16|max:20|unique:pegawai,nik,{$pegawai->id_pegawai},id_pegawai|unique:siswa,nik";
+        $pegawai_update_validation_rules['nip'] = "nullable|string|min:18|max:20|unique:pegawai,nip,{$pegawai->id_pegawai},id_pegawai";
+        $pegawai_update_validation_rules['nipppk'] = "nullable|string|min:18|max:20|unique:pegawai,nipppk,{$pegawai->id_pegawai},id_pegawai";
+        $pegawai_update_validation_rules['e_mail'] = "nullable|email|min:7|max:255|unique:pegawai,e_mail,{$pegawai->id_pegawai},id_pegawai|unique:siswa,e_mail";
+        $pegawai_update_validation_rules['username'] = "nullable|string|min:5|max:50|unique:users,username,{$pegawai->id_pegawai},id_pegawai";
+        $pegawai_update_validation_rules['image_delete'] = 'required|integer';
 
-        $validated_pegawai = $request->validate($pegawai_validation_rules_update);
+        $validated_pegawai = $request->validate($pegawai_update_validation_rules);
 
         $nullable_fields = [
             'nip',

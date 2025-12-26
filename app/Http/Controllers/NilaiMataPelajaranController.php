@@ -73,6 +73,10 @@ class NilaiMataPelajaranController extends Controller
      */
     public function edit(NilaiMataPelajaran $nilaiMataPelajaran)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+        
         return view('pages.akademik.nilai_mata_pelajaran.edit', [
             'judul' => 'Nilai Mata Pelajaran',
             'nilai_mata_pelajaran' => $nilaiMataPelajaran

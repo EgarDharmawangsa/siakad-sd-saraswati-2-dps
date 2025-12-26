@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 /**
+ * @property int $id_semester
  * @property string $jenis
  * @property \Illuminate\Support\Carbon $tanggal_mulai
  * @property \Illuminate\Support\Carbon $tanggal_selesai
@@ -76,6 +77,14 @@ class Semester extends Model
         }
 
         return $errors;
+    }
+
+    public function scopeActiveSemester($query)
+    {
+        $query->where('tanggal_mulai', '<=', now())
+            ->where('tanggal_selesai', '>=', now());
+
+        return $query;
     }
 
     public function scopeFilter($query, array $filters)

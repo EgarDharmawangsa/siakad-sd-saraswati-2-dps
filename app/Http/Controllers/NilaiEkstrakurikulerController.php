@@ -19,9 +19,9 @@ class NilaiEkstrakurikulerController extends Controller
     public function index()
     {
         if (Gate::any(['staf-tata-usaha', 'guru']))
-            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->filter(request()->all())->paginate(30)->withQueryString();
+            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->filter(request()->all())->paginate(20)->withQueryString();
         else if (Gate::allows('siswa')) {
-            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->all())->paginate(30)->withQueryString();
+            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->all())->paginate(20)->withQueryString();
         } else {
             abort(404);
         }
@@ -29,7 +29,13 @@ class NilaiEkstrakurikulerController extends Controller
         $kelas = Kelas::orderedNamaKelas()->get();
         $siswa = Siswa::get();
         $ekstrakurikuler = Ekstrakurikuler::latest()->get();
+        $ekstrakurikuler_default_filter = Ekstrakurikuler::first();
         $semester = Semester::latest()->get();
+        $active_semester = Semester::activeSemester()->first();
+
+        if (!$active_semester) {
+            $active_semester = Semester::latest()->first();
+        }
 
         return view('pages.akademik.nilai_ekstrakurikuler.index', [
             'judul' => 'Nilai Ekstrakurikuler',
@@ -37,7 +43,9 @@ class NilaiEkstrakurikulerController extends Controller
             'kelas' => $kelas,
             'siswa' => $siswa,
             'ekstrakurikuler' => $ekstrakurikuler,
-            'semester' => $semester
+            'ekstrakurikuler_default_filter' => $ekstrakurikuler_default_filter,
+            'semester' => $semester,
+            'active_semester' => $active_semester
         ]);
     }
 
@@ -46,7 +54,7 @@ class NilaiEkstrakurikulerController extends Controller
      */
     public function create()
     {
-        if (!Gate::allows('guru')) {
+        if (!Gate::allows('staf-tata-usaha')) {
             abort(404);
         }
 
@@ -65,7 +73,36 @@ class NilaiEkstrakurikulerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
+        $ekstrakurikuler_validation_rules = [
+            'id_ekstrakurikuler' => 'required|exists:ekstrakurikuler,id_ekstrakurikuler',
+            'id_semester' => 'required|exists:semester,id_semester'
+        ];
+        $siswa = Siswa::get();
+
+        if ($siswa->isEmpty()) {
+            return back()->with('error', 'Siswa tidak tersedia.');
+        }
+
+        $validated_ekstrakurikuler = $request->validate($ekstrakurikuler_validation_rules);
+
+        Siswa::where('id_ekstrakurikuler', $validated_ekstrakurikuler['id_ekstrakurikuler'])->get()->each(function ($siswa) use ($validated_ekstrakurikuler) {
+            NilaiEkstrakurikuler::firstOrCreate(
+                [
+                    'id_siswa' => $siswa->id_siswa,
+                    'id_ekstrakurikuler' => $validated_ekstrakurikuler['id_ekstrakurikuler'],
+                    'id_semester' => $validated_ekstrakurikuler['id_semester']
+                ],
+                [
+                    'nilai' => 0
+                ]
+            );
+        });
+
+        return redirect()->route('nilai-ekstrakurikuler.index')->with('success', 'Nilai Ekstrakurikuler berhasil ditambahkan.');
     }
 
     /**
@@ -96,12 +133,14 @@ class NilaiEkstrakurikulerController extends Controller
             abort(404);
         }
 
-        $validated_nilai_ekstrakurikuler = $request->validate([
+        $nilai_ekstrakurikuler_update_validation_rules = [
             'id_nilai_ekstrakurikuler' => 'required|array',
             'id_nilai_ekstrakurikuler.*' => 'required|exists:nilai_ekstrakurikuler,id_nilai_ekstrakurikuler',
             'nilai' => 'required|array',
             'nilai.*' => 'nullable|integer|min:0|max:100'
-        ]);
+        ];
+
+        $validated_nilai_ekstrakurikuler = $request->validate($nilai_ekstrakurikuler_update_validation_rules);
 
         foreach ($validated_nilai_ekstrakurikuler['id_nilai_ekstrakurikuler'] as $_id_nilai_ekstrakurikuler) {
             if (!\array_key_exists($_id_nilai_ekstrakurikuler, $validated_nilai_ekstrakurikuler['nilai'])) {

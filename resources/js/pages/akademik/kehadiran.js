@@ -1,4 +1,6 @@
 const kehadiran_input = document.querySelectorAll('.kehadiran-input');
+const status_filter = document.getElementById('status-filter');
+const keterangan_filter = document.getElementById('keterangan-filter');
 
 if (kehadiran_input.length) {
     kehadiran_input.forEach(_kehadiran_input => {
@@ -12,27 +14,35 @@ if (kehadiran_input.length) {
             );
             const keterangan = tr.querySelector('.keterangan-input');
 
-            // update hidden status
             hidden_status.value = this.value;
 
             if (this.value === 'Izin') {
-                // restore nilai lama
                 if (keterangan.dataset.prev !== undefined) {
                     keterangan.value = keterangan.dataset.prev;
                 }
                 keterangan.disabled = false;
             } else {
-                // simpan nilai lama
                 keterangan.dataset.prev = keterangan.value;
-
-                // kosongkan & disable
                 keterangan.value = '';
                 keterangan.disabled = true;
             }
 
-            // tandai perubahan
             keterangan.dataset.change = 1;
             hidden_status.dataset.change = 1;
         });
+    });
+}
+
+if (status_filter) {
+    let keterangan_filter_value = keterangan_filter.value;
+    status_filter.addEventListener('change', function () {
+        if (status_filter.value === 'Izin') {
+            keterangan_filter.disabled = false;
+            keterangan_filter.value = keterangan_filter_value
+        } else {
+            keterangan_filter.disabled = true;
+            keterangan_filter_value = keterangan_filter.value;
+            keterangan_filter.value = '';
+        }
     });
 }

@@ -26,7 +26,7 @@ class RoleMiddleware
         if (\in_array($user_role_slug, $roles)) {
             return $next($request);
         } else {
-            abort(404, 'Halaman tidak ditemukan.');
+            abort(404);
         }
     }
 }

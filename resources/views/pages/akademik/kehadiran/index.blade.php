@@ -2,7 +2,24 @@
 
 @section('container')
     <div class="content-card mb-4">
+        <div class="index-buttons">
+            @can('staf-tata-usaha')
+                <a href="{{ route('kehadiran.create') }}" class="btn btn-success"><i class="bi bi-plus-lg me-2"></i>Tambah
+                    Kehadiran</a>
+            @endcan
 
+            <div class="modifier-buttons">
+                <div class="filter-modal-container">
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                        <i class="bi bi-funnel me-2"></i>Filter
+                    </button>
+    
+                    @include('components.akademik.kehadiran_filter_modal')
+                </div>
+            </div>
+        </div>
+
+        {{-- @if ($siswa->isNotEmpty()) --}}
         <form action="{{ route('kehadiran.mass-update') }}" method="POST" id="nilai-form">
             @method('PATCH')
             @csrf
@@ -73,7 +90,7 @@
                                    {{ $_kehadiran->status === 'Izin' ? '' : 'disabled' }}>
                         </td>
 
-                        <td>{{ $_kehadiran->tanggal }}</td>
+                        <td>{{ $_kehadiran->tanggal->getFormatedTanggal() }}</td>
                     </tr>
 
                     @empty
@@ -167,6 +184,8 @@
                 </button>
             </div>
         </form>
-
+        {{-- @else
+            <p class="empty-message text-center mb-0 p-3 rounded">Siswa tidak tersedia.</p>
+        @endif --}}
     </div>
 @endsection

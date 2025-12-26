@@ -19,7 +19,7 @@ class KelasController extends Controller
             abort(404);
         }
 
-        $kelas = Kelas::with('pegawai')->filter(request()->except('kelas_filter'))->paginate(20)->withQueryString();
+        $kelas = Kelas::with('pegawai')->orderedNamaKelas()->filter(request()->except('kelas_filter'))->paginate(20)->withQueryString();
         $siswa = Siswa::all();
 
         return view('pages.master.kelas.index', [

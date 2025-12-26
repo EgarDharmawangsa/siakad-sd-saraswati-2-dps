@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
             'status_kepegawaian' => 'PNS',
             'ijazah_terakhir' => 'S1',
             'tahun_ijazah' => 2012,
-            'posisi' => 'Guru',
+            'posisi' => 'Staf Tata Usaha',
             'status_sertifikasi' => 'Sudah',
             'tahun_sertifikasi' => 2018,
             'permulaan_kerja' => '2020-07-01',
@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
             'id_pegawai' => 1,
             'username' => 'pegawaiadmin',
             'password' => bcrypt('pegawai123'),
-            'role' => 'Guru'
+            'role' => 'Staf Tata Usaha'
         ]);
 
         MataPelajaran::factory(30)->create();

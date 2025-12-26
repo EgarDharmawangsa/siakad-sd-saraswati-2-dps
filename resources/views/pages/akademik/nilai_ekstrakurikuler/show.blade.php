@@ -6,7 +6,7 @@
         <hr>
 
         <div class="show-buttons">
-            <a href="{{ route('ekstrakurikuler.index') }}" class="btn btn-secondary btn-sm me-1"><i
+            <a href="{{ route('nilai-ekstrakurikuler.index') }}" class="btn btn-secondary btn-sm me-1"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
         </div>
 
@@ -16,29 +16,24 @@
                 <input type="text" class="form-control" id="siswa"
                     value="{{ $nilai_ekstrakurikuler->pesertaEkstrakurikuler->siswa->getFormatedNamaSiswa() }}" readonly>
             </div>
-        </div>
 
-        <div class="row g-3">
             <div class="col-md-6">
                 <label for="ekstrakurikuler" class="form-label">Ekstrakurikuler</label>
                 <input type="text" class="form-control" id="ekstrakurikuler"
-                    value="{{ $nilai_ekstrakurikuler->pesertaEkstrakurikuler->ekstrakurikuler->nama_ekstrakurikuler }}" readonly>
+                    value="{{ $nilai_ekstrakurikuler->pesertaEkstrakurikuler->ekstrakurikuler->nama_ekstrakurikuler }}"
+                    readonly>
             </div>
-        </div>
 
-        <div class="row g-3">
             <div class="col-md-6">
                 <label for="semester" class="form-label">Semester</label>
                 <input type="text" class="form-control" id="semester"
                     value="{{ $nilai_ekstrakurikuler->semester->getTahunAjaranFormated(true) }}" readonly>
             </div>
-        </div>
 
-        <div class="row g-3">
             <div class="col-md-6">
                 <label for="nilai" class="form-label">Nilai</label>
-                <input type="text" class="form-control" id="nilai"
-                    value="{{ $nilai_ekstrakurikuler->nilai }}" readonly>
+                <input type="text" class="form-control" id="nilai" value="{{ $nilai_ekstrakurikuler->nilai }}"
+                    readonly>
             </div>
         </div>
     </div>
