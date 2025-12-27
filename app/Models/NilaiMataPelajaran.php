@@ -3,44 +3,49 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
+
+/**
+ * @property array $nilai_portofolio
+ */
 
 class NilaiMataPelajaran extends Model
 {
     protected $table = 'nilai_mata_pelajaran';
 
+    protected $cast = [
+        'nilai_portofolio' => 'array'
+    ];
+
     public function scopeFilter($query, array $filters)
     {
-        if (!empty($filters['kelas_filter'])) {
-            $query->whereHas('pesertaEkstrakurikuler.siswa.kelas', fn($query) => $query->where('id_kelas', 'like', '%' . $filters['kelas_filter'] . '%'));
-        }
+        if (Gate::any(['staf-tata-usaha', 'guru'])) {
+            $query->whereHas('siswa.kelas', fn($query) => $query->where('id_kelas', 'like', '%' . ($filters['kelas_filter'] ?? Kelas::orderedNamaKelas()->value('nama_kelas')) . '%'));
 
-        if (!empty($filters['siswa_filter'])) {
-            $query->whereHas(
-                'pesertaEkstrakurikuler.siswa',
-                fn($query) =>
-                $query->where(
+            if (!empty($filters['siswa_filter'])) {
+                $query->whereHas(
+                    'siswa',
                     fn($query) =>
-                    $query->where('nisn', 'like', '%' . $filters['siswa_filter'] . '%')
-                        ->orWhere('nama_siswa', 'like', '%' . $filters['siswa_filter'] . '%')
-                )
-            );
+                    $query->where(
+                        fn($query) =>
+                        $query->where('nisn', 'like', '%' . $filters['siswa_filter'] . '%')
+                            ->orWhere('nama_siswa', 'like', '%' . $filters['siswa_filter'] . '%')
+                    )
+                );
+            }
         }
 
-        if (!empty($filters['mata_pelajaran_filter'])) {
-            $query->whereHas(
-                'mataPelajaran',
-                fn($query) =>
-                $query->where('id_mata_pelajaran', 'like', '%' . $filters['mata_pelajaran_filter'] . '%')
-            );
-        }
+        $query->whereHas(
+            'mataPelajaran',
+            fn($query) =>
+            $query->where('id_mata_pelajaran', 'like', '%' . ($filters['mata_pelajaran_filter'] ?? MataPelajaran::value('id_mata_pelajaran')) . '%')
+        );
 
-        if (!empty($filters['semester_filter'])) {
-            $query->whereHas(
-                'semester',
-                fn($query) =>
-                $query->where('id_semester', 'like', '%' . $filters['semester_filter'] . '%')
-            );
-        }
+        $query->whereHas(
+            'semester',
+            fn($query) =>
+            $query->where('id_semester', 'like', '%' . ($filters['semester_filter'] ?? Semester::activeSemester()->value('id_semester')) . '%')
+        );
 
         // if (!empty($filters['nilai_filter'])) {
         //     $query->where('nilai', 'like', "%{$filters['nilai_filter']}%");

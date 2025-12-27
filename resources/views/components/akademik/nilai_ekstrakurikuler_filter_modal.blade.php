@@ -57,7 +57,6 @@
                         </select>
                     </div>
 
-
                     <div class="mb-3">
                         <label for="semester-filter" class="form-label">Semester</label>
                         <select class="form-select" id="semester-filter" name="semester_filter"
@@ -66,13 +65,13 @@
                                 <option value="">-- Semester Tidak Tersedia --</option>
                             @else
                                 @if (!request('semester_filter'))
-                                    <option value="{{ $active_semester->id_semester }}">
-                                        {{ $active_semester->getTahunAjaran(true) }}
+                                    <option value="{{ $semester_default_filter->id_semester }}">
+                                        {{ $semester_default_filter->getTahunAjaran(true) }}
                                     </option>
                                 @endif
 
                                 @foreach ($semester as $_semester)
-                                    @if ($_semester->id_semester !== $active_semester->id_semester)
+                                    @if ($_semester->id_semester !== $semester_default_filter->id_semester)
                                         <option value="{{ $_semester->id_semester }}">
                                             {{ $_semester->getTahunAjaran(true) }}
                                         </option>

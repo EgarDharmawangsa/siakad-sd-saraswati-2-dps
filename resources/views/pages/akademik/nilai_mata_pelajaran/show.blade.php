@@ -6,7 +6,7 @@
         <hr>
 
         <div class="show-buttons">
-            <a href="{{ route('ekstrakurikuler.index') }}" class="btn btn-secondary btn-sm me-1"><i
+            <a href="{{ route('nilai-mata-pelajaran.index') }}" class="btn btn-secondary btn-sm me-1"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
         </div>
 
@@ -16,53 +16,43 @@
                 <input type="text" class="form-control" id="siswa"
                     value="{{ $nilai_mata_pelajaran->siswa->getFormatedNamaSiswa() }}" readonly>
             </div>
-        </div>
 
-        <div class="row g-3">
             <div class="col-md-6">
                 <label for="mata-pelajaran" class="form-label">Mata Pelajaran</label>
                 <input type="text" class="form-control" id="mata-pelajaran"
                     value="{{ $nilai_mata_pelajaran->mataPelajaran->nama_mata_pelajaran }}" readonly>
             </div>
-        </div>
 
-        <div class="row g-3">
             <div class="col-md-6">
                 <label for="semester" class="form-label">Semester</label>
                 <input type="text" class="form-control" id="semester"
                     value="{{ $nilai_mata_pelajaran->semester->getTahunAjaranFormated(true) }}" readonly>
             </div>
-        </div>
 
-        {{-- <div class="row g-3">
-            <div class="col-md-6">
-                <label for="nilai-portofolio" class="form-label">Nilai Portofolio</label>
-                <input type="text" class="form-control" id="nilai-portofolio"
-                    value="{{ $nilai_mata_pelajaran->nilai_portofolio }}" readonly>
-            </div>
-        </div> --}}
+            @foreach ($nilai_mata_pelajaran->nilai_portofolio as $judul => $nilai)
+                <div class="col-md-6">
+                    <label for="nilai-portofolio" class="form-label">{{ $judul }}</label>
+                    <input type="text" class="form-control" id="nilai-portofolio"
+                        value="{{ $nilai }}" readonly>
+                </div>
+            @endforeach
 
-        <div class="row g-3">
             <div class="col-md-6">
                 <label for="nilai-ub" class="form-label">Nilai UB</label>
-                <input type="text" class="form-control" id="nilai-ub"
-                    value="{{ $nilai_mata_pelajaran->nilai_ub }}" readonly>
+                <input type="text" class="form-control" id="nilai-ub" value="{{ $nilai_mata_pelajaran->nilai_ub }}"
+                    readonly>
             </div>
-        </div>
 
-        <div class="row g-3">
             <div class="col-md-6">
                 <label for="nilai-uts" class="form-label">Nilai UTS</label>
-                <input type="text" class="form-control" id="nilai-uts"
-                    value="{{ $nilai_mata_pelajaran->nilai_uts }}" readonly>
+                <input type="text" class="form-control" id="nilai-uts" value="{{ $nilai_mata_pelajaran->nilai_uts }}"
+                    readonly>
             </div>
-        </div>
 
-        <div class="row g-3">
             <div class="col-md-6">
                 <label for="nilai-uas" class="form-label">Nilai UAS</label>
-                <input type="text" class="form-control" id="nilai-uas"
-                    value="{{ $nilai_mata_pelajaran->nilai_uas }}" readonly>
+                <input type="text" class="form-control" id="nilai-uas" value="{{ $nilai_mata_pelajaran->nilai_uas }}"
+                    readonly>
             </div>
         </div>
     </div>

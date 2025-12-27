@@ -102,11 +102,11 @@ class PengumumanController extends Controller
             abort(404);
         }
 
-        $pengumuman_validation_rules_update = $this->pengumuman_validation_rules;
-        $pengumuman_validation_rules_update['tanggal'] = "required|date|after_or_equal:{$pengumuman->getFormatedTanggal()}";
-        $pengumuman_validation_rules_update['image_delete'] = 'required|integer';
+        $pengumuman_update_validation_rules = $this->pengumuman_validation_rules;
+        $pengumuman_update_validation_rules['tanggal'] = "required|date|after_or_equal:{$pengumuman->getFormatedTanggal()}";
+        $pengumuman_update_validation_rules['image_delete'] = 'required|integer';
         
-        $validated_pengumuman = $request->validate($pengumuman_validation_rules_update);
+        $validated_pengumuman = $request->validate($pengumuman_update_validation_rules);
 
         if ($validated_pengumuman['image_delete'] == 1) {
             if (!empty($pengumuman->gambar)) {

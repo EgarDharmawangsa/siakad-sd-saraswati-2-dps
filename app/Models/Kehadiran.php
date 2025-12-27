@@ -20,7 +20,7 @@ class Kehadiran extends Model
 
     public function getFormatedTanggal()
     {
-        $formated_tanggal = $this->tanggal?->translatedFormat('d F Y');
+        $formated_tanggal = $this->tanggal->translatedFormat('d F Y');
 
         return $formated_tanggal;
     }

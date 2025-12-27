@@ -109,12 +109,12 @@ class KelasController extends Controller
             abort(404);
         }
 
-        $kelas_validation_rules_update = [
+        $kelas_update_validation_rules = [
             'nama_kelas' => "required|string|min:2|max:5|unique:kelas,nama_kelas,{$kelas->id_kelas},id_kelas|regex:/^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{2,5}$/",
             'id_pegawai' => "nullable|integer|exists:pegawai,id_pegawai|unique:kelas,id_pegawai,{$kelas->id_kelas},id_kelas"
         ];
 
-        $validated_kelas = $request->validate($kelas_validation_rules_update);
+        $validated_kelas = $request->validate($kelas_update_validation_rules);
 
         $kelas->update($validated_kelas);
 

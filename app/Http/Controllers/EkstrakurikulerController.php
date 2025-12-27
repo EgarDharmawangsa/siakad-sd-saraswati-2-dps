@@ -104,11 +104,11 @@ class EkstrakurikulerController extends Controller
             abort(404);
         }
 
-        $ekstrakurikuler_validation_rules_update = $this->ekstrakurikuler_validation_rules;
+        $ekstrakurikuler_update_validation_rules = $this->ekstrakurikuler_validation_rules;
 
-        $ekstrakurikuler_validation_rules_update['nama_ekstrakurikuler'] = "required|string|min:3|max:25|unique:ekstrakurikuler,nama_ekstrakurikuler,{$ekstrakurikuler->id_ekstrakurikuler},id_ekstrakurikuler";
+        $ekstrakurikuler_update_validation_rules['nama_ekstrakurikuler'] = "required|string|min:3|max:25|unique:ekstrakurikuler,nama_ekstrakurikuler,{$ekstrakurikuler->id_ekstrakurikuler},id_ekstrakurikuler";
 
-        $validated_ekstrakurikuler = $request->validate($ekstrakurikuler_validation_rules_update);
+        $validated_ekstrakurikuler = $request->validate($ekstrakurikuler_update_validation_rules);
 
         $ekstrakurikuler->update($validated_ekstrakurikuler);
 

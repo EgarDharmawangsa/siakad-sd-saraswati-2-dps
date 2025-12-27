@@ -2,12 +2,21 @@
 
 @section('container')
     <div class="content-card mb-4">
-        <div class="d-flex justify-content-end mb-4">
-            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
-                <i class="bi bi-funnel me-2"></i>Filter
-            </button>
+        <div class="index-buttons">
+            @can('staf-tata-usaha')
+                <a href="{{ route('nilai-mata-pelajaran.create') }}" class="btn btn-success"><i class="bi bi-plus-lg me-2"></i>Tambah
+                    Nilai Mata Pelajaran</a>
+            @endcan
 
-            @include('components.akademik.nilai_mata_pelajaran_filter_modal')
+            <div class="modifier-buttons">
+                <div class="filter-modal-container">
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                        <i class="bi bi-funnel me-2"></i>Filter
+                    </button>
+    
+                    @include('components.akademik.nilai_mata_pelajaran_filter_modal')
+                </div>
+            </div>
         </div>
 
         {{-- @if ($siswa->isNotEmpty()) --}}

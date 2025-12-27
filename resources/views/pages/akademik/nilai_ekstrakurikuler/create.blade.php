@@ -7,6 +7,7 @@
 
         <form action="{{ route('nilai-ekstrakurikuler.store') }}" method="POST">
             @csrf
+            
             <div class="row g-3">
                 <div class="col-md-6">
                     <label for="id-ekstrakurikuler" class="form-label">Ekstrakurikuler</label>

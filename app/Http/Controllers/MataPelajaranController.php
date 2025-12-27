@@ -99,11 +99,11 @@ class MataPelajaranController extends Controller
             abort(404);
         }
 
-        $kelas_validation_rules_update = $this->kelas_validation_rules;
+        $kelas_update_validation_rules = $this->kelas_validation_rules;
 
-        $kelas_validation_rules_update['nama_mata_pelajaran'] = "required|string|min:3|max:25|unique:mata_pelajaran,nama_mata_pelajaran,{$mataPelajaran->id_mata_pelajaran},id_mata_pelajaran";
+        $kelas_update_validation_rules['nama_mata_pelajaran'] = "required|string|min:3|max:25|unique:mata_pelajaran,nama_mata_pelajaran,{$mataPelajaran->id_mata_pelajaran},id_mata_pelajaran";
 
-        $validated_mata_pelajaran = $request->validate($kelas_validation_rules_update);
+        $validated_mata_pelajaran = $request->validate($kelas_update_validation_rules);
 
         $mataPelajaran->update($validated_mata_pelajaran);
 

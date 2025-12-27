@@ -26,13 +26,13 @@ class KehadiranController extends Controller
         }
 
         $kelas = Kelas::orderedNamaKelas()->get();
-        $kelas_default_filter = Kelas::orderedNamaKelas()->first();
+        $kelas_default_filter = $kelas->first();
         $siswa = Siswa::get();
         $semester = Semester::latest()->get();
-        $active_semester = Semester::activeSemester()->first();
+        $semester_default_filter = Semester::activeSemester()->first();
 
-        if (!$active_semester) {
-            $active_semester = Semester::latest()->first();
+        if (!$semester_default_filter) {
+            $semester_default_filter = $semester->first();
         }
 
         return view('pages.akademik.kehadiran.index', [
@@ -42,7 +42,7 @@ class KehadiranController extends Controller
             'kelas_default_filter' => $kelas_default_filter,
             'siswa' => $siswa,
             'semester' => $semester,
-            'active_semester' => $active_semester
+            'semester_default_filter' => $semester_default_filter
         ]);
     }
 
@@ -87,10 +87,10 @@ class KehadiranController extends Controller
 
         $validated_kehadiran = $request->validate($kehadian_validation_rules);
 
-        Siswa::where('id_kelas', $validated_kehadiran['id_kelas'])->get()->each(function ($siswa) use ($validated_kehadiran) {
+        Siswa::where('id_kelas', $validated_kehadiran['id_kelas'])->get()->each(function ($_siswa) use ($validated_kehadiran) {
             Kehadiran::firstOrCreate(
                 [
-                    'id_siswa' => $siswa->id_siswa,
+                    'id_siswa' => $_siswa->id_siswa,
                     'id_kelas' => $validated_kehadiran['id_kelas'],
                     'id_semester' => $validated_kehadiran['id_semester']
                 ],
@@ -102,7 +102,7 @@ class KehadiranController extends Controller
             );
         });
 
-        return redirect()->route('kehadiran.index')->with('success', 'Kehadiran berhasil ditambahkan.');
+        return redirect()->route('kehadiran.index')->with('success', 'Kehadiran berhasil ditambahkan / disinkronkan.');
     }
 
     /**
@@ -127,44 +127,61 @@ class KehadiranController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Kehadiran $kehadiran)
+    public function update(Request $request)
     {
         if (!Gate::any(['staf-tata-usaha', 'guru'])) {
             abort(404);
         }
 
         $kehadiran_update_validation_rules = [
-            'id_kehadiran' => 'required|array',
+            'id_kehadiran'   => 'required|array',
             'id_kehadiran.*' => 'required|exists:kehadiran,id_kehadiran',
-            'status' => 'required|array',
+            'status'   => 'required|array',
             'status.*' => 'required|in:Hadir,Sakit,Izin,Alfa',
-            'keterangan' => 'nullable|array',
-            'keterangan.*' => 'nullable|string|max:255'
+            'keterangan'   => 'nullable|array',
+            'keterangan.*' => 'nullable|string|max:255',
         ];
 
         $validated_kehadiran = $request->validate($kehadiran_update_validation_rules);
 
-        foreach ($validated_kehadiran['id_kehadiran'] as $_id_kehadiran) {
-            if (!\array_key_exists($_id_kehadiran, $validated_kehadiran['status'])) {
+        foreach ($validated_kehadiran['id_kehadiran'] as $id_kehadiran) {
+
+            if (!isset($validated_kehadiran['status'][$id_kehadiran])) {
                 continue;
             }
 
-            $new_status = $validated_kehadiran['status'][$_id_kehadiran];
+            $new_status = $validated_kehadiran['status'][$id_kehadiran];
+
             $new_keterangan = null;
 
             if ($new_status === 'Izin') {
-                $new_keterangan = $validated_kehadiran['keterangan'][$_id_kehadiran] ?? null;
+                $new_keterangan = $validated_kehadiran['keterangan'][$id_kehadiran] ?? null;
             }
 
-            Kehadiran::where('id_kehadiran', $_id_kehadiran)
-                ->where(function ($query) use ($new_status, $new_keterangan) {
-                    $query->where('status', '!=', $new_status)
-                        ->orWhere('keterangan', '!=', $new_keterangan);
-                })
-                ->update([
-                    'status' => $new_status,
-                    'keterangan' => $new_keterangan
-                ]);
+            $current_kehadiran = Kehadiran::query()->select('status', 'keterangan')
+                ->where('id_kehadiran', $id_kehadiran)
+                ->first();
+
+            if (!$current_kehadiran) {
+                continue;
+            }
+
+            $kehadiran_data_update = [];
+
+            if ($current_kehadiran->status !== $new_status) {
+                $kehadiran_data_update['status'] = $new_status;
+            }
+
+            if ($current_kehadiran->keterangan !== $new_keterangan) {
+                $kehadiran_data_update['keterangan'] = $new_keterangan;
+            }
+
+            if (empty($kehadiran_data_update)) {
+                continue;
+            }
+
+            Kehadiran::where('id_kehadiran', $id_kehadiran)
+                ->update($kehadiran_data_update);
         }
 
         return back()->with('success', 'Kehadiran berhasil disimpan.');
