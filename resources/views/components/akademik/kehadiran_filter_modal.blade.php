@@ -66,8 +66,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="status-filter" class="form-label">Status</label>
-                        <select class="form-select" id="status-filter" name="status_filter">
+                        <label for="kehadiran-status-filter" class="form-label">Status</label>
+                        <select class="form-select" id="kehadiran-status-filter" name="status_filter">
                             <option value="">-- Pilih Status --</option>
                             <option value="Hadir" {{ request('status_filter') === 'Hadir' ? 'selected' : '' }}>Hadir
                             </option>

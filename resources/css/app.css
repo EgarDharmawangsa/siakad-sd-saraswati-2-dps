@@ -330,7 +330,7 @@ td {
     }
 }
 
-@media (max-width: 490px) {
+@media (max-width: 512px) {
     .index-buttons {
         flex-direction: column;
         align-items: stretch;
@@ -341,7 +341,7 @@ td {
     }
 }
 
-@media (max-width: 290px) {
+@media (max-width: 326px) {
     .filter-modal-container {
         margin: 0.5rem 0 0;
     }

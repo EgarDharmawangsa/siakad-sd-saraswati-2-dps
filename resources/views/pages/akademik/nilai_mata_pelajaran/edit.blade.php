@@ -63,12 +63,23 @@
 
 
                     <div class="col-md-6">
-                        <label for="nilai-ub" class="form-label">Nilai UB</label>
-                        <input type="text" class="form-control @error('nilai_ub') is-invalid @enderror" id="nilai-ub"
-                            name="nilai_ub" placeholder="Masukkan nilai UB"
-                            value="{{ old('nilai_ub', $nilai_mata_pelajaran->nilai_ub) }}" min="0" max="100"
+                        <label for="nilai-ub-1" class="form-label">Nilai UB 1</label>
+                        <input type="text" class="form-control @error('nilai_ub_1') is-invalid @enderror" id="nilai-ub-1"
+                            name="nilai_ub" placeholder="Masukkan nilai UB 1"
+                            value="{{ old('nilai_ub_1', $nilai_mata_pelajaran->nilai_ub_1) }}" min="0" max="100"
                             required>
-                        @error('nilai_ub')
+                        @error('nilai_ub_1')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="nilai-ub-2" class="form-label">Nilai UB 2</label>
+                        <input type="text" class="form-control @error('nilai_ub_2') is-invalid @enderror" id="nilai-ub-2"
+                            name="nilai_ub" placeholder="Masukkan nilai UB 2"
+                            value="{{ old('nilai_ub_2', $nilai_mata_pelajaran->nilai_ub_2) }}" min="0" max="100"
+                            required>
+                        @error('nilai_ub_2')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

@@ -84,8 +84,7 @@ class NilaiMataPelajaranController extends Controller
         $nilai_mata_pelajaran_validation_rules = [
             'id_kelas' => 'required|exists:kelas,id_kelas',
             'id_semester' => 'required|exists:semester,id_semester',
-            'id_mata_pelajaran' => 'required|exists:nilai_mata_pelajaran,id_mata_pelajaran',
-            'nilai' => 'required|integer|min:0|max:20'
+            'id_mata_pelajaran' => 'required|exists:nilai_mata_pelajaran,id_mata_pelajaran'
         ];
         $siswa = Siswa::get();
 
@@ -108,7 +107,8 @@ class NilaiMataPelajaranController extends Controller
                 [
                     'jumlah_portofolio' => $validated_nilai_mata_pelajaran['jumlah_portofolio'],
                     'nilai_portofolio' => [],
-                    'nilai_ub' => 0,
+                    'nilai_ub_1' => 0,
+                    'nilai_ub_2' => 0,
                     'nilai_uts' => 0,
                     'nilai_uas' => 0
                 ]
@@ -163,8 +163,10 @@ class NilaiMataPelajaranController extends Controller
             $nilai_mata_pelajaran_validation_rules = [
                 'id_nilai_mata_pelajaran' => 'required|array',
                 'id_nilai_mata_pelajaran.*' => 'required|exists:nilai_mata_pelajaran,id_nilai_mata_pelajaran',
-                'nilai_ub' => 'required|array',
-                'nilai_ub.*' => 'required|integer|min:0|max:100',
+                'nilai_ub_1' => 'required|array',
+                'nilai_ub_1.*' => 'required|integer|min:0|max:100',
+                'nilai_ub_2' => 'required|array',
+                'nilai_ub_2.*' => 'required|integer|min:0|max:100',
                 'nilai_uts' => 'required|array',
                 'nilai_uts.*' => 'required|integer|min:0|max:100',
                 'nilai_uas' => 'required|array',
@@ -176,8 +178,12 @@ class NilaiMataPelajaranController extends Controller
             foreach ($validated_nilai_mata_pelajaran['id_nilai_mata_pelajaran'] as $_id_nilai_mata_pelajaran) {
                 $nilai_mata_pelajaran_data_update = [];
 
-                if (\array_key_exists($_id_nilai_mata_pelajaran, $validated_nilai_mata_pelajaran['nilai_ub'] ?? [])) {
-                    $nilai_mata_pelajaran_data_update['nilai_ub'] = $validated_nilai_mata_pelajaran['nilai_ub'][$_id_nilai_mata_pelajaran];
+                if (\array_key_exists($_id_nilai_mata_pelajaran, $validated_nilai_mata_pelajaran['nilai_ub_1'] ?? [])) {
+                    $nilai_mata_pelajaran_data_update['nilai_ub_1'] = $validated_nilai_mata_pelajaran['nilai_ub_1'][$_id_nilai_mata_pelajaran];
+                }
+
+                if (\array_key_exists($_id_nilai_mata_pelajaran, $validated_nilai_mata_pelajaran['nilai_ub_2'] ?? [])) {
+                    $nilai_mata_pelajaran_data_update['nilai_ub_2'] = $validated_nilai_mata_pelajaran['nilai_ub_2'][$_id_nilai_mata_pelajaran];
                 }
 
                 if (\array_key_exists($_id_nilai_mata_pelajaran, $validated_nilai_mata_pelajaran['nilai_uts'] ?? [])) {
@@ -201,7 +207,8 @@ class NilaiMataPelajaranController extends Controller
                 'nilai_portofolio.*' => 'required|min:1|max:20',
                 'nilai_portofolio.*.judul' => 'required|string|min:3|max:50',
                 'nilai_portofolio.*.nilai' => 'required|integer|min:0|max:100',
-                'nilai_ub' => 'required|integer|min:0|max:100',
+                'nilai_ub_1' => 'required|integer|min:0|max:100',
+                'nilai_ub_2' => 'required|integer|min:0|max:100',
                 'nilai_uts' => 'required|integer|min:0|max:100',
                 'nilai_uas' => 'required|integer|min:0|max:100'
             ];
