@@ -1,37 +1,44 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="content-card mb-4">
-        <h5>Tambah {{ $judul }}</h5>
+    <div class="content-card">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="mb-0 fw-bold">Tambah {{ $judul }}</h5>
+            <div class="form-buttons">
+                <button type="button" class="btn btn-danger" id="cancel-button" data-route="{{ route('pegawai.index') }}"
+                    data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                    <i class="bi bi-arrow-left me-1"></i>Kembali</button>
+            </div>
+        </div>
         <hr>
-
-        <form action="{{ route('pegawai.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('pegawai.store') }}" method="POST" enctype="multipart/form-data" id="form-pegawai"
+            novalidate>
             @csrf
-            <!-- Tab Navigation -->
+
             <ul class="nav nav-tabs" id="pegawai-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="data-pribadi-tab-button" data-bs-toggle="tab"
-                        data-bs-target="#data-pribadi-tab" type="button">Data pribadi</button>
+                        data-bs-target="#data-pribadi-tab" type="button" role="tab">Data Pribadi</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="data-kepegawaian-tab-button" data-bs-toggle="tab"
-                        data-bs-target="#data-kepegawaian-tab" type="button">Data Kepegawaian</button>
+                        data-bs-target="#data-kepegawaian-tab" type="button" role="tab">Data Kepegawaian</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="data-pendidikan-tab-button" data-bs-toggle="tab"
-                        data-bs-target="#data-pendidikan-tab" type="button">Pendidikan & Sertifikasi</button>
+                        data-bs-target="#data-pendidikan-tab" type="button" role="tab">Pendidikan &
+                        Sertifikasi</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="data-sk-tab-button" data-bs-toggle="tab" data-bs-target="#data-sk-tab"
-                        type="button">Data SK</button>
+                        type="button" role="tab">Data SK</button>
                 </li>
             </ul>
 
-            <!-- Tab Content -->
             <div class="tab-content mb-0" id="pegawai-tab-content">
-                <!-- DATA PRIBADI -->
+
                 <div class="tab-pane fade show active" id="data-pribadi-tab" role="tabpanel">
-                    <div class="row g-3">
+                    <div class="row g-3 pt-3">
                         <div class="col-md-6">
                             <label for="nik" class="form-label">NIK</label>
                             <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik"
@@ -88,24 +95,20 @@
 
                         <div class="col-md-6">
                             <label for="agama" class="form-label">Agama</label>
-                            <select class="form-select @error('agama') is-invalid @enderror" id="agama" name="agama"
-                                required>
+                            <select class="form-select @error('agama') is-invalid @enderror" id="agama"
+                                name="agama" required>
                                 <option value="">-- Pilih Agama --</option>
                                 <option value="Islam" {{ old('agama') === 'Islam' ? 'selected' : '' }}>Islam</option>
                                 <option value="Kristen Protestan"
-                                    {{ old('agama') === 'Kristen Protestan' ? 'selected' : '' }}>Kristen Protestan
-                                </option>
+                                    {{ old('agama') === 'Kristen Protestan' ? 'selected' : '' }}>Kristen Protestan</option>
                                 <option value="Kristen Katolik"
-                                    {{ old('agama') === 'Kristen Katolik' ? 'selected' : '' }}>
-                                    Kristen Katolik
-                                </option>
+                                    {{ old('agama') === 'Kristen Katolik' ? 'selected' : '' }}>Kristen Katolik</option>
                                 <option value="Hindu" {{ old('agama') === 'Hindu' ? 'selected' : '' }}>Hindu</option>
                                 <option value="Buddha" {{ old('agama') === 'Buddha' ? 'selected' : '' }}>Buddha</option>
                                 <option value="Konghucu" {{ old('agama') === 'Konghucu' ? 'selected' : '' }}>Konghucu
                                 </option>
                                 <option value="Tidak Beragama" {{ old('agama') === 'Tidak Beragama' ? 'selected' : '' }}>
-                                    Tidak Beragama
-                                </option>
+                                    Tidak Beragama</option>
                             </select>
                             @error('agama')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -120,8 +123,7 @@
                                 <option value="Sudah" {{ old('status_perkawinan') === 'Sudah' ? 'selected' : '' }}>Sudah
                                 </option>
                                 <option value="Pernah" {{ old('status_perkawinan') === 'Pernah' ? 'selected' : '' }}>
-                                    Pernah
-                                </option>
+                                    Pernah</option>
                                 <option value="Belum" {{ old('status_perkawinan') === 'Belum' ? 'selected' : '' }}>Belum
                                 </option>
                             </select>
@@ -214,21 +216,24 @@
                             @enderror
                         </div>
                     </div>
+
+                    <div class="col-12 text-end mt-4">
+                        <button type="button" class="btn btn-primary px-4 btn-nav" data-next="#data-kepegawaian-tab">
+                            Selanjutnya <i class="bi bi-arrow-right ms-1"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <!-- DATA KEPEGAWAIAN -->
                 <div class="tab-pane fade" id="data-kepegawaian-tab" role="tabpanel">
-                    <div class="row g-3">
+                    <div class="row g-3 pt-3">
                         <div class="col-md-6">
                             <label for="posisi" class="form-label">Posisi</label>
                             <select class="form-select @error('posisi') is-invalid @enderror" id="posisi"
                                 name="posisi" required>
                                 <option value="">-- Pilih Posisi --</option>
                                 <option value="Staf Tata Usaha"
-                                    {{ old('posisi') === 'Staf Tata Usaha' ? 'selected' : '' }}>Staf Tata Usaha
-                                </option>
-                                <option value="Guru" {{ old('posisi') === 'Guru' ? 'selected' : '' }}>Guru
-                                </option>
+                                    {{ old('posisi') === 'Staf Tata Usaha' ? 'selected' : '' }}>Staf Tata Usaha</option>
+                                <option value="Guru" {{ old('posisi') === 'Guru' ? 'selected' : '' }}>Guru</option>
                                 <option value="Pegawai Perpustakaan"
                                     {{ old('posisi') === 'Pegawai Perpustakaan' ? 'selected' : '' }}>Pegawai Perpustakaan
                                 </option>
@@ -329,24 +334,20 @@
                                     {{ old('jabatan') === 'Pengatur | II/c' ? 'selected' : '' }}>Pengatur | II/c</option>
                                 <option value="Pengatur Tk. I | II/d"
                                     {{ old('jabatan') === 'Pengatur Tk. I | II/d' ? 'selected' : '' }}>Pengatur Tk. I |
-                                    II/d
-                                </option>
+                                    II/d</option>
                                 <option value="Penata Muda | III/a"
                                     {{ old('jabatan') === 'Penata Muda | III/a' ? 'selected' : '' }}>Penata Muda | III/a
                                 </option>
                                 <option value="Penata Muda Tk. I | III/b"
                                     {{ old('jabatan') === 'Penata Muda Tk. I | III/b' ? 'selected' : '' }}>Penata Muda Tk.
-                                    I
-                                    | III/b</option>
+                                    I | III/b</option>
                                 <option value="Penata | III/c"
-                                    {{ old('jabatan') === 'Penata | III/c' ? 'selected' : '' }}>
-                                    Penata | III/c</option>
+                                    {{ old('jabatan') === 'Penata | III/c' ? 'selected' : '' }}>Penata | III/c</option>
                                 <option value="Penata Tk. I | III/d"
                                     {{ old('jabatan') === 'Penata Tk. I | III/d' ? 'selected' : '' }}>Penata Tk. I | III/d
                                 </option>
                                 <option value="Pembina | IV/a"
-                                    {{ old('jabatan') === 'Pembina | IV/a' ? 'selected' : '' }}>
-                                    Pembina | IV/a</option>
+                                    {{ old('jabatan') === 'Pembina | IV/a' ? 'selected' : '' }}>Pembina | IV/a</option>
                                 <option value="Pembina Tk. I | IV/b"
                                     {{ old('jabatan') === 'Pembina Tk. I | IV/b' ? 'selected' : '' }}>Pembina Tk. I | IV/b
                                 </option>
@@ -386,11 +387,18 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-secondary btn-nav" data-next="#data-pribadi-tab">
+                            <i class="bi bi-arrow-left me-1"></i> Kembali
+                        </button>
+                        <button type="button" class="btn btn-primary btn-nav" data-next="#data-pendidikan-tab">
+                            Selanjutnya <i class="bi bi-arrow-right ms-1"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <!-- PENDIDIKAN & SERTIFIKASI -->
                 <div class="tab-pane fade" id="data-pendidikan-tab" role="tabpanel">
-                    <div class="row g-3">
+                    <div class="row g-3 pt-3">
                         <div class="col-md-6">
                             <label for="ijazah-terakhir" class="form-label">Ijazah Terakhir<span
                                     class="text-muted mini-label ms-1">(Opsional)</span></label>
@@ -439,11 +447,19 @@
                             @enderror
                         </div>
                     </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-secondary btn-nav" data-next="#data-kepegawaian-tab">
+                            <i class="bi bi-arrow-left me-1"></i> Kembali
+                        </button>
+                        <button type="button" class="btn btn-primary btn-nav" data-next="#data-sk-tab">
+                            Selanjutnya <i class="bi bi-arrow-right ms-1"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <!-- DATA SK -->
                 <div class="tab-pane fade" id="data-sk-tab" role="tabpanel">
-                    <div class="row g-3">
+                    <div class="row g-3 pt-3">
                         <div class="col-md-6">
                             <label for="no-sk" class="form-label">Nomor SK</label>
                             <input type="text" class="form-control @error('no_sk') is-invalid @enderror"
@@ -464,16 +480,21 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-secondary btn-nav" data-next="#data-pendidikan-tab">
+                            <i class="bi bi-arrow-left me-1"></i> Kembali
+                        </button>
+                        <button type="submit" class="btn btn-primary ms-2">
+                            <i class="bi bi-plus-lg me-2"></i>Tambah
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Tombol Submit -->
-            <div class="form-buttons">
-                <button type="button" class="btn btn-danger" id="cancel-button"
-                    data-route="{{ route('pegawai.index') }}" data-bs-toggle="modal" data-bs-target="#cancel-modal">
-                    <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
-                <button type="submit" class="btn btn-primary ms-2"><i class="bi bi-plus-lg me-2"></i>Tambah</button>
             </div>
         </form>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/pages/master/pegawai.js') }}"></script>
+@endpush
