@@ -130,7 +130,7 @@ function initPasswordFeatures() {
             }
         };
 
-        passInput.addEventListener('input', checkMatch);
+        passInput.addEventListener('input', checkMatch); 
         confirmInput.addEventListener('input', checkMatch);
     }
 }

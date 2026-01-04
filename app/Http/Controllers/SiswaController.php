@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\User;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage; 
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
 
@@ -17,9 +17,9 @@ class SiswaController extends Controller
     public function index(Request $request)
     {
         $siswa = Siswa::with('kelas:id_kelas,nama_kelas')
-            ->filter($request->all()) 
-            ->paginate(10) 
-            ->withQueryString(); 
+            ->filter($request->all())
+            ->paginate(10)
+            ->withQueryString();
 
         return view('pages.master.siswa.index', [
             'judul' => 'Data Siswa',
@@ -41,6 +41,10 @@ class SiswaController extends Controller
     {
         DB::transaction(function () use ($request) {
             $data = $request->validated();
+
+            if ($request->hasFile('foto')) {
+                $data['foto'] = $request->file('foto')->store('foto-siswa');
+            }
 
             $userData = [
                 'username' => $data['username'],
@@ -87,39 +91,48 @@ class SiswaController extends Controller
 
     public function update(UpdateSiswaRequest $request, Siswa $siswa)
     {
-        $data = $request->validated();
+        return DB::transaction(function () use ($request, $siswa) {
+            $data = $request->validated();
 
-        if ($siswa->userAuth) {
-            $dataUser = [
-                'username' => $data['username'],
-            ];
+            if ($siswa->userAuth) {
+                $dataUser = [
+                    'username' => $data['username'],
+                ];
 
-            if (!empty($data['password'])) {
-                $dataUser['password'] = Hash::make($data['password']);
+                if (!empty($data['password'])) {
+                    $dataUser['password'] = Hash::make($data['password']);
+                }
+
+                $siswa->userAuth->update($dataUser);
             }
 
-            $siswa->userAuth->update($dataUser);
-        }
+            unset($data['username']);
+            unset($data['password']);
+            unset($data['konfirmasi_password']);
 
-        unset($data['username']);
-        unset($data['password']);
-        unset($data['konfirmasi_password']);
-        
-        if (isset($data['kelas_id'])) {
-            $data['id_kelas'] = $data['kelas_id'];
-            unset($data['kelas_id']);
-        }
-
-        if ($request->hasFile('foto')) {
-            if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
-                Storage::disk('public')->delete($siswa->foto);
+            if (isset($data['kelas_id'])) {
+                $data['id_kelas'] = $data['kelas_id'];
+                unset($data['kelas_id']);
             }
-            $data['foto'] = $request->file('foto')->store('siswa-images', 'public');
-        }
 
-        $siswa->update($data);
+            if ($request->input('image_delete') == '1') {
+                if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
+                    Storage::disk('public')->delete($siswa->foto);
+                }
+                $data['foto'] = null; 
+            }
 
-        return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diperbarui!');
+            if ($request->hasFile('foto')) {
+                if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
+                    Storage::disk('public')->delete($siswa->foto);
+                }
+                $data['foto'] = $request->file('foto')->store('foto-siswa', 'public');
+            }
+
+            $siswa->update($data);
+
+            return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diperbarui!');
+        });
     }
 
     public function destroy(Siswa $siswa)

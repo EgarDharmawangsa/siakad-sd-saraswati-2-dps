@@ -1,16 +1,13 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="content-card">
+    <div class="content-card mb-4">
         <div class="d-flex justify-content-between align-items-center mb-2">
             <h5 class="mb-0 fw-bold">Edit {{ $judul }}</h5>
-            <div class="form-buttons">
-                <button type="button" class="btn btn-danger" id="cancel-button"
-                    data-route="{{ route('pegawai.index') }}" data-bs-toggle="modal" data-bs-target="#cancel-modal">
-                    <i class="bi bi-arrow-left me-1"></i>Kembali</button>
-            </div>
         </div>
         <hr>
+
+        {{-- Form dengan ID form-pegawai, enctype multipart, dan novalidate --}}
         <form action="{{ request()->routeIs('pegawai.edit') ? route('pegawai.update', $pegawai->id_pegawai) : route('profil-pegawai.update') }}" 
               method="POST" 
               enctype="multipart/form-data" 
@@ -166,22 +163,36 @@
 
                         <div class="col-md-6">
                             <label for="foto" class="form-label">Foto<span class="text-muted mini-label ms-1">(Opsional)</span></label>
+                            
+                            {{-- Preview Gambar Existing/Baru --}}
                             <img src='{{ $pegawai->foto ? asset("storage/{$pegawai->foto}") : '' }}'
-                                class="foto mt-2 mb-3 {{ $pegawai->foto ? '' : 'd-none' }}" id="image-preview">
+                                class="foto mt-2 mb-3 {{ $pegawai->foto ? '' : 'd-none' }}" id="image-preview" style="max-height: 200px;">
+                            
+                            {{-- Tombol Hapus --}}
                             <button type="button"
                                 class="btn btn-danger btn-sm d-block mx-auto mb-4 {{ $pegawai->foto ? '' : 'd-none' }}"
                                 id="image-delete-button"><i class="bi bi-trash me-2"></i>Hapus Foto</button>
                             
+                            {{-- Input File --}}
                             <input type="file" class="form-control @error('foto') is-invalid @enderror image-input"
                                 id="foto" name="foto">
                             
                             <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 10 MB</span>
                             @error('foto') <div class="invalid-feedback">{{ $message }}</div> @enderror
+
+                            {{-- Input hidden untuk menandai penghapusan foto --}}
                             <input type="hidden" name="image_delete" id="image-delete" value="0">
                         </div>
                     </div>
 
+                    {{-- NAVIGASI TAB 1 --}}
                     <div class="d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-danger" id="cancel-button"
+                            data-route="{{ request()->routeIs('pegawai.edit') ? route('pegawai.index') : route('profil') }}"
+                            data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                            <i class="bi bi-x-lg me-2"></i>Batal
+                        </button>
+                        {{-- Tombol Next (Class btn-nav Wajib ada) --}}
                         <button type="button" class="btn btn-primary btn-nav" data-next="#data-kepegawaian-tab">
                             Selanjutnya <i class="bi bi-arrow-right ms-1"></i>
                         </button>
@@ -216,6 +227,7 @@
                                 <ul class="dropdown-menu w-100 p-2 id-mata-pelajaran-dropdown-menu"
                                     aria-labelledby="id-mata-pelajaran-dropdown-button">
                                     @php
+                                        // Ambil Mapel yang sudah dipilih sebelumnya
                                         $selectedMapel = old('id_mata_pelajaran', $pegawai->guruMataPelajaran?->pluck('id_mata_pelajaran')->toArray() ?? []);
                                     @endphp
                                     @forelse ($mata_pelajaran as $_mata_pelajaran)
@@ -301,6 +313,7 @@
                         </div>
                     </div>
                     
+                    {{-- NAVIGASI TAB 2 --}}
                     <div class="d-flex justify-content-between mt-4">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#data-pribadi-tab">
                             <i class="bi bi-arrow-left me-1"></i> Kembali
@@ -349,6 +362,7 @@
                         </div>
                     </div>
 
+                    {{-- NAVIGASI TAB 3 --}}
                     <div class="d-flex justify-content-between mt-4">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#data-kepegawaian-tab">
                             <i class="bi bi-arrow-left me-1"></i> Kembali
@@ -378,6 +392,7 @@
                         </div>
                     </div>
 
+                    {{-- NAVIGASI TAB 4 (FINAL) --}}
                     <div class="d-flex justify-content-between mt-4">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#data-pendidikan-tab">
                             <i class="bi bi-arrow-left me-1"></i> Kembali
@@ -392,6 +407,7 @@
         </form>
     </div>
 
+    {{-- Script Khusus untuk handle Delete Image agar sync dengan JS External --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const deleteBtn = document.getElementById('image-delete-button');
@@ -402,9 +418,7 @@
             if(deleteBtn) {
                 deleteBtn.addEventListener('click', function() {
                     if(deleteInput) deleteInput.value = '1';
-                    
                     if(fileInput) fileInput.value = '';
-                    
                     if(preview) {
                         preview.src = '';
                         preview.classList.add('d-none');
@@ -415,7 +429,13 @@
 
             if(fileInput) {
                 fileInput.addEventListener('change', function() {
-                    if(deleteInput) deleteInput.value = '0';
+                    const [file] = this.files;
+                    if (file) {
+                        preview.src = URL.createObjectURL(file);
+                        preview.classList.remove('d-none');
+                        if(deleteBtn) deleteBtn.classList.remove('d-none');
+                        if(deleteInput) deleteInput.value = '0';
+                    }
                 });
             }
         });
@@ -423,5 +443,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/pages/master/pegawai.js') }}"></script>
+    {{-- Menggunakan JS Wizard --}}
 @endpush

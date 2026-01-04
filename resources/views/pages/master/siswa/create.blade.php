@@ -136,9 +136,10 @@
                                 name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Jenis Kelamin</label>
+                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                             <select class="form-select @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin"
-                                required>
+                                id="jenis_kelamin" required>
+                                <option value="" selected disabled>-- Pilih Jenis Kelamin --</option>
                                 <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>
                                     Laki-laki</option>
                                 <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>
@@ -190,6 +191,20 @@
                             <input type="text" class="form-control" name="keterangan_disabilitas"
                                 value="{{ old('keterangan_disabilitas') }}">
                         </div>
+                        <div class="col-md-6">
+                            <label for="foto" class="form-label">Foto<span
+                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
+                            <img class="foto mt-2 mb-3 d-none" id="image-preview">
+                            <button type="button" class="btn btn-danger btn-sm d-block mx-auto mb-4 d-none"
+                                id="image-delete-button"><i class="bi bi-trash me-2"></i> Hapus</button>
+                            <input type="file" class="form-control @error('foto') is-invalid @enderror image-input"
+                                id="foto" name="foto">
+                            <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 2
+                                MB</span>
+                            @error('foto')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <div class="col-12 text-end mt-4">
                             <button type="button" class="btn btn-primary px-4 btn-nav" data-next="#content-alamat">
                                 Selanjutnya <i class="bi bi-arrow-right"></i>
@@ -226,23 +241,48 @@
                             <hr class="text-muted opacity-25">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Jenis Tinggal</label>
-                            <select class="form-select" name="jenis_tinggal" required>
-                                @foreach (['Bersama Orang Tua', 'Wali', 'Asrama', 'Kost'] as $jns)
-                                    <option value="{{ $jns }}"
-                                        {{ old('jenis_tinggal') == $jns ? 'selected' : '' }}>{{ $jns }}</option>
-                                @endforeach
+                            <label for="jenis_tinggal" class="form-label">Jenis Tinggal</label>
+                            <select class="form-select @error('jenis_tinggal') is-invalid @enderror" name="jenis_tinggal"
+                                id="jenis_tinggal" required>
+                                <option value="" selected disabled>-- Pilih Jenis Tinggal --</option>
+                                <option value="Bersama Orang Tua"
+                                    {{ old('jenis_tinggal') == 'Bersama Orang Tua' ? 'selected' : '' }}>Bersama Orang Tua
+                                </option>
+                                <option value="Wali" {{ old('jenis_tinggal') == 'Wali' ? 'selected' : '' }}>Wali
+                                </option>
+                                <option value="Kos" {{ old('jenis_tinggal') == 'Kos' ? 'selected' : '' }}>Kos</option>
+                                <option value="Asrama" {{ old('jenis_tinggal') == 'Asrama' ? 'selected' : '' }}>Asrama
+                                </option>
+                                <option value="Panti Asuhan"
+                                    {{ old('jenis_tinggal') == 'Panti Asuhan' ? 'selected' : '' }}>Panti Asuhan</option>
+                                <option value="Lainnya" {{ old('jenis_tinggal') == 'Lainnya' ? 'selected' : '' }}>Lainnya
+                                </option>
                             </select>
+                            @error('jenis_tinggal')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Alat Transportasi</label>
-                            <select class="form-select" name="alat_transportasi" required>
-                                @foreach (['Jalan Kaki', 'Sepeda', 'Motor', 'Mobil', 'Angkutan Umum', 'Antar Jemput Sekolah'] as $trp)
-                                    <option value="{{ $trp }}"
-                                        {{ old('alat_transportasi') == $trp ? 'selected' : '' }}>{{ $trp }}
-                                    </option>
-                                @endforeach
+                            <label for="jenis_tinggal" class="form-label">Jenis Tinggal</label>
+                            <select class="form-select @error('jenis_tinggal') is-invalid @enderror" name="jenis_tinggal"
+                                id="jenis_tinggal" required>
+                                <option value="" selected disabled>-- Pilih Jenis Tinggal --</option>
+                                <option value="Bersama Orang Tua"
+                                    {{ old('jenis_tinggal') == 'Bersama Orang Tua' ? 'selected' : '' }}>Bersama Orang Tua
+                                </option>
+                                <option value="Wali" {{ old('jenis_tinggal') == 'Wali' ? 'selected' : '' }}>Wali
+                                </option>
+                                <option value="Kos" {{ old('jenis_tinggal') == 'Kos' ? 'selected' : '' }}>Kos</option>
+                                <option value="Asrama" {{ old('jenis_tinggal') == 'Asrama' ? 'selected' : '' }}>Asrama
+                                </option>
+                                <option value="Panti Asuhan"
+                                    {{ old('jenis_tinggal') == 'Panti Asuhan' ? 'selected' : '' }}>Panti Asuhan</option>
+                                <option value="Lainnya" {{ old('jenis_tinggal') == 'Lainnya' ? 'selected' : '' }}>Lainnya
+                                </option>
                             </select>
+                            @error('jenis_tinggal')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Jarak Rumah ke Sekolah (km)</label>
@@ -465,7 +505,8 @@
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">Nama Bank</label>
-                            <input type="text" class="form-control" name="nama_bank" value="{{ old('nama_bank') }}">
+                            <input type="text" class="form-control" name="nama_bank"
+                                value="{{ old('nama_bank') }}">
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">No. Rekening</label>
