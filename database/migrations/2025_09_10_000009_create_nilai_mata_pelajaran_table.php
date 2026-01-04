@@ -19,7 +19,8 @@ return new class extends Migration
             $table->unique(['id_semester', 'id_mata_pelajaran', 'id_siswa'], 'unique_nilai_mata_pelajaran');
             $table->integer('jumlah_portofolio')->default(0);
             $table->json('nilai_portofolio');
-            $table->integer('nilai_ub')->default(0);
+            $table->integer('nilai_ub_1')->default(0);
+            $table->integer('nilai_ub_2')->default(0);
             $table->integer('nilai_uts')->default(0);
             $table->integer('nilai_uas')->default(0);
             $table->timestamps();

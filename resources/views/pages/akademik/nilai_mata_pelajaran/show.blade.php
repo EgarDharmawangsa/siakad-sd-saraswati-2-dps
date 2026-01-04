@@ -38,8 +38,14 @@
             @endforeach
 
             <div class="col-md-6">
-                <label for="nilai-ub" class="form-label">Nilai UB</label>
-                <input type="text" class="form-control" id="nilai-ub" value="{{ $nilai_mata_pelajaran->nilai_ub }}"
+                <label for="nilai-ub-1" class="form-label">Nilai UB 1</label>
+                <input type="text" class="form-control" id="nilai-ub-1" value="{{ $nilai_mata_pelajaran->nilai_ub_1 }}"
+                    readonly>
+            </div>
+
+            <div class="col-md-6">
+                <label for="nilai-ub-2" class="form-label">Nilai UB 2</label>
+                <input type="text" class="form-control" id="nilai-ub-2" value="{{ $nilai_mata_pelajaran->nilai_ub_2 }}"
                     readonly>
             </div>
 

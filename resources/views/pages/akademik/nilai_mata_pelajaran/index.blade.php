@@ -33,7 +33,8 @@
                             <th>Mata Pelajaran</th>
                             <th>Semester</th>
                             <th>Nilai Portofolio (Rata-rata)</th>
-                            <th>Nilai UB</th>
+                            <th>Nilai UB 1</th>
+                            <th>Nilai UB 2</th>
                             <th>Nilai UTS</th>
                             <th>Nilai UAS</th>
                             <th>Aksi</th>
@@ -57,7 +58,12 @@
                             <td>75</td>
 
                             <td>
-                                <input type="number" name="nilai_ub[1]" class="form-control nilai-input" value="90"
+                                <input type="number" name="nilai_ub_1[1]" class="form-control nilai-input" value="90"
+                                    min="0" max="100" data-row="1">
+                            </td>
+
+                            <td>
+                                <input type="number" name="nilai_ub_2[1]" class="form-control nilai-input" value="90"
                                     min="0" max="100" data-row="1">
                             </td>
 
@@ -89,7 +95,12 @@
                             <td>82</td>
 
                             <td>
-                                <input type="number" name="nilai_ub[2]" class="form-control nilai-input" value="88"
+                                <input type="number" name="nilai_ub_1[2]" class="form-control nilai-input" value="88"
+                                    min="0" max="100" data-row="2">
+                            </td>
+
+                            <td>
+                                <input type="number" name="nilai_ub_2[2]" class="form-control nilai-input" value="88"
                                     min="0" max="100" data-row="2">
                             </td>
 
@@ -132,13 +143,24 @@
 
                                 <td>
                                     <input type="number"
-                                           name="nilai_ub[{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}]"
+                                           name="nilai_ub_1[{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}]"
                                            class="form-control nilai-input"
-                                           value="{{ $_nilai_mata_pelajaran->nilai_ub }}"
+                                           value="{{ $_nilai_mata_pelajaran->nilai_ub_1 }}"
                                            min="0"
                                            max="100"
                                            data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
-                                           placeholder="Masukkan nilai UB">
+                                           placeholder="Masukkan nilai UB 1">
+                                </td>
+
+                                <td>
+                                    <input type="number"
+                                           name="nilai_ub_2[{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}]"
+                                           class="form-control nilai-input"
+                                           value="{{ $_nilai_mata_pelajaran->nilai_ub_2 }}"
+                                           min="0"
+                                           max="100"
+                                           data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
+                                           placeholder="Masukkan nilai UB 2">
                                 </td>
 
                                 <td>
