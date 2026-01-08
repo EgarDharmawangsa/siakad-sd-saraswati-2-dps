@@ -136,22 +136,54 @@ if (nilai_or_kehadiran_inputs) {
     });
 }
 
+// if (nilai_or_kehadiran_form) {
+//     nilai_or_kehadiran_form.addEventListener('submit', () => {
+
+//         nilai_or_kehadiran_inputs.forEach(_nilai_or_kehadiran_inputs => {
+//             if (_nilai_or_kehadiran_inputs.dataset.change !== "1") {
+//                 const row_key = _nilai_or_kehadiran_inputs.dataset.row;
+
+//                 _nilai_or_kehadiran_inputs.remove();
+
+//                 if (row_key) {
+//                     const hidden = document.querySelector(
+//                         `input[type="hidden"][data-row="${row_key}"]`
+//                     );
+//                     if (hidden) hidden.remove();
+//                 }
+//             }
+//         });
+//     });
+// }
+
+
 if (nilai_or_kehadiran_form) {
     nilai_or_kehadiran_form.addEventListener('submit', () => {
 
-        nilai_or_kehadiran_inputs.forEach(_nilai_or_kehadiran_inputs => {
-            if (_nilai_or_kehadiran_inputs.dataset.change !== "1") {
-                const row_key = _nilai_or_kehadiran_inputs.dataset.row;
+        const processed_rows = new Set();
 
-                _nilai_or_kehadiran_inputs.remove();
+        nilai_or_kehadiran_inputs.forEach(input => {
+            const row_key = input.dataset.row;
 
-                if (row_key) {
-                    const hidden = document.querySelector(
-                        `input[type="hidden"][data-row="${row_key}"]`
-                    );
-                    if (hidden) hidden.remove();
-                }
+            if (!row_key || processed_rows.has(row_key)) return;
+
+            const rowInputs = document.querySelectorAll(
+                `.nilai-input[data-row="${row_key}"]`
+            );
+
+            const hasChange = Array.from(rowInputs)
+                .some(i => i.dataset.change === "1");
+
+            if (!hasChange) {
+                rowInputs.forEach(i => i.remove());
+
+                const hidden = document.querySelector(
+                    `input[type="hidden"][data-row="${row_key}"]`
+                );
+                if (hidden) hidden.remove();
             }
+
+            processed_rows.add(row_key);
         });
     });
 }

@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Auth;
 
 class NilaiMataPelajaranController extends Controller
 {
+    public $nilai_mata_pelajaran_validation_rules = [
+        'id_kelas' => 'required|exists:kelas,id_kelas',
+        'id_semester' => 'required|exists:semester,id_semester',
+        'id_mata_pelajaran' => 'required|exists:mata_pelajaran,id_mata_pelajaran',
+        'jumlah_portofolio' => 'required|integer|min:1|max:20'
+    ];
     /**
      * Display a listing of the resource.
      */
@@ -27,27 +33,17 @@ class NilaiMataPelajaranController extends Controller
         }
 
         $kelas = Kelas::orderedNamaKelas()->get();
-        $kelas_default_filter = $kelas->first();
-        $siswa = Siswa::get();
+        $siswa = Siswa::orderedNomorUrutSiswa()->get();
         $mata_pelajaran = MataPelajaran::latest()->get();
-        $mata_pelajaran_default_filter = $mata_pelajaran->first();
         $semester = Semester::latest()->get();
-        $semester_default_filter = Semester::activeSemester()->first();
-
-        if (!$semester_default_filter) {
-            $semester_default_filter = $semester->first();
-        }
 
         return view('pages.akademik.nilai_mata_pelajaran.index', [
             'judul' => 'Nilai Mata Pelajaran',
             'nilai_mata_pelajaran' => $nilai_mata_pelajaran,
             'kelas' => $kelas,
-            'kelas_default_filter' => $kelas_default_filter,
             'siswa' => $siswa,
             'mata_pelajaran' => $mata_pelajaran,
-            'mata_pelajaran_default_filter' => $mata_pelajaran_default_filter,
-            'semester' => $semester,
-            'semester_default_filter' => $semester_default_filter
+            'semester' => $semester
         ]);
     }
 
@@ -81,18 +77,19 @@ class NilaiMataPelajaranController extends Controller
             abort(404);
         }
 
-        $nilai_mata_pelajaran_validation_rules = [
-            'id_kelas' => 'required|exists:kelas,id_kelas',
-            'id_semester' => 'required|exists:semester,id_semester',
-            'id_mata_pelajaran' => 'required|exists:nilai_mata_pelajaran,id_mata_pelajaran'
-        ];
         $siswa = Siswa::get();
 
         if ($siswa->isEmpty()) {
             return back()->with('error', 'Siswa tidak tersedia.');
         }
 
-        $validated_nilai_mata_pelajaran = $request->validate($nilai_mata_pelajaran_validation_rules);
+        $validated_nilai_mata_pelajaran = $request->validate($this->nilai_mata_pelajaran_validation_rules);
+
+        $siswa_in_kelas = Siswa::where('id_kelas', $validated_nilai_mata_pelajaran['id_kelas'])->get();
+
+        if ($siswa_in_kelas->isEmpty()) {
+            return back()->withErrors(['id_kelas' => 'Siswa tidak tersedia di kelas ini.'])->withInput();
+        }
 
         $jumlah_portofolio = (int) $validated_nilai_mata_pelajaran['jumlah_portofolio'];
 
@@ -100,7 +97,6 @@ class NilaiMataPelajaranController extends Controller
             $nilai_mata_pelajaran = NilaiMataPelajaran::firstOrCreate(
                 [
                     'id_siswa' => $_siswa->id_siswa,
-                    'id_kelas' => $validated_nilai_mata_pelajaran['id_kelas'],
                     'id_semester' => $validated_nilai_mata_pelajaran['id_semester'],
                     'id_mata_pelajaran' => $validated_nilai_mata_pelajaran['id_mata_pelajaran']
                 ],
@@ -159,75 +155,115 @@ class NilaiMataPelajaranController extends Controller
             abort(404);
         }
 
-        if (request()->routeIs('nilai-mata-pelajaran.mass-update')) {
-            $nilai_mata_pelajaran_validation_rules = [
-                'id_nilai_mata_pelajaran' => 'required|array',
-                'id_nilai_mata_pelajaran.*' => 'required|exists:nilai_mata_pelajaran,id_nilai_mata_pelajaran',
-                'nilai_ub_1' => 'required|array',
-                'nilai_ub_1.*' => 'required|integer|min:0|max:100',
-                'nilai_ub_2' => 'required|array',
-                'nilai_ub_2.*' => 'required|integer|min:0|max:100',
-                'nilai_uts' => 'required|array',
-                'nilai_uts.*' => 'required|integer|min:0|max:100',
-                'nilai_uas' => 'required|array',
-                'nilai_uas.*' => 'required|integer|min:0|max:100'
-            ];
+        $nilai_mata_pelajaran_validation_rules = [
+            'nilai_portofolio' => 'required|array',
+            'nilai_portofolio.*' => 'required|min:1|max:20',
+            'nilai_portofolio.*.judul' => 'required|string|min:3|max:50',
+            'nilai_portofolio.*.nilai' => 'required|integer|min:0|max:100',
+            'nilai_ub_1' => 'required|integer|min:0|max:100',
+            'nilai_ub_2' => 'required|integer|min:0|max:100',
+            'nilai_uts' => 'required|integer|min:0|max:100',
+            'nilai_uas' => 'required|integer|min:0|max:100'
+        ];
 
-            $validated_nilai_mata_pelajaran = $request->validate($nilai_mata_pelajaran_validation_rules);
+        $validated_nilai_mata_pelajaran = $request->validate($nilai_mata_pelajaran_validation_rules);
 
-            foreach ($validated_nilai_mata_pelajaran['id_nilai_mata_pelajaran'] as $_id_nilai_mata_pelajaran) {
-                $nilai_mata_pelajaran_data_update = [];
+        $nilaiMataPelajaran->update($validated_nilai_mata_pelajaran);
 
-                if (\array_key_exists($_id_nilai_mata_pelajaran, $validated_nilai_mata_pelajaran['nilai_ub_1'] ?? [])) {
-                    $nilai_mata_pelajaran_data_update['nilai_ub_1'] = $validated_nilai_mata_pelajaran['nilai_ub_1'][$_id_nilai_mata_pelajaran];
-                }
+        return redirect()->route('nilai-mata-pelajaran.index')->with('success', 'Nilai Mata Pelajaran berhasil disimpan.');
+    }
 
-                if (\array_key_exists($_id_nilai_mata_pelajaran, $validated_nilai_mata_pelajaran['nilai_ub_2'] ?? [])) {
-                    $nilai_mata_pelajaran_data_update['nilai_ub_2'] = $validated_nilai_mata_pelajaran['nilai_ub_2'][$_id_nilai_mata_pelajaran];
-                }
+    public function massUpdate(Request $request)
+    {
+        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+            abort(404);
+        }
 
-                if (\array_key_exists($_id_nilai_mata_pelajaran, $validated_nilai_mata_pelajaran['nilai_uts'] ?? [])) {
-                    $nilai_mata_pelajaran_data_update['nilai_uts'] = $validated_nilai_mata_pelajaran['nilai_uts'][$_id_nilai_mata_pelajaran];
-                }
+        $nilai_mata_pelajaran_validation_rules = [
+            'id_nilai_mata_pelajaran' => 'required|array',
+            'id_nilai_mata_pelajaran.*' => 'required|exists:nilai_mata_pelajaran,id_nilai_mata_pelajaran',
+            'nilai_ub_1' => 'required|array',
+            'nilai_ub_1.*' => 'required|integer|min:0|max:100',
+            'nilai_ub_2' => 'required|array',
+            'nilai_ub_2.*' => 'required|integer|min:0|max:100',
+            'nilai_uts' => 'required|array',
+            'nilai_uts.*' => 'required|integer|min:0|max:100',
+            'nilai_uas' => 'required|array',
+            'nilai_uas.*' => 'required|integer|min:0|max:100'
+        ];
 
-                if (\array_key_exists($_id_nilai_mata_pelajaran, $validated_nilai_mata_pelajaran['nilai_uas'] ?? [])) {
-                    $nilai_mata_pelajaran_data_update['nilai_uas'] = $validated_nilai_mata_pelajaran['nilai_uas'][$_id_nilai_mata_pelajaran];
-                }
+        $validated_nilai_mata_pelajaran = $request->validate($nilai_mata_pelajaran_validation_rules);
 
-                if (!empty($nilai_mata_pelajaran_data_update)) {
-                    NilaiMataPelajaran::where('id_nilai_mata_pelajaran', $_id_nilai_mata_pelajaran)
-                        ->update($nilai_mata_pelajaran_data_update);
-                }
+        foreach ($validated_nilai_mata_pelajaran['id_nilai_mata_pelajaran'] as $_id_nilai_mata_pelajaran) {
+            $nilai_mata_pelajaran_data_update = [];
+
+            if (\array_key_exists($_id_nilai_mata_pelajaran, $validated_nilai_mata_pelajaran['nilai_ub_1'] ?? [])) {
+                $nilai_mata_pelajaran_data_update['nilai_ub_1'] = $validated_nilai_mata_pelajaran['nilai_ub_1'][$_id_nilai_mata_pelajaran];
             }
 
-            return back()->with('success', 'Nilai Mata Pelajaran berhasil disimpan.');
-        } else {
-            $nilai_mata_pelajaran_validation_rules = [
-                'nilai_portofolio' => 'required|array',
-                'nilai_portofolio.*' => 'required|min:1|max:20',
-                'nilai_portofolio.*.judul' => 'required|string|min:3|max:50',
-                'nilai_portofolio.*.nilai' => 'required|integer|min:0|max:100',
-                'nilai_ub_1' => 'required|integer|min:0|max:100',
-                'nilai_ub_2' => 'required|integer|min:0|max:100',
-                'nilai_uts' => 'required|integer|min:0|max:100',
-                'nilai_uas' => 'required|integer|min:0|max:100'
-            ];
+            if (\array_key_exists($_id_nilai_mata_pelajaran, $validated_nilai_mata_pelajaran['nilai_ub_2'] ?? [])) {
+                $nilai_mata_pelajaran_data_update['nilai_ub_2'] = $validated_nilai_mata_pelajaran['nilai_ub_2'][$_id_nilai_mata_pelajaran];
+            }
 
-            $validated_nilai_mata_pelajaran = $request->validate($nilai_mata_pelajaran_validation_rules);
+            if (\array_key_exists($_id_nilai_mata_pelajaran, $validated_nilai_mata_pelajaran['nilai_uts'] ?? [])) {
+                $nilai_mata_pelajaran_data_update['nilai_uts'] = $validated_nilai_mata_pelajaran['nilai_uts'][$_id_nilai_mata_pelajaran];
+            }
 
-            $nilaiMataPelajaran->update($validated_nilai_mata_pelajaran);
+            if (\array_key_exists($_id_nilai_mata_pelajaran, $validated_nilai_mata_pelajaran['nilai_uas'] ?? [])) {
+                $nilai_mata_pelajaran_data_update['nilai_uas'] = $validated_nilai_mata_pelajaran['nilai_uas'][$_id_nilai_mata_pelajaran];
+            }
 
-            return redirect()->route('nilai-mata-pelajaran.index')->with('success', 'Nilai Mata Pelajaran berhasil disimpan.');
+            if (!empty($nilai_mata_pelajaran_data_update)) {
+                NilaiMataPelajaran::where('id_nilai_mata_pelajaran', $_id_nilai_mata_pelajaran)
+                    ->update($nilai_mata_pelajaran_data_update);
+            }
         }
+
+        return back()->with('success', 'Nilai Mata Pelajaran berhasil disimpan.');
+    }
+
+    public function delete()
+    {
+        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+            abort(404);
+        }
+
+        $kelas = Kelas::orderedNamaKelas()->get();
+        $semester = Semester::latest()->get();
+        $mata_pelajaran = MataPelajaran::latest()->get();
+
+        return view('pages.akademik.nilai_mata_pelajaran.delete', [
+            'judul' => 'Nilai Mata Pelajaran',
+            'kelas' => $kelas,
+            'semester' => $semester,
+            'mata_pelajaran' => $mata_pelajaran
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    // public function destroy(NilaiMataPelajaran $nilaiMataPelajaran)
-    // {
-    //     //
-    // }
+    public function destroy(Request $request)
+    {
+        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+            abort(404);
+        }
+
+        $validated_nilai_mata_pelajaran = $request->validate($this->nilai_mata_pelajaran_validation_rules);
+
+        /** @var \Illuminate\Database\Eloquent\Builder $nilai_mata_pelajaran_data */
+        $nilai_mata_pelajaran_data = NilaiMataPelajaran::whereHas('siswa', fn ($query) => $query->where('id_kelas', $validated_nilai_mata_pelajaran['id_kelas']))
+            ->where('id_semester', $validated_nilai_mata_pelajaran['id_semester'])
+            ->where('id_mata_pelajaran', $validated_nilai_mata_pelajaran['id_mata_pelajaran']);
+
+        if (!$nilai_mata_pelajaran_data->exists()) {
+            return back()->with('error', 'Nilai Mata Pelajaran tidak ditemukan untuk dihapus.');
+        }
+
+        $nilai_mata_pelajaran_data->delete();
+        
+        return redirect()->route('nilai-mata-pelajaran.index')->with('success', 'Nilai Mata Pelajaran berhasil dihapus.');
+    }
 
     private function syncPortofolio(array $nilai_portofolio, int $jumlah_portofolio): array
     {

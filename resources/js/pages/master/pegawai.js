@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateMapelLabel() {
         if (!els.mapelBtn) return;
         const checkedCount = Array.from(els.mapelCheckboxes).filter(i => i.checked).length;
-        els.mapelBtn.textContent = checkedCount > 0 ? `${checkedCount} Mapel Dipilih` : '-- Pilih Mata Pelajaran --';
+        els.mapelBtn.textContent = checkedCount > 0 ? `${checkedCount} Dipilih` : '-- Pilih Mata Pelajaran --';
         
         if(checkedCount > 0) {
             els.mapelBtn.classList.add('text-primary', 'fw-bold');
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const scopedFields = [
             els.nip, els.nipppk, els.statusKepegawaian, els.jabatan, 
             els.mapelBtn, els.username, els.password, 
-            els.noSk, els.tglSk, els.statusSertifikasi, els.thnSertifikasi
+            els.noSk, els.tglSk, els.thnSertifikasi
         ];
         scopedFields.forEach(el => { if(el) el.disabled = true; });
 
@@ -143,9 +143,9 @@ document.addEventListener("DOMContentLoaded", function () {
              if(els.password) els.password.removeAttribute('required');
         }
 
-        if (rolesWithSertifikasi.includes(currentPosisi)) {
-            if(els.statusSertifikasi) els.statusSertifikasi.disabled = false;
-        }
+        // if (rolesWithSertifikasi.includes(currentPosisi)) {
+        //     if(els.statusSertifikasi) els.statusSertifikasi.disabled = false;
+        // }
 
         if (currentPosisi === 'Guru') {
             if(els.mapelBtn) els.mapelBtn.disabled = false;

@@ -14,23 +14,15 @@
                             <label for="kelas-filter" class="form-label">Kelas</label>
                             <select class="form-select" id="kelas-filter" name="kelas_filter"
                                 {{ $kelas->isEmpty() ? 'disabled' : '' }}>
-                                @if ($kelas->isEmpty())
-                                    <option value="">-- Kelas Tidak Tersedia --</option>
-                                @else
-                                    @if (!request('kelas_filter'))
-                                        <option value="{{ $kelas_default_filter->id_kelas }}">
-                                            {{ $kelas_default_filter->nama_kelas }}
-                                        </option>
-                                    @endif
-
-                                    @foreach ($kelas as $_kelas)
-                                        @if ($_kelas->id_kelas !== $kelas_default_filter->id_kelas)
-                                            <option value="{{ $_kelas->id_kelas }}">
-                                                {{ $_kelas->nama_kelas }}
-                                            </option>
-                                        @endif
-                                    @endforeach
-                                @endif
+                                <option value="">
+                                    {{ $kelas->isNotEmpty() ? '-- Pilih Kelas --' : '-- Kelas Tidak Tersedia --' }}
+                                </option>
+                                @foreach ($kelas as $_kelas)
+                                    <option value="{{ $_kelas->id_kelas }}"
+                                        {{ request('kelas_filter') == $_kelas->id_kelas ? 'selected' : '' }}>
+                                        {{ $_kelas->nama_kelas }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -45,23 +37,15 @@
                         <label for="mata-pelajaran-filter" class="form-label">Mata Pelajaran</label>
                         <select class="form-select" id="mata-pelajaran-filter" name="mata_pelajaran_filter"
                             {{ $mata_pelajaran->isEmpty() ? 'disabled' : '' }}>
-                            @if ($mata_pelajaran->isEmpty())
-                                <option value="">-- Ekstrakurikuler Tidak Tersedia --</option>
-                            @else
-                                @if (!request('ekstrakurikuler_filter'))
-                                    <option value="{{ $mata_pelajaran_default_filter->id_mata_pelajaran }}">
-                                        {{ $mata_pelajaran_default_filter->nama_mata_pelajaran }}
-                                    </option>
-                                @endif
-
-                                @foreach ($mata_pelajaran as $_mata_pelajaran)
-                                    @if ($_mata_pelajaran->id_mata_pelajaran !== $mata_pelajaran_default_filter->id_mata_pelajaran)
-                                        <option value="{{ $_mata_pelajaran->id_mata_pelajaran }}">
-                                            {{ $_mata_pelajaran->nama_mata_pelajaran }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            @endif
+                            <option value="">
+                                {{ $mata_pelajaran->isNotEmpty() ? '-- Pilih Mata Pelajaran --' : '-- Mata Pelajaran Tidak Tersedia --' }}
+                            </option>
+                            @foreach ($mata_pelajaran as $_mata_pelajaran)
+                                <option value="{{ $_mata_pelajaran->id_mata_pelajaran }}"
+                                    {{ request('mata_pelajaran_filter') == $_mata_pelajaran->id_mata_pelajaran ? 'selected' : '' }}>
+                                    {{ $_mata_pelajaran->nama_mata_pelajaran }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -69,36 +53,28 @@
                         <label for="semester-filter" class="form-label">Semester</label>
                         <select class="form-select" id="semester-filter" name="semester_filter"
                             {{ $semester->isEmpty() ? 'disabled' : '' }}>
-                            @if ($semester->isEmpty())
-                                <option value="">-- Semester Tidak Tersedia --</option>
-                            @else
-                                @if (!request('semester_filter'))
-                                    <option value="{{ $semester_default_filter->id_semester }}">
-                                        {{ $semester_default_filter->getTahunAjaran(true) }}
-                                    </option>
-                                @endif
-
-                                @foreach ($semester as $_semester)
-                                    @if ($_semester->id_semester !== $semester_default_filter->id_semester)
-                                        <option value="{{ $_semester->id_semester }}">
-                                            {{ $_semester->getTahunAjaran(true) }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            @endif
+                            <option value="">
+                                {{ $semester->isNotEmpty() ? '-- Pilih Semester --' : '-- Semester Tidak Tersedia --' }}
+                            </option>
+                            @foreach ($semester as $_semester)
+                                <option value="{{ $_semester->id_semester }}"
+                                    {{ request('semester_filter') == $_semester->id_semester ? 'selected' : '' }}>
+                                    {{ $_semester->getTahunAjaran(true) . ' ' . $_semester->getStatus() }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
 
-                    {{-- <div class="mb-2">
-                        <label for="nilai-filter" class="form-label">Nilai</label>
-                        <input type="number" class="form-control" id="nilai-filter" name="nilai_filter"
-                            value="{{ request('nilai_filter') }}" placeholder="Masukkan nilai">
-                    </div> --}}
+                    <div class="mb-2">
+                        <label for="nilai-ub-1-filter" class="form-label">Nilai UB 1</label>
+                        <input type="number" class="form-control" id="nilai-ub-1-filter" name="nilai_ub_1_filter"
+                            value="{{ request('nilai_ub_1_filter') }}" placeholder="Masukkan nilai UB 1">
+                    </div>
 
                     <div class="mb-2">
-                        <label for="nilai-ub-filter" class="form-label">Nilai UB</label>
-                        <input type="number" class="form-control" id="nilai-ub-filter" name="nilai_ub_filter"
-                            value="{{ request('nilai_ub_filter') }}" placeholder="Masukkan nilai UB">
+                        <label for="nilai-ub-2-filter" class="form-label">Nilai UB 2</label>
+                        <input type="number" class="form-control" id="nilai-ub-2-filter" name="nilai_ub_2_filter"
+                            value="{{ request('nilai_ub_2_filter') }}" placeholder="Masukkan nilai UB 2">
                     </div>
 
                     <div class="mb-2">

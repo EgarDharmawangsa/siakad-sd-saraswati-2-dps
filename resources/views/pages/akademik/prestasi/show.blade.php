@@ -29,7 +29,7 @@
 
         @if ($prestasi->dokumentasi)
             <img src="{{ asset("storage/{$prestasi->dokumentasi}") }}" alt="Dokumentasi Prestasi"
-                class="image-content my-4 rounded">
+                class="image-content mt-4 mb-2 rounded">
         @endif
 
         <div class="row g-3">

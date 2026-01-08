@@ -11,7 +11,7 @@
         <hr>
 
         {{-- Form dengan ID form-pegawai, enctype multipart, dan novalidate --}}
-        <form action="{{ route('pegawai.update') }}" 
+        <form action="{{ route('profile.pegawai.update') }}" 
               method="POST" 
               enctype="multipart/form-data" 
               id="form-pegawai" 
@@ -45,7 +45,7 @@
                         <div class="col-md-6">
                             <label for="nik" class="form-label">NIK</label>
                             <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik"
-                                name="nik" placeholder="Masukkan NIK" value="{{ old('nik', $pegawai->nik) }}" required>
+                                name="nik" placeholder="Masukkan NIK" value="{{ old('nik', $user->nik) }}" required>
                             @error('nik') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -53,7 +53,7 @@
                             <label for="nama-pegawai" class="form-label">Nama Pegawai</label>
                             <input type="text" class="form-control @error('nama_pegawai') is-invalid @enderror"
                                 id="nama-pegawai" name="nama_pegawai" placeholder="Masukkan nama pegawai"
-                                value="{{ old('nama_pegawai', $pegawai->nama_pegawai) }}" required>
+                                value="{{ old('nama_pegawai', $user->nama_pegawai) }}" required>
                             @error('nama_pegawai') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -62,8 +62,8 @@
                             <select class="form-select @error('jenis_kelamin') is-invalid @enderror" id="jenis-kelamin"
                                 name="jenis_kelamin" required>
                                 <option value="">-- Pilih Jenis Kelamin --</option>
-                                <option value="Laki-Laki" {{ old('jenis_kelamin', $pegawai->jenis_kelamin) === 'Laki-Laki' ? 'selected' : '' }}>Laki-laki</option>
-                                <option value="Perempuan" {{ old('jenis_kelamin', $pegawai->jenis_kelamin) === 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                <option value="Laki-Laki" {{ old('jenis_kelamin', $user->jenis_kelamin) === 'Laki-Laki' ? 'selected' : '' }}>Laki-laki</option>
+                                <option value="Perempuan" {{ old('jenis_kelamin', $user->jenis_kelamin) === 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                             </select>
                             @error('jenis_kelamin') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
@@ -72,7 +72,7 @@
                             <label for="tempat-lahir" class="form-label">Tempat Lahir</label>
                             <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror"
                                 id="tempat-lahir" name="tempat_lahir" placeholder="Masukkan tempat lahir"
-                                value="{{ old('tempat_lahir', $pegawai->tempat_lahir) }}" required>
+                                value="{{ old('tempat_lahir', $user->tempat_lahir) }}" required>
                             @error('tempat_lahir') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -80,7 +80,7 @@
                             <label for="tanggal-lahir" class="form-label">Tanggal Lahir</label>
                             <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror"
                                 id="tanggal-lahir" name="tanggal_lahir" placeholder="Masukkan tanggal lahir"
-                                value="{{ old('tanggal_lahir', $pegawai->tanggal_lahir->format('Y-m-d')) }}" required>
+                                value="{{ old('tanggal_lahir', $user->tanggal_lahir->format('Y-m-d')) }}" required>
                             @error('tanggal_lahir') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -88,13 +88,13 @@
                             <label for="agama" class="form-label">Agama</label>
                             <select class="form-select @error('agama') is-invalid @enderror" id="agama" name="agama" required>
                                 <option value="">-- Pilih Agama --</option>
-                                <option value="Islam" {{ old('agama', $pegawai->agama) === 'Islam' ? 'selected' : '' }}>Islam</option>
-                                <option value="Kristen Protestan" {{ old('agama', $pegawai->agama) === 'Kristen Protestan' ? 'selected' : '' }}>Kristen Protestan</option>
-                                <option value="Kristen Katolik" {{ old('agama', $pegawai->agama) === 'Kristen Katolik' ? 'selected' : '' }}>Kristen Katolik</option>
-                                <option value="Hindu" {{ old('agama', $pegawai->agama) === 'Hindu' ? 'selected' : '' }}>Hindu</option>
-                                <option value="Buddha" {{ old('agama', $pegawai->agama) === 'Buddha' ? 'selected' : '' }}>Buddha</option>
-                                <option value="Konghucu" {{ old('agama', $pegawai->agama) === 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
-                                <option value="Tidak Beragama" {{ old('agama', $pegawai->agama) === 'Tidak Beragama' ? 'selected' : '' }}>Tidak Beragama</option>
+                                <option value="Islam" {{ old('agama', $user->agama) === 'Islam' ? 'selected' : '' }}>Islam</option>
+                                <option value="Kristen Protestan" {{ old('agama', $user->agama) === 'Kristen Protestan' ? 'selected' : '' }}>Kristen Protestan</option>
+                                <option value="Kristen Katolik" {{ old('agama', $user->agama) === 'Kristen Katolik' ? 'selected' : '' }}>Kristen Katolik</option>
+                                <option value="Hindu" {{ old('agama', $user->agama) === 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                                <option value="Buddha" {{ old('agama', $user->agama) === 'Buddha' ? 'selected' : '' }}>Buddha</option>
+                                <option value="Konghucu" {{ old('agama', $user->agama) === 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
+                                <option value="Tidak Beragama" {{ old('agama', $user->agama) === 'Tidak Beragama' ? 'selected' : '' }}>Tidak Beragama</option>
                             </select>
                             @error('agama') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
@@ -104,9 +104,9 @@
                             <select class="form-select @error('status_perkawinan') is-invalid @enderror"
                                 id="status-perkawinan" name="status_perkawinan" required>
                                 <option value="">-- Pilih Status Perkawinan --</option>
-                                <option value="Sudah" {{ old('status_perkawinan', $pegawai->status_perkawinan) === 'Sudah' ? 'selected' : '' }}>Sudah</option>
-                                <option value="Pernah" {{ old('status_perkawinan', $pegawai->status_perkawinan) === 'Pernah' ? 'selected' : '' }}>Pernah</option>
-                                <option value="Belum" {{ old('status_perkawinan', $pegawai->status_perkawinan) === 'Belum' ? 'selected' : '' }}>Belum</option>
+                                <option value="Sudah" {{ old('status_perkawinan', $user->status_perkawinan) === 'Sudah' ? 'selected' : '' }}>Sudah</option>
+                                <option value="Pernah" {{ old('status_perkawinan', $user->status_perkawinan) === 'Pernah' ? 'selected' : '' }}>Pernah</option>
+                                <option value="Belum" {{ old('status_perkawinan', $user->status_perkawinan) === 'Belum' ? 'selected' : '' }}>Belum</option>
                             </select>
                             @error('status_perkawinan') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
@@ -115,7 +115,7 @@
                             <label for="alamat" class="form-label">Alamat</label>
                             <input type="text" class="form-control @error('alamat') is-invalid @enderror"
                                 id="alamat" name="alamat" placeholder="Masukkan alamat"
-                                value="{{ old('alamat', $pegawai->alamat) }}" required>
+                                value="{{ old('alamat', $user->alamat) }}" required>
                             @error('alamat') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -123,7 +123,7 @@
                             <label for="no-telepon-rumah" class="form-label">No. Telepon Rumah<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('no_telepon_rumah') is-invalid @enderror"
                                 id="no-telepon-rumah" name="no_telepon_rumah" placeholder="Masukkan no. telepon rumah"
-                                value="{{ old('no_telepon_rumah', $pegawai->no_telepon_rumah) }}">
+                                value="{{ old('no_telepon_rumah', $user->no_telepon_rumah) }}">
                             @error('no_telepon_rumah') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -131,7 +131,7 @@
                             <label for="no-telepon-seluler" class="form-label">No. Telepon Seluler</label>
                             <input type="number" class="form-control @error('no_telepon_seluler') is-invalid @enderror"
                                 id="no-telepon-seluler" name="no_telepon_seluler" placeholder="Masukkan no. telepon seluler"
-                                value="{{ old('no_telepon_seluler', $pegawai->no_telepon_seluler) }}" required>
+                                value="{{ old('no_telepon_seluler', $user->no_telepon_seluler) }}" required>
                             @error('no_telepon_seluler') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -139,7 +139,7 @@
                             <label for="e-mail" class="form-label">E-Mail<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="email" class="form-control @error('e_mail') is-invalid @enderror"
                                 id="e-mail" name="e_mail" placeholder="Masukkan e-mail"
-                                value="{{ old('e_mail', $pegawai->e_mail) }}">
+                                value="{{ old('e_mail', $user->e_mail) }}">
                             @error('e_mail') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -147,7 +147,7 @@
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control @error('username') is-invalid @enderror"
                                 id="username" name="username" placeholder="Masukkan username"
-                                value="{{ old('username', $pegawai->userAuth?->username) }}" required>
+                                value="{{ old('username', $user->userAuth?->username) }}" required>
                             @error('username') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -168,12 +168,12 @@
                             <label for="foto" class="form-label">Foto<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             
                             {{-- Preview Gambar Existing/Baru --}}
-                            <img src='{{ $pegawai->foto ? asset("storage/{$pegawai->foto}") : '' }}'
-                                class="foto mt-2 mb-3 {{ $pegawai->foto ? '' : 'd-none' }}" id="image-preview">
+                            <img src='{{ $user->foto ? asset("storage/{$user->foto}") : '' }}'
+                                class="foto mt-2 mb-3 {{ $user->foto ? '' : 'd-none' }}" id="image-preview">
                             
                             {{-- Tombol Hapus --}}
                             <button type="button"
-                                class="btn btn-danger btn-sm d-block mx-auto mb-4 {{ $pegawai->foto ? '' : 'd-none' }}"
+                                class="btn btn-danger btn-sm d-block mx-auto mb-4 {{ $user->foto ? '' : 'd-none' }}"
                                 id="image-delete-button"><i class="bi bi-trash me-2"></i>Hapus Foto</button>
                             
                             {{-- Input File --}}
@@ -204,11 +204,11 @@
                             <select class="form-select @error('posisi') is-invalid @enderror" id="posisi"
                                 name="posisi" required>
                                 <option value="">-- Pilih Posisi --</option>
-                                <option value="Staf Tata Usaha" {{ old('posisi', $pegawai->posisi) === 'Staf Tata Usaha' ? 'selected' : '' }}>Staf Tata Usaha</option>
-                                <option value="Guru" {{ old('posisi', $pegawai->posisi) === 'Guru' ? 'selected' : '' }}>Guru</option>
-                                <option value="Pegawai Perpustakaan" {{ old('posisi', $pegawai->posisi) === 'Pegawai Perpustakaan' ? 'selected' : '' }}>Pegawai Perpustakaan</option>
-                                <option value="Pegawai Kebersihan" {{ old('posisi', $pegawai->posisi) === 'Pegawai Kebersihan' ? 'selected' : '' }}>Pegawai Kebersihan</option>
-                                <option value="Satuan Pengamananan" {{ old('posisi', $pegawai->posisi) === 'Satuan Pengamananan' ? 'selected' : '' }}>Satuan Pengamanan</option>
+                                <option value="Staf Tata Usaha" {{ old('posisi', $user->posisi) === 'Staf Tata Usaha' ? 'selected' : '' }}>Staf Tata Usaha</option>
+                                <option value="Guru" {{ old('posisi', $user->posisi) === 'Guru' ? 'selected' : '' }}>Guru</option>
+                                <option value="Pegawai Perpustakaan" {{ old('posisi', $user->posisi) === 'Pegawai Perpustakaan' ? 'selected' : '' }}>Pegawai Perpustakaan</option>
+                                <option value="Pegawai Kebersihan" {{ old('posisi', $user->posisi) === 'Pegawai Kebersihan' ? 'selected' : '' }}>Pegawai Kebersihan</option>
+                                <option value="Satuan Pengamananan" {{ old('posisi', $user->posisi) === 'Satuan Pengamananan' ? 'selected' : '' }}>Satuan Pengamanan</option>
                             </select>
                             @error('posisi') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
@@ -225,7 +225,7 @@
                                 <ul class="dropdown-menu w-100 p-2 dropdown-options-container"
                                     aria-labelledby="id-mata-pelajaran-dropdown-button">
                                     @php
-                                        $selected_mata_pelajaran = old('id_mata_pelajaran', $pegawai->guruMataPelajaran?->pluck('id_mata_pelajaran')->toArray() ?? []);
+                                        $selected_mata_pelajaran = old('id_mata_pelajaran', $user->guruMataPelajaran?->pluck('id_mata_pelajaran')->toArray() ?? []);
                                     @endphp
                                     @forelse ($mata_pelajaran as $_mata_pelajaran)
                                         <li><label class="dropdown-item"><input type="checkbox"
@@ -246,12 +246,12 @@
                             <select class="form-select @error('status_kepegawaian') is-invalid @enderror"
                                 id="status-kepegawaian" name="status_kepegawaian" required>
                                 <option value="">-- Pilih Status Kepegawaian --</option>
-                                <option value="PNS" {{ old('status_kepegawaian', $pegawai->status_kepegawaian) === 'PNS' ? 'selected' : '' }}>PNS</option>
-                                <option value="PPPK" {{ old('status_kepegawaian', $pegawai->status_kepegawaian) === 'PPPK' ? 'selected' : '' }}>PPPK</option>
-                                <option value="Honorer" {{ old('status_kepegawaian', $pegawai->status_kepegawaian) === 'Honorer' ? 'selected' : '' }}>Honorer</option>
-                                <option value="Kontrak" {{ old('status_kepegawaian', $pegawai->status_kepegawaian) === 'Kontrak' ? 'selected' : '' }}>Kontrak</option>
-                                <option value="Tetap" {{ old('status_kepegawaian', $pegawai->status_kepegawaian) === 'Tetap' ? 'selected' : '' }}>Tetap</option>
-                                <option value="Tidak Tetap" {{ old('status_kepegawaian', $pegawai->status_kepegawaian) === 'Tidak Tetap' ? 'selected' : '' }}>Tidak Tetap</option>
+                                <option value="PNS" {{ old('status_kepegawaian', $user->status_kepegawaian) === 'PNS' ? 'selected' : '' }}>PNS</option>
+                                <option value="PPPK" {{ old('status_kepegawaian', $user->status_kepegawaian) === 'PPPK' ? 'selected' : '' }}>PPPK</option>
+                                <option value="Honorer" {{ old('status_kepegawaian', $user->status_kepegawaian) === 'Honorer' ? 'selected' : '' }}>Honorer</option>
+                                <option value="Kontrak" {{ old('status_kepegawaian', $user->status_kepegawaian) === 'Kontrak' ? 'selected' : '' }}>Kontrak</option>
+                                <option value="Tetap" {{ old('status_kepegawaian', $user->status_kepegawaian) === 'Tetap' ? 'selected' : '' }}>Tetap</option>
+                                <option value="Tidak Tetap" {{ old('status_kepegawaian', $user->status_kepegawaian) === 'Tidak Tetap' ? 'selected' : '' }}>Tidak Tetap</option>
                             </select>
                             @error('status_kepegawaian') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
@@ -259,7 +259,7 @@
                         <div class="col-md-6">
                             <label for="nip" class="form-label">NIP</label>
                             <input type="number" class="form-control @error('nip') is-invalid @enderror" id="nip"
-                                name="nip" placeholder="Masukkan NIP" value="{{ old('nip', $pegawai->nip) }}" required>
+                                name="nip" placeholder="Masukkan NIP" value="{{ old('nip', $user->nip) }}" required>
                             @error('nip') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -267,7 +267,7 @@
                             <label for="nipppk" class="form-label">NIPPPK</label>
                             <input type="number" class="form-control @error('nipppk') is-invalid @enderror"
                                 id="nipppk" name="nipppk" placeholder="Masukkan NIPPPK"
-                                value="{{ old('nipppk', $pegawai->nipppk) }}" required>
+                                value="{{ old('nipppk', $user->nipppk) }}" required>
                             @error('nipppk') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -276,19 +276,19 @@
                             <select class="form-select @error('jabatan') is-invalid @enderror" id="jabatan"
                                 name="jabatan" required>
                                 <option value="">-- Pilih Jabatan --</option>
-                                <option value="Pengatur Muda | II/a" {{ old('jabatan', $pegawai->jabatan) === 'Pengatur Muda | II/a' ? 'selected' : '' }}>Pengatur Muda | II/a</option>
-                                <option value="Pengatur Muda Tk. I | II/b" {{ old('jabatan', $pegawai->jabatan) === 'Pengatur Muda Tk. I | II/b' ? 'selected' : '' }}>Pengatur Muda Tk. I | II/b</option>
-                                <option value="Pengatur | II/c" {{ old('jabatan', $pegawai->jabatan) === 'Pengatur | II/c' ? 'selected' : '' }}>Pengatur | II/c</option>
-                                <option value="Pengatur Tk. I | II/d" {{ old('jabatan', $pegawai->jabatan) === 'Pengatur Tk. I | II/d' ? 'selected' : '' }}>Pengatur Tk. I | II/d</option>
-                                <option value="Penata Muda | III/a" {{ old('jabatan', $pegawai->jabatan) === 'Penata Muda | III/a' ? 'selected' : '' }}>Penata Muda | III/a</option>
-                                <option value="Penata Muda Tk. I | III/b" {{ old('jabatan', $pegawai->jabatan) === 'Penata Muda Tk. I | III/b' ? 'selected' : '' }}>Penata Muda Tk. I | III/b</option>
-                                <option value="Penata | III/c" {{ old('jabatan', $pegawai->jabatan) === 'Penata | III/c' ? 'selected' : '' }}>Penata | III/c</option>
-                                <option value="Penata Tk. I | III/d" {{ old('jabatan', $pegawai->jabatan) === 'Penata Tk. I | III/d' ? 'selected' : '' }}>Penata Tk. I | III/d</option>
-                                <option value="Pembina | IV/a" {{ old('jabatan', $pegawai->jabatan) === 'Pembina | IV/a' ? 'selected' : '' }}>Pembina | IV/a</option>
-                                <option value="Pembina Tk. I | IV/b" {{ old('jabatan', $pegawai->jabatan) === 'Pembina Tk. I | IV/b' ? 'selected' : '' }}>Pembina Tk. I | IV/b</option>
-                                <option value="Pembina Utama Muda | IV/c" {{ old('jabatan', $pegawai->jabatan) === 'Pembina Utama Muda | IV/c' ? 'selected' : '' }}>Pembina Utama Muda | IV/c</option>
-                                <option value="Pembina Utama Madya | IV/d" {{ old('jabatan', $pegawai->jabatan) === 'Pembina Utama Madya | IV/d' ? 'selected' : '' }}>Pembina Utama Madya | IV/d</option>
-                                <option value="Pembina Utama | IV/e" {{ old('jabatan', $pegawai->jabatan) === 'Pembina Utama | IV/e' ? 'selected' : '' }}>Pembina Utama | IV/e</option>
+                                <option value="Pengatur Muda | II/a" {{ old('jabatan', $user->jabatan) === 'Pengatur Muda | II/a' ? 'selected' : '' }}>Pengatur Muda | II/a</option>
+                                <option value="Pengatur Muda Tk. I | II/b" {{ old('jabatan', $user->jabatan) === 'Pengatur Muda Tk. I | II/b' ? 'selected' : '' }}>Pengatur Muda Tk. I | II/b</option>
+                                <option value="Pengatur | II/c" {{ old('jabatan', $user->jabatan) === 'Pengatur | II/c' ? 'selected' : '' }}>Pengatur | II/c</option>
+                                <option value="Pengatur Tk. I | II/d" {{ old('jabatan', $user->jabatan) === 'Pengatur Tk. I | II/d' ? 'selected' : '' }}>Pengatur Tk. I | II/d</option>
+                                <option value="Penata Muda | III/a" {{ old('jabatan', $user->jabatan) === 'Penata Muda | III/a' ? 'selected' : '' }}>Penata Muda | III/a</option>
+                                <option value="Penata Muda Tk. I | III/b" {{ old('jabatan', $user->jabatan) === 'Penata Muda Tk. I | III/b' ? 'selected' : '' }}>Penata Muda Tk. I | III/b</option>
+                                <option value="Penata | III/c" {{ old('jabatan', $user->jabatan) === 'Penata | III/c' ? 'selected' : '' }}>Penata | III/c</option>
+                                <option value="Penata Tk. I | III/d" {{ old('jabatan', $user->jabatan) === 'Penata Tk. I | III/d' ? 'selected' : '' }}>Penata Tk. I | III/d</option>
+                                <option value="Pembina | IV/a" {{ old('jabatan', $user->jabatan) === 'Pembina | IV/a' ? 'selected' : '' }}>Pembina | IV/a</option>
+                                <option value="Pembina Tk. I | IV/b" {{ old('jabatan', $user->jabatan) === 'Pembina Tk. I | IV/b' ? 'selected' : '' }}>Pembina Tk. I | IV/b</option>
+                                <option value="Pembina Utama Muda | IV/c" {{ old('jabatan', $user->jabatan) === 'Pembina Utama Muda | IV/c' ? 'selected' : '' }}>Pembina Utama Muda | IV/c</option>
+                                <option value="Pembina Utama Madya | IV/d" {{ old('jabatan', $user->jabatan) === 'Pembina Utama Madya | IV/d' ? 'selected' : '' }}>Pembina Utama Madya | IV/d</option>
+                                <option value="Pembina Utama | IV/e" {{ old('jabatan', $user->jabatan) === 'Pembina Utama | IV/e' ? 'selected' : '' }}>Pembina Utama | IV/e</option>
                             </select>
                             @error('jabatan') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
@@ -297,7 +297,7 @@
                             <label for="permulaan-kerja" class="form-label">Tanggal Permulaan Kerja</label>
                             <input type="date" class="form-control @error('permulaan_kerja') is-invalid @enderror"
                                 id="permulaan-kerja" name="permulaan_kerja"
-                                value="{{ old('permulaan_kerja', $pegawai->permulaan_kerja->format('Y-m-d')) }}" required>
+                                value="{{ old('permulaan_kerja', $user->permulaan_kerja->format('Y-m-d')) }}" required>
                             @error('permulaan_kerja') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -305,7 +305,7 @@
                             <label for="permulaan-kerja-sds2" class="form-label">Tanggal Permulaan Kerja (RASDA)</label>
                             <input type="date" class="form-control @error('permulaan_kerja_sds2') is-invalid @enderror"
                                 id="permulaan-kerja-sds2" name="permulaan_kerja_sds2"
-                                value="{{ old('permulaan_kerja_sds2', $pegawai->permulaan_kerja_sds2->format('Y-m-d')) }}" required>
+                                value="{{ old('permulaan_kerja_sds2', $user->permulaan_kerja_sds2->format('Y-m-d')) }}" required>
                             @error('permulaan_kerja_sds2') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                     </div>
@@ -327,7 +327,7 @@
                             <label for="ijazah-terakhir" class="form-label">Ijazah Terakhir<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="text" class="form-control @error('ijazah_terakhir') is-invalid @enderror"
                                 id="ijazah-terakhir" name="ijazah_terakhir" placeholder="Masukkan ijazah terakhir"
-                                value="{{ old('ijazah_terakhir', $pegawai->ijazah_terakhir) }}">
+                                value="{{ old('ijazah_terakhir', $user->ijazah_terakhir) }}">
                             @error('ijazah_terakhir') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -335,7 +335,7 @@
                             <label for="tahun-ijazah" class="form-label">Tahun Ijazah<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('tahun_ijazah') is-invalid @enderror"
                                 id="tahun-ijazah" name="tahun_ijazah" placeholder="Masukkan tahun ijazah"
-                                value="{{ old('tahun_ijazah', $pegawai->tahun_ijazah) }}" min="1900" max="{{ date('Y') }}">
+                                value="{{ old('tahun_ijazah', $user->tahun_ijazah) }}" min="1900" max="{{ date('Y') }}">
                             @error('tahun_ijazah') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -344,8 +344,8 @@
                             <select class="form-select @error('status_sertifikasi') is-invalid @enderror"
                                 id="status-sertifikasi" name="status_sertifikasi" required>
                                 <option value="">-- Pilih Status Sertifikasi --</option>
-                                <option value="Sudah" {{ old('status_sertifikasi', $pegawai->status_sertifikasi) === 'Sudah' ? 'selected' : '' }}>Sudah</option>
-                                <option value="Belum" {{ old('status_sertifikasi', $pegawai->status_sertifikasi) === 'Belum' ? 'selected' : '' }}>Belum</option>
+                                <option value="Sudah" {{ old('status_sertifikasi', $user->status_sertifikasi) === 'Sudah' ? 'selected' : '' }}>Sudah</option>
+                                <option value="Belum" {{ old('status_sertifikasi', $user->status_sertifikasi) === 'Belum' ? 'selected' : '' }}>Belum</option>
                             </select>
                             @error('status_sertifikasi') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
@@ -354,7 +354,7 @@
                             <label for="tahun-sertifikasi" class="form-label">Tahun Sertifikasi</label>
                             <input type="number" class="form-control @error('tahun_sertifikasi') is-invalid @enderror"
                                 id="tahun-sertifikasi" name="tahun_sertifikasi" placeholder="Masukkan tahun sertifikasi"
-                                value="{{ old('tahun_sertifikasi', $pegawai->tahun_sertifikasi) }}" min="1900" max="{{ date('Y') }}" required>
+                                value="{{ old('tahun_sertifikasi', $user->tahun_sertifikasi) }}" min="1900" max="{{ date('Y') }}" required>
                             @error('tahun_sertifikasi') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                     </div>
@@ -376,7 +376,7 @@
                             <label for="no-sk" class="form-label">Nomor SK</label>
                             <input type="text" class="form-control @error('no_sk') is-invalid @enderror"
                                 id="no-sk" name="no_sk" placeholder="Masukkan no. SK terakhir"
-                                value="{{ old('no_sk', $pegawai->no_sk) }}" required>
+                                value="{{ old('no_sk', $user->no_sk) }}" required>
                             @error('no_sk') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
@@ -384,7 +384,7 @@
                             <label for="tanggal-sk-terakhir" class="form-label">Tanggal SK Terakhir</label>
                             <input type="date" class="form-control @error('tanggal_sk_terakhir') is-invalid @enderror"
                                 id="tanggal-sk-terakhir" name="tanggal_sk_terakhir"
-                                value="{{ old('tanggal_sk_terakhir', $pegawai->tanggal_sk_terakhir?->format('Y-m-d')) }}" required>
+                                value="{{ old('tanggal_sk_terakhir', $user->tanggal_sk_terakhir?->format('Y-m-d')) }}" required>
                             @error('tanggal_sk_terakhir') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                     </div>

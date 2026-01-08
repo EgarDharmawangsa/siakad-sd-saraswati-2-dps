@@ -58,7 +58,7 @@ class SemesterController extends Controller
         $errors = Semester::getTanggalValidationErrors($validated_semester['tanggal_mulai'], $validated_semester['tanggal_selesai']);
 
         if (!empty($errors)) {
-            return redirect()->back()->withErrors($errors)->withInput();
+            return back()->withErrors($errors)->withInput();
         }
 
         Semester::create($validated_semester);
@@ -115,7 +115,7 @@ class SemesterController extends Controller
         $errors = Semester::getTanggalValidationErrors($validated_semester['tanggal_mulai'], $validated_semester['tanggal_selesai'], $semester->id_semester);
 
         if (!empty($errors)) {
-            return redirect()->back()->withErrors($errors)->withInput();
+            return back()->withErrors($errors)->withInput();
         }
 
         $semester->update($validated_semester);

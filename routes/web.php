@@ -17,6 +17,8 @@ use App\Http\Controllers\NilaiMataPelajaranController;
 use App\Http\Controllers\NilaiEkstrakurikulerController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Requests\UpdatePegawaiRequest;
+use App\Http\Requests\UpdateSiswaRequest;
 
 // Redirect
 Route::fallback([AuthController::class, 'redirect'])->name('redirect');
@@ -42,11 +44,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('/mata-pelajaran', MataPelajaranController::class)->middleware('role:staf-tata-usaha,guru');
     Route::resource('/ekstrakurikuler', EkstrakurikulerController::class);
 
-    // Route Profile
-    Route::get('/profil', [ProfileController::class, 'index'])->name('profil');
-    Route::get('/profil/edit', [ProfileController::class, 'edit'])->name('profil.edit');
-    Route::put('/profil/pegawai/update', [PegawaiController::class, 'update'])->name('profil-pegawai.update');
-    Route::put('/profil/siswa/update', [SiswaController::class, 'update'])->name('profil-siswa.update');
+    //Route Profile
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/pegawai/update', [ProfileController::class, 'pegawaiUpdate'])->name('profile.pegawai.update')->middleware('role:staf-tata-usaha,guru');
+    Route::put('/profile/siswa/update', [ProfileController::class, 'siswaUpdate'])->name('profile.siswa.update')->middleware('role:siswa');
 
     // Route Akademik
     Route::resource('/jadwal-pelajaran', JadwalPelajaranController::class);
@@ -54,17 +56,22 @@ Route::middleware('auth')->group(function () {
     Route::resource('/pengumuman', PengumumanController::class);
     
     // Route Nilai Mata Pelajaran (Route Akademik)
-    Route::resource('/nilai-mata-pelajaran', NilaiMataPelajaranController::class)->except(['destroy']);
-    Route::patch('/nilai-mata-pelajaran/update', [NilaiMataPelajaranController::class, 'update'])->name('nilai-mata-pelajaran.mass-update')->middleware('role:staf-tata-usaha,guru');
+    Route::put('/nilai-mata-pelajaran/mass-update', [NilaiMataPelajaranController::class, 'massUpdate'])->name('nilai-mata-pelajaran.mass-update')->middleware('role:staf-tata-usaha,guru');
+    Route::get('/nilai-mata-pelajaran/delete', [NilaiMataPelajaranController::class, 'delete'])->name('nilai-mata-pelajaran.delete')->middleware('role:staf-tata-usaha,guru');
+    Route::post('/nilai-mata-pelajaran/destroy', [NilaiMataPelajaranController::class, 'destroy'])->name('nilai-mata-pelajaran.destroy')->middleware('role:staf-tata-usaha,guru');
+    Route::resource('/nilai-mata-pelajaran', NilaiMataPelajaranController::class)->except('destroy');
     
     // Route Nilai Ekstrakurikuler (Route Akademik)
-    Route::resource('/nilai-ekstrakurikuler', NilaiEkstrakurikulerController::class)->except(['edit', 'destroy']);
-    Route::patch('/nilai-ekstrakurikuler/update', [NilaiEkstrakurikulerController::class, 'update'])->name('nilai-ekstrakurikuler.mass-update')->middleware('role:staf-tata-usaha,guru');
+    Route::put('/nilai-ekstrakurikuler/mass-update', [NilaiEkstrakurikulerController::class, 'massUpdate'])->name('nilai-ekstrakurikuler.mass-update')->middleware('role:staf-tata-usaha');
+    Route::get('/nilai-ekstrakurikuler/delete', [NilaiEkstrakurikulerController::class, 'delete'])->name('nilai-ekstrakurikuler.delete')->middleware('role:staf-tata-usaha');
+    Route::post('/nilai-ekstrakurikuler/destroy', [NilaiEkstrakurikulerController::class, 'destroy'])->name('nilai-ekstrakurikuler.destroy')->middleware('role:staf-tata-usaha');
+    Route::resource('/nilai-ekstrakurikuler', NilaiEkstrakurikulerController::class)->except(['edit', 'update', 'destroy']);
     
     // Route Kehadiran (Route Akademik)
-    Route::resource('/kehadiran', KehadiranController::class)->except(['edit', 'destroy']);
-    Route::patch('/kehadiran/update', [KehadiranController::class, 'update'])->name('kehadiran.mass-update')->middleware('role:staf-tata-usaha,guru');
-
+    Route::put('/kehadiran/mass-update', [KehadiranController::class, 'massUpdate'])->name('kehadiran.mass-update')->middleware('role:staf-tata-usaha,guru');
+    Route::get('/kehadiran/delete', [KehadiranController::class, 'delete'])->name('kehadiran.delete')->middleware('role:staf-tata-usaha,guru');
+    Route::post('/kehadiran/destroy', [KehadiranController::class, 'destroy'])->name('kehadiran.destroy')->middleware('role:staf-tata-usaha,guru');
+    Route::resource('/kehadiran', KehadiranController::class)->except(['edit', 'update', 'destroy']);
 
     // Route Log Out
     Route::post('/log-out', [AuthController::class, 'logOut'])->name('log-out');

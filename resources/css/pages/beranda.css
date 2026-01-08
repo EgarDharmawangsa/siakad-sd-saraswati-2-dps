@@ -2,6 +2,33 @@
     margin: 0 0 1rem 0;
 }
 
+.siswa-bio-background {
+    height: 7rem;
+    background: linear-gradient(to right, #28ad60, #555877);
+    border-radius: 12px 12px 0 0;
+    padding: -1rem;
+}
+
+.siswa-bio-description {
+    padding: 0 1rem 1rem;
+}
+
+.siswa-bio-foto-container {
+    height: 4.5rem;
+}
+
+.siswa-bio-foto {
+    width: 100%;
+    max-width: 10rem;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 6px solid white;
+    border-radius: 50%;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -60%);
+}
+
 .icon-count-card {
     position: absolute;
     opacity: 0.5;

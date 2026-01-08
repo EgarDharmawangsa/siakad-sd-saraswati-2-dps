@@ -6,6 +6,7 @@
         <hr>
 
         <form action="{{ route('prestasi.update', $prestasi->id_prestasi) }}" method="POST" enctype="multipart/form-data">
+            @method('PUT')
             @csrf
             <div class="row g-3">
                 <div class="col-md-6">

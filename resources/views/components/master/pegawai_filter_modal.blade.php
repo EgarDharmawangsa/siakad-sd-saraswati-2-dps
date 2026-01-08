@@ -12,11 +12,11 @@
                     <ul class="nav nav-tabs mt-2" id="pegawai-filter-tab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="data-pribadi-filter-tab-button" data-bs-toggle="tab"
-                                data-bs-target="#data-pribadi-filter-tab" type="button">Data pribadi</button>
+                                data-bs-target="#data-pribadi-filter-tab" type="button">Pribadi</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="data-kepegawaian-filter-tab-button" data-bs-toggle="tab"
-                                data-bs-target="#data-kepegawaian-filter-tab" type="button">Data Kepegawaian</button>
+                                data-bs-target="#data-kepegawaian-filter-tab" type="button">Kepegawaian</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="data-pendidikan-filter-tab-button" data-bs-toggle="tab"
@@ -25,7 +25,7 @@
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="data-sk-filter-tab-button" data-bs-toggle="tab"
-                                data-bs-target="#data-sk-filter-tab" type="button">Data SK</button>
+                                data-bs-target="#data-sk-filter-tab" type="button">SK</button>
                         </li>
                     </ul>
 

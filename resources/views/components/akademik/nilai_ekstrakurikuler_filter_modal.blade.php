@@ -19,7 +19,7 @@
                                 </option>
                                 @foreach ($kelas as $_kelas)
                                     <option value="{{ $_kelas->id_kelas }}"
-                                        {{ old('kelas_filter') === $_kelas->id_kelas ? 'selected' : '' }}>
+                                        {{ request('kelas_filter') == $_kelas->id_kelas ? 'selected' : '' }}>
                                         {{ $_kelas->nama_kelas }}
                                     </option>
                                 @endforeach
@@ -37,23 +37,15 @@
                         <label for="ekstrakurikuler-filter" class="form-label">Ekstrakurikuler</label>
                         <select class="form-select" id="ekstrakurikuler-filter" name="ekstrakurikuler_filter"
                             {{ $ekstrakurikuler->isEmpty() ? 'disabled' : '' }}>
-                            @if ($ekstrakurikuler->isEmpty())
-                                <option value="">-- Ekstrakurikuler Tidak Tersedia --</option>
-                            @else 
-                                @if (!request('ekstrakurikuler_filter'))
-                                    <option value="{{ $ekstrakurikuler_default_filter->id_ekstrakurikuler }}">
-                                        {{ $ekstrakurikuler_default_filter->nama_ekstrakurikuler }}
-                                    </option>
-                                @endif
-
-                                @foreach ($ekstrakurikuler as $_ekstrakurikuler)
-                                    @if ($_ekstrakurikuler->id_ekstrakurikuler !== $ekstrakurikuler_default_filter->id_ekstrakurikuler)
-                                        <option value="{{ $_ekstrakurikuler->id_ekstrakurikuler }}">
-                                            {{ $_ekstrakurikuler->nama_ekstrakurikuler }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            @endif
+                            <option value="">
+                                {{ $ekstrakurikuler->isNotEmpty() ? '-- Pilih Ekstrakurikuler --' : '-- Ekstrakurikuler Tidak Tersedia --' }}
+                            </option>
+                            @foreach ($ekstrakurikuler as $_ekstrakurikuler)
+                                <option value="{{ $_ekstrakurikuler->id_ekstrakurikuler }}"
+                                    {{ request('ekstrakurikuler_filter') == $_ekstrakurikuler->id_ekstrakurikuler ? 'selected' : '' }}>
+                                    {{ $_ekstrakurikuler->nama_ekstrakurikuler }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -61,23 +53,15 @@
                         <label for="semester-filter" class="form-label">Semester</label>
                         <select class="form-select" id="semester-filter" name="semester_filter"
                             {{ $semester->isEmpty() ? 'disabled' : '' }}>
-                            @if ($semester->isEmpty())
-                                <option value="">-- Semester Tidak Tersedia --</option>
-                            @else
-                                @if (!request('semester_filter'))
-                                    <option value="{{ $semester_default_filter->id_semester }}">
-                                        {{ $semester_default_filter->getTahunAjaran(true) }}
-                                    </option>
-                                @endif
-
-                                @foreach ($semester as $_semester)
-                                    @if ($_semester->id_semester !== $semester_default_filter->id_semester)
-                                        <option value="{{ $_semester->id_semester }}">
-                                            {{ $_semester->getTahunAjaran(true) }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            @endif
+                            <option value="">
+                                {{ $semester->isNotEmpty() ? '-- Pilih Semester --' : '-- Semester Tidak Tersedia --' }}
+                            </option>
+                            @foreach ($semester as $_semester)
+                                <option value="{{ $_semester->id_semester }}"
+                                    {{ request('semester_filter') == $_semester->id_semester ? 'selected' : '' }}>
+                                    {{ $_semester->getTahunAjaran(true) . ' ' . $_semester->getStatus() }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
 

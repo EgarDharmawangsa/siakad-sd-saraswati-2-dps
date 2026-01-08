@@ -3,189 +3,149 @@
 @section('container')
     <div class="content-card mb-4">
         <div class="index-buttons">
-            @can('staf-tata-usaha')
+            @canany(['staf-tata-usaha', 'guru'])
                 <a href="{{ route('kehadiran.create') }}" class="btn btn-success"><i class="bi bi-plus-lg me-2"></i>Tambah
                     Kehadiran</a>
-            @endcan
+            @endcanany
 
             <div class="modifier-buttons">
                 <div class="filter-modal-container">
                     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
                         <i class="bi bi-funnel me-2"></i>Filter
                     </button>
-    
+
                     @include('components.akademik.kehadiran_filter_modal')
                 </div>
             </div>
         </div>
 
-        {{-- @if ($siswa->isNotEmpty()) --}}
-        <form action="{{ route('kehadiran.mass-update') }}" method="POST" id="nilai-form">
-            @method('PATCH')
-            @csrf
+        @if ($siswa->isNotEmpty())
+            <form action="{{ route('kehadiran.mass-update') }}" method="POST" id="nilai-form">
+                @method('PUT')
+                @csrf
 
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
 
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Siswa</th>
-                            <th>Semester</th>
-                            <th>Status Kehadiran</th>
-                            <th>Keterangan</th>
-                            <th>Tanggal</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Siswa</th>
+                                @canany(['staf-tata-usaha', 'guru'])
+                                    <th>Kelas</th>
+                                @endcanany
+                                <th>Semester</th>
+                                <th>Status Kehadiran</th>
+                                <th>Keterangan</th>
+                                <th>Tanggal</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
 
-                    <tbody>
+                        <tbody>
+                            @forelse ($kehadiran as $_kehadiran)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
 
-                        {{-- ================= STRUKTUR ASLI ================= --}}
-                        {{--
-                    @forelse ($kehadiran as $_kehadiran)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        <input type="hidden" name="id_kehadiran[]"
+                                            value="{{ $_kehadiran->id_kehadiran }}">
+                                        {{ $_kehadiran->siswa->getFormatedNamaSiswa() }}
+                                    </td>
 
-                        <td>
-                            <input type="hidden"
-                                   name="kehadiran_ids[]"
-                                   value="{{ $_kehadiran->id_kehadiran }}">
-                            {{ $_kehadiran->siswa->getFormatedNamaSiswa() }}
-                        </td>
+                                    @canany(['staf-tata-usaha', 'guru'])
+                                        <td>{{ $_kehadiran->siswa->kelas?->nama_kelas ?? '-' }}</td>
+                                    @endcanany
 
-                        <td>
-                            {{ $_nilai_ekstrakurikuler->semester->getTahunAjaran(true) }}
-                            <span class="badge bg-{{ $_semester->getStatus() === 'Berjalan' ? 'success' : ($_semester->getStatus() === 'Menunggu' ? 'primary' : 'secondary') }}">
-                                {{ $_semester->getStatus() }}
-                            </span>
-                        </td>
+                                    <td>
+                                        {{ $_kehadiran->semester->getTahunAjaran(true) }}
+                                        <span
+                                            class="badge bg-{{ $_kehadiran->semester->getStatus() === 'Berjalan' ? 'success' : ($_kehadiran->semester->getStatus() === 'Menunggu' ? 'primary' : 'secondary') }} ms-1">
+                                            {{ $_kehadiran->semester->getStatus() }}
+                                        </span>
+                                    </td>
 
-                        <td>
-                            <input type="hidden"
-                                   name="status[{{ $_kehadiran->id_kehadiran }}]"
-                                   value="{{ $_kehadiran->status }}">
+                                    @canany(['staf-tata-usaha', 'guru'])
+                                    <td>
+                                        <input type="hidden" name="status[{{ $_kehadiran->id_kehadiran }}]"
+                                            value="{{ $_kehadiran->status }}">
 
-                            <div class="d-flex gap-2 px-2">
-                                @foreach (['Hadir', 'Izin', 'Sakit', 'Alfa'] as $status)
-                                    <label class="mx-auto">
-                                        <input type="radio"
-                                               name="radio_status_{{ $_kehadiran->id_kehadiran }}"
-                                               class="kehadiran-input"
-                                               data-row="{{ $_kehadiran->id_kehadiran }}"
-                                               value="{{ $status }}"
-                                               {{ $_kehadiran->status === $status ? 'checked' : '' }}>
-                                        {{ $status }}
-                                    </label>
-                                @endforeach
-                            </div>
-                        </td>
+                                        <div class="d-flex gap-2 px-2">
+                                            @foreach (['Hadir', 'Izin', 'Sakit', 'Alfa'] as $status)
+                                                <label class="mx-auto">
+                                                    <input type="radio"
+                                                        name="status[{{ $_kehadiran->id_kehadiran }}]"
+                                                        class="kehadiran-input" data-row="{{ $_kehadiran->id_kehadiran }}"
+                                                        value="{{ $status }}"
+                                                        {{ $_kehadiran->status === $status ? 'checked' : '' }}>
+                                                    {{ $status }}
+                                                </label>
+                                            @endforeach
+                                        </div>
+                                    </td>
+                                    @endcanany
 
-                        <td>
-                            <input type="text"
-                                   name="keterangan[{{ $_kehadiran->id_kehadiran }}]"
-                                   class="form-control keterangan-input"
-                                   value="{{ $_kehadiran->keterangan }}"
-                                   placeholder="Masukkan keterangan"
-                                   {{ $_kehadiran->status === 'Izin' ? '' : 'disabled' }}>
-                        </td>
+                                    @can('siswa')
+                                        <td>{{ $_kehadiran->status }}</td>
+                                    @endcan
 
-                        <td>{{ $_kehadiran->tanggal->getFormatedTanggal() }}</td>
-                    </tr>
+                                    @canany(['staf-tata-usaha', 'guru'])
+                                        <td>
+                                            <input type="text" name="keterangan[{{ $_kehadiran->id_kehadiran }}]"
+                                                class="form-control keterangan-input" value="{{ $_kehadiran->keterangan }}"
+                                                placeholder="Masukkan keterangan"
+                                                {{ $_kehadiran->status === 'Izin' ? '' : 'disabled' }}>
+                                        </td>
+                                    @endcanany
 
-                    @empty
-                    <tr class="text-center">
-                        <td colspan="6">Belum ada data kehadiran.</td>
-                    </tr>
-                    @endforelse
-                    --}}
-                        {{-- =============== END STRUKTUR ASLI =============== --}}
+                                    @can('siswa')
+                                        <td>{{ $_kehadiran->keterangan ?? '-' }}</td>
+                                    @endcan
 
-                        {{-- ================= DATA DUMMY ================= --}}
+                                    <td>{{ $_kehadiran->getFormatedTanggal() }}</td>
 
-                        <tr>
-                            <td>1</td>
-                            <td>
-                                <input type="hidden" name="kehadiran_ids[]" value="1">
-                                220040026 | I Komang Egar Suarama Dharmawangsa
-                            </td>
-                            <td>Ganjil 2025/2026</td>
+                                    <td class="aksi-column">
+                                        <a href="{{ route('kehadiran.show', $_kehadiran->id_kehadiran) }}"
+                                            class="btn btn-info btn-sm">
+                                            <i class="bi bi-info-lg me-2"></i>Detail
+                                        </a>
+                                    </td>
+                                </tr>
 
-                            <td>
-                                <input type="hidden" name="status[1]" value="Hadir">
+                            @empty
+                                <tr class="text-center">
+                                    @canany(['staf-tata-usaha', 'guru'])
+                                        <td colspan="8">Belum ada data kehadiran.</td>
+                                    @endcanany
+                                    @can('siswa')
+                                        <td colspan="7">Belum ada data kehadiran.</td>
+                                    @endcan
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
 
-                                <div class="d-flex gap-2 px-2">
-                                    @foreach (['Hadir', 'Izin', 'Sakit', 'Alfa'] as $status)
-                                        <label class="mx-auto">
-                                            <input type="radio" name="radio_status_1" class="kehadiran-input"
-                                                data-row="1" value="{{ $status }}"
-                                                {{ $status === 'Hadir' ? 'checked' : '' }}>
-                                            {{ $status }}
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </td>
+                @canany(['staf-tata-usaha', 'guru'])
+                    <div class="d-flex justify-content-between rounded-3 mt-4 p-3 submit-warning-container">
+                        <p class="mini-label submit-warning-text">
+                            Simpan kehadiran sebelum berpindah ke halaman atau daftar berikutnya!
+                        </p>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-floppy me-2"></i>Simpan
+                        </button>
+                    </div>
+                @endcanany
 
-                            <td>
-                                <input type="text" name="keterangan[1]" class="form-control keterangan-input"
-                                    placeholder="Masukkan keterangan" value="" disabled>
-                            </td>
-
-                            <td>2025-09-12</td>
-
-                            <td>-</td>
-                        </tr>
-
-                        <tr>
-                            <td>2</td>
-                            <td>
-                                <input type="hidden" name="kehadiran_ids[]" value="2">
-                                220040027 | Ni Luh Putu Sari Dewi
-                            </td>
-                            <td>Ganjil 2025/2026</td>
-
-                            <td>
-                                <input type="hidden" name="status[2]" value="Izin">
-
-                                <div class="d-flex gap-2 px-2">
-                                    @foreach (['Hadir', 'Izin', 'Sakit', 'Alfa'] as $status)
-                                        <label class="mx-auto">
-                                            <input type="radio" name="radio_status_2" class="kehadiran-input"
-                                                data-row="2" value="{{ $status }}"
-                                                {{ $status === 'Izin' ? 'checked' : '' }}>
-                                            {{ $status }}
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </td>
-
-                            <td>
-                                <input type="text" name="keterangan[2]" class="form-control keterangan-input"
-                                    placeholder="Masukkan keterangan" value="Acara keluarga">
-                            </td>
-
-                            <td>2025-09-12</td>
-
-                            <td>-</td>
-                        </tr>
-
-                        {{-- =============== END DATA DUMMY =============== --}}
-
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="d-flex justify-content-between rounded-3 mt-4 p-3 submit-warning-container">
-                <p class="mini-label submit-warning-text">
-                    Simpan kehadiran sebelum berpindah ke halaman atau daftar berikutnya!
-                </p>
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-floppy me-2"></i>Simpan
-                </button>
-            </div>
-        </form>
-        {{-- @else
+                @canany(['staf-tata-usaha', 'guru'])
+                    <div class="d-flex justify-content-end mt-4">
+                        <a href="{{ route('kehadiran.delete') }}" class="btn btn-danger"><i
+                            class="bi bi-trash me-2"></i>Hapus Kehadiran</a>
+                    </div>
+                @endcanany
+            </form>
+        @else
             <p class="empty-message text-center mb-0 p-3 rounded">Siswa tidak tersedia.</p>
-        @endif --}}
+        @endif
     </div>
 @endsection

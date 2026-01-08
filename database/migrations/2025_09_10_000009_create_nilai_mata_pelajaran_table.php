@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('id_siswa')->constrained('siswa', 'id_siswa')->onDelete('cascade');
             $table->unique(['id_semester', 'id_mata_pelajaran', 'id_siswa'], 'unique_nilai_mata_pelajaran');
             $table->integer('jumlah_portofolio')->default(0);
-            $table->json('nilai_portofolio');
+            $table->json('nilai_portofolio')->nullable();
             $table->integer('nilai_ub_1')->default(0);
             $table->integer('nilai_ub_2')->default(0);
             $table->integer('nilai_uts')->default(0);

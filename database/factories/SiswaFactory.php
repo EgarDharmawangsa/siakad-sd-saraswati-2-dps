@@ -12,12 +12,9 @@ class SiswaFactory extends Factory
 {
     public function definition(): array
     {
-        $id_kelas = Kelas::inRandomOrder()->first()->id_kelas ?? null;
-
         $yaTidak = fake()->randomElement(['Ya', 'Tidak']);
 
         return [
-            'id_kelas' => $id_kelas,
             'no_kk' => fake()->numerify('################'), 
             'nik' => fake()->unique()->numerify('################'),
             'nisn' => fake()->unique()->numerify('##########'),
@@ -82,8 +79,7 @@ class SiswaFactory extends Factory
             'jenjang_pendidikan_wali' => fake()->optional()->randomElement(['SMA', 'S1']),
             'pekerjaan_wali' => fake()->optional()->jobTitle(),
             'penghasilan_wali' => fake()->optional()->randomElement(['2 - 5 Juta']),
-            
-            'foto' => null,
+            'foto' => null
         ];
     }
 }

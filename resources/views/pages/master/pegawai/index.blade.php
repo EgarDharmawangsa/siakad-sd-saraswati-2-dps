@@ -89,10 +89,7 @@
                             <td>{{ $_pegawai->posisi }}</td>
                             <td>
                                 @if ($_pegawai->posisi === 'Guru')
-                                    @foreach ($_pegawai->guruMataPelajaran as $_guru_mata_pelajaran)
-                                        <span
-                                            class="badge bg-secondary">{{ $_guru_mata_pelajaran->mataPelajaran?->nama_mata_pelajaran }}</span>
-                                    @endforeach
+                                    {{ $_pegawai->guruMataPelajaran?->count() }} Mata Pelajaran
                                 @else
                                     -
                                 @endif

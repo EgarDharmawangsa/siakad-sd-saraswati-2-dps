@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Gate;
 
 /**
  * @property Carbon $tanggal
@@ -51,7 +52,7 @@ class Prestasi extends Model
             'internasional'
         ];
 
-        if (request()->routeIs('beranda')) {
+        if (request()->routeIs('beranda') && Gate::any(['staf-tata-usaha', 'guru'])) {
             $prestasi_improvement_tahun_value = !empty($filters['prestasi_improvement_tahun_filter']) ? $filters['prestasi_improvement_tahun_filter'] : date('Y');
 
             if (!is_numeric($prestasi_improvement_tahun_value)) {
@@ -70,13 +71,15 @@ class Prestasi extends Model
                 $query->where('nama_prestasi', 'like', "%{$filters['nama_prestasi_filter']}%");
             }
 
-            if (!empty($filters['peraih_filter'])) {
-                $query->whereHas('siswa', fn($query) => 
-                    $query->where(fn($query) => 
-                        $query->where('nisn', 'like', '%' . $filters['peraih_filter'] . '%')
-                            ->orWhere('nama_siswa', 'like', '%' . $filters['peraih_filter'] . '%')
-                    )
-                );
+            if (Gate::any(['staf-tata-usaha', 'guru'])) {
+                if (!empty($filters['peraih_filter'])) {
+                    $query->whereHas('siswa', fn($query) => 
+                        $query->where(fn($query) => 
+                            $query->where('nisn', 'like', '%' . $filters['peraih_filter'] . '%')
+                                ->orWhere('nama_siswa', 'like', '%' . $filters['peraih_filter'] . '%')
+                        )
+                    );
+                }
             }
 
             if (!empty($filters['penyelenggara_filter'])) {

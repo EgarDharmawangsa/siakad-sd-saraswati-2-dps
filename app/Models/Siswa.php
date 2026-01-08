@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id_siswa
+ * @property int $id_kelas
  * @property int $nisn
  * @property int $nomor_urut
  * @property string $nama_siswa
@@ -23,20 +24,27 @@ class Siswa extends Model
 
     protected $guarded = ['id_siswa'];
 
+    protected $casts = [
+        'tanggal_lahir' => 'date'
+    ];
+
     public function getFormatedNamaSiswa($nomor_urut_siswa = false)
     {
-        $formated_nama_siswa = $nomor_urut_siswa ? "{$this->nomor_urut} | {$this->nisn} | {$this->nama_siswa}" : "{$this->nisn} | {$this->nama_siswa}";
+        $nomor_urut = $this->nomor_urut ?? '-';
+        $formated_nama_siswa = $nomor_urut_siswa ? "{$nomor_urut} | {$this->nisn} | {$this->nama_siswa}" : "{$this->nisn} | {$this->nama_siswa}";
 
         return $formated_nama_siswa;
     }
 
-    public function getOrderedNomorUrutSiswa($kelas_siswa) {
-        $siswa_in_kelas = Siswa::query()->where('id_kelas', $kelas_siswa)->orderBy('nomor_urut')->get();
-        $ordered_nomor_urut = $siswa_in_kelas->pluck('nomor_urut')->toArray();
+    public function scopeOrderedNomorUrutSiswa($query, $kelas = null) {
+        if ($kelas) {
+            $query->whereHas('kelas', fn($query) => $query->where('id_kelas', $kelas));
+        } else {
+            $query->orderBy('nomor_urut');
+        }
 
-        return $ordered_nomor_urut;
+        return $query;
     }
-
     
     public function scopeFilter($query, array $filters)
     {
@@ -81,7 +89,7 @@ class Siswa extends Model
             }
         }
 
-        $sort_by = in_array(strtolower($filters['sort_by'] ?? ''), ['asc', 'desc']) ? strtolower($filters['sort_by']) : 'desc';
+        $sort_by = \in_array(strtolower($filters['sort_by'] ?? ''), ['asc', 'desc']) ? strtolower($filters['sort_by']) : 'desc';
         $query->orderBy('created_at', $sort_by);
 
         return $query;

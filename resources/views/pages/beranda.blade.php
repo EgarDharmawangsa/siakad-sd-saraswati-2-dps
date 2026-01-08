@@ -1,173 +1,229 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="row g-3">
-        <div class="col-sm-6 col-lg-3">
-            <div class="content-card p-0 pegawai-count-card">
-                <div class="p-3">
-                    <i class="bi bi-person-badge icon-count-card"></i>
-                    <h3>{{ $counted_pegawai }}</h3>
-                    <div>Pegawai</div>
+    @canany(['staf-tata-usaha', 'guru'])
+        <div class="row g-3">
+            <div class="col-sm-6 col-lg-3">
+                <div class="content-card p-0 pegawai-count-card">
+                    <div class="p-3">
+                        <i class="bi bi-person-badge icon-count-card"></i>
+                        <h3>{{ $counted_pegawai }}</h3>
+                        <div>Pegawai</div>
+                    </div>
+                    <a class="text-decoration-none d-block p-2 pe-3 text-end text-white pegawai-count-card-link"
+                        href="{{ route('pegawai.index') }}">Lihat
+                        detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
                 </div>
-                <a class="text-decoration-none d-block p-2 pe-3 text-end text-white pegawai-count-card-link"
-                    href="{{ route('pegawai.index') }}">Lihat
-                    detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="content-card p-0 siswa-count-card">
+                    <div class="p-3">
+                        <i class="bi bi-people-fill icon-count-card"></i>
+                        <h3>{{ $counted_siswa }}</h3>
+                        <div>Siswa</div>
+                    </div>
+                    <a class="text-decoration-none d-block p-2 pe-3 text-end text-white siswa-count-card-link"
+                        href="{{ route('siswa.index') }}">Lihat
+                        detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="content-card p-0 kelas-count-card">
+                    <div class="p-3">
+                        <i class="bi bi-door-open icon-count-card"></i>
+                        <h3>{{ $counted_kelas }}</h3>
+                        <div>Kelas</div>
+                    </div>
+                    <a class="text-decoration-none d-block p-2 pe-3 text-end text-white kelas-count-card-link"
+                        href="{{ route('kelas.index') }}">Lihat
+                        detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="content-card p-0 semester-count-card">
+                    <div class="p-3">
+                        <i class="bi bi-calendar-range icon-count-card"></i>
+                        <h3>{{ $counted_semester }}</h3>
+                        <div>Semester</div>
+                    </div>
+                    <a class="text-decoration-none d-block p-2 pe-3 text-end text-white semester-count-card-link"
+                        href="{{ route('semester.index') }}">Lihat
+                        detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="content-card p-0 mata-pelajaran-count-card">
+                    <div class="p-3">
+                        <i class="bi bi-book icon-count-card"></i>
+                        <h3>{{ $counted_mata_pelajaran }}</h3>
+                        <div>Mata Pelajaran</div>
+                    </div>
+                    <a class="text-decoration-none d-block p-2 pe-3 text-end text-white mata-pelajaran-count-card-link"
+                        href="{{ route('mata-pelajaran.index') }}">Lihat
+                        detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="content-card p-0 ekstrakurikuler-count-card">
+                    <div class="p-3">
+                        <i class="bi bi-person-up icon-count-card"></i>
+                        <h3>{{ $counted_ekstrakurikuler }}</h3>
+                        <div>Ekstrakurikuler</div>
+                    </div>
+                    <a class="text-decoration-none d-block p-2 pe-3 text-end text-white ekstrakurikuler-count-card-link"
+                        href="{{ route('mata-pelajaran.index') }}">Lihat
+                        detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="content-card p-0 prestasi-count-card">
+                    <div class="p-3">
+                        <i class="bi bi-award icon-count-card"></i>
+                        <h3>{{ $counted_prestasi }}</h3>
+                        <div>Prestasi</div>
+                    </div>
+                    <a class="text-decoration-none d-block p-2 pe-3 text-end text-white prestasi-count-card-link"
+                        href="{{ route('prestasi.index') }}">Lihat
+                        detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="content-card p-0 pengumuman-count-card">
+                    <div class="p-3">
+                        <i class="bi bi-megaphone icon-count-card"></i>
+                        <h3>{{ $counted_pengumuman }}</h3>
+                        <div>Pengumuman</div>
+                    </div>
+                    <a class="text-decoration-none d-block p-2 pe-3 text-end text-white pengumuman-count-card-link"
+                        href="{{ route('pengumuman.index') }}">Lihat
+                        detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
+                </div>
             </div>
         </div>
-        <div class="col-sm-6 col-lg-3">
-            <div class="content-card p-0 siswa-count-card">
-                <div class="p-3">
-                    <i class="bi bi-people-fill icon-count-card"></i>
-                    <h3>{{ $counted_siswa }}</h3>
-                    <div>Siswa</div>
+
+        <div class="row g-3">
+            <div class="col-md-4 mt-0 mb-3">
+                <div class="content-card">
+                    <h5>Distribusi Pegawai</h5>
+                    <hr>
+
+                    <canvas id="pegawai-distribution-chart" class="my-3 p-3"></canvas>
+
+                    <ul class="list-unstyled mb-0 pegawai-distribution-list">
+                        <li>
+                            <span class="pegawai-distribution-color-box-label staf-tata-usaha-color-box-label"></span>
+                            <span class="pegawai-distribution-label">Staf Tata Usaha</span>
+                            <span
+                                class="pegawai-distribution-count-label">{{ $pegawai_distribution_data['staf_tata_usaha'] }}</span>
+                        </li>
+                        <li>
+                            <span class="pegawai-distribution-color-box-label guru-color-box-label"></span>
+                            <span class="pegawai-distribution-label">Guru</span>
+                            <span class="pegawai-distribution-count-label">{{ $pegawai_distribution_data['guru'] }}</span>
+                        </li>
+                        <li>
+                            <span class="pegawai-distribution-color-box-label pegawai-perpustakaan-color-box-label"></span>
+                            <span class="pegawai-distribution-label">Pegawai Perpustakaan</span>
+                            <span
+                                class="pegawai-distribution-count-label">{{ $pegawai_distribution_data['pegawai_perpustakaan'] }}</span>
+                        </li>
+                        <li>
+                            <span class="pegawai-distribution-color-box-label satuan-pengamanan-color-box-label"></span>
+                            <span class="pegawai-distribution-label">Satuan Pengamanan</span>
+                            <span
+                                class="pegawai-distribution-count-label">{{ $pegawai_distribution_data['satuan_pengamanan'] }}</span>
+                        </li>
+                        <li>
+                            <span class="pegawai-distribution-color-box-label pegawai-kebersihan-color-box-label"></span>
+                            <span class="pegawai-distribution-label">Pegawai Kebersihan</span>
+                            <span
+                                class="pegawai-distribution-count-label">{{ $pegawai_distribution_data['pegawai_kebersihan'] }}</span>
+                        </li>
+                    </ul>
                 </div>
-                <a class="text-decoration-none d-block p-2 pe-3 text-end text-white siswa-count-card-link"
-                    href="{{ route('siswa.index') }}">Lihat
-                    detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
+            </div>
+
+            <div class="col-md-8 mt-0 mb-3">
+                <div class="content-card">
+                    <h5>Peningkatan Prestasi</h5>
+                    <hr>
+
+                    <form action="{{ route('beranda') }}" id="prestasi-improvement-tahun-filter-form"
+                        class="d-flex align-items-center my-3">
+                        <label for="prestasi-improvement-tahun-select" class="form-label me-3 mb-0">Tahun</label>
+                        <select class="form-select" id="prestasi-improvement-tahun-select"
+                            name="prestasi_improvement_tahun_filter">
+                            @for ($tahun = date('Y'); $tahun >= 2000; $tahun--)
+                                <option value="{{ $tahun }}"
+                                    {{ request('prestasi_improvement_tahun_filter', date('Y')) == $tahun ? 'selected' : '' }}>
+                                    {{ $tahun }}
+                                </option>
+                            @endfor
+                        </select>
+                    </form>
+
+                    <canvas id="prestasi-improvement-chart"></canvas>
+                </div>
             </div>
         </div>
-        <div class="col-sm-6 col-lg-3">
-            <div class="content-card p-0 kelas-count-card">
-                <div class="p-3">
-                    <i class="bi bi-door-open icon-count-card"></i>
-                    <h3>{{ $counted_kelas }}</h3>
-                    <div>Kelas</div>
+    @endcanany
+
+    @can('siswa')
+        <div class="content-card p-0 mb-3">
+            <div class="siswa-bio-background"></div>
+            <div class="siswa-bio-description">
+                <div class="row g-3">
+                    <div class="col-md-3 siswa-bio-foto-container position-relative">
+                        @if (auth()->user()->siswa?->foto)
+                            <img src="{{ asset('storage/' . auth()->user()->siswa?->foto) }}" alt="Foto Siswa"
+                                class="siswa-bio-foto position-absolute">
+                        @else
+                            <img src="{{ asset('images/default_profile_photo.png') }}" alt="Foto Siswa"
+                                class="siswa-bio-foto position-absolute">
+                        @endif
+                    </div>
+                    <div class="col-md-9 text-center">
+                        <h5>{{ strtoupper(auth()->user()->siswa?->nama_siswa) }}</h5>
+                        <hr class="my-3">
+                        <p class="mb-0">{{ auth()->user()->siswa?->nisn }}</p>
+                    </div>
                 </div>
-                <a class="text-decoration-none d-block p-2 pe-3 text-end text-white kelas-count-card-link"
-                    href="{{ route('kelas.index') }}">Lihat
-                    detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
             </div>
         </div>
-        <div class="col-sm-6 col-lg-3">
-            <div class="content-card p-0 semester-count-card">
-                <div class="p-3">
-                    <i class="bi bi-calendar-range icon-count-card"></i>
-                    <h3>{{ $counted_semester }}</h3>
-                    <div>Semester</div>
+    @endcan
+
+    @canany(['guru', 'siswa'])
+        <div class="content-card mb-3">
+            <h5>Pengumuman</h5>
+            <hr>
+
+            @forelse ($pengumuman as $_pengumuman)
+                @if ($_pengumuman->getStatus() === 'Terbit')
+                    <a href="{{ route('pengumuman.show', $_pengumuman->id_pengumuman) }}"
+                        class="pengumuman-item text-decoration-none text-dark d-block p-3 rounded">
+                        <h5 class="mb-2">{{ $_pengumuman->judul }}</h5>
+                        <small class="text-muted mb-3 d-block">
+                            Diterbitkan pada {{ $_pengumuman->tanggal->translatedFormat('l, d F Y') }}
+                        </small>
+                        <p class="mb-0">{{ Str::limit(strip_tags($_pengumuman->isi), 150, '...') }}</p>
+                    </a>
+                    <hr class="mt-0 {{ $loop->last ? 'd-none' : '' }}">
+                @endif
+            @empty
+                <p class="text-center">Belum ada Pengumuman.</p>
+            @endforelse
+
+            @if ($pengumuman->hasPages())
+                <hr class="mt-0">
+                <div class="d-flex justify-content-end mt-2">
+                    {{ $pengumuman->links() }}
                 </div>
-                <a class="text-decoration-none d-block p-2 pe-3 text-end text-white semester-count-card-link"
-                    href="{{ route('semester.index') }}">Lihat
-                    detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
-            </div>
+            @endif
         </div>
-        <div class="col-sm-6 col-lg-3">
-            <div class="content-card p-0 mata-pelajaran-count-card">
-                <div class="p-3">
-                    <i class="bi bi-book icon-count-card"></i>
-                    <h3>{{ $counted_mata_pelajaran }}</h3>
-                    <div>Mata Pelajaran</div>
-                </div>
-                <a class="text-decoration-none d-block p-2 pe-3 text-end text-white mata-pelajaran-count-card-link"
-                    href="{{ route('mata-pelajaran.index') }}">Lihat
-                    detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
-            </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-            <div class="content-card p-0 ekstrakurikuler-count-card">
-                <div class="p-3">
-                    <i class="bi bi-person-up icon-count-card"></i>
-                    <h3>{{ $counted_ekstrakurikuler }}</h3>
-                    <div>Ekstrakurikuler</div>
-                </div>
-                <a class="text-decoration-none d-block p-2 pe-3 text-end text-white ekstrakurikuler-count-card-link"
-                    href="{{ route('mata-pelajaran.index') }}">Lihat
-                    detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
-            </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-            <div class="content-card p-0 prestasi-count-card">
-                <div class="p-3">
-                    <i class="bi bi-award icon-count-card"></i>
-                    <h3>{{ $counted_prestasi }}</h3>
-                    <div>Prestasi</div>
-                </div>
-                <a class="text-decoration-none d-block p-2 pe-3 text-end text-white prestasi-count-card-link"
-                    href="{{ route('prestasi.index') }}">Lihat
-                    detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
-            </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-            <div class="content-card p-0 pengumuman-count-card">
-                <div class="p-3">
-                    <i class="bi bi-megaphone icon-count-card"></i>
-                    <h3>{{ $counted_pengumuman }}</h3>
-                    <div>Pengumuman</div>
-                </div>
-                <a class="text-decoration-none d-block p-2 pe-3 text-end text-white pengumuman-count-card-link"
-                    href="{{ route('pengumuman.index') }}">Lihat
-                    detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
-            </div>
-        </div>
-    </div>
+    @endcanany
 
     <div class="row g-3">
-        <div class="col-md-4 mt-0 mb-3">
-            <div class="content-card">
-                <h5>Distribusi Pegawai</h5>
-                <hr>
-
-                <canvas id="pegawai-distribution-chart" class="my-3 p-3"></canvas>
-
-                <ul class="list-unstyled mb-0 pegawai-distribution-list">
-                    <li>
-                        <span class="pegawai-distribution-color-box-label staf-tata-usaha-color-box-label"></span>
-                        <span class="pegawai-distribution-label">Staf Tata Usaha</span>
-                        <span
-                            class="pegawai-distribution-count-label">{{ $pegawai_distribution_data['staf_tata_usaha'] }}</span>
-                    </li>
-                    <li>
-                        <span class="pegawai-distribution-color-box-label guru-color-box-label"></span>
-                        <span class="pegawai-distribution-label">Guru</span>
-                        <span class="pegawai-distribution-count-label">{{ $pegawai_distribution_data['guru'] }}</span>
-                    </li>
-                    <li>
-                        <span class="pegawai-distribution-color-box-label pegawai-perpustakaan-color-box-label"></span>
-                        <span class="pegawai-distribution-label">Pegawai Perpustakaan</span>
-                        <span
-                            class="pegawai-distribution-count-label">{{ $pegawai_distribution_data['pegawai_perpustakaan'] }}</span>
-                    </li>
-                    <li>
-                        <span class="pegawai-distribution-color-box-label satuan-pengamanan-color-box-label"></span>
-                        <span class="pegawai-distribution-label">Satuan Pengamanan</span>
-                        <span
-                            class="pegawai-distribution-count-label">{{ $pegawai_distribution_data['satuan_pengamanan'] }}</span>
-                    </li>
-                    <li>
-                        <span class="pegawai-distribution-color-box-label pegawai-kebersihan-color-box-label"></span>
-                        <span class="pegawai-distribution-label">Pegawai Kebersihan</span>
-                        <span
-                            class="pegawai-distribution-count-label">{{ $pegawai_distribution_data['pegawai_kebersihan'] }}</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="col-md-8 mt-0 mb-3">
-            <div class="content-card">
-                <h5>Peningkatan Prestasi</h5>
-                <hr>
-
-                <form action="{{ route('beranda') }}" id="prestasi-improvement-tahun-filter-form"
-                    class="d-flex align-items-center my-3">
-                    <label for="prestasi-improvement-tahun-select" class="form-label me-3 mb-0">Tahun</label>
-                    <select class="form-select" id="prestasi-improvement-tahun-select"
-                        name="prestasi_improvement_tahun_filter">
-                        @for ($tahun = date('Y'); $tahun >= 2000; $tahun--)
-                            <option value="{{ $tahun }}"
-                                {{ request('prestasi_improvement_tahun_filter', date('Y')) == $tahun ? 'selected' : '' }}>
-                                {{ $tahun }}
-                            </option>
-                        @endfor
-                    </select>
-                </form>
-
-                <canvas id="prestasi-improvement-chart"></canvas>
-            </div>
-        </div>
-    </div>
-
-    <div class="row g-3 mb-2">
-        <div class="col-md-6 mt-0 mb-3">
+        <div class="col-md-6 my-0">
             <div class="content-card">
                 <h5>Kalender Semester</h5>
                 <hr>
@@ -175,26 +231,28 @@
                 <div id="semester-calendar"></div>
             </div>
         </div>
-        <div class="col-md-6 mt-0 mb-3">
+        <div class="col-md-6 my-0">
             <div class="content-card">
                 <h5>Pengguna Aktif <span class="text-muted mini-label">(Online)</span></h5>
                 <hr>
 
                 <div class="active-users-container">
                     {{-- Staf Tata Usaha --}}
-                    <h6 class="mt-3 mb-0">Staf Tata Usaha</h6>
+                    @canany(['staf-tata-usaha', 'guru'])
+                        <h6 class="mt-3 mb-0">Staf Tata Usaha</h6>
 
-                    @forelse ($active_users['Staf Tata Usaha'] ?? [] as $_active_users)
-                        <div class="d-flex align-items-center mt-3">
-                            <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo.png') }}"
-                                alt="Foto Pegawai" class="profile-avatar me-2">
-                            <div>{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</div>
-                        </div>
-                    @empty
-                        <p class="text-center text-muted mt-3 mb-0">Tidak ada Staf Tata Usaha yang aktif.</p>
-                    @endforelse
+                        @forelse ($active_users['Staf Tata Usaha'] ?? [] as $_active_users)
+                            <div class="d-flex align-items-center mt-3">
+                                <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo.png') }}"
+                                    alt="Foto Pegawai" class="profile-avatar me-2">
+                                <div>{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</div>
+                            </div>
+                        @empty
+                            <p class="text-center text-muted mt-3 mb-0">Tidak ada Staf Tata Usaha yang aktif.</p>
+                        @endforelse
 
-                    <hr>
+                        <hr>
+                    @endcanany
 
                     {{-- Guru --}}
                     <h6 class="mt-3 mb-0">Guru</h6>
@@ -216,9 +274,9 @@
 
                     @forelse ($active_users['Siswa'] ?? [] as $_active_users)
                         <div class="d-flex align-items-center mt-3">
-                            <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo.png') }}"
+                            <img src="{{ $_active_users->siswa->foto ? asset('storage/' . $_active_users->siswa->foto) : asset('images/default_profile_photo.png') }}"
                                 alt="Foto Pegawai" class="profile-avatar me-2">
-                            <div>{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</div>
+                            <div>{{ $_active_users->siswa->getFormatedNamaSiswa() }}</div>
                         </div>
                     @empty
                         <p class="text-center text-muted mt-3 mb-0">Tidak ada Siswa yang aktif.</p>
@@ -227,38 +285,4 @@
             </div>
         </div>
     </div>
-
-    {{-- @canany(['guru', 'siswa'])
-        <div class="row g-3">
-            <div class="col-md-12">
-                <div class="content-card">
-                    <h5>Pengumuman</h5>
-                    <hr>
-
-                    @forelse ($pengumuman as $_pengumuman)
-                        @if ($_pengumuman->getStatus() === 'Terbit')
-                            <a href="{{ route('pengumuman.show', $_pengumuman->id_pengumuman) }}"
-                                class="pengumuman-item text-decoration-none text-dark d-block p-3 rounded">
-                                <h5 class="mb-2">{{ $_pengumuman->judul }}</h5>
-                                <small class="text-muted mb-3 d-block">
-                                    Diterbitkan pada {{ $_pengumuman->tanggal->translatedFormat('l, d F Y') }}
-                                </small>
-                                <p class="mb-0">{{ Str::limit(strip_tags($_pengumuman->isi), 150, '...') }}</p>
-                            </a>
-                            <hr class="mt-0 {{ $loop->last ? 'd-none' : '' }}">
-                        @endif
-                    @empty
-                        <p class="text-center">Belum ada Pengumuman.</p>
-                    @endforelse
-
-                    @if ($pengumuman->hasPages())
-                        <hr class="mt-0">
-                        <div class="d-flex justify-content-end mt-2">
-                            {{ $pengumuman->links() }}
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-    @endcanany --}}
 @endsection

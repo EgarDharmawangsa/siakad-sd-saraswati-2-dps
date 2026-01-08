@@ -76,9 +76,12 @@ class KelasController extends Controller
             abort(404);
         }
 
+        $siswa_in_kelas = Siswa::with('kelas')->orderedNomorUrutSiswa($kelas->id_kelas)->get();
+
         return view('pages.master.kelas.show', [
             'judul' => 'Kelas',
-            'kelas' => $kelas
+            'kelas' => $kelas,
+            'siswa_in_kelas' => $siswa_in_kelas
         ]);
     }
 

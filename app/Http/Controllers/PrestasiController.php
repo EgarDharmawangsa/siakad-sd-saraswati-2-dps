@@ -37,7 +37,7 @@ class PrestasiController extends Controller
             abort(404);
         }
 
-        $siswa = Siswa::get();
+        $siswa = Siswa::latest()->get();
 
         return view('pages.akademik.prestasi.index', [
             'judul' => 'Prestasi',
@@ -106,9 +106,12 @@ class PrestasiController extends Controller
             abort(404);
         }
 
+        $siswa = Siswa::latest()->get();
+
         return view('pages.akademik.prestasi.edit', [
             'judul' => 'Prestasi',
-            'prestasi' => $prestasi
+            'prestasi' => $prestasi,
+            'siswa' => $siswa
         ]);
     }
 

@@ -12,27 +12,27 @@
 <body class="d-flex align-items-center justify-content-center vh-100 m-0 login-body">
     <div class="login-toast-container position-fixed start-50 translate-middle-x">
         @if (session()->has('success'))
-            <div class="toast align-items-center border-0" id="success-toast" role="alert" aria-live="assertive"
-                aria-atomic="true">
+            <div class="toast show align-items-center w-auto text-bg-success border-0 mb-2 shadow-lg" role="alert"
+                aria-live="assertive" aria-atomic="true" style="max-width: none;">
                 <div class="d-flex">
-                    <div class="toast-body text-white">
-                        {{ session('success') }}
+                    <div class="toast-body text-white text-nowrap">
+                        <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
                     </div>
                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                        aria-label="close"></button>
+                        aria-label="Close"></button>
                 </div>
             </div>
         @endif
 
         @if (session()->has('error'))
-            <div class="toast align-items-center text-bg-danger border-0" id="error-toast" role="alert"
-                aria-live="assertive" aria-atomic="true">
+            <div class="toast show align-items-center w-auto text-bg-danger border-0 mb-2 shadow-lg" role="alert"
+                aria-live="assertive" aria-atomic="true" style="max-width: none;">
                 <div class="d-flex">
-                    <div class="toast-body text-white">
-                        {{ session('error') }}
+                    <div class="toast-body text-white text-nowrap">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ session('error') }}
                     </div>
                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                        aria-label="close"></button>
+                        aria-label="Close"></button>
                 </div>
             </div>
         @endif

@@ -5,138 +5,189 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\User;
+use App\Models\Ekstrakurikuler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
+use Illuminate\Support\Facades\Gate;
 
 class SiswaController extends Controller
 {
     public function index(Request $request)
     {
-        $siswa = Siswa::with('kelas:id_kelas,nama_kelas')
+        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+            abort(404);
+        }
+
+        $siswa = Siswa::with(['kelas', 'pesertaEkstrakurikuler'])
             ->filter($request->all())
             ->paginate(10)
             ->withQueryString();
 
         return view('pages.master.siswa.index', [
-            'judul' => 'Data Siswa',
+            'judul' => 'Siswa',
             'siswa' => $siswa
         ]);
     }
 
     public function create()
     {
-        $kelas = Kelas::select('id_kelas', 'nama_kelas')->get();
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
+        $kelas = Kelas::orderedNamaKelas()->get();
+        $ekstrakurikuler = Ekstrakurikuler::latest()->get();
 
         return view('pages.master.siswa.create', [
             'kelas' => $kelas,
-            'judul' => 'Tambah Siswa'
+            'ekstrakurikuler' => $ekstrakurikuler,
+            'judul' => 'Siswa'
         ]);
     }
 
     public function store(StoreSiswaRequest $request)
     {
-        DB::transaction(function () use ($request) {
-            $data = $request->validated();
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
 
-            if ($request->hasFile('foto')) {
-                $data['foto'] = $request->file('foto')->store('foto-siswa');
+        $validated_siswa = $request->validated();
+
+        if ($request->hasFile('foto')) {
+            $validated_siswa['foto'] = $request->file('foto')->store('foto_siswa', 'public');
+        }
+
+        $user_data = [
+            'username' => $validated_siswa['username'],
+            'password' => bcrypt(trim($validated_siswa['password'])),
+            'role' => 'Siswa'
+        ]; 
+
+        unset($validated_siswa['username'], $validated_siswa['password']);
+
+        if (!empty($validated_siswa['id_ekstrakurikuler'])) {
+            $ekstrakurikuler_data = $validated_siswa['id_ekstrakurikuler'];
+            unset($validated_siswa['id_ekstrakurikuler']);
+        }
+
+        $siswa = Siswa::create($validated_siswa);
+
+        $siswa->userAuth()->create($user_data);
+
+        if (!empty($ekstrakurikuler_data)) {
+            foreach ($ekstrakurikuler_data as $_id_ekstrakurikuler) {
+                $siswa->pesertaEkstrakurikuler()->create([
+                    'id_ekstrakurikuler' => $_id_ekstrakurikuler,
+                ]);
             }
+        };
 
-            $userData = [
-                'username' => $data['username'],
-                'password' => Hash::make($data['password']),
-                'role'     => 'siswa'
-            ];
-
-            unset($data['username'], $data['password'], $data['konfirmasi_password']);
-
-            if (isset($data['kelas_id'])) {
-                $data['id_kelas'] = $data['kelas_id'];
-                unset($data['kelas_id']);
-            }
-
-            $siswa = Siswa::create($data);
-
-            $siswa->userAuth()->create($userData);
-        });
-
-        return redirect()->route('siswa.index')
-            ->with('success', 'Data siswa berhasil ditambahkan!');
+        return redirect()->route('siswa.index')->with('success', 'Siswa berhasil ditambahkan.');
     }
 
     public function show(Siswa $siswa)
     {
-        $siswa->load('kelas', 'userAuth');
-
         return view('pages.master.siswa.show', [
             'siswa' => $siswa,
-            'judul' => 'Detail Siswa'
+            'judul' => 'Siswa'
         ]);
     }
 
     public function edit(Siswa $siswa)
     {
-        $kelas = Kelas::select('id_kelas', 'nama_kelas')->get();
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
+        $ekstrakurikuler = Ekstrakurikuler::latest()->get();
+        $kelas = Kelas::orderedNamaKelas()->get();
 
         return view('pages.master.siswa.edit', [
             'siswa' => $siswa,
-            'kelas' => $kelas,
-            'judul' => 'Edit Siswa'
+            'judul' => 'Siswa',
+            'ekstrakurikuler' => $ekstrakurikuler,
+            'kelas' => $kelas
         ]);
     }
 
     public function update(UpdateSiswaRequest $request, Siswa $siswa)
     {
-        return DB::transaction(function () use ($request, $siswa) {
-            $data = $request->validated();
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
 
-            if ($siswa->userAuth) {
-                $dataUser = [
-                    'username' => $data['username'],
-                ];
+        $validated_siswa = $request->validated();
 
-                if (!empty($data['password'])) {
-                    $dataUser['password'] = Hash::make($data['password']);
-                }
+        // INI UNTUK FOTO
+        if ($validated_siswa['image_delete'] == 1) {
+            if (!empty($siswa->foto)) {
+                Storage::disk('public')->delete($siswa->foto);
+            }
+            $validated_siswa['foto'] = null;
+        } elseif ($request->hasFile('foto')) {
+            if (!empty($siswa->foto)) {
+                Storage::disk('public')->delete($siswa->foto);
+            }
+            $validated_siswa['foto'] = $request->file('foto')->store('foto_siswa', 'public');
+        } else {
+            $validated_siswa['foto'] = $siswa->foto;
+        }
 
-                $siswa->userAuth->update($dataUser);
+        unset($validated_siswa['image_delete']);
+
+        // INI UNTUK USER
+        $user_data = [
+            'username' => $validated_siswa['username']
+        ];
+
+        if (!empty(trim($validated_siswa['password']))) {
+            $user_data['password'] = bcrypt(trim($validated_siswa['password']));
+        }
+
+        $siswa->userAuth()->update($user_data);
+
+        unset($validated_siswa['username'], $validated_siswa['password'], $validated_siswa['konfirmasi_password']);
+
+        // INI UNTUK NOMOR URUT
+        if (empty($validated_siswa['id_kelas'])) {
+            $validated_siswa['nomor_urut'] = null;
+        }
+
+        if (!empty($validated_siswa['id_ekstrakurikuler'])) {
+            $new_ekstrakurikuler = $validated_siswa['id_ekstrakurikuler'];
+            $old_ekstrakurikuler = $siswa->pesertaEkstrakurikuler()->pluck('id_ekstrakurikuler')->toArray();
+
+            $checked_ekstrakurikuler = array_diff($new_ekstrakurikuler, $old_ekstrakurikuler);
+            $unchecked_ekstrakurikuler = array_diff($old_ekstrakurikuler, $new_ekstrakurikuler);
+
+            foreach ($checked_ekstrakurikuler as $_id_ekstrakurikuler) {
+                $siswa->pesertaEkstrakurikuler()->create([
+                    'id_ekstrakurikuler' => $_id_ekstrakurikuler,
+                ]);
             }
 
-            unset($data['username']);
-            unset($data['password']);
-            unset($data['konfirmasi_password']);
-
-            if (isset($data['kelas_id'])) {
-                $data['id_kelas'] = $data['kelas_id'];
-                unset($data['kelas_id']);
+            if (!empty($unchecked_ekstrakurikuler)) {
+                $siswa->pesertaEkstrakurikuler()->whereIn('id_ekstrakurikuler', $unchecked_ekstrakurikuler)->delete();
             }
 
-            if ($request->input('image_delete') == '1') {
-                if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
-                    Storage::disk('public')->delete($siswa->foto);
-                }
-                $data['foto'] = null; 
-            }
+            unset($validated_siswa['id_ekstrakurikuler']);
+        }
 
-            if ($request->hasFile('foto')) {
-                if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
-                    Storage::disk('public')->delete($siswa->foto);
-                }
-                $data['foto'] = $request->file('foto')->store('foto-siswa', 'public');
-            }
+        $siswa->update($validated_siswa);
 
-            $siswa->update($data);
-
-            return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diperbarui!');
-        });
+        return redirect()->route('siswa.index')->with('success', 'Siswa berhasil diperbarui.');
     }
 
     public function destroy(Siswa $siswa)
     {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
         if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
             Storage::disk('public')->delete($siswa->foto);
         }
@@ -145,10 +196,9 @@ class SiswaController extends Controller
             $siswa->userAuth()->delete();
         }
 
-        $nama = $siswa->nama_siswa;
         $siswa->delete();
 
         return redirect()->route('siswa.index')
-            ->with('success', "Data siswa $nama berhasil dihapus!");
+            ->with('success', 'Siswa berhasil dihapus.');
     }
 }

@@ -216,7 +216,7 @@ function initBulkActions() {
     const tabWali = document.getElementById('form-wali'); 
     if(tabWali && !document.getElementById('btn-copy-ayah')) {
         const btnContainer = document.createElement('div');
-        btnContainer.className = 'col-12 mb-3 text-end';
+        btnContainer.className = 'col-12 mt-3 text-end';
         btnContainer.innerHTML = `<button type="button" class="btn btn-sm btn-outline-info" id="btn-copy-ayah"><i class="bi bi-copy me-1"></i> Salin Data Ayah ke Wali</button>`;
         tabWali.insertBefore(btnContainer, tabWali.firstChild);
 
@@ -318,3 +318,28 @@ window.showToast = function(message, type = 'success') {
         }, 500); 
     }, 4000);
 };
+
+const ekstrakurikulerBtn = document.getElementById('id-ekstrakurikuler-dropdown-button');
+const ekstrakurikulerCheckboxes = document.querySelectorAll('.id-ekstrakurikuler-checkbox');
+
+if (ekstrakurikulerBtn && ekstrakurikulerCheckboxes.length > 0) {
+
+    const updateButtonText = () => {
+        const checkedCount = Array.from(ekstrakurikulerCheckboxes)
+            .filter(cb => cb.checked).length;
+
+        ekstrakurikulerBtn.textContent =
+            checkedCount > 0 ? `${checkedCount} Dipilih` : '-- Pilih Ekstrakurikuler --';
+
+        if (checkedCount > 0) {
+            ekstrakurikulerBtn.classList.add('text-primary', 'fw-bold');
+            ekstrakurikulerBtn.classList.remove('is-invalid');
+        } else {
+            ekstrakurikulerBtn.classList.remove('text-primary', 'fw-bold');
+        }
+    };
+
+    ekstrakurikulerCheckboxes.forEach(cb => {
+        cb.addEventListener('change', updateButtonText);
+    });
+}

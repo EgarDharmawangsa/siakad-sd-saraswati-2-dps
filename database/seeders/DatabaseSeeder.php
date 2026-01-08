@@ -6,6 +6,7 @@ use App\Models\Ekstrakurikuler;
 use App\Models\MataPelajaran;
 use App\Models\User;
 use App\Models\Pegawai;
+use App\Models\Siswa;
 use App\Models\Pengumuman;
 use Illuminate\Database\Seeder;
 
@@ -13,7 +14,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $pegawai = Pegawai::create([
+        Pegawai::create([
             'nik' => '3273010101010001',
             'nip' => '198765432100000001',
             'nipppk' => '0',
@@ -40,6 +41,8 @@ class DatabaseSeeder extends Seeder
             'tanggal_sk_terakhir' => '2024-01-10',
             'foto' => 'default.jpg'
         ]);
+
+        Siswa::factory(5)->create();
 
         User::create([
             'id_pegawai' => 1,

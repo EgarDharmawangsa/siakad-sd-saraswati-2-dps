@@ -8,7 +8,6 @@
 @import "./pages/beranda.css";
 @import "./pages/master/semester.css";
 @import "./pages/master/mata_pelajaran.css";
-@import "./pages/akademik/pegawai.css";
 @import "./pages/akademik/jadwal_pelajaran.css";
 @import "./pages/akademik/prestasi.css";
 @import "./pages/akademik/pengumuman.css";
@@ -68,7 +67,6 @@
 }
 
 .toast {
-    background-color: #28ad60;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
 }
 
@@ -313,6 +311,15 @@ td {
     margin-bottom: 0;
 }
 
+.title-form-conteiner {
+    align-items: center;
+}
+
+.dropdown-options-container {
+    max-height: 15rem;
+    overflow-y: auto;
+}
+
 @media (max-width: 992px) {
     .container-fluid.content-container {
         margin-left: 0;
@@ -338,6 +345,18 @@ td {
 
     .modifier-buttons {
         margin: 0.5rem 0 0 auto;
+    }
+}
+
+@media (max-width: 380px) {
+    .title-form-container {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        
+    }
+
+    .title-form-container button {
+        margin-bottom: 1rem;
     }
 }
 

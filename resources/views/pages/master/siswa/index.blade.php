@@ -40,7 +40,6 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Kelas</th>
                         <th>No. KK</th>
                         <th>NIK</th>
                         <th>NISN</th>
@@ -76,7 +75,6 @@
                         <th>Sekolah Asal</th>
                         <th>No. Peserta UN</th>
                         <th>No. Seri Ijazah</th>
-                        {{-- <th>No. Seri Ijazah</th> --}}
                         <th>Penerima KPS</th>
                         <th>No. KPS</th>
                         <th>Penerima KIP</th>
@@ -106,6 +104,7 @@
                         <th>Jenjang Pendidikan Wali</th>
                         <th>Pekerjaan Wali</th>
                         <th>Penghasilan Wali</th>
+                        <th>Ekstrakurikuler</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -114,9 +113,8 @@
                     @forelse ($siswa as $_siswa)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $_siswa->kelas->nama_kelas }}</td>
                             <td>{{ $_siswa->no_kk }}</td>
-                            <td>01010939394484839</td>
+                            <td>{{ $_siswa->nik }}</td>
                             <td>{{ $_siswa->nisn }}</td>
                             <td>{{ $_siswa->nipd }}</td>
                             <td>{{ $_siswa->nama_siswa }}</td>
@@ -179,20 +177,23 @@
                             <td>{{ $_siswa->jenjang_pendidikan_wali }}</td>
                             <td>{{ $_siswa->pekerjaan_wali }}</td>
                             <td>{{ $_siswa->penghasilan_wali }}</td>
+                            <td>{{ $_siswa->pesertaEkstrakurikuler?->count() }} Ekstrakurikuler</td>
                             <td class="aksi-column">
                                 <a href="{{ route('siswa.show', $_siswa->id_siswa) }}" class="btn btn-info btn-sm"><i
                                         class="bi bi-info-lg me-2"></i>Detail</a>
-                                <a href="{{ route('siswa.edit', $_siswa->id_siswa) }}"
-                                    class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                <form action="{{ route('siswa.destroy', $_siswa->id_siswa) }}" method="POST"
-                                    class="d-inline delete-form">
-                                    @csrf
-                                    @method('DELETE')
-                                    
-                                    <button type="button" class="btn btn-danger btn-sm delete-button"
-                                        data-bs-toggle="modal" data-bs-target="#delete-modal">
-                                        <i class="bi bi-trash me-2"></i>Hapus</button>
-                                </form>
+                                @can('staf-tata-usaha')
+                                    <a href="{{ route('siswa.edit', $_siswa->id_siswa) }}"
+                                        class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                    <form action="{{ route('siswa.destroy', $_siswa->id_siswa) }}" method="POST"
+                                        class="d-inline delete-form">
+                                        @csrf
+                                        @method('DELETE')
+                                        
+                                        <button type="button" class="btn btn-danger btn-sm delete-button"
+                                            data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                            <i class="bi bi-trash me-2"></i>Hapus</button>
+                                    </form>
+                                @endcan
                             </td>
                         </tr>
                     @empty
@@ -204,8 +205,10 @@
             </table>
         </div>
 
-        <div class="d-flex justify-content-end mt-2">
-            {{ $siswa->links() }}
-        </div>
+        @if ($siswa->hasPages())
+            <div class="d-flex justify-content-end mt-2">
+                {{ $siswa->links() }}
+            </div>
+        @endif
     </div>
 @endsection

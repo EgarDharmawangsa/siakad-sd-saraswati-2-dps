@@ -17,6 +17,14 @@
                     value="{{ $kehadiran->siswa->getFormatedNamaSiswa() }}" readonly>
             </div>
 
+            @canany(['staf-tata-usaha', 'guru'])
+                <div class="col-md-6">
+                    <label for="kelas" class="form-label">Kelas</label>
+                    <input type="text" class="form-control" id="kelas"
+                        value="{{ $kehadiran->siswa->kelas?->nama_kelas ?? '-' }}" readonly>
+                </div>
+            @endcanany
+
             <div class="col-md-6">
                 <label for="semester" class="form-label">Semester</label>
                 <input type="text" class="form-control" id="semester"

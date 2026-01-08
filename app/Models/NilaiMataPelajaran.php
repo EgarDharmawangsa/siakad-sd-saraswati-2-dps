@@ -13,14 +13,22 @@ class NilaiMataPelajaran extends Model
 {
     protected $table = 'nilai_mata_pelajaran';
 
-    protected $cast = [
+    protected $primaryKey = 'id_nilai_mata_pelajaran';
+
+    protected $guarded = [
+        'id_nilai_mata_pelajaran',
+    ];
+
+    protected $casts = [
         'nilai_portofolio' => 'array'
     ];
 
     public function scopeFilter($query, array $filters)
     {
         if (Gate::any(['staf-tata-usaha', 'guru'])) {
-            $query->whereHas('siswa.kelas', fn($query) => $query->where('id_kelas', 'like', '%' . ($filters['kelas_filter'] ?? Kelas::orderedNamaKelas()->value('nama_kelas')) . '%'));
+            if (!empty($filters['kelas_filter'])) {
+                $query->whereHas('siswa.kelas', fn($query) => $query->where('id_kelas', 'like', '%' . $filters['kelas_filter'] . '%'));
+            }
 
             if (!empty($filters['siswa_filter'])) {
                 $query->whereHas(
@@ -35,24 +43,32 @@ class NilaiMataPelajaran extends Model
             }
         }
 
-        $query->whereHas(
-            'mataPelajaran',
-            fn($query) =>
-            $query->where('id_mata_pelajaran', 'like', '%' . ($filters['mata_pelajaran_filter'] ?? MataPelajaran::value('id_mata_pelajaran')) . '%')
-        );
+        if (!empty($filter['mata_pelajaran_filter'])) {
+            $query->whereHas(
+                'mataPelajaran',
+                fn($query) =>
+                $query->where('id_mata_pelajaran', 'like', '%' . $filters['mata_pelajaran_filter'] . '%')
+            );
+        }
 
-        $query->whereHas(
-            'semester',
-            fn($query) =>
-            $query->where('id_semester', 'like', '%' . ($filters['semester_filter'] ?? Semester::activeSemester()->value('id_semester')) . '%')
-        );
+        if (!empty($filters['semester_filter'])) {
+            $query->whereHas(
+                'semester',
+                fn($query) =>
+                $query->where('id_semester', 'like', '%' . $filters['semester_filter'] . '%')
+            );
+        }
 
-        // if (!empty($filters['nilai_filter'])) {
-        //     $query->where('nilai', 'like', "%{$filters['nilai_filter']}%");
-        // }
+        if (!empty($filters['jumlah_portofolio_filter'])) {
+            $query->where('jumlah_portofolio', 'like', "%{$filters['jumlah_portofolio_filter']}%");
+        }
 
-        if (!empty($filters['nilai_ub_filter'])) {
-            $query->where('nilai_ub', 'like', "%{$filters['nilai_ub_filter']}%");
+        if (!empty($filters['nilai_ub_1_filter'])) {
+            $query->where('nilai_ub_1', 'like', "%{$filters['nilai_ub_1_filter']}%");
+        }
+
+        if (!empty($filters['nilai_ub_2_filter'])) {
+            $query->where('nilai_ub_2', 'like', "%{$filters['nilai_ub_2_filter']}%");
         }
 
         if (!empty($filters['nilai_uts_filter'])) {

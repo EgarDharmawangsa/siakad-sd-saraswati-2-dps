@@ -1,16 +1,15 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="content-card">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="mb-0 fw-bold">Tambah {{ $judul }}</h5>
-            <div class="form-buttons">
-                <button type="button" class="btn btn-danger" id="cancel-button" data-route="{{ route('pegawai.index') }}"
-                    data-bs-toggle="modal" data-bs-target="#cancel-modal">
-                    <i class="bi bi-arrow-left me-1"></i>Kembali</button>
-            </div>
+    <div class="content-card mb-4">
+        <div class="d-flex justify-content-between mb-2 title-form-container">
+            <h5 class="d-flex align-items-center mb-0">Tambah {{ $judul }}</h5>
+            <button type="button" class="btn btn-danger" id="cancel-button" data-route="{{ route('pegawai.index') }}"
+                data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                <i class="bi bi-x-lg me-2"></i>Batal</button>
         </div>
         <hr>
+
         <form action="{{ route('pegawai.store') }}" method="POST" enctype="multipart/form-data" id="form-pegawai"
             novalidate>
             @csrf
@@ -18,11 +17,11 @@
             <ul class="nav nav-tabs" id="pegawai-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="data-pribadi-tab-button" data-bs-toggle="tab"
-                        data-bs-target="#data-pribadi-tab" type="button" role="tab">Data Pribadi</button>
+                        data-bs-target="#data-pribadi-tab" type="button" role="tab">Pribadi</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="data-kepegawaian-tab-button" data-bs-toggle="tab"
-                        data-bs-target="#data-kepegawaian-tab" type="button" role="tab">Data Kepegawaian</button>
+                        data-bs-target="#data-kepegawaian-tab" type="button" role="tab">Kepegawaian</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="data-pendidikan-tab-button" data-bs-toggle="tab"
@@ -31,14 +30,14 @@
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="data-sk-tab-button" data-bs-toggle="tab" data-bs-target="#data-sk-tab"
-                        type="button" role="tab">Data SK</button>
+                        type="button" role="tab">SK</button>
                 </li>
             </ul>
 
-            <div class="tab-content mb-0" id="pegawai-tab-content">
+            <div class="tab-content" id="pegawai-tab-content">
 
                 <div class="tab-pane fade show active" id="data-pribadi-tab" role="tabpanel">
-                    <div class="row g-3 pt-3">
+                    <div class="row g-3">
                         <div class="col-md-6">
                             <label for="nik" class="form-label">NIK</label>
                             <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik"
@@ -217,9 +216,10 @@
                         </div>
                     </div>
 
-                    <div class="col-12 text-end mt-4">
-                        <button type="button" class="btn btn-primary px-4 btn-nav" data-next="#data-kepegawaian-tab">
-                            Selanjutnya <i class="bi bi-arrow-right ms-1"></i>
+                    <div class="d-flex justify-content-end mt-4">
+                        {{-- Tombol Next (Class btn-nav Wajib ada) --}}
+                        <button type="button" class="btn btn-primary btn-nav" data-next="#data-kepegawaian-tab">
+                            Selanjutnya<i class="bi bi-arrow-right ms-2"></i>
                         </button>
                     </div>
                 </div>
@@ -258,7 +258,7 @@
                                     {{ $mata_pelajaran->isEmpty() ? 'disabled' : '' }}>
                                     {{ $mata_pelajaran->isNotEmpty() ? '-- Pilih Mata Pelajaran --' : '-- Mata Pelajaran Tidak Tersedia --' }}
                                 </button>
-                                <ul class="dropdown-menu w-100 p-2 id-mata-pelajaran-dropdown-menu"
+                                <ul class="dropdown-menu w-100 p-2 dropdown-options-container"
                                     aria-labelledby="id-mata-pelajaran-dropdown-button">
                                     @forelse ($mata_pelajaran as $_mata_pelajaran)
                                         <li><label class="dropdown-item"><input type="checkbox"
@@ -389,10 +389,10 @@
                     </div>
                     <div class="d-flex justify-content-between mt-4">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#data-pribadi-tab">
-                            <i class="bi bi-arrow-left me-1"></i> Kembali
+                            <i class="bi bi-arrow-left me-2"></i>Kembali
                         </button>
                         <button type="button" class="btn btn-primary btn-nav" data-next="#data-pendidikan-tab">
-                            Selanjutnya <i class="bi bi-arrow-right ms-1"></i>
+                            Selanjutnya<i class="bi bi-arrow-right ms-2"></i>
                         </button>
                     </div>
                 </div>
@@ -450,10 +450,10 @@
 
                     <div class="d-flex justify-content-between mt-4">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#data-kepegawaian-tab">
-                            <i class="bi bi-arrow-left me-1"></i> Kembali
+                            <i class="bi bi-arrow-left me-2"></i>Kembali
                         </button>
                         <button type="button" class="btn btn-primary btn-nav" data-next="#data-sk-tab">
-                            Selanjutnya <i class="bi bi-arrow-right ms-1"></i>
+                            Selanjutnya<i class="bi bi-arrow-right ms-2"></i>
                         </button>
                     </div>
                 </div>
@@ -482,14 +482,13 @@
                     </div>
                     <div class="d-flex justify-content-between mt-4">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#data-pendidikan-tab">
-                            <i class="bi bi-arrow-left me-1"></i> Kembali
+                            <i class="bi bi-arrow-left me-2"></i>Kembali
                         </button>
                         <button type="submit" class="btn btn-primary ms-2">
                             <i class="bi bi-plus-lg me-2"></i>Tambah
                         </button>
                     </div>
                 </div>
-
             </div>
         </form>
     </div>

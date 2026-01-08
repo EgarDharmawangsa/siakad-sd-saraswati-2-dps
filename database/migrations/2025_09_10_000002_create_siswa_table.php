@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('siswa', function (Blueprint $table) {
             $table->id('id_siswa');
             $table->foreignId('id_kelas')->nullable()->constrained('kelas', 'id_kelas')->onDelete('set null');
+            $table->integer('nomor_urut')->nullable();
             $table->string('no_kk', 20);
             $table->string('nik', 16)->unique();
             $table->string('nisn', 20)->unique();

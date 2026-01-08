@@ -41,18 +41,16 @@
                         <thead>
                             <tr>
                                 <th>Nomor Urut</th>
-                                <th>NISN</th>
-                                <th>Nama Siswa</th>
+                                <th>Siswa</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @forelse ($kelas->getSiswaInKelas() as $_siswa_in_kelas)
-                                {{-- <tr>
-                                    <td>{{ $_siswa_in_kelas->nomor_urut }}</td>
-                                    <td>{{ $_siswa_in_kelas->nisn }}</td>
-                                    <td>{{ $_siswa_in_kelas->nama_siswa }}</td>
-                                </tr> --}}
+                            @forelse ($siswa_in_kelas as $_siswa_in_kelas)
+                                <tr>
+                                    <td>{{ $_siswa_in_kelas->nomor_urut ?? '-' }}</td>
+                                    <td>{{ $_siswa_in_kelas->getFormatedNamaSiswa() }}</td>
+                                </tr>
                             @empty
                                 <tr class="text-center">
                                     <td colspan="5">Belum memiliki Siswa.</td>

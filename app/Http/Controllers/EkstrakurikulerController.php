@@ -28,7 +28,7 @@ class EkstrakurikulerController extends Controller
         if (Gate::any(['staf-tata-usaha', 'guru'])) {
             $ekstrakurikuler = Ekstrakurikuler::filter(request()->all())->paginate(20)->withQueryString();
         } else if (Gate::allows('siswa')) {
-            $ekstrakurikuler = PesertaEkstrakurikuler::with('ekstrakurikuler')->where('id_siswa', Auth::user()->siswa->id_siswa)->paginate(20)->withQueryString();
+            $ekstrakurikuler = Ekstrakurikuler::with('pesertaEkstrakurikuler.ekstrakurikuler')->whereHas('pesertaEkstrakurikuler', fn ($query) => $query->where('id_siswa', Auth::user()->siswa->id_siswa))->paginate(20)->withQueryString();
         } else {
             abort(404);
         }

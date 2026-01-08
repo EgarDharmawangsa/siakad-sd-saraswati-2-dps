@@ -54,8 +54,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('guru', fn($user) => $user->role === 'Guru');
         Gate::define('siswa', fn($user) => $user->role === 'Siswa');
 
-        // Specific Gate
-        Gate::define('pegawai-profile-edit', fn($user) => $user->role === 'Staf Tata Usaha' || ($user->role === 'Guru' && request()->routeIs('profil')));
-        Gate::define('pegawai-profile-update', fn($user, $pegawai) => $user->role === 'Staf Tata Usaha' || ($pegawai && $user->pegawai?->id_pegawai === $pegawai->id_pegawai));
+        // Pofil Gates
+        Gate::define('view-profil', fn($user, $profilUser) => $user->id_user === $profilUser->id_user);
     }
 }

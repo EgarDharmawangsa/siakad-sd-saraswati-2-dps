@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class KehadiranController extends Controller
 {
+    public $kehadian_validation_rules = [
+        'id_kelas' => 'required|exists:kelas,id_kelas',
+        'id_semester' => 'required|exists:semester,id_semester',
+        'tanggal' => 'required|date|after_or_equal:today'
+    ];
     /**
      * Display a listing of the resource.
      */
@@ -74,32 +79,30 @@ class KehadiranController extends Controller
             abort(404);
         }
 
-        $kehadian_validation_rules = [
-            'id_kelas' => 'required|exists:kelas,id_kelas',
-            'id_semester' => 'required|exists:semester,id_semester',
-            'tanggal' => 'required|date|equal_or_after:today'
-        ];
         $siswa = Siswa::get();
 
         if ($siswa->isEmpty()) {
             return back()->with('error', 'Siswa tidak tersedia.');
         }
 
-        $validated_kehadiran = $request->validate($kehadian_validation_rules);
+        $validated_kehadiran = $request->validate($this->kehadian_validation_rules);
 
         Siswa::where('id_kelas', $validated_kehadiran['id_kelas'])->get()->each(function ($_siswa) use ($validated_kehadiran) {
-            Kehadiran::firstOrCreate(
+            $kehadiran_data = Kehadiran::firstOrNew(
                 [
                     'id_siswa' => $_siswa->id_siswa,
-                    'id_kelas' => $validated_kehadiran['id_kelas'],
                     'id_semester' => $validated_kehadiran['id_semester']
-                ],
-                [
-                    'status' => 'Alfa',
-                    'keterangan' => null,
-                    'tanggal' => $validated_kehadiran['tanggal']
                 ]
             );
+
+            $kehadiran_data->tanggal = $validated_kehadiran['tanggal'];
+
+            if (!$kehadiran_data->exists) {
+                $kehadiran_data->status = 'Alfa';
+                $kehadiran_data->keterangan = null;
+            }
+
+            $kehadiran_data->save();
         });
 
         return redirect()->route('kehadiran.index')->with('success', 'Kehadiran berhasil ditambahkan / disinkronkan.');
@@ -127,11 +130,13 @@ class KehadiranController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function massUpdate(Request $request)
     {
         if (!Gate::any(['staf-tata-usaha', 'guru'])) {
             abort(404);
         }
+
+        // dd($request->all());
 
         $kehadiran_update_validation_rules = [
             'id_kehadiran'   => 'required|array',
@@ -187,11 +192,47 @@ class KehadiranController extends Controller
         return back()->with('success', 'Kehadiran berhasil disimpan.');
     }
 
+    public function delete()
+    {
+        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+            abort(404);
+        }
+
+        $kelas = kelas::orderedNamaKelas()->get();
+        $semester = Semester::latest()->get();
+
+        return view('pages.akademik.kehadiran.delete', [
+            'judul' => 'Kehadiran',
+            'kelas' => $kelas,
+            'semester' => $semester
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */
-    // public function destroy(Kehadiran $kehadiran)
-    // {
-    //     //
-    // }
+    public function destroy(Request $request)
+    {
+        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+            abort(404);
+        }
+
+        $kehadiran_update_validation_rules = $this->kehadian_validation_rules;
+        $kehadiran_update_validation_rules['tanggal'] = 'required|date';
+
+        $validated_kehadiran = $request->validate($kehadiran_update_validation_rules);
+
+        /** @var \Illuminate\Database\Eloquent\Builder $kehadiran_data */
+        $kehadiran_data = Kehadiran::whereHas('siswa', fn($query) => $query->where('id_kelas', $validated_kehadiran['id_kelas']))
+            ->where('id_semester', $validated_kehadiran['id_semester'])
+            ->where('tanggal', $validated_kehadiran['tanggal']);
+
+        if (!$kehadiran_data->exists()) {
+            return back()->with('error', 'Kehadiran tidak ditemukan untuk dihapus.');
+        }
+
+        $kehadiran_data->delete();
+
+        return redirect()->route('kehadiran.index')->with('success', 'Kehadiran berhasil dihapus.');
+    }
 }

@@ -6,8 +6,14 @@
         <hr>
 
         <div class="show-buttons">
-            <a href="{{ url()->previous() }}" class="btn btn-secondary btn-sm me-1"><i
-                    class="bi bi-arrow-left me-2"></i>Kembali</a>
+            @can('staf-tata-usaha')
+                <a href="{{ route('nilai-mata-pelajaran.index') }}" class="btn btn-secondary btn-sm me-1"><i class="bi bi-arrow-left me-2"></i>Kembali</a>
+            @endcan
+
+            @canany(['guru', 'siswa'])
+                <a href="{{ route('beranda') }}" class="btn btn-secondary btn-sm me-1"><i class="bi bi-arrow-left me-2"></i>Kembali</a>
+            @endcan
+            
             @can('staf-tata-usaha')
                 <a href="{{ route('pengumuman.edit', $pengumuman->id_pengumuman) }}" class="btn btn-warning btn-sm me-1"><i
                         class="bi bi-pencil me-2"></i>Edit</a>
@@ -26,10 +32,12 @@
 
         <div class="d-flex align-items-center mb-3">
             <small class="text-muted me-2 d-block">Diterbitkan pada {{ $pengumuman->getFormatedTanggal(true) }}</small>
-            <span
-                class="badge bg-{{ $pengumuman->getStatus() === 'Terbit' ? 'success' : 'primary' }}">
-                {{ $pengumuman->getStatus() }}
-            </span>
+            @can('staf-tata-usaha')
+                <span
+                    class="badge bg-{{ $pengumuman->getStatus() === 'Terbit' ? 'success' : 'primary' }}">
+                    {{ $pengumuman->getStatus() }}
+                </span>
+            @endcan
         </div>
 
         @if ($pengumuman->gambar)

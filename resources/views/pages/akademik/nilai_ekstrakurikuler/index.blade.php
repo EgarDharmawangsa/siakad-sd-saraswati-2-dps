@@ -35,135 +35,107 @@
             </div>
         </div>
 
-        {{-- @if ($siswa->isNotEmpty()) --}}
-        <form action="{{ route('nilai-ekstrakurikuler.mass-update') }}" method="POST" id="nilai-form">
-            @method('PATCH')
-            @csrf
+        @if ($siswa->isNotEmpty())
+            <form action="{{ route('nilai-ekstrakurikuler.mass-update') }}" method="POST" id="nilai-form">
+                @method('PUT')
+                @csrf
 
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Siswa</th>
-                            <th>Ekstrakurikuler</th>
-                            <th>Semester</th>
-                            <th>Nilai</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {{-- ================= DATA DUMMY ================= --}}
-                        <tr>
-                            <td>
-                                <input type="hidden" name="nilai_ekstrakurikuler_ids[]" value="1" data-row="1">
-                                1
-                            </td>
-
-                            <td>220040026 | I Komang Egar Suarama Dharmawangsa</td>
-
-                            <td>Menggambar</td>
-
-                            <td>Ganjil 2025/2026</td>
-
-                            <td>
-                                <input type="number" name="nilai[1]" class="form-control nilai-input" value="90"
-                                    min="0" max="100" data-row="1">
-                            </td>
-
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <input type="hidden" name="nilai_ekstrakurikuler_ids[]" value="2" data-row="2">
-                                2
-                            </td>
-
-                            <td>220040027 | Ni Luh Putu Sari Dewi</td>
-
-                            <td>Tari Bali</td>
-
-                            <td>Ganjil 2025/2026</td>
-
-                            <td>
-                                <input type="number" name="nilai[2]" class="form-control nilai-input" value="85"
-                                    min="0" max="100" data-row="2">
-                            </td>
-
-                            <td></td>
-                        </tr>
-                        {{-- ================= END DATA DUMMY ================= --}}
-
-                        {{-- @forelse ($nilai_ekstrakurikuler as $_nilai_ekstrakurikuler)
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
                             <tr>
-                                <td>
-                                    <input type="hidden"
-                                           name="id_nilai_ekstrakurikuler[]"
-                                           value="{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}"
-                                           data-row="{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}">
-                                    {{ $loop->iteration }}
-                                </td>
-
-                                <td>
-                                    {{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->siswa->getFormatedNamaSiswa() }}
-                                </td>
-
-                                <td>
-                                    {{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->ekstrakurikuler->nama_ekstrakurikuler }}
-                                </td>
-
-                                <td>
-                                    {{ $_nilai_ekstrakurikuler->semester->getTahunAjaran(true) }}
-                                    <span class="badge bg-{{ $_semester->getStatus() === 'Berjalan' ? 'success' : ($_semester->getStatus() === 'Menunggu' ? 'primary' : 'secondary') }}">
-                                        {{ $_semester->getStatus() }}
-                                    </span>
-                                </td>
-
-                                <td>
-                                    <input type="number"
-                                           name="nilai[{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}]"
-                                           class="form-control nilai-input"
-                                           value="{{ $_nilai_ekstrakurikuler->nilai }}"
-                                           min="0"
-                                           max="100"
-                                           data-row="{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}"
-                                           placeholder="Masukkan nilai">
-                                </td>
-
-                                <td class="aksi-column">
-                                    <a href="{{ route('pengumuman.show', $_pengumuman->id_pengumuman) }}" class="btn btn-info btn-sm">
-                                        <i class="bi bi-info-lg me-2"></i>Detail
-                                    </a>
-                                </td>
+                                <th>No.</th>
+                                <th>Siswa</th>
+                                <th>Ekstrakurikuler</th>
+                                <th>Semester</th>
+                                <th>Nilai</th>
+                                <th>Aksi</th>
                             </tr>
-                        @empty
-                            <tr class="text-center">
-                                <td colspan="6">Belum ada Nilai Ekstrakurikuler.</td>
-                            </tr>
-                        @endforelse --}}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
 
-            @if ($nilai_ekstrakurikuler->hasPages())
-                <div class="d-flex justify-content-end mt-2">
-                    {{ $nilai_ekstrakurikuler->links() }}
+                        <tbody>
+                            @forelse ($nilai_ekstrakurikuler as $_nilai_ekstrakurikuler)
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="id_nilai_ekstrakurikuler[]"
+                                            value="{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}"
+                                            data-row="{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}">
+                                        {{ $loop->iteration }}
+                                    </td>
+
+                                    <td>{{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->siswa->getFormatedNamaSiswa() }}</td>
+
+                                    <td>{{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->ekstrakurikuler->nama_ekstrakurikuler }}</td>
+
+                                    <td>
+                                        {{ $_nilai_ekstrakurikuler->semester->getTahunAjaran(true) }}
+                                        <span
+                                            class="badge bg-{{ $_nilai_ekstrakurikuler->semester->getStatus() === 'Berjalan' ? 'success' : ($_nilai_ekstrakurikuler->semester->getStatus() === 'Menunggu' ? 'primary' : 'secondary')}} ms-1">
+                                            {{ $_nilai_ekstrakurikuler->semester->getStatus() }}
+                                        </span>
+                                    </td>
+
+                                    @can('staf-tata-usaha')
+                                        <td>
+                                            <input type="number"
+                                                name="nilai[{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}]"
+                                                class="form-control nilai-input @error("nilai.{$_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler}") is-invalid @enderror" 
+                                                value="{{ $_nilai_ekstrakurikuler->nilai }}"
+                                                min="0" max="100"
+                                                data-row="{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}"
+                                                placeholder="Masukkan nilai">
+                                            @error("nilai.{$_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler}")
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+                                    @endcan
+
+                                    @can('siswa')
+                                        <td>{{ $_nilai_ekstrakurikuler->nilai }}</td>
+                                    @endcan
+
+                                    <td class="aksi-column">
+                                        <a href="{{ route('nilai-ekstrakurikuler.show', $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler) }}"
+                                            class="btn btn-info btn-sm">
+                                            <i class="bi bi-info-lg me-2"></i>Detail
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr class="text-center">
+                                    <td colspan="6">Belum ada Nilai Ekstrakurikuler.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
-            @endif
 
-            <div class="d-flex justify-content-between rounded-3 mt-4 p-3 submit-warning-container">
-                <p class="mini-label submit-warning-text">
-                    Simpan nilai sebelum berpindah ke halaman atau daftar berikutnya!
-                </p>
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-floppy me-2"></i>Simpan
-                </button>
-            </div>
-        </form>
-        {{-- @else
+                @if ($nilai_ekstrakurikuler->hasPages())
+                    <div class="d-flex justify-content-end mt-2">
+                        {{ $nilai_ekstrakurikuler->links() }}
+                    </div>
+                @endif
+
+                @can('staf-tata-usaha')
+                    <div class="d-flex justify-content-between rounded-3 mt-4 p-3 submit-warning-container">
+                        <p class="mini-label submit-warning-text">
+                            Simpan nilai sebelum berpindah ke halaman atau daftar berikutnya!
+                        </p>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-floppy me-2"></i>Simpan
+                        </button>
+                    </div>
+                @endcan
+
+                @can('staf-tata-usaha')
+                    <div class="d-flex justify-content-end mt-4">
+                        <a href="{{ route('nilai-ekstrakurikuler.delete') }}" class="btn btn-danger"><i
+                            class="bi bi-trash me-2"></i>Hapus Nilai Ekstrakurikuler</a>
+                    </div>
+                @endcan
+            </form>
+        @else
             <p class="empty-message text-center mb-0 p-3 rounded">Siswa tidak tersedia.</p>
-        @endif --}}
+        @endif
     </div>
 @endsection

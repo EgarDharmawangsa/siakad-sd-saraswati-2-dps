@@ -34,14 +34,15 @@
             @endcan
 
             <!-- Siswa -->
-            <li class="nav-item">
-                <a href="{{ route('siswa.index') }}"
-                    class="nav-link {{ request()->routeIs('siswa.*') ? 'active-sidebar-link' : '' }}">
-                    <i class="bi bi-people me-2"></i>Siswa
-                </a>
-            </li>
 
             @canany(['staf-tata-usaha', 'guru'])
+                <li class="nav-item">
+                    <a href="{{ route('siswa.index') }}"
+                        class="nav-link {{ request()->routeIs('siswa.*') ? 'active-sidebar-link' : '' }}">
+                        <i class="bi bi-people me-2"></i>Siswa
+                    </a>
+                </li>
+
                 <!-- Kelas -->
                 <li class="nav-item">
                     <a href="{{ route('kelas.index') }}"
@@ -128,7 +129,7 @@
                 </a>
             </li>
 
-            @canany(['staf-tata-usaha', 'guru'])
+            @canany(['staf-tata-usaha'])
                 <!-- Pengumuman -->
                 <li class="nav-item">
                     <a href="{{ route('pengumuman.index') }}"

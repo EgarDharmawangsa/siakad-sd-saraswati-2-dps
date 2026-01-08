@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id_kelas
+ * @property string $nama_kelas
  */
 
 class Kelas extends Model
@@ -20,7 +21,7 @@ class Kelas extends Model
 
     public function getSiswaInKelas()
     {
-        $siswa_in_kelas = Siswa::with('kelas')->where('id_kelas', $this->id_kelas)->get();
+        $siswa_in_kelas = Siswa::with('kelas')->where('id_kelas', $this->id_kelas)->orderedNomorUrutSiswa()->get();
 
         return $siswa_in_kelas;
     }

@@ -2,10 +2,10 @@
 
 @section('container')
     <div class="content-card mb-4">
-        <h5>Tambah {{ $judul }}</h5>
+        <h5>Hapus {{ $judul }}</h5>
         <hr>
 
-        <form action="{{ route('nilai-mata-pelajaran.store') }}" method="POST">
+        <form action="{{ route('nilai-mata-pelajaran.destroy') }}" method="POST">
             @csrf
 
             <div class="row g-3">
@@ -64,14 +64,23 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+
+                <div class="col-md-6">
+                    <label for="jumlah-portofolio" class="form-label">Jumlah Portofolio</label>
+                    <input type="number" class="form-control @error('jumlah_porotoflio') is-invalid @enderror"
+                        id="jumlah-portofolio" name="jumlah_portofolio" placeholder="Masukkan jumlah portofolio"
+                        value="{{ old('jumlah_portofolio') }}" min="0" max="20">
+                    @error('jumlah_portofolio')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
             </div>
 
             <div class="form-buttons">
                 <button type="button" class="btn btn-danger" id="cancel-button"
                     data-route="{{ route('nilai-mata-pelajaran.index') }}" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
-                <button type="submit" class="btn btn-primary ms-2"><i class="bi bi-plus-lg me-2"></i>Tambah<span
-                        class="mx-2">/</span><i class="bi bi-arrow-repeat me-2"></i>Sinkronisasi</button>
+                <button type="submit" class="btn btn-danger ms-2"><i class="bi bi-trash me-2"></i>Hapus</button>
             </div>
         </form>
     </div>
