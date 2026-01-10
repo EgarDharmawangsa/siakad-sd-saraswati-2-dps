@@ -42,7 +42,6 @@ class Pengumuman extends Model
     public function scopeFilter($query, array $filters)
     {
         $order_by_array = ['desc', 'asc'];
-        $status_array = ['menunggu', 'terbit'];
 
         $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
         $query->orderBy('tanggal', $order_by_value);
@@ -60,11 +59,9 @@ class Pengumuman extends Model
         }
 
         if (!empty($filters['status_filter'])) {
-            $status_filter_value = \in_array(strtolower($filters['status_filter']), $status_array) ? $filters['status_filter'] : '';
-
-            if ($status_filter_value === 'menunggu') {
+            if ($filters['status_filter'] === 'menunggu') {
                 $query->where('tanggal', '>', today());
-            } elseif ($status_filter_value === 'terbit') {
+            } elseif ($filters['status_filter'] === 'terbit') {
                 $query->where('tanggal', '<=', today());
             }
         }

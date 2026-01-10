@@ -42,8 +42,6 @@ class DatabaseSeeder extends Seeder
             'foto' => 'default.jpg'
         ]);
 
-        Siswa::factory(5)->create();
-
         User::create([
             'id_pegawai' => 1,
             'username' => 'pegawaiadmin',
@@ -53,6 +51,8 @@ class DatabaseSeeder extends Seeder
             // 'password' => bcrypt('admin'), 
             'role' => 'Staf Tata Usaha'
         ]);
+
+        Siswa::factory(30)->create();
 
         MataPelajaran::factory(30)->create();
         Ekstrakurikuler::factory(30)->create();

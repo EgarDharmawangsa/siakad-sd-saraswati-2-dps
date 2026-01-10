@@ -32,16 +32,14 @@
         <div class="tab-content mb-0" id="pegawai-tab-content">
             <div class="tab-pane fade show active" id="data-pribadi-tab" role="tabpanel">
                 <div class="row g-3">
-                    <div class="col-md-12 mb-3 d-flex justify-content-center">
-                        <div class="text-center">
-                            @if ($user->foto)
-                                <img src="{{ asset("storage/{$user->foto}") }}" alt="Foto Pegawai" 
-                                     class="foto">
-                            @else
-                                <img src="{{ asset('images/default_profile_photo.png') }}" alt="Default Foto" 
-                                     class="foto">
-                            @endif
-                        </div>
+                    <div class="col-md-12 mt-4 d-flex justify-content-center">
+                        @if ($user->foto)
+                            <img src="{{ asset("storage/{$user->foto}") }}" alt="Foto Pegawai" 
+                                    class="foto my-3">
+                        @else
+                            <img src="{{ asset('images/default_profile_photo.png') }}" alt="Default Foto" 
+                                    class="foto my-3">
+                        @endif
                     </div>
 
                     <div class="col-md-6">

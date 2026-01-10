@@ -42,14 +42,19 @@
         <div class="tab-content mb-0" id="pegawai-tab-content">
             <div class="tab-pane fade show active" id="data-pribadi-tab" role="tabpanel">
                 <div class="row g-3">
-                    <div class="col-md-12 mb-3 d-flex justify-content-center">
+                    <div class="col-md-12 mt-4 d-flex justify-content-center">
                         @if ($pegawai->foto)
                             <img src="{{ asset("storage/{$pegawai->foto}") }}" alt="Foto Pegawai" 
-                                    class="foto">
+                                    class="foto my-3">
                         @else
                             <img src="{{ asset('images/default_profile_photo.png') }}" alt="Default Foto" 
-                                    class="foto">
+                                    class="foto my-3">
                         @endif
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label ">Username</label>
+                        <input type="text" class="form-control" value="{{ $pegawai->userAuth?->username ?? '-' }}" readonly>
                     </div>
 
                     <div class="col-md-6">
@@ -107,11 +112,6 @@
                         <label class="form-label ">E-Mail</label>
                         <input type="text" class="form-control" value="{{ $pegawai->e_mail ?? '-' }}" readonly>
                     </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label ">Username</label>
-                        <input type="text" class="form-control" value="{{ $pegawai->userAuth?->username ?? '-' }}" readonly>
-                    </div>
                 </div>
                 <div class="d-flex justify-content-end mt-4">
                     {{-- Tombol Next (Class btn-nav Wajib ada) --}}
@@ -120,7 +120,6 @@
                     </button>
                 </div>
             </div>
-
             <div class="tab-pane fade" id="data-kepegawaian-tab" role="tabpanel">
                 <div class="row g-3">
                     <div class="col-md-6">
@@ -131,21 +130,25 @@
                     <div class="col-md-6">
                         <label class="form-label ">Guru Mata Pelajaran</label>
                         <div class="dropdown w-100">
-                            <button class="form-select text-start w-100 {{ $pegawai->guruMataPelajaran?->isEmpty() ? 'text-muted' : '' }}" 
-                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ $pegawai->guruMataPelajaran?->isNotEmpty() ? $pegawai->guruMataPelajaran->count() . ' Mata Pelajaran' : 'Tidak ada mapel' }}
-                            </button>
-                            @if ($pegawai->guruMataPelajaran?->isNotEmpty())
-                                <ul class="dropdown-menu w-100 p-2 shadow-sm border-0">
-                                    @foreach ($pegawai->guruMataPelajaran as $_guru_mata_pelajaran)
-                                        <li>
-                                            <div class="dropdown-item d-flex align-items-center" style="cursor: default;">
-                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
-                                                {{ $_guru_mata_pelajaran->mataPelajaran->nama_mata_pelajaran }}
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                            @if ($pegawai->posisi === 'Guru')
+                                <button class="form-select text-start w-100" 
+                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ $pegawai->guruMataPelajaran?->count() . ' Mata Pelajaran' }}
+                                </button>
+                                @if ($pegawai->guruMataPelajaran?->isNotEmpty())
+                                    <ul class="dropdown-menu w-100 p-2 shadow-sm border-0">
+                                        @foreach ($pegawai->guruMataPelajaran as $_guru_mata_pelajaran)
+                                            <li>
+                                                <div class="dropdown-item d-flex align-items-center" style="cursor: default;">
+                                                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                    {{ $_guru_mata_pelajaran->mataPelajaran->nama_mata_pelajaran }}
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            @else
+                                <input type="text" class="form-control" value="-" readonly>
                             @endif
                         </div>
                     </div>
@@ -221,7 +224,6 @@
                     </button>
                 </div>
             </div>
-
             <div class="tab-pane fade" id="data-sk-tab" role="tabpanel">
                 <div class="row g-3">
                     <div class="col-md-6">

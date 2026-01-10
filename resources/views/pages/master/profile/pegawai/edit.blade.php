@@ -180,7 +180,7 @@
                             <input type="file" class="form-control @error('foto') is-invalid @enderror image-input"
                                 id="foto" name="foto">
                             
-                            <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 10 MB</span>
+                            <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 2 MB</span>
                             @error('foto') <div class="invalid-feedback">{{ $message }}</div> @enderror
 
                             {{-- Input hidden untuk menandai penghapusan foto --}}

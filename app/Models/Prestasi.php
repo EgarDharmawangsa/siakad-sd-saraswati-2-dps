@@ -52,17 +52,9 @@ class Prestasi extends Model
             'internasional'
         ];
 
-        if (request()->routeIs('beranda') && Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (request()->routeIs('beranda')) {
             $prestasi_improvement_tahun_value = !empty($filters['prestasi_improvement_tahun_filter']) ? $filters['prestasi_improvement_tahun_filter'] : date('Y');
-
-            if (!is_numeric($prestasi_improvement_tahun_value)) {
-                $prestasi_improvement_tahun_value = date('Y');
-            }
-
-            $query->whereYear('tanggal', $prestasi_improvement_tahun_value)
-                ->selectRaw('MONTH(tanggal) as month, COUNT(*) as amount')
-                ->groupBy('month')
-                ->orderBy('month');
+            $query->whereYear('tanggal', $prestasi_improvement_tahun_value);
         } else {
             $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
             $query->orderBy('tanggal', $order_by_value);
@@ -88,12 +80,12 @@ class Prestasi extends Model
 
             if (!empty($filters['jenis_filter'])) {
                 $jenis_filter_value = \in_array(strtolower($filters['jenis_filter']), $jenis_array) ? $filters['jenis_filter'] : '';
-                $query->where('jenis', 'like', "%{$jenis_filter_value}%");
+                $query->where('jenis', $jenis_filter_value);
             }
 
             if (!empty($filters['peringkat_filter'])) {
                 $peringkat_filter_value = \in_array(strtolower($filters['peringkat_filter']), $peringkat_array) ? $filters['peringkat_filter'] : '';
-                $query->where('peringkat', 'like', "%{$peringkat_filter_value}%");
+                $query->where('peringkat', $peringkat_filter_value);
             }
 
             if (!empty($filters['peringkat_lainnya'])) {
@@ -102,7 +94,7 @@ class Prestasi extends Model
 
             if (!empty($filters['tingkat_filter'])) {
                 $tingkat_filter_value = \in_array(strtolower($filters['tingkat_filter']), $tingkat_array) ? $filters['tingkat_filter'] : '';
-                $query->where('tingkat', 'like', "%{$tingkat_filter_value}%");
+                $query->where('tingkat', $tingkat_filter_value);
             }
 
             if (!empty($filters['nama_wilayah_filter'])) {

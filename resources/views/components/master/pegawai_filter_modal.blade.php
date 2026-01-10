@@ -33,6 +33,13 @@
                         <div class="tab-pane fade show active" id="data-pribadi-filter-tab" role="tabpanel">
                             <div class="mt-3">
                                 <div class="mb-3">
+                                    <label for="username-filter" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username-filter"
+                                        name="username_filter" value="{{ request('username_filter') }}"
+                                        placeholder="Masukkan username">
+                                </div>
+
+                                <div class="mb-3">
                                     <label for="nik-filter" class="form-label">NIK</label>
                                     <input type="number" class="form-control" id="nik-filter" name="nik_filter"
                                         value="{{ request('nik_filter') }}" placeholder="Masukkan NIK">
@@ -141,18 +148,11 @@
                                         value="{{ request('no_telepon_seluler_filter') }}">
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-2">
                                     <label for="e-mail-filter" class="form-label">E-Mail</label>
                                     <input type="email" class="form-control" id="e-mail-filter"
                                         name="e_mail_filter" placeholder="Masukkan e-mail"
                                         value="{{ request('e_mail_filter') }}">
-                                </div>
-
-                                <div class="mb-2">
-                                    <label for="username-filter" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="username-filter"
-                                        name="username_filter" value="{{ request('username_filter') }}"
-                                        placeholder="Masukkan username">
                                 </div>
                             </div>
                         </div>

@@ -2,31 +2,21 @@
     margin: 0 0 1rem 0;
 }
 
-.siswa-bio-background {
-    height: 7rem;
-    background: linear-gradient(to right, #28ad60, #555877);
-    border-radius: 12px 12px 0 0;
-    padding: -1rem;
-}
-
-.siswa-bio-description {
-    padding: 0 1rem 1rem;
-}
-
-.siswa-bio-foto-container {
-    height: 4.5rem;
+.siswa-bio-container {
+    /* background: linear-gradient(to right, #28ad60, #32344b); */
+    background: url('/images/background-vector-image.png') center / cover no-repeat;
+    border-radius: 12px;
 }
 
 .siswa-bio-foto {
+    display: block;
     width: 100%;
-    max-width: 10rem;
+    max-width: 8rem;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    border: 6px solid white;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
     border-radius: 50%;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -60%);
+    margin: 0 auto;
 }
 
 .icon-count-card {

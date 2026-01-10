@@ -170,22 +170,26 @@
 
     @can('siswa')
         <div class="content-card p-0 mb-3">
-            <div class="siswa-bio-background"></div>
-            <div class="siswa-bio-description">
+            <div class="siswa-bio-container p-4">
                 <div class="row g-3">
-                    <div class="col-md-3 siswa-bio-foto-container position-relative">
+                    <div class="col-sm-3 my-3 px-3 d-flex align-items-center">
                         @if (auth()->user()->siswa?->foto)
                             <img src="{{ asset('storage/' . auth()->user()->siswa?->foto) }}" alt="Foto Siswa"
-                                class="siswa-bio-foto position-absolute">
+                                class="siswa-bio-foto">
                         @else
-                            <img src="{{ asset('images/default_profile_photo.png') }}" alt="Foto Siswa"
-                                class="siswa-bio-foto position-absolute">
+                            <img src="{{ asset('images/default_profile_photo.png') }}" alt="Foto Siswa" class="siswa-bio-foto">
                         @endif
                     </div>
-                    <div class="col-md-9 text-center">
-                        <h5>{{ strtoupper(auth()->user()->siswa?->nama_siswa) }}</h5>
+                    <div class="col-sm-9 my-3 px-3 d-flex flex-column justify-content-center text-white">
+                        <div>
+                            <p class="fs-6 mb-1">Selamat Datang!👋</p>
+                            <h5 class="fw-bold">{{ auth()->user()->siswa?->nama_siswa }}</h5>
+                        </div>
                         <hr class="my-3">
-                        <p class="mb-0">{{ auth()->user()->siswa?->nisn }}</p>
+                        <p class="mb-0 fs-6">
+                            Kelas: <span class="fw-bold">{{ auth()->user()->siswa?->kelas?->nama_kelas }}</span> | NISN: <span
+                                class="fw-bold">{{ auth()->user()->siswa?->nisn }}</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -222,8 +226,8 @@
         </div>
     @endcanany
 
-    <div class="row g-3">
-        <div class="col-md-6 my-0">
+    <div class="row g-3 mb-2">
+        <div class="col-md-6 mt-0 mb-3">
             <div class="content-card">
                 <h5>Kalender Semester</h5>
                 <hr>
@@ -231,7 +235,7 @@
                 <div id="semester-calendar"></div>
             </div>
         </div>
-        <div class="col-md-6 my-0">
+        <div class="col-md-6 mt-0 mb-3">
             <div class="content-card">
                 <h5>Pengguna Aktif <span class="text-muted mini-label">(Online)</span></h5>
                 <hr>

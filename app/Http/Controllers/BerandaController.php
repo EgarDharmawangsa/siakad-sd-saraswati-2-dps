@@ -11,6 +11,8 @@ use App\Models\MataPelajaran;
 use App\Models\Ekstrakurikuler;
 use App\Models\Prestasi;
 use App\Models\Pengumuman;
+use Illuminate\Support\Facades\Gate;
+use SebastianBergmann\Environment\Console;
 
 class BerandaController extends Controller
 {
@@ -29,14 +31,21 @@ class BerandaController extends Controller
 
     public function index()
     {
-        $counted_pegawai = Pegawai::get()->count();
-        $counted_siswa = Siswa::get()->count();
-        $counted_kelas = Kelas::get()->count();
-        $counted_semester = Semester::get()->count();
-        $counted_mata_pelajaran = MataPelajaran::get()->count();
-        $counted_ekstrakurikuler = Ekstrakurikuler::get()->count();
-        $counted_prestasi = Prestasi::get()->count();
-        $counted_pengumuman = Pengumuman::get()->count();
+        $user_data = [];
+        $prestasi = Prestasi::latest()->get();
+
+        if (Gate::any(['staf-tata-usaha', 'guru'])) {
+            $user_data['counted_pegawai'] = Pegawai::get()->count();
+            $user_data['counted_siswa'] = Siswa::get()->count();
+            $user_data['counted_kelas'] = Kelas::get()->count();
+            $user_data['counted_semester'] = Semester::get()->count();
+            $user_data['counted_mata_pelajaran'] = MataPelajaran::get()->count();
+            $user_data['counted_ekstrakurikuler'] = Ekstrakurikuler::get()->count();
+            $user_data['counted_prestasi'] = $prestasi->count();
+            $user_data['counted_pengumuman'] = Pengumuman::get()->count();
+            $user_data['pegawai_distribution_data'] = $this->getPegawaiDistributionData();
+        }
+
         $active_users = User::query()->whereIn('id_user', function ($query) {
             $query->select('user_id')
                 ->from('sessions')
@@ -44,20 +53,12 @@ class BerandaController extends Controller
         })->get()->groupBy('role');
         $pengumuman = Pengumuman::query()->orderBy('tanggal', 'desc')->paginate(20)->withQueryString();
 
-        return view('pages.beranda', [
-            'judul' => 'Beranda',
-            'counted_pegawai' => $counted_pegawai,
-            'counted_siswa' => $counted_siswa,
-            'counted_kelas' => $counted_kelas,
-            'counted_semester' => $counted_semester,
-            'counted_mata_pelajaran' => $counted_mata_pelajaran,
-            'counted_ekstrakurikuler' => $counted_ekstrakurikuler,
-            'counted_prestasi' => $counted_prestasi,
-            'counted_pengumuman' => $counted_pengumuman,
-            'pengumuman' => $pengumuman,
-            'pegawai_distribution_data' => $this->getPegawaiDistributionData(),
-            'active_users' => $active_users
-        ]);
+        $user_data['judul'] = 'Beranda';
+        $user_data['pengumuman'] = $pengumuman;
+        $user_data['active_users'] = $active_users;
+        $user_data['prestasi'] = $prestasi;
+
+        return view('pages.beranda', $user_data);
     }
 
     public function getPegawaiDistributionChartData()
@@ -67,15 +68,16 @@ class BerandaController extends Controller
 
     public function getPrestasiImprovementChartData()
     {
-        $prestasi_improvement_raw_data = Prestasi::filter(request(['prestasi_improvement_tahun_filter']))->get();
+        $prestasi_raw = Prestasi::filter(request(['prestasi_improvement_tahun_filter']))->get();
+
+        $prestasi_per_month = $prestasi_raw
+            ->groupBy(fn($item) => (int) $item->tanggal->month) 
+            ->map(fn($items) => $items->count());  
+
         $prestasi_improvement_data = [];
-        $total = 0;
 
         for ($i = 1; $i <= 12; $i++) {
-            $amount_per_month = $prestasi_improvement_raw_data->firstWhere('month', $i);
-            $current_month_amount = $amount_per_month ? $amount_per_month->amount : 0;
-            $total += $current_month_amount;
-            $prestasi_improvement_data[] = $total;
+            $prestasi_improvement_data[] = $prestasi_per_month->get($i, 0);
         }
 
         return response()->json($prestasi_improvement_data);

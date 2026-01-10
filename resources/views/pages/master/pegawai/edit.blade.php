@@ -11,7 +11,7 @@
         <hr>
 
         {{-- Form dengan ID form-pegawai, enctype multipart, dan novalidate --}}
-        <form action="{{ route('pegawai.update') }}" 
+        <form action="{{ route('pegawai.update', $pegawai->id_pegawai) }}" 
               method="POST" 
               enctype="multipart/form-data" 
               id="form-pegawai" 
@@ -42,6 +42,27 @@
                 
                 <div class="tab-pane fade show active" id="data-pribadi-tab" role="tabpanel">
                     <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                id="username" name="username" placeholder="Masukkan username"
+                                value="{{ old('username', $pegawai->userAuth?->username) }}" required>
+                            @error('username') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="password" class="form-label">Password <span class="text-muted mini-label ms-1">(Kosongkan jika tidak diubah)</span></label>
+                            <div class="input-group">
+                                <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                    id="password" name="password" placeholder="Masukkan password baru">
+                                <button class="btn btn-outline-secondary password-toggle-button" type="button"
+                                    id="password-toggle-button" aria-label="Lihat password">
+                                    <i class="bi bi-eye" id="password-eye-icon"></i>
+                                </button>
+                            </div>
+                            @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+                        
                         <div class="col-md-6">
                             <label for="nik" class="form-label">NIK</label>
                             <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik"
@@ -144,27 +165,6 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control @error('username') is-invalid @enderror"
-                                id="username" name="username" placeholder="Masukkan username"
-                                value="{{ old('username', $pegawai->userAuth?->username) }}" required>
-                            @error('username') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="password" class="form-label">Password <span class="text-muted mini-label ms-1">(Kosongkan jika tidak diubah)</span></label>
-                            <div class="input-group">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    id="password" name="password" placeholder="Masukkan password baru">
-                                <button class="btn btn-outline-secondary password-toggle-button" type="button"
-                                    id="password-toggle-button" aria-label="Lihat password">
-                                    <i class="bi bi-eye" id="password-eye-icon"></i>
-                                </button>
-                            </div>
-                            @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                        </div>
-
-                        <div class="col-md-6">
                             <label for="foto" class="form-label">Foto<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             
                             {{-- Preview Gambar Existing/Baru --}}
@@ -180,7 +180,7 @@
                             <input type="file" class="form-control @error('foto') is-invalid @enderror image-input"
                                 id="foto" name="foto">
                             
-                            <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 10 MB</span>
+                            <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 2 MB</span>
                             @error('foto') <div class="invalid-feedback">{{ $message }}</div> @enderror
 
                             {{-- Input hidden untuk menandai penghapusan foto --}}

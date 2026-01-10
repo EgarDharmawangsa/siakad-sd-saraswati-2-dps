@@ -35,9 +35,9 @@ class UpdatePegawaiRequest extends FormRequest
         return [
             'id_mata_pelajaran'     => 'nullable|array',
             'id_mata_pelajaran.*'   => 'nullable|exists:mata_pelajaran,id_mata_pelajaran',
-            'nik'                   => "required|string|min:16|max:20|unique:pegawai,nik,{$id_pegawai},id_pegawai|unique:siswa,nik",
-            'nip'                   => "nullable|string|min:18|max:20|unique:pegawai,nip,{$id_pegawai},id_pegawai",
-            'nipppk'                => "nullable|string|min:18|max:20|unique:pegawai,nipppk,{$id_pegawai},id_pegawai",
+            'nik'                   => "required|string|size:16|unique:pegawai,nik,{$id_pegawai},id_pegawai|unique:siswa,nik",
+            'nip'                   => "nullable|string|size:18|unique:pegawai,nip,{$id_pegawai},id_pegawai",
+            'nipppk'                => "nullable|string|size:18|unique:pegawai,nipppk,{$id_pegawai},id_pegawai",
             'nama_pegawai'          => 'required|min:3|string|max:255',
             'jenis_kelamin'         => 'required|string|min:3|max:10',
             'agama'                 => 'required|string|min:3|max:20',

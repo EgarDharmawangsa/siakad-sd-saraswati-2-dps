@@ -39,10 +39,18 @@
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>No.</th>
+                        <th rowspan="2">No.</td>
+                        <th colspan="12">Pribadi</th>
+                        <th colspan="8">Kepegawaian</th>
+                        <th colspan="4">Pendidikan & Sertifikasi</th>
+                        <th colspan="2">SK</th>
+                        <th rowspan="2">Aksi</th>
+                    </tr>
+                    <tr>
+                        {{-- <th>No.</th> --}}
                         <th>NIK</th>
-                        <th>Nama Pegawai</th>
                         <th>Username</th>
+                        <th>Nama Pegawai</th>
                         <th>Jenis Kelamin</th>
                         <th>Tempat Lahir</th>
                         <th>Tanggal Lahir</th>
@@ -52,6 +60,7 @@
                         <th>No. Telepon Rumah</th>
                         <th>No. Telepon Seluler</th>
                         <th>E Mail</th>
+
                         <th>Posisi</th>
                         <th>Guru Mata Pelajaran</th>
                         <th>Status Kepegawaian</th>
@@ -60,13 +69,15 @@
                         <th>Jabatan</th>
                         <th>Permulaan Kerja</th>
                         <th>Permulaan Kerja (RASDA)</th>
+
                         <th>Ijazah Terakhir</th>
                         <th>Tahun Ijazah</th>
                         <th>Status Sertifikasi</th>
                         <th>Tahun Sertifikasi</th>
+
                         <th>No. SK</th>
                         <th>Tanggal SK Terakhir</th>
-                        <th>Aksi</th>
+                        {{-- <th>Aksi</th> --}}
                     </tr>
                 </thead>
 
@@ -75,8 +86,8 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $_pegawai->nik }}</td>
-                            <td>{{ $_pegawai->nama_pegawai }}</td>
                             <td>{{ $_pegawai->userAuth?->username ?? '-' }}</td>
+                            <td>{{ $_pegawai->nama_pegawai }}</td>
                             <td>{{ $_pegawai->jenis_kelamin }}</td>
                             <td>{{ $_pegawai->tempat_lahir }}</td>
                             <td>{{ $_pegawai->getFormatedTanggal('tanggal_lahir') }}</td>

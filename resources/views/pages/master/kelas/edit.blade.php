@@ -12,12 +12,11 @@
                 <div class="col-md-6">
                     <label for="nama-kelas" class="form-label">Nama Kelas</label>
                     <input type="text" class="form-control @error('nama_kelas') is-invalid @enderror" id="nama-kelas"
-                        name="nama_kelas" placeholder="Masukkan nama kelas"
+                        name="nama_kelas" placeholder="Masukkan nama kelas (contoh: 1A)"
                         value="{{ old('nama_kelas', $kelas->nama_kelas) }}" required>
                     @error('nama_kelas')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                    <span class="text-muted d-block mini-label mt-1">Contoh: 1A</span>
                 </div>
 
                 <div class="col-md-6">

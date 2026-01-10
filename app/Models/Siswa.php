@@ -48,45 +48,74 @@ class Siswa extends Model
     
     public function scopeFilter($query, array $filters)
     {
-        $likeFields = [
-            'nama_siswa', 'nisn', 'nipd', 'nik', 'tempat_lahir', 'kewarganegaraan',
-            'no_registrasi_akta_lahir', 
+        $like_fields = [
+            // Pribadi
+            'nik', 'no_kk', 'nisn', 'nipd', 'nama_siswa', 
+            'tempat_lahir', 'no_telepon_rumah', 'no_telepon_seluler', 
+            'e_mail', 'no_registrasi_akta_lahir', 'keterangan_disabilitas',
             
-            'alamat', 'rt', 'rw', 'dusun', 'kelurahan', 'kecamatan', 'kode_pos', 
-            'alat_transportasi', 'no_telepon_rumah', 'no_telepon_seluler', 'e_mail', 
-            'keterangan_disabilitas', 'jenis_tinggal',
+            // Alamat
+            'alamat', 'dusun', 'kelurahan', 
+            'kecamatan', 'kode_pos', 
             
-            'nama_ayah', 'nik_ayah', 'jenjang_pendidikan_ayah', 'pekerjaan_ayah', 'penghasilan_ayah',
+            // Pendamping
+            'nama_ayah', 'nik_ayah', 'tahun_lahir_ayah', 'jenjang_pendidikan_ayah', 'pekerjaan_ayah',
+            'nama_ibu', 'nik_ibu', 'tahun_lahir_ibu', 'jenjang_pendidikan_ibu', 'pekerjaan_ibu',
+            'nama_wali', 'nik_wali', 'tahun_lahir_wali', 'jenjang_pendidikan_wali', 'pekerjaan_wali',
             
-            'nama_ibu', 'nik_ibu', 'jenjang_pendidikan_ibu', 'pekerjaan_ibu', 'penghasilan_ibu',
-            
-            'nama_wali', 'nik_wali', 'jenjang_pendidikan_wali', 'pekerjaan_wali', 'penghasilan_wali',
-            
-            'no_kps', 'no_kip', 'nama_kip', 'alasan_layak_pip', 'nama_bank', 'no_rekening',
-            'nama_rekening', 'sekolah_asal', 'no_peserta_un', 'no_seri_ijazah'
+            // Pendidikan
+            'sekolah_asal', 'no_peserta_un', 'no_seri_ijazah',
+
+            'no_kps', 'no_kks', 'no_kip', 'nama_kip', 'alasan_layak_pip', 
+            'nama_bank', 'no_rekening', 'nama_rekening',
+
+            // Akademik
+            'nomor_urut'
         ];
 
-        foreach ($likeFields as $field) {
-            if (isset($filters[$field]) && $filters[$field] !== null && $filters[$field] !== '') {
-                $query->where($field, 'like', '%' . $filters[$field] . '%');
+        foreach ($like_fields as $_like_fields) {
+            if (!empty($filters[$_like_fields])) {
+                $query->where($_like_fields, 'like', "%{$filters[$_like_fields]}%");
             }
         }
 
-        $exactFields = [
-            'jenis_kelamin', 'agama', 
-            'tanggal_lahir', 
-            'jarak_rumah_ke_sekolah', 
+        $exact_fields = [
+            // Pribadi
+            'jenis_kelamin', 'agama', 'jenis_tinggal', 'alat_transportasi',
+            'berat_badan', 'tinggi_badan', 'lingkar_kepala',
             'jumlah_saudara_kandung', 'anak_ke_berapa',
             'disabilitas',
-            'penerima_kps', 'penerima_kip', 'layak_pip',
-            
-            'berat_badan', 'tinggi_badan', 'lingkar_kepala'
+
+            // Alamat
+            'rt', 'rw', 'lintang', 'bujur', 'jarak_rumah_ke_sekolah', 
+
+            // Pendamping
+            'penghasilan_ayah', 'penghasilan_ibu', 'penghasilan_wali',
+
+            // Pendidikan
+            'penerima_kps', 'penerima_kip', 'layak_pip'
         ];
 
-        foreach ($exactFields as $field) {
-            if (isset($filters[$field]) && $filters[$field] !== null && $filters[$field] !== '') {
-                $query->where($field, $filters[$field]);
+        foreach ($exact_fields as $_exact_fields) {
+            if (!empty($filters[$_exact_fields])) {
+                $query->where($_exact_fields, $filters[$_exact_fields]);
             }
+        }
+
+        if (!empty($filters['tanggal_lahir'])) {
+            $query->whereDate('tanggal_lahir', $filters['tanggal_lahir']);
+        }
+
+        if (!empty($filters['username'])) {
+            $query->whereHas('userAuth', fn($query) => $query->where('username', 'like', '%' . $filters['username'] . '%'));
+        }
+
+        if (!empty($filters['kelas'])) {
+            $query->whereHas('kelas', fn($query) => $query->where('id_kelas', $filters['kelas']));
+        }
+
+        if (!empty($filters['ekstrakurikuler'])) {
+            $query->whereHas('siswa.pesertaEkstrakurikuler.ekstrakurikuler', fn($query) => $query->where('id_ekstrakurikuler', $filters['ekstrakurikuler']));
         }
 
         $sort_by = \in_array(strtolower($filters['sort_by'] ?? ''), ['asc', 'desc']) ? strtolower($filters['sort_by']) : 'desc';

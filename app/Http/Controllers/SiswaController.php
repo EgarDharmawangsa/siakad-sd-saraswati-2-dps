@@ -22,14 +22,19 @@ class SiswaController extends Controller
             abort(404);
         }
 
-        $siswa = Siswa::with(['kelas', 'pesertaEkstrakurikuler'])
+        $siswa = Siswa::with(['kelas', 'userAuth', 'pesertaEkstrakurikuler'])
             ->filter($request->all())
             ->paginate(10)
             ->withQueryString();
 
+        $kelas = Kelas::orderedNamaKelas()->get();
+        $ekstrakurikuler = Ekstrakurikuler::latest()->get();
+
         return view('pages.master.siswa.index', [
             'judul' => 'Siswa',
-            'siswa' => $siswa
+            'siswa' => $siswa,
+            'kelas' => $kelas,
+            'ekstrakurikuler' => $ekstrakurikuler
         ]);
     }
 

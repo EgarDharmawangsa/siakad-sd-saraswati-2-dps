@@ -46,15 +46,6 @@ class Ekstrakurikuler extends Model
         public function scopeFilter($query, array $filters)
         {
                 $order_by_array = ['desc', 'asc'];
-                $hari_array = [
-                        'senin',
-                        'selasa',
-                        'rabu',
-                        'kamis',
-                        'jumat',
-                        'sabtu',
-                        'minggu'
-                ];
 
                 $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
                 $query->orderBy('created_at', $order_by_value);
@@ -76,8 +67,7 @@ class Ekstrakurikuler extends Model
                 }
 
                 if (!empty($filters['hari_filter'])) {
-                        $hari_filter_value = \in_array(strtolower($filters['hari_filter']), $hari_array) ? $filters['hari_filter'] : '';
-                        $query->where('hari', 'like', "%{$hari_filter_value}%");
+                        $query->where('hari', $filters['hari_filter']);
                 }
 
                 if (!empty($filters['jam_mulai_filter'])) {

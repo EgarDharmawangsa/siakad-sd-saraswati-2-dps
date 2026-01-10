@@ -66,24 +66,12 @@ class JadwalPelajaran extends Model
 
     public function scopeFilter($query, array $filters)
     {
-        $kegiatan_array = ['belajar', 'istirahat'];
-        $hari_array = [
-            'senin',
-            'selasa',
-            'rabu',
-            'kamis',
-            'jumat',
-            'sabtu',
-            'minggu'
-        ];
-
         if (!empty($filters['kelas_filter'])) {
             $query->whereHas('kelas', fn($query) => $query->where('nama_kelas', 'like', '%' . $filters['kelas_filter'] . '%'));
         }
 
         if (!empty($filters['kegiatan_filter'])) {
-            $kegiatan_filter_value = \in_array(strtolower($filters['kegiatan_filter']), $kegiatan_array) ? $filters['kegiatan_filter'] : '';
-            $query->where('kegiatan', 'like', "%{$kegiatan_filter_value}%");
+            $query->where('kegiatan', $filters['kegiatan_filter']);
         }
 
         if (!empty($filters['mata_pelajaran_filter'])) {
@@ -95,8 +83,7 @@ class JadwalPelajaran extends Model
         }
 
         if (!empty($filters['hari_filter'])) {
-            $hari_filter_value = \in_array(strtolower($filters['hari_filter']), $hari_array) ? $filters['hari_filter'] : '';
-            $query->where('hari', 'like', "%{$hari_filter_value}%");
+            $query->where('hari', $filters['hari_filter']);
         }
 
         if (!empty($filters['jam_mulai_filter'])) {

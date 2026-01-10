@@ -90,15 +90,12 @@ class Semester extends Model
     public function scopeFilter($query, array $filters)
     {
         $order_by_array = ['desc', 'asc'];
-        $jenis_filter_array = ['ganjil', 'genap'];
-        $status_filter_array = ['menunggu', 'berjalan', 'selesai'];
 
         $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
         $query->orderBy('tanggal_mulai', $order_by_value);
 
         if (!empty($filters['jenis_filter'])) {
-            $jenis_filter_value = \in_array(strtolower($filters['jenis_filter']), $jenis_filter_array) ? $filters['jenis_filter'] : '';
-            $query->where('jenis', 'like', "%{$jenis_filter_value}%");
+            $query->where('jenis', $filters['jenis_filter']);
         }
 
         if (!empty($filters['tahun_ajaran_filter'])) {
@@ -106,7 +103,7 @@ class Semester extends Model
             $tahun = explode('/', $tahun_ajaran);
 
             if (
-                count($tahun) === 2 &&
+                \count($tahun) === 2 &&
                 ctype_digit($tahun[0]) &&
                 ctype_digit($tahun[1]) &&
                 (int)$tahun[0] < (int)$tahun[1]
@@ -128,14 +125,12 @@ class Semester extends Model
         }
 
         if (!empty($filters['status_filter'])) {
-            $status_filter_value = \in_array(strtolower($filters['status_filter']), $status_filter_array) ? $filters['status_filter'] : '';
-
-            if ($status_filter_value === 'menunggu') {
+            if ($filters['status_filter'] === 'menunggu') {
                 $query->where('tanggal_mulai', '>', now());
-            } elseif ($status_filter_value === 'berjalan') {
+            } elseif ($filters['status_filter'] === 'berjalan') {
                 $query->where('tanggal_mulai', '<=', now())
                     ->where('tanggal_selesai', '>=', now());
-            } elseif ($status_filter_value === 'selesai') {
+            } elseif ($filters['status_filter'] === 'selesai') {
                 $query->where('tanggal_selesai', '<', now());
             }
         }

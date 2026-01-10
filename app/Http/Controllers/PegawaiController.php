@@ -17,7 +17,7 @@ class PegawaiController extends Controller
     {
         if (Gate::any(['staf-tata-usaha', 'guru'])) {
             $judul = 'Pegawai';
-            $pegawai = Pegawai::with('guruMataPelajaran')->filter(request()->all())->paginate(30)->withQueryString();
+            $pegawai = Pegawai::with(['guruMataPelajaran', 'userAuth'])->filter(request()->all())->paginate(30)->withQueryString();
         } else if (Gate::allows('siswa')) {
             $judul = 'Guru';
             $pegawai = Pegawai::where('posisi', 'Guru')->with('guruMataPelajaran')->filter(request()->all())->paginate(30)->withQueryString();
