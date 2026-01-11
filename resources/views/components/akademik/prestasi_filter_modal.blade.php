@@ -106,9 +106,9 @@
                     </div>
 
                     <div class="mb-2">
-                        <label for="tanggal-filter" class="form-label">Tanggal</label>
-                        <input type="date" class="form-control" id="tanggal-filter" name="tanggal_filter"
-                            value="{{ request('tanggal_filter') }}">
+                        <label for="tanggal-peraihan-filter" class="form-label">Tanggal Peraihan</label>
+                        <input type="date" class="form-control" id="tanggal-peraihan-filter" name="tanggal_peraihan_filter"
+                            value="{{ request('tanggal_peraihan_filter') }}">
                     </div>
                 </form>
             </div>

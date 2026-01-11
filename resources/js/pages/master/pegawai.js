@@ -1,5 +1,3 @@
-console.log('pegawai.js loaded');
-
 document.addEventListener("DOMContentLoaded", function () {
 
     // defintion

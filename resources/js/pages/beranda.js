@@ -4,7 +4,6 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 
 const pegawai_distribution_chart = document.getElementById('pegawai-distribution-chart');
 const prestasi_improvement_chart = document.getElementById('prestasi-improvement-chart');
-const prestasi_improvement_tahun_filter_form = document.getElementById('prestasi-improvement-tahun-filter-form');
 const prestasi_improvement_tahun_select = document.getElementById('prestasi-improvement-tahun-select');
 const semester_calendar = document.getElementById('semester-calendar');
 
@@ -67,8 +66,7 @@ if (pegawai_distribution_chart && prestasi_improvement_chart) {
     };
 
     const prestasi_improvement_chart_function = async () => {
-        const url_params = new URLSearchParams(window.location.search);
-        const prestasi_improvement_tahun_value = url_params.get('prestasi_improvement_tahun_filter');
+        const prestasi_improvement_tahun_value = prestasi_improvement_tahun_select.value;
 
         const prestasi_improvement_chart_response = await fetch(`/api/prestasi-improvement?prestasi_improvement_tahun_filter=${prestasi_improvement_tahun_value}`);
         const prestasi_improvement_chart_data = await prestasi_improvement_chart_response.json();
@@ -128,11 +126,9 @@ if (pegawai_distribution_chart && prestasi_improvement_chart) {
 
     pegawai_distribution_chart_function();
     prestasi_improvement_chart_function();
-}
 
-if (prestasi_improvement_tahun_filter_form) {
     prestasi_improvement_tahun_select.addEventListener('change', () => {
-        prestasi_improvement_tahun_filter_form.submit();
+        prestasi_improvement_chart_function();
     });
 }
 

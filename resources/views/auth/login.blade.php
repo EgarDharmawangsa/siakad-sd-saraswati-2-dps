@@ -80,8 +80,7 @@
             <button type="submit" class="btn w-100 login-button"><i
                     class="bi bi-box-arrow-in-right me-2"></i>Masuk</button>
 
-            <p class="text-muted text-center mt-4 mb-0 login-copyright-label">&copy; 2025 SIAKAD RASDA. All rights
-                reserved.</p>
+            <p class="text-muted text-center mt-4 mb-0 login-copyright-label">&copy; 2025 SIAKAD RASDA. Dikembangkan oleh I Komang Egar Suarama Dharmawangsa dan I Gusti Ngurah Satrya Wibawa.</p>
         </form>
     </div>
 </body>

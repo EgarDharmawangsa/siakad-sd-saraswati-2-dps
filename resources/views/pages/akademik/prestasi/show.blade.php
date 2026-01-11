@@ -25,7 +25,7 @@
 
         <h4 class="mb-2 mt-3">{{ $prestasi->nama_prestasi }}</h4>
 
-        <small class="text-muted mb-3">Diraih pada {{ $prestasi->getFormatedTanggal() }}</small>
+        <small class="text-muted mb-3">Diraih pada {{ $prestasi->getFormatedTanggalPeraihan() }}</small>
 
         @if ($prestasi->dokumentasi)
             <img src="{{ asset("storage/{$prestasi->dokumentasi}") }}" alt="Dokumentasi Prestasi"

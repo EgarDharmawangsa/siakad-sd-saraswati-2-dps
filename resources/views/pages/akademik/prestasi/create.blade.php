@@ -112,10 +112,10 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="tanggal" class="form-label">Tanggal</label>
-                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal"
-                        name="tanggal" value="{{ old('tanggal') }}" required>
-                    @error('tanggal')
+                    <label for="tanggal-peraihan" class="form-label">Tanggal Peraihan</label>
+                    <input type="date" class="form-control @error('tanggal_peraihan') is-invalid @enderror" id="tanggal-peraihan"
+                        name="tanggal" value="{{ old('tanggal_peraihan') }}" required>
+                    @error('tanggal_peraihan')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

@@ -48,7 +48,7 @@
                             <th>Peringkat</th>
                             <th>Tingkat</th>
                             <th>Wilayah</th>
-                            <th>Tanggal</th>
+                            <th>Tanggal Peraihan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -64,7 +64,7 @@
                                 <td>{{ $_prestasi->peringkat ?? $_prestasi->peringkat_lainnya }}</td>
                                 <td>{{ $_prestasi->tingkat }}</td>
                                 <td>{{ $_prestasi->wilayah }}</td>
-                                <td>{{ $_prestasi->getFormatedTanggal() }}</td>
+                                <td>{{ $_prestasi->getFormatedTanggalPeraihan() }}</td>
                                 <td class="aksi-column">
                                     <a href="{{ route('prestasi.show', $_prestasi->id_prestasi) }}"
                                         class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>

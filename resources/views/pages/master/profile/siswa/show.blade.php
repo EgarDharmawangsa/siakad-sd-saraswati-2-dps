@@ -97,7 +97,8 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">No. Telp. Rumah</label>
-                        <input type="text" class="form-control" value="{{ $user->no_telepon_rumah }}" readonly>
+                        <input type="text" class="form-control" value="{{ $user->no_telepon_rumah ?? '-' }}"
+                            readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">No. HP (WA)</label>
@@ -105,7 +106,7 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">E-Mail</label>
-                        <input type="text" class="form-control" value="{{ $user->e_mail }}" readonly>
+                        <input type="text" class="form-control" value="{{ $user->e_mail ?? '-' }}" readonly>
                     </div>
                     <div class="col-md-12 mt-0">
                         <hr class="text-muted opacity-25">
