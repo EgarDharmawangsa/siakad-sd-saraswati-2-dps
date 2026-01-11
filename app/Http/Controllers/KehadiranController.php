@@ -25,7 +25,7 @@ class KehadiranController extends Controller
         if (Gate::any(['staf-tata-usaha', 'guru']))
             $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->filter(request()->all())->paginate(20)->withQueryString();
         else if (Gate::allows('siswa')) {
-            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->all())->paginate(20)->withQueryString();
+            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter']))->paginate(20)->withQueryString();
         } else {
             abort(404);
         }

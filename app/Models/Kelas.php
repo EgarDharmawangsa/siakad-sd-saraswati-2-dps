@@ -34,7 +34,7 @@ class Kelas extends Model
         return $query;
     }
 
-    public function scopeWithJadwalPelajaran($query, $filters)
+    public function scopeWithJadwalPelajaran($query, $filters, $id_siswa = null)
     {
         $query->with([
             'pegawai',
@@ -47,6 +47,10 @@ class Kelas extends Model
             'jadwalPelajaran', fn($query) =>
                 $query->filter($filters)
         );
+
+        if (!empty($id_siswa)) {
+            $query->whereHas('siswa', fn($query) => $query->where('id_siswa', $id_siswa));
+        }
 
         return $query;
     }

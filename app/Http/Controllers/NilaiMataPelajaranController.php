@@ -27,7 +27,7 @@ class NilaiMataPelajaranController extends Controller
         if (Gate::any(['staf-tata-usaha', 'guru']))
             $nilai_mata_pelajaran = NilaiMataPelajaran::with(['siswa', 'siswa.kelas', 'mataPelajaran', 'semester'])->filter(request()->all())->paginate(20)->withQueryString();
         else if (Gate::allows('siswa')) {
-            $nilai_mata_pelajaran = NilaiMataPelajaran::with(['siswa', 'siswa.kelas', 'mataPelajaran', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->all())->paginate(20)->withQueryString();
+            $nilai_mata_pelajaran = NilaiMataPelajaran::with(['siswa', 'siswa.kelas', 'mataPelajaran', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->except('kelas_filter'))->paginate(20)->withQueryString();
         } else {
             abort(404);
         }

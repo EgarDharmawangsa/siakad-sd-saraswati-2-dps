@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\GuruMataPelajaran;
 use App\Models\MataPelajaran;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class JadwalPelajaranController extends Controller
 {
@@ -25,10 +26,20 @@ class JadwalPelajaranController extends Controller
      */
     public function index()
     {
-        $kelas = Kelas::withJadwalPelajaran(request()->except('nama_kelas_filter'))
-            ->orderedNamaKelas()
-            ->paginate(20)
-            ->withQueryString();
+        if (Gate::any(['staf-tata-usaha', 'guru'])) {
+            $kelas = Kelas::withJadwalPelajaran(request()->except('nama_kelas_filter'))
+                ->orderedNamaKelas()
+                ->paginate(20)
+                ->withQueryString();
+        } else if (Gate::allows('siswa')) {
+            $kelas = Kelas::withJadwalPelajaran(request()->except(['kelas_filter', 'nama_kelas_filter']), Auth::user()->siswa->id_siswa)
+                ->orderedNamaKelas()
+                ->paginate(20)
+                ->withQueryString();
+        } else {
+            abort(404);
+        }
+        
 
         return view('pages.akademik.jadwal_pelajaran.index', [
             'judul' => 'Jadwal Pelajaran',

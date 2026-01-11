@@ -442,11 +442,11 @@
                     <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Kelas</label></div>
                     <div class="col-md-6">
                         <label class="form-label">Kelas</label>
-                        <input type="text" class="form-control" value="{{ $siswa->kelas?->nama_kelas }}" readonly>
+                        <input type="text" class="form-control" value="{{ $siswa->kelas?->nama_kelas ?? '-' }}" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Nomor Urut</label>
-                        <input type="text" class="form-control" value="{{ $siswa->nomor_urut }}" readonly>
+                        <input type="text" class="form-control" value="{{ $siswa->nomor_urut ?? '-' }}" readonly>
                     </div>
 
                     <div class="col-md-12 mt-0">

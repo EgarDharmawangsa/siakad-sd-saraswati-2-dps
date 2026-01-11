@@ -9,11 +9,13 @@
             </div>
             <div class="modal-body">
                 <form id="filter-modal-form" action="{{ route('jadwal-pelajaran.index') }}">
-                    <div class="mb-3">
-                        <label for="kelas-filter" class="form-label">Kelas</label>
-                        <input type="text" class="form-control" id="kelas-filter" name="kelas_filter"
-                            value="{{ request('kelas_filter') }}" placeholder="Masukkan kelas">
-                    </div>
+                    @canany(['staf-tata-usaha', 'guru'])
+                        <div class="mb-3">
+                            <label for="kelas-filter" class="form-label">Kelas</label>
+                            <input type="text" class="form-control" id="kelas-filter" name="kelas_filter"
+                                value="{{ request('kelas_filter') }}" placeholder="Masukkan kelas">
+                        </div>
+                    @endcanany
 
                     <div class="mb-3">
                         <label for="kegiatan-filter" class="form-label">Kegiatan</label>

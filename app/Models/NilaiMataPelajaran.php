@@ -25,22 +25,20 @@ class NilaiMataPelajaran extends Model
 
     public function scopeFilter($query, array $filters)
     {
-        if (Gate::any(['staf-tata-usaha', 'guru'])) {
-            if (!empty($filters['kelas_filter'])) {
-                $query->whereHas('siswa.kelas', fn($query) => $query->where('id_kelas', 'like', '%' . $filters['kelas_filter'] . '%'));
-            }
+        if (!empty($filters['kelas_filter'])) {
+            $query->whereHas('siswa.kelas', fn($query) => $query->where('id_kelas', 'like', '%' . $filters['kelas_filter'] . '%'));
+        }
 
-            if (!empty($filters['siswa_filter'])) {
-                $query->whereHas(
-                    'siswa',
+        if (!empty($filters['siswa_filter'])) {
+            $query->whereHas(
+                'siswa',
+                fn($query) =>
+                $query->where(
                     fn($query) =>
-                    $query->where(
-                        fn($query) =>
-                        $query->where('nisn', 'like', '%' . $filters['siswa_filter'] . '%')
-                            ->orWhere('nama_siswa', 'like', '%' . $filters['siswa_filter'] . '%')
-                    )
-                );
-            }
+                    $query->where('nisn', 'like', '%' . $filters['siswa_filter'] . '%')
+                        ->orWhere('nama_siswa', 'like', '%' . $filters['siswa_filter'] . '%')
+                )
+            );
         }
 
         if (!empty($filter['mata_pelajaran_filter'])) {
