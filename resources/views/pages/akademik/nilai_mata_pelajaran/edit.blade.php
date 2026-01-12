@@ -85,7 +85,7 @@
                 <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Nilai Portofolio</label>
                 </div>
 
-                @foreach ($nilai_mata_pelajaran->nilai_portofolio as $index => $portofolio)
+                @forelse ($nilai_mata_pelajaran->nilai_portofolio as $index => $portofolio)
                     <div class="col-md-6">
                         <div class="border border-2 border-secondary bg-secondary-subtle rounded px-3 pb-3 pt-2">
                             <label class="form-label">Portofolio {{ $loop->iteration }}</label>
@@ -110,7 +110,9 @@
                             @enderror
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <p class="text-center text-muted">Nilai Portofolio tidak tersedia.</p>
+                @endforelse
             </div>
 
             <div class="form-buttons">
@@ -118,7 +120,7 @@
                     data-route="{{ route('nilai-mata-pelajaran.index') }}" data-bs-toggle="modal"
                     data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
-                <button type="submit" class="btn btn-primary ms-2"><i class="bi bi-pencil me-2"></i>Simpan</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-pencil me-2"></i>Simpan</button>
             </div>
         </form>
     </div>

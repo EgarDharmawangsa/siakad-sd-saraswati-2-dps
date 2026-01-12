@@ -12,8 +12,18 @@
                     @canany(['staf-tata-usaha', 'guru'])
                         <div class="mb-3">
                             <label for="kelas-filter" class="form-label">Kelas</label>
-                            <input type="text" class="form-control" id="kelas-filter" name="kelas_filter"
-                                value="{{ request('kelas_filter') }}" placeholder="Masukkan kelas">
+                            <select class="form-select" id="kelas-filter" name="kelas_filter"
+                                {{ $all_kelas->isEmpty() ? 'disabled' : '' }}>
+                                <option value="">
+                                    {{ $all_kelas->isNotEmpty() ? '-- Pilih Kelas --' : '-- Kelas Tidak Tersedia --' }}
+                                </option>
+                                @foreach ($all_kelas as $_all_kelas)
+                                    <option value="{{ $_all_kelas->id_kelas }}"
+                                        {{ request('kelas_filter') == $_all_kelas->id_kelas ? 'selected' : '' }}>
+                                        {{ $_all_kelas->nama_kelas }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     @endcanany
 
@@ -30,15 +40,34 @@
 
                     <div class="mb-3">
                         <label for="mata-pelajaran-filter" class="form-label">Mata Pelajaran</label>
-                        <input type="text" class="form-control" id="mata-pelajaran-filter"
-                            name="mata_pelajaran_filter" value="{{ request('mata_pelajaran_filter') }}"
-                            placeholder="Masukkan mata pelajaran">
+                        <select class="form-select" id="mata-pelajaran-filter" name="mata_pelajaran_filter"
+                            {{ $mata_pelajaran->isEmpty() ? 'disabled' : '' }}>
+                            <option value="">
+                                {{ $mata_pelajaran->isNotEmpty() ? '-- Pilih Mata Pelajaran --' : '-- Mata Pelajaran Tidak Tersedia --' }}
+                            </option>
+                            @foreach ($mata_pelajaran as $_mata_pelajaran)
+                                <option value="{{ $_mata_pelajaran->id_mata_pelajaran }}"
+                                    {{ request('mata_pelajaran_filter') == $_mata_pelajaran->id_mata_pelajaran ? 'selected' : '' }}>
+                                    {{ $_mata_pelajaran->nama_mata_pelajaran }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="mb-3">
                         <label for="guru-filter" class="form-label">Guru</label>
-                        <input type="text" class="form-control" id="guru-filter" name="guru_filter"
-                            value="{{ request('guru_filter') }}" placeholder="Masukkan guru">
+                        <select class="form-select" id="guru-filter" name="guru_filter"
+                            {{ $guru->isEmpty() ? 'disabled' : '' }}>
+                            <option value="">
+                                {{ $guru->isNotEmpty() ? '-- Pilih Kelas --' : '-- Kelas Tidak Tersedia --' }}
+                            </option>
+                            @foreach ($guru as $_guru)
+                                <option value="{{ $_guru->id_pegawai }}"
+                                    {{ request('guru_filter') == $_guru->id_pegawai ? 'selected' : '' }}>
+                                    {{ $_guru->getFormatedNamaPegawai() }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="mb-3">

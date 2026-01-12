@@ -5,18 +5,16 @@
         <div class="index-buttons">
             @canany(['staf-tata-usaha', 'guru'])
                 <a href="{{ route('nilai-mata-pelajaran.create') }}" class="btn btn-success"><i
-                        class="bi bi-plus-lg me-2"></i>Tambah
-                    Nilai Mata Pelajaran</a>
+                        class="bi bi-plus-lg me-2"></i>Tambah<span class="mx-2">/</span><i
+                        class="bi bi-arrow-repeat me-2"></i>Sinkronkan Nilai Mata Pelajaran</a>
             @endcanany
 
             <div class="modifier-buttons">
-                <div class="filter-modal-container">
-                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
-                        <i class="bi bi-funnel me-2"></i>Filter
-                    </button>
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                    <i class="bi bi-funnel me-2"></i>Filter
+                </button>
 
-                    @include('components.akademik.nilai_mata_pelajaran_filter_modal')
-                </div>
+                @include('components.akademik.nilai_mata_pelajaran_filter_modal')
             </div>
         </div>
 
@@ -30,16 +28,18 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Siswa</th>
                                 @canany(['staf-tata-usaha', 'guru'])
+                                    <th>Siswa</th>
                                     <th>Kelas</th>
                                 @endcanany
                                 <th>Mata Pelajaran</th>
                                 <th>Semester</th>
+                                <th>Nilai Portofolio (Rata-Rata)</th>
                                 <th>Nilai UB 1</th>
                                 <th>Nilai UB 2</th>
                                 <th>Nilai UTS</th>
                                 <th>Nilai UAS</th>
+                                <th>Nilai Akhir</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -54,11 +54,11 @@
                                         {{ $loop->iteration }}
                                     </td>
 
-                                    <td>{{ $_nilai_mata_pelajaran->siswa->getFormatedNamaSiswa(true) }}</td>
-
                                     @canany(['staf-tata-usaha', 'guru'])
+                                        <td>{{ $_nilai_mata_pelajaran->siswa->getFormatedNamaSiswa(true) }}</td>
+
                                         <td>
-                                            {{$_nilai_mata_pelajaran->siswa->kelas?->nama_kelas ?? '-'}}
+                                            {{ $_nilai_mata_pelajaran->siswa->kelas?->nama_kelas ?? '-' }}
                                         </td>
                                     @endcanany
 
@@ -71,6 +71,8 @@
                                             {{ $_nilai_mata_pelajaran->semester->getStatus() }}
                                         </span>
                                     </td>
+
+                                    <td>{{ $_nilai_mata_pelajaran->getNilaiPortofolioAverage() }}</td>
 
                                     @canany(['staf-tata-usaha', 'guru'])
                                         <td>
@@ -93,17 +95,17 @@
                                     @endcan
 
                                     @canany(['staf-tata-usaha', 'guru'])
-                                    <td>
-                                        <input type="number"
-                                            name="nilai_ub_2[{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}]"
-                                            class="form-control nilai-input @error("nilai_ub_2.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}") is-invalid @enderror"
-                                            value="{{ $_nilai_mata_pelajaran->nilai_ub_2 }}" min="0" max="100"
-                                            data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
-                                            placeholder="Masukkan nilai UB 2">
+                                        <td>
+                                            <input type="number"
+                                                name="nilai_ub_2[{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}]"
+                                                class="form-control nilai-input @error("nilai_ub_2.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}") is-invalid @enderror"
+                                                value="{{ $_nilai_mata_pelajaran->nilai_ub_2 }}" min="0" max="100"
+                                                data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
+                                                placeholder="Masukkan nilai UB 2">
                                             @error("nilai_ub_2.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}")
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
-                                    </td>
+                                        </td>
                                     @endcanany
 
                                     @can('siswa')
@@ -113,17 +115,17 @@
                                     @endcan
 
                                     @canany(['staf-tata-usaha', 'guru'])
-                                    <td>
-                                        <input type="number"
-                                            name="nilai_uts[{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}]"
-                                            class="form-control nilai-input @error("nilai_uts.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}") is-invalid @enderror"
-                                            value="{{ $_nilai_mata_pelajaran->nilai_uts }}" min="0" max="100"
-                                            data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
-                                            placeholder="Masukkan nilai UTS">
+                                        <td>
+                                            <input type="number"
+                                                name="nilai_uts[{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}]"
+                                                class="form-control nilai-input @error("nilai_uts.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}") is-invalid @enderror"
+                                                value="{{ $_nilai_mata_pelajaran->nilai_uts }}" min="0" max="100"
+                                                data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
+                                                placeholder="Masukkan nilai UTS">
                                             @error("nilai_uts.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}")
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
-                                    </td>
+                                        </td>
                                     @endcanany
 
                                     @can('siswa')
@@ -134,17 +136,17 @@
 
 
                                     @canany(['staf-tata-usaha', 'guru'])
-                                    <td>
-                                        <input type="number"
-                                            name="nilai_uas[{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}]"
-                                            class="form-control nilai-input @error("nilai_uas.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}") is-invalid @enderror"
-                                            value="{{ $_nilai_mata_pelajaran->nilai_uas }}" min="0" max="100"
-                                            data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
-                                            placeholder="Masukkan nilai UAS">
+                                        <td>
+                                            <input type="number"
+                                                name="nilai_uas[{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}]"
+                                                class="form-control nilai-input @error("nilai_uas.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}") is-invalid @enderror"
+                                                value="{{ $_nilai_mata_pelajaran->nilai_uas }}" min="0" max="100"
+                                                data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
+                                                placeholder="Masukkan nilai UAS">
                                             @error("nilai_uas.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}")
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
-                                    </td>
+                                        </td>
                                     @endcanany
 
                                     @can('siswa')
@@ -153,21 +155,23 @@
                                         </td>
                                     @endcan
 
+                                    <td>{{ $_nilai_mata_pelajaran->getNilaiAkhir() }}</td>
+
                                     <td class="aksi-column">
                                         <a href="{{ route('nilai-mata-pelajaran.show', $_nilai_mata_pelajaran->id_nilai_mata_pelajaran) }}"
-                                            class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
+                                            class="btn btn-info"><i class="bi bi-info-lg me-2"></i>Detail</a>
                                         <a href="{{ route('nilai-mata-pelajaran.edit', $_nilai_mata_pelajaran->id_nilai_mata_pelajaran) }}"
-                                            class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                            class="btn btn-warning mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
                                     </td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
                                     @canany(['staf-tata-usaha', 'guru'])
-                                        <td colspan="10">Belum ada Nilai Mata Pelajaran.</td>
+                                        <td colspan="12">Belum ada Nilai Mata Pelajaran.</td>
                                     @endcanany
-                                    
+
                                     @can('siswa')
-                                        <td colspan="9">Belum ada Nilai Mata Pelajaran.</td>
+                                        <td colspan="10">Belum ada Nilai Mata Pelajaran.</td>
                                     @endcan
                                 </tr>
                             @endforelse
@@ -199,7 +203,7 @@
                 @canany(['staf-tata-usaha', 'guru'])
                     <div class="d-flex justify-content-end mt-4">
                         <a href="{{ route('nilai-mata-pelajaran.delete') }}" class="btn btn-danger"><i
-                            class="bi bi-trash me-2"></i>Hapus Nilai Mata Pelajaran</a>
+                                class="bi bi-trash me-2"></i>Hapus Nilai Mata Pelajaran</a>
                     </div>
                 @endcanany
             </form>

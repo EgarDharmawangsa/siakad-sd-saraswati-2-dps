@@ -6,7 +6,7 @@
         <hr>
 
         <div class="show-buttons">
-            <a href="{{ route('nilai-ekstrakurikuler.index') }}" class="btn btn-secondary btn-sm me-1"><i
+            <a href="{{ route('nilai-ekstrakurikuler.index') }}" class="btn btn-secondary"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
         </div>
 

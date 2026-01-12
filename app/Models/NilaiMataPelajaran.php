@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 
 /**
+ * @property int $jumlah_portofolio
  * @property array $nilai_portofolio
+ * @property int $nilai_ub_1
+ * @property int $nilai_ub_2
+ * @property int $nilai_uts
+ * @property int $nilai_uas
  */
 
 class NilaiMataPelajaran extends Model
@@ -22,6 +27,29 @@ class NilaiMataPelajaran extends Model
     protected $casts = [
         'nilai_portofolio' => 'array'
     ];
+
+    public function getNilaiPortofolioAverage()
+    {
+        if (empty($this->nilai_portofolio) || $this->jumlah_portofolio === 0) {
+            return 0;
+        }
+
+        $nilai_portofolio_total = 0;
+
+        foreach ($this->nilai_portofolio as $_nilai_portofolio) {
+            $nilai_portofolio_total += $_nilai_portofolio['nilai'];
+        }
+
+        $nilai_portofolio_average = $nilai_portofolio_total / $this->jumlah_portofolio;
+
+        return $nilai_portofolio_average;
+    }
+
+    public function getNilaiAkhir() {
+        $nilai_akhir = ($this->getNilaiPortofolioAverage() + $this->nilai_ub_1 + $this->nilai_ub_2 + $this->nilai_uts + $this->nilai_uas) / 5;
+
+        return $nilai_akhir;
+    }
 
     public function scopeFilter($query, array $filters)
     {

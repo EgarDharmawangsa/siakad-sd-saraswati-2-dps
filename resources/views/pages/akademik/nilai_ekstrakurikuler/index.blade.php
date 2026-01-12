@@ -5,7 +5,8 @@
         <div class="index-buttons">
             @can('staf-tata-usaha')
                 <a href="{{ route('nilai-ekstrakurikuler.create') }}" class="btn btn-success"><i
-                        class="bi bi-plus-lg me-2"></i>Tambah Nilai Ekstrakurikuler</a>
+                        class="bi bi-plus-lg me-2"></i>Tambah<span class="mx-2">/</span><i
+                        class="bi bi-arrow-repeat me-2"></i>Sinkronkan Nilai Ekstrakurikuler</a>
             @endcan
 
             <div class="modifier-buttons">
@@ -25,13 +26,11 @@
                     </ul>
                 </div>
 
-                <div class="filter-modal-container">
-                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
-                        <i class="bi bi-funnel me-2"></i>Filter
-                    </button>
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                    <i class="bi bi-funnel me-2"></i>Filter
+                </button>
 
-                    @include('components.akademik.nilai_ekstrakurikuler_filter_modal')
-                </div>
+                @include('components.akademik.nilai_ekstrakurikuler_filter_modal')
             </div>
         </div>
 
@@ -45,7 +44,9 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Siswa</th>
+                                @canany(['staf-tata-usaha', 'guru'])
+                                    <th>Siswa</th>
+                                @endcanany
                                 <th>Ekstrakurikuler</th>
                                 <th>Semester</th>
                                 <th>Nilai</th>
@@ -63,14 +64,18 @@
                                         {{ $loop->iteration }}
                                     </td>
 
-                                    <td>{{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->siswa->getFormatedNamaSiswa() }}</td>
+                                    @canany(['staf-tata-usaha', 'guru'])
+                                        <td>{{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->siswa->getFormatedNamaSiswa() }}
+                                        </td>
+                                    @endcanany
 
-                                    <td>{{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->ekstrakurikuler->nama_ekstrakurikuler }}</td>
+                                    <td>{{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->ekstrakurikuler->nama_ekstrakurikuler }}
+                                    </td>
 
                                     <td>
                                         {{ $_nilai_ekstrakurikuler->semester->getTahunAjaran(true) }}
                                         <span
-                                            class="badge bg-{{ $_nilai_ekstrakurikuler->semester->getStatus() === 'Berjalan' ? 'success' : ($_nilai_ekstrakurikuler->semester->getStatus() === 'Menunggu' ? 'primary' : 'secondary')}} ms-1">
+                                            class="badge bg-{{ $_nilai_ekstrakurikuler->semester->getStatus() === 'Berjalan' ? 'success' : ($_nilai_ekstrakurikuler->semester->getStatus() === 'Menunggu' ? 'primary' : 'secondary') }} ms-1">
                                             {{ $_nilai_ekstrakurikuler->semester->getStatus() }}
                                         </span>
                                     </td>
@@ -79,9 +84,8 @@
                                         <td>
                                             <input type="number"
                                                 name="nilai[{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}]"
-                                                class="form-control nilai-input @error("nilai.{$_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler}") is-invalid @enderror" 
-                                                value="{{ $_nilai_ekstrakurikuler->nilai }}"
-                                                min="0" max="100"
+                                                class="form-control nilai-input @error("nilai.{$_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler}") is-invalid @enderror"
+                                                value="{{ $_nilai_ekstrakurikuler->nilai }}" min="0" max="100"
                                                 data-row="{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}"
                                                 placeholder="Masukkan nilai">
                                             @error("nilai.{$_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler}")
@@ -96,15 +100,23 @@
 
                                     <td class="aksi-column">
                                         <a href="{{ route('nilai-ekstrakurikuler.show', $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler) }}"
-                                            class="btn btn-info btn-sm">
+                                            class="btn btn-info">
                                             <i class="bi bi-info-lg me-2"></i>Detail
                                         </a>
                                     </td>
                                 </tr>
                             @empty
-                                <tr class="text-center">
-                                    <td colspan="6">Belum ada Nilai Ekstrakurikuler.</td>
-                                </tr>
+                                @canany(['staf-tata-usaha', 'guru'])
+                                    <tr class="text-center">
+                                        <td colspan="6">Belum ada Nilai Ekstrakurikuler.</td>
+                                    </tr>
+                                @endcanany
+
+                                @can('siswa')
+                                    <tr class="text-center">
+                                        <td colspan="5">Belum ada Nilai Ekstrakurikuler.</td>
+                                    </tr>
+                                @endcan
                             @endforelse
                         </tbody>
                     </table>
@@ -130,7 +142,7 @@
                 @can('staf-tata-usaha')
                     <div class="d-flex justify-content-end mt-4">
                         <a href="{{ route('nilai-ekstrakurikuler.delete') }}" class="btn btn-danger"><i
-                            class="bi bi-trash me-2"></i>Hapus Nilai Ekstrakurikuler</a>
+                                class="bi bi-trash me-2"></i>Hapus Nilai Ekstrakurikuler</a>
                     </div>
                 @endcan
             </form>

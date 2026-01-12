@@ -286,7 +286,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="d-flex justify-content-end mt-4">
+                    <div class="form-buttons">
                         <button type="button" class="btn btn-primary btn-nav" data-next="#content-alamat">
                             Selanjutnya<i class="bi bi-arrow-right ms-2"></i>
                         </button>
@@ -359,7 +359,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between mt-4">
+                    <div class="form-buttons justify-content-between">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#content-pribadi">
                             <i class="bi bi-arrow-left me-2"></i>Kembali
                         </button>
@@ -539,7 +539,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between mt-4">
+                    <div class="form-buttons justify-content-between">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#content-alamat">
                             <i class="bi bi-arrow-left me-2"></i>Kembali
                         </button>
@@ -575,7 +575,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between mt-4">
+                    <div class="form-buttons justify-content-between">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#content-pendamping">
                             <i class="bi bi-arrow-left me-2"></i>Kembali
                         </button>
@@ -665,7 +665,7 @@
                         </div>
                         <input type="hidden" name="penerima_kps" value="Tidak">
                     </div>
-                    <div class="d-flex justify-content-between mt-4">
+                    <div class="form-buttons justify-content-between">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#content-pendidikan">
                             <i class="bi bi-arrow-left me-2"></i>Kembali
                         </button>
@@ -737,11 +737,11 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between mt-4">
+                    <div class="form-buttons justify-content-between">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#content-bantuan">
                             <i class="bi bi-arrow-left me-2"></i>Kembali
                         </button>
-                        <button type="submit" class="btn btn-primary ms-2">
+                        <button type="submit" class="btn btn-primary">
                             <i class="bi bi-plus-lg me-2"></i>Tambah
                         </button>
                     </div>

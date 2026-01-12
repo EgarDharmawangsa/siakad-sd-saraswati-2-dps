@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/kehadiran/mass-update', [KehadiranController::class, 'massUpdate'])->name('kehadiran.mass-update')->middleware('role:staf-tata-usaha,guru');
     Route::get('/kehadiran/delete', [KehadiranController::class, 'delete'])->name('kehadiran.delete')->middleware('role:staf-tata-usaha,guru');
     Route::post('/kehadiran/destroy', [KehadiranController::class, 'destroy'])->name('kehadiran.destroy')->middleware('role:staf-tata-usaha,guru');
+    Route::get('/kehadiran/rekapitulasi', [KehadiranController::class, 'recapitulation'])->name('kehadiran.recapitulation')->middleware('role:staf-tata-usaha,guru');
     Route::resource('/kehadiran', KehadiranController::class)->except(['edit', 'update', 'destroy']);
 
     // Route Log Out

@@ -5,16 +5,16 @@
         <h5>Detail {{ $judul }}</h5>
         <hr>
         <div class="show-buttons">
-            <a href="{{ route('siswa.index') }}" class="btn btn-secondary btn-sm me-1"><i
+            <a href="{{ route('siswa.index') }}" class="btn btn-secondary"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
             @can('staf-tata-usaha')
-                <a href="{{ route('siswa.edit', $siswa->id_siswa) }}" class="btn btn-warning btn-sm me-1"><i
+                <a href="{{ route('siswa.edit', $siswa->id_siswa) }}" class="btn btn-warning"><i
                         class="bi bi-pencil me-2"></i>Edit</a>
                 <form action="{{ route('siswa.destroy', $siswa->id_siswa) }}" method="POST" class="d-inline delete-form">
                     @csrf
                     @method('DELETE')
 
-                    <button type="button" class="btn btn-danger btn-sm delete-button" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal"
                         data-bs-target="#delete-modal">
                         <i class="bi bi-trash me-2"></i>Hapus</button>
                 </form>
@@ -125,15 +125,15 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Berat Badan (kg)</label>
-                        <input type="text" class="form-control" value="{{ $siswa->berat_badan ?? '-' }}" readonly>
+                        <input type="text" class="form-control" value="{{ $siswa->berat_badan ?? '-' }} kg" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Tinggi Badan (cm)</label>
-                        <input type="text" class="form-control" value="{{ $siswa->tinggi_badan ?? '-' }}" readonly>
+                        <input type="text" class="form-control" value="{{ $siswa->tinggi_badan ?? '-' }} cm" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Lingkar Kepala (cm)</label>
-                        <input type="text" class="form-control" value="{{ $siswa->lingkar_kepala ?? '-' }}" readonly>
+                        <input type="text" class="form-control" value="{{ $siswa->lingkar_kepala ?? '-' }} cm" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Jumlah Saudara Kandung</label>

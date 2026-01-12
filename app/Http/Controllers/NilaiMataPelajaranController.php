@@ -17,7 +17,7 @@ class NilaiMataPelajaranController extends Controller
         'id_kelas' => 'required|exists:kelas,id_kelas',
         'id_semester' => 'required|exists:semester,id_semester',
         'id_mata_pelajaran' => 'required|exists:mata_pelajaran,id_mata_pelajaran',
-        'jumlah_portofolio' => 'required|integer|min:1|max:20'
+        'jumlah_portofolio' => 'required|integer|min:0|max:20'
     ];
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class NilaiMataPelajaranController extends Controller
         if (Gate::any(['staf-tata-usaha', 'guru']))
             $nilai_mata_pelajaran = NilaiMataPelajaran::with(['siswa', 'siswa.kelas', 'mataPelajaran', 'semester'])->filter(request()->all())->paginate(20)->withQueryString();
         else if (Gate::allows('siswa')) {
-            $nilai_mata_pelajaran = NilaiMataPelajaran::with(['siswa', 'siswa.kelas', 'mataPelajaran', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->except('kelas_filter'))->paginate(20)->withQueryString();
+            $nilai_mata_pelajaran = NilaiMataPelajaran::with(['siswa', 'siswa.kelas', 'mataPelajaran', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter']))->paginate(20)->withQueryString();
         } else {
             abort(404);
         }
@@ -94,14 +94,14 @@ class NilaiMataPelajaranController extends Controller
         $jumlah_portofolio = (int) $validated_nilai_mata_pelajaran['jumlah_portofolio'];
 
         Siswa::where('id_kelas', $validated_nilai_mata_pelajaran['id_kelas'])->get()->each(function ($_siswa) use ($validated_nilai_mata_pelajaran, $jumlah_portofolio) {
-            $nilai_mata_pelajaran = NilaiMataPelajaran::firstOrCreate(
+            $nilai_mata_pelajaran = NilaiMataPelajaran::updateOrCreate(
                 [
                     'id_siswa' => $_siswa->id_siswa,
                     'id_semester' => $validated_nilai_mata_pelajaran['id_semester'],
                     'id_mata_pelajaran' => $validated_nilai_mata_pelajaran['id_mata_pelajaran']
                 ],
                 [
-                    'jumlah_portofolio' => $validated_nilai_mata_pelajaran['jumlah_portofolio'],
+                    'jumlah_portofolio' => $jumlah_portofolio,
                     'nilai_portofolio' => [],
                     'nilai_ub_1' => 0,
                     'nilai_ub_2' => 0,
@@ -113,6 +113,7 @@ class NilaiMataPelajaranController extends Controller
             $nilai_portofolio = $nilai_mata_pelajaran->nilai_portofolio ?? [];
 
             $nilai_mata_pelajaran->update([
+                'jumlah_portofolio' => $jumlah_portofolio,
                 'nilai_portofolio' => $this->syncPortofolio($nilai_portofolio, $jumlah_portofolio)
             ]);
         });
@@ -249,7 +250,10 @@ class NilaiMataPelajaranController extends Controller
             abort(404);
         }
 
-        $validated_nilai_mata_pelajaran = $request->validate($this->nilai_mata_pelajaran_validation_rules);
+        $nilai_mata_pelajaran_update_validation_rules = $this->nilai_mata_pelajaran_validation_rules;
+        unset($nilai_mata_pelajaran_update_validation_rules['jumlah_portofolio']);
+
+        $validated_nilai_mata_pelajaran = $request->validate($nilai_mata_pelajaran_update_validation_rules);
 
         /** @var \Illuminate\Database\Eloquent\Builder $nilai_mata_pelajaran_data */
         $nilai_mata_pelajaran_data = NilaiMataPelajaran::whereHas('siswa', fn ($query) => $query->where('id_kelas', $validated_nilai_mata_pelajaran['id_kelas']))

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JadwalPelajaran;
+use App\Models\Pegawai;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
 use App\Models\GuruMataPelajaran;
@@ -39,11 +40,17 @@ class JadwalPelajaranController extends Controller
         } else {
             abort(404);
         }
-        
+
+        $all_kelas = Kelas::orderedNamaKelas()->get();
+        $mata_pelajaran = MataPelajaran::latest()->get();
+        $guru = Pegawai::where('posisi', 'Guru')->latest()->get();
 
         return view('pages.akademik.jadwal_pelajaran.index', [
             'judul' => 'Jadwal Pelajaran',
-            'kelas' => $kelas
+            'kelas' => $kelas,
+            'all_kelas' => $all_kelas,
+            'mata_pelajaran' => $mata_pelajaran,
+            'guru' => $guru
         ]);
     }
 

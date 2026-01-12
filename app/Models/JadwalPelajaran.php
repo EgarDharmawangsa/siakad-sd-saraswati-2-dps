@@ -67,7 +67,7 @@ class JadwalPelajaran extends Model
     public function scopeFilter($query, array $filters)
     {
         if (!empty($filters['kelas_filter'])) {
-            $query->whereHas('kelas', fn($query) => $query->where('nama_kelas', 'like', '%' . $filters['kelas_filter'] . '%'));
+            $query->whereHas('kelas', fn($query) => $query->where('id_kelas', 'like', '%' . $filters['kelas_filter'] . '%'));
         }
 
         if (!empty($filters['kegiatan_filter'])) {
@@ -75,11 +75,11 @@ class JadwalPelajaran extends Model
         }
 
         if (!empty($filters['mata_pelajaran_filter'])) {
-            $query->whereHas('guruMataPelajaran.mataPelajaran', fn($query) => $query->where('nama_mata_pelajaran', 'like', '%' . $filters['mata_pelajaran_filter'] . '%'));
+            $query->whereHas('guruMataPelajaran.mataPelajaran', fn($query) => $query->where('id_mata_pelajaran', 'like', '%' . $filters['mata_pelajaran_filter'] . '%'));
         }
 
         if (!empty($filters['guru_filter'])) {
-            $query->whereHas('guruMataPelajaran.pegawai', fn($query) => $query->where('nama_pegawai', 'like', '%' . $filters['guru_filter'] . '%'));
+            $query->whereHas('guruMataPelajaran.pegawai', fn($query) => $query->where('id_pegawai', 'like', '%' . $filters['guru_filter'] . '%'));
         }
 
         if (!empty($filters['hari_filter'])) {

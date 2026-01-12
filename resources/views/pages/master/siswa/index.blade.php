@@ -25,13 +25,11 @@
                     </ul>
                 </div>
 
-                <div class="filter-modal-container">
-                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
-                        <i class="bi bi-funnel me-2"></i>Filter
-                    </button>
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                    <i class="bi bi-funnel me-2"></i>Filter
+                </button>
 
-                    @include('components.master.siswa_filter_modal')
-                </div>
+                @include('components.master.siswa_filter_modal')
             </div>
         </div>
 
@@ -220,18 +218,18 @@
                             <td>{{ $_siswa->pesertaEkstrakurikuler?->count() }} Ekstrakurikuler</td>
 
                             <td class="aksi-column">
-                                <a href="{{ route('siswa.show', $_siswa->id_siswa) }}" class="btn btn-info btn-sm"><i
+                                <a href="{{ route('siswa.show', $_siswa->id_siswa) }}" class="btn btn-info"><i
                                         class="bi bi-info-lg me-2"></i>Detail</a>
                                 @can('staf-tata-usaha')
-                                    <a href="{{ route('siswa.edit', $_siswa->id_siswa) }}"
-                                        class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                    <a href="{{ route('siswa.edit', $_siswa->id_siswa) }}" class="btn btn-warning mx-1"><i
+                                            class="bi bi-pencil me-2"></i>Edit</a>
                                     <form action="{{ route('siswa.destroy', $_siswa->id_siswa) }}" method="POST"
                                         class="d-inline delete-form">
                                         @csrf
                                         @method('DELETE')
 
-                                        <button type="button" class="btn btn-danger btn-sm delete-button"
-                                            data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                        <button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal"
+                                            data-bs-target="#delete-modal">
                                             <i class="bi bi-trash me-2"></i>Hapus</button>
                                     </form>
                                 @endcan

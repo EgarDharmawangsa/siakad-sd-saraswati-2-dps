@@ -65,19 +65,19 @@
                         </select>
                     </div>
 
-                    <div class="mb-2">
+                    <div class="mb-3">
                         <label for="nilai-ub-1-filter" class="form-label">Nilai UB 1</label>
                         <input type="number" class="form-control" id="nilai-ub-1-filter" name="nilai_ub_1_filter"
                             value="{{ request('nilai_ub_1_filter') }}" placeholder="Masukkan nilai UB 1">
                     </div>
 
-                    <div class="mb-2">
+                    <div class="mb-3">
                         <label for="nilai-ub-2-filter" class="form-label">Nilai UB 2</label>
                         <input type="number" class="form-control" id="nilai-ub-2-filter" name="nilai_ub_2_filter"
                             value="{{ request('nilai_ub_2_filter') }}" placeholder="Masukkan nilai UB 2">
                     </div>
 
-                    <div class="mb-2">
+                    <div class="mb-3">
                         <label for="nilai-uts-filter" class="form-label">Nilai UTS</label>
                         <input type="number" class="form-control" id="nilai-uts-filter" name="nilai_uts_filter"
                             value="{{ request('nilai_uts_filter') }}" placeholder="Masukkan nilai UTS">

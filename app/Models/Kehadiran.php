@@ -16,6 +16,8 @@ class Kehadiran extends Model
 {
     protected $table = 'kehadiran';
 
+    protected $primaryKey = 'id_kehadiran';
+
     protected $guarded = [
         'id_kehadiran'
     ];
@@ -23,6 +25,32 @@ class Kehadiran extends Model
     protected $casts = [
         'tanggal' => 'date',
     ];
+
+    public function scopeAllSiswaRecap($query)
+    {
+        $all_siswa_recap = $query
+            ->select('id_siswa', 'id_semester')
+            ->selectRaw("SUM(status = 'Hadir') as hadir")
+            ->selectRaw("SUM(status = 'Izin') as izin")
+            ->selectRaw("SUM(status = 'Sakit') as sakit")
+            ->selectRaw("SUM(status = 'Alfa') as alfa")
+            ->groupBy('id_siswa', 'id_semester');
+
+        return $all_siswa_recap;
+    }
+
+    public static function scopeSiswaRecap($query, $id_siswa)
+    {
+        $siswa_recap = $query->where('id_siswa', $id_siswa)
+            ->select('id_siswa', 'id_semester')
+            ->selectRaw("SUM(status = 'Hadir') as hadir")
+            ->selectRaw("SUM(status = 'Izin') as izin")
+            ->selectRaw("SUM(status = 'Sakit') as sakit")
+            ->selectRaw("SUM(status = 'Alfa') as alfa")
+            ->groupBy('id_siswa', 'id_semester');
+
+        return $siswa_recap;
+    }
 
     public function getFormatedTanggal()
     {

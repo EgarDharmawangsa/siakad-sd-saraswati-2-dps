@@ -7,6 +7,7 @@ use App\Models\Pegawai;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class KelasController extends Controller
 {
@@ -18,7 +19,7 @@ class KelasController extends Controller
         if (!Gate::any(['staf-tata-usaha', 'guru'])) {
             abort(404);
         }
-
+        
         $kelas = Kelas::with('pegawai')->orderedNamaKelas()->filter(request()->except('kelas_filter'))->paginate(20)->withQueryString();
         $siswa = Siswa::all();
 

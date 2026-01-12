@@ -6,17 +6,17 @@
         <hr>
 
         <div class="show-buttons">
-            <a href="{{ route('prestasi.index') }}" class="btn btn-secondary btn-sm me-1"><i
+            <a href="{{ route('prestasi.index') }}" class="btn btn-secondary"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
             @can('staf-tata-usaha')
-                <a href="{{ route('prestasi.edit', $prestasi->id_prestasi) }}" class="btn btn-warning btn-sm me-1"><i
+                <a href="{{ route('prestasi.edit', $prestasi->id_prestasi) }}" class="btn btn-warning"><i
                         class="bi bi-pencil me-2"></i>Edit</a>
                 <form action="{{ route('prestasi.destroy', $prestasi->id_prestasi) }}" method="POST"
                     class="d-inline delete-form">
                     @csrf
                     @method('DELETE')
 
-                    <button type="button" class="btn btn-danger btn-sm delete-button" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal"
                         data-bs-target="#delete-modal">
                         <i class="bi bi-trash me-2"></i>Hapus</button>
                 </form>

@@ -36,21 +36,19 @@ class Kelas extends Model
 
     public function scopeWithJadwalPelajaran($query, $filters, $id_siswa = null)
     {
-        $query->with([
-            'pegawai',
-            'jadwalPelajaran' => fn($query) =>
-                $query->filter($filters)
-                    ->orderByRaw("FIELD(hari, 'Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu')")
-                    ->orderBy('jam_mulai')
-                    ->with(['guruMataPelajaran.mataPelajaran', 'guruMataPelajaran.pegawai'])
-        ])->whereHas(
-            'jadwalPelajaran', fn($query) =>
-                $query->filter($filters)
-        );
+        $query->with('pegawai');
 
         if (!empty($id_siswa)) {
             $query->whereHas('siswa', fn($query) => $query->where('id_siswa', $id_siswa));
         }
+
+        $query->withWhereHas(
+            'jadwalPelajaran', fn($query) =>
+            $query->filter($filters)
+                ->orderByRaw("FIELD(hari, 'Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu')")
+                ->orderBy('jam_mulai')
+                ->with(['guruMataPelajaran.mataPelajaran', 'guruMataPelajaran.pegawai'])
+        );
 
         return $query;
     }

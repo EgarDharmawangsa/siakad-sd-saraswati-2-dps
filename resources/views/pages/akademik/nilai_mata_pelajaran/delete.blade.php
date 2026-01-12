@@ -64,16 +64,6 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
-
-                <div class="col-md-6">
-                    <label for="jumlah-portofolio" class="form-label">Jumlah Portofolio</label>
-                    <input type="number" class="form-control @error('jumlah_porotoflio') is-invalid @enderror"
-                        id="jumlah-portofolio" name="jumlah_portofolio" placeholder="Masukkan jumlah portofolio"
-                        value="{{ old('jumlah_portofolio') }}" min="0" max="20">
-                    @error('jumlah_portofolio')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
             </div>
 
             <div class="form-buttons">
