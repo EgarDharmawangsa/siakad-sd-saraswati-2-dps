@@ -141,6 +141,7 @@
 
                             {{-- Pribadi --}}
                             <td>{{ $_siswa->userAuth->username }}</td>
+                            {{-- <td>{{ $item->userAuth?->username ?? '-' }}</td> --}}
                             <td>{{ $_siswa->nik }}</td>
                             <td>{{ $_siswa->no_kk }}</td>
                             <td>{{ $_siswa->nisn }}</td>

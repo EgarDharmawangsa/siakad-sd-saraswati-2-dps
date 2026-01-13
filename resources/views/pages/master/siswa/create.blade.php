@@ -65,7 +65,7 @@
                             <div class="input-group">
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
                                     name="password" id="password" required placeholder="Masukkan password (Min. 6 karakter)">
-                                <button class="btn btn-outline-secondary" type="button"><i class="bi bi-eye"></i></button>
+                                <button class="btn btn-outline-secondary btn-toggle-password" type="button"><i class="bi bi-eye"></i></button>
                             </div>
                             @error('password')
                                 <div class="small text-danger mt-1">{{ $message }}</div>
@@ -700,7 +700,7 @@
                             <label for="nomor-urut" class="form-label">Nomor Urut</label>
                             <input type="number" class="form-control @error('nomor_urut') is-invalid @enderror"
                                 id="nomor-urut" name="nomor_urut" placeholder="Masukkan nomor urut"
-                                value="{{ old('nomor_urut') }}" min="1" max="60">
+                                value="{{ old('nomor_urut') }}" min="1" max="45">
                             @error('nomor_urut')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
