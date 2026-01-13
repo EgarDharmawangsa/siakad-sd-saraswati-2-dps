@@ -3,6 +3,7 @@ import '../css/app.css';
 import './bootstrap';
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import * as bootstrap from 'bootstrap';
+window.bootstrap = bootstrap;
 import flatpickr from 'flatpickr';
 
 import './components/auth/log_out_modal.js';
@@ -39,10 +40,14 @@ const jam_array = [];
 jam_array[0] = document.getElementById('jam-mulai') || document.getElementById('jam-mulai-filter');
 jam_array[1] = document.getElementById('jam-selesai') || document.getElementById('jam-selesai-filter');
 
-if (success_toast || error_toast) {
-    const toast = new bootstrap.Toast(success_toast || error_toast);
+const existingToasts = document.querySelectorAll('.toast');
+existingToasts.forEach(toastEl => {
+    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
     toast.show();
-}
+    toastEl.addEventListener('hidden.bs.toast', () => {
+        toastEl.remove();
+    });
+});
 
 if (filter_modal_close_button && filter_modal_clear_button) {
     const filter_modal_array = [filter_modal_close_button, filter_modal_clear_button];

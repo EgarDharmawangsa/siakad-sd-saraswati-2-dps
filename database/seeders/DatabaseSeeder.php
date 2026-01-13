@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Ekstrakurikuler;
+use App\Models\Kelas;
 use App\Models\MataPelajaran;
 use App\Models\User;
 use App\Models\Pegawai;
@@ -52,7 +53,8 @@ class DatabaseSeeder extends Seeder
             'role' => 'Staf Tata Usaha'
         ]);
 
-        Siswa::factory(30)->create();
+        // Siswa::factory(30)->create();
+        Kelas::factory(10)->create();
 
         MataPelajaran::factory(30)->create();
         Ekstrakurikuler::factory(30)->create();

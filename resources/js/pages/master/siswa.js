@@ -1,13 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
-    initTabNavigation();        
-    initConditionalFields();    
-    initInputValidation();      
-    initPasswordFeatures();     
-    initBulkActions();          
-    initFormSubmitValidation(); 
+    initTabNavigation();
+    initClassLogic();        
+    initConditionalFields(); 
+    initEkstrakurikuler();   
+    initInputValidation();
+    initPasswordFeatures();
+    initBulkActions();
+    initFormSubmitValidation();
 });
 
-// navigation
+// navigation tabs
 function initTabNavigation() {
     const navButtons = document.querySelectorAll('.btn-nav');
 
@@ -39,14 +41,48 @@ function initTabNavigation() {
     }
 }
 
-// input conditional
+// logic kelas dan nomor urut
+function initClassLogic() {
+    const kelasSelect = document.getElementById('id-kelas');
+    const noUrutInput = document.getElementById('nomor-urut');
+
+    function toggleNoUrut() {
+        if (!kelasSelect || !noUrutInput) return;
+
+        const isKelasSelected = kelasSelect.value !== "";
+
+        if (isKelasSelected) {
+            noUrutInput.removeAttribute('disabled');
+            noUrutInput.classList.remove('bg-light');
+            noUrutInput.placeholder = "Masukkan nomor urut";
+        } else {
+            noUrutInput.classList.add('bg-light');
+            noUrutInput.value = ''; 
+            noUrutInput.placeholder = "Pilih kelas terlebih dahulu...";
+        }
+    }
+
+    if (kelasSelect) {
+        toggleNoUrut();
+
+        kelasSelect.addEventListener('change', function() {
+            toggleNoUrut();
+            if (this.value !== "") {
+                noUrutInput.value = ''; 
+                noUrutInput.focus();
+            }
+        });
+    }
+}
+
+
+// conditional fields (KIP & PIP & KPS)
 function initConditionalFields() {
-    const toggleField = (triggerName, targetName, showValue) => {
+    const toggleDisplay = (triggerName, targetName, showValue) => {
         const trigger = document.querySelector(`[name="${triggerName}"]`);
         const target = document.querySelector(`[name="${targetName}"]`);
         
         if (!trigger || !target) return;
-
         const parentDiv = target.closest('.col-md-6') || target.closest('.col-md-4') || target.closest('.mb-3');
 
         const checkCondition = () => {
@@ -59,93 +95,123 @@ function initConditionalFields() {
                 target.value = ''; 
             }
         };
-
         trigger.addEventListener('change', checkCondition);
         checkCondition();
     };
 
-    toggleField('disabilitas', 'keterangan_disabilitas', 'Lainnya');
-    toggleField('penerima_kps', 'no_kps', 'Ya');
-    toggleField('layak_pip', 'alasan_layak_pip', 'Ya');
+    toggleDisplay('disabilitas', 'keterangan_disabilitas', 'Lainnya');
+    toggleDisplay('penerima_kps', 'no_kps', 'Ya');
+    toggleDisplay('layak_pip', 'alasan_layak_pip', 'Ya');
+    toggleDisplay('penerima_kip', 'no_kip', 'Ya');
+    toggleDisplay('penerima_kip', 'nama_kip', 'Ya');
+}
 
-    const kipTrigger = document.querySelector('[name="penerima_kip"]');
-    if (kipTrigger) {
-        const checkKip = () => {
-            const display = kipTrigger.value === 'Ya' ? 'block' : 'none';
-            const noKip = document.querySelector('[name="no_kip"]');
-            const namaKip = document.querySelector('[name="nama_kip"]');
-            
-            if(noKip) noKip.closest('.col-md-4, .col-md-6').style.display = display;
-            if(namaKip) namaKip.closest('.col-md-4, .col-md-6').style.display = display;
+// ============================================================
+// 4. EKSTRAKURIKULER DYNAMIC ROW (NEW FIX)
+// ============================================================
+function initEkstrakurikuler() {
+    // A. Logic Dropdown Checkbox (Yang sudah ada sebelumnya)
+    const ekstrakurikulerBtn = document.getElementById('id-ekstrakurikuler-dropdown-button');
+    const ekstrakurikulerCheckboxes = document.querySelectorAll('.id-ekstrakurikuler-checkbox');
+
+    if (ekstrakurikulerBtn && ekstrakurikulerCheckboxes.length > 0) {
+        const updateButtonText = () => {
+            const checkedCount = Array.from(ekstrakurikulerCheckboxes).filter(cb => cb.checked).length;
+            ekstrakurikulerBtn.textContent = checkedCount > 0 ? `${checkedCount} Dipilih` : '-- Pilih Ekstrakurikuler --';
+            if (checkedCount > 0) {
+                ekstrakurikulerBtn.classList.add('text-primary', 'fw-bold');
+                ekstrakurikulerBtn.classList.remove('is-invalid');
+            } else {
+                ekstrakurikulerBtn.classList.remove('text-primary', 'fw-bold');
+            }
         };
-        kipTrigger.addEventListener('change', checkKip);
-        checkKip();
+        ekstrakurikulerCheckboxes.forEach(cb => cb.addEventListener('change', updateButtonText));
+    }
+
+    // B. Logic Tambah Row Manual (Jika menggunakan sistem add row)
+    const addEkstraBtn = document.getElementById('add-ekstra');
+    const ekstraContainer = document.getElementById('ekstra-container');
+
+    if (addEkstraBtn && ekstraContainer) {
+        let ekstraIndex = document.querySelectorAll('.ekstra-item').length;
+
+        addEkstraBtn.addEventListener('click', function() {
+            // Template Row
+            // FIX: Tombol Hapus menggunakan w-100 dan icon+text agar tidak hilang
+            const template = `
+                <div class="row g-2 mb-2 ekstra-item align-items-end" id="ekstra-row-${ekstraIndex}">
+                    <div class="col-md-5">
+                        <label class="form-label small text-muted">Ekstrakurikuler</label>
+                        <select class="form-select" name="ekstrakurikuler_dinamis[${ekstraIndex}][id]">
+                            <option value="">Pilih...</option>
+                            </select>
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label small text-muted">Nilai</label>
+                        <input type="text" class="form-control" name="ekstrakurikuler_dinamis[${ekstraIndex}][nilai]" placeholder="Nilai">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-danger w-100 remove-ekstra" data-id="${ekstraIndex}">
+                            <i class="bi bi-trash"></i> Hapus
+                        </button>
+                    </div>
+                </div>
+            `;
+            ekstraContainer.insertAdjacentHTML('beforeend', template);
+            ekstraIndex++;
+        });
+
+        // Event Delegation Hapus Row
+        ekstraContainer.addEventListener('click', function(e) {
+            if (e.target.closest('.remove-ekstra')) {
+                const btn = e.target.closest('.remove-ekstra');
+                const id = btn.getAttribute('data-id');
+                const row = document.getElementById(`ekstra-row-${id}`);
+                if(row) row.remove();
+            }
+        });
     }
 }
 
-// password feutures
+// password features
 function initPasswordFeatures() {
     document.addEventListener('click', function(e) {
-        const btn = e.target.closest('.input-group button');
+        const btn = e.target.closest('.btn-toggle-password');
+        if (!btn) return;
 
-        if (btn && (btn.querySelector('.bi-eye') || btn.querySelector('.bi-eye-slash'))) {
-            e.preventDefault(); 
-            
-            const inputGroup = btn.closest('.input-group');
-            const input = inputGroup.querySelector('input');
-            const icon = btn.querySelector('i');
+        e.preventDefault(); 
+        
+        const inputGroup = btn.closest('.input-group');
+        const input = inputGroup.querySelector('input');
+        const icon = btn.querySelector('i');
 
-            if (input) {
-                if (input.type === "password") {
-                    input.type = "text"; 
-                    icon.classList.remove('bi-eye');
-                    icon.classList.add('bi-eye-slash'); 
-                } else {
-                    input.type = "password"; 
-                    icon.classList.remove('bi-eye-slash');
-                    icon.classList.add('bi-eye'); 
-                }
+        if (input && icon) {
+            if (input.type === "password") {
+                input.type = "text"; 
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash'); 
+            } else {
+                input.type = "password"; 
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye'); 
             }
         }
     });
-
-    const passInput = document.getElementById('password');
-    const confirmInput = document.getElementById('konfirmasi_password');
-
-    if (passInput && confirmInput) {
-        const checkMatch = () => {
-            const val1 = passInput.value;
-            const val2 = confirmInput.value;
-
-            confirmInput.classList.remove('is-invalid', 'is-valid');
-            
-            if (val2.length > 0) {
-                if (val1 === val2) {
-                    confirmInput.classList.add('is-valid'); 
-                } else {
-                    confirmInput.classList.add('is-invalid'); 
-                }
-            }
-        };
-
-        passInput.addEventListener('input', checkMatch); 
-        confirmInput.addEventListener('input', checkMatch);
-    }
 }
 
-// validation type of input and length
+// logic input validation
 function initInputValidation() {
     const rules = {
         'nik': { type: 'numeric', length: 16, label: 'NIK' },
         'no_kk': { type: 'numeric', length: 16, label: 'No. KK' },
         'nisn': { type: 'numeric', length: 10, label: 'NISN' },
         'kode_pos': { type: 'numeric', length: 5, label: 'Kode Pos' },
-        'no_telepon_seluler': { type: 'numeric', min: 10, max: 13, label: 'No. HP' },
-        'no_telepon_rumah': { type: 'numeric', min: 5, max: 15, label: 'Telp Rumah' },
+        'no_telepon_seluler': { type: 'numeric', min: 10, max: 13, label: 'No. HP' }, 
+        'no_telepon_rumah': { type: 'numeric', min: 10, max: 15,     label: 'Telp Rumah' },
         'nik_ayah': { type: 'numeric', length: 16, label: 'NIK Ayah' },
         'nik_ibu': { type: 'numeric', length: 16, label: 'NIK Ibu' },
         'nik_wali': { type: 'numeric', length: 16, label: 'NIK Wali' },
-        'nipd': { type: 'numeric', length: 20, label: 'NIPD' },
+        'nipd': { type: 'numeric', min:5, max:15, label: 'NIPD' },
         'berat_badan': { type: 'decimal' },
         'tinggi_badan': { type: 'numeric' },
         'lingkar_kepala': { type: 'numeric' },
@@ -154,6 +220,7 @@ function initInputValidation() {
         'tahun_lahir_ayah': { type: 'numeric', length: 4 },
         'tahun_lahir_ibu': { type: 'numeric', length: 4 },
         'tahun_lahir_wali': { type: 'numeric', length: 4 },
+        'nomor_urut': { type: 'numeric', maxValue: 45, label: 'Nomor Urut' }, 
     };
 
     const toggleError = (input, isError, msg = '') => {
@@ -163,6 +230,7 @@ function initInputValidation() {
 
         if (isError) {
             input.classList.add('is-invalid');
+            input.setCustomValidity(msg); 
             if(msg) {
                 let div = document.createElement('div');
                 div.className = 'invalid-feedback custom-msg';
@@ -172,6 +240,7 @@ function initInputValidation() {
             }
         } else {
             input.classList.add('is-valid');
+            input.setCustomValidity(''); 
         }
     };
 
@@ -180,36 +249,50 @@ function initInputValidation() {
         const rule = rules[name];
 
         if (input) {
+            const validate = (updateUI = false) => {
+                if(!input.value) { 
+                    if(updateUI) input.classList.remove('is-invalid', 'is-valid');
+                    input.setCustomValidity('');
+                    return;
+                }
+                let error = false;
+                let msg = '';
+
+                if (rule.length && input.value.length !== rule.length) {
+                    error = true;
+                    msg = `${rule.label || 'Input'} harus ${rule.length} digit.`;
+                }
+                if (rule.min && input.value.length < rule.min) {
+                    error = true;
+                    msg = `${rule.label || 'Input'} minimal ${rule.min} digit.`;
+                }
+
+                input.setCustomValidity(error ? msg : '');
+                if (updateUI) toggleError(input, error, msg);
+            };
+
             input.addEventListener('input', function() {
                 if (rule.type === 'numeric') this.value = this.value.replace(/[^0-9]/g, '');
                 if (rule.type === 'decimal') this.value = this.value.replace(/[^0-9.]/g, '');
                 if (rule.length && this.value.length > rule.length) {
                     this.value = this.value.substring(0, rule.length);
                 }
+                if (rule.maxValue && this.value !== "") {
+                    if (parseInt(this.value) > rule.maxValue) {
+                        this.value = rule.maxValue; 
+                    }
+                }
+                validate(false); 
             });
 
             input.addEventListener('blur', function() {
-                if(!this.value) { 
-                    this.classList.remove('is-invalid', 'is-valid');
-                    return;
-                }
-                let error = false;
-                let msg = '';
-                if (rule.length && this.value.length !== rule.length) {
-                    error = true;
-                    msg = `${rule.label || 'Input'} harus ${rule.length} digit.`;
-                }
-                if (rule.min && this.value.length < rule.min) {
-                    error = true;
-                    msg = `${rule.label || 'Input'} minimal ${rule.min} digit.`;
-                }
-                toggleError(this, error, msg);
+                validate(true); 
             });
         }
     });
 }
 
-// copy data from ayah
+// copy data wali
 function initBulkActions() {
     const tabWali = document.getElementById('form-wali'); 
     if(tabWali && !document.getElementById('btn-copy-ayah')) {
@@ -229,12 +312,12 @@ function initBulkActions() {
                 const dst = document.querySelector(`[name="${to}"]`);
                 if(src && dst && src.value) { dst.value = src.value; count++; }
             }
-            showToast(count > 0 ? 'Data Ayah berhasil disalin ke form Wali.' : 'Data Ayah masih kosong, tidak ada yang disalin.', 'info');
+            showToast(count > 0 ? 'Data Ayah berhasil disalin ke form Wali.' : 'Data Ayah masih kosong.', 'info');
         });
     }
 }
 
-// submit validation
+// logic submit validation
 function initFormSubmitValidation() {
     const form = document.getElementById('formSiswa');
     if (!form) return;
@@ -245,99 +328,19 @@ function initFormSubmitValidation() {
             event.stopPropagation();
             
             const firstInvalid = form.querySelector(':invalid');
-            
             if (firstInvalid) {
                 const tabPane = firstInvalid.closest('.tab-pane');
-                
                 if (tabPane) {
                     const tabId = '#' + tabPane.getAttribute('id');
-                    
                     const tabBtn = document.querySelector(`button[data-bs-target="${tabId}"]`);
-                    
-                    if(tabBtn) {
-                        tabBtn.click();
-                    }
+                    if(tabBtn) tabBtn.click();
                 }
-                
                 setTimeout(() => {
                     firstInvalid.focus();
                     showToast('Data belum lengkap! Periksa kolom berwarna merah.', 'error');
                 }, 200);
             }
-            
             form.classList.add('was-validated'); 
         }
-    });
-}
-
-// toast
-window.showToast = function(message, type = 'success') {
-    let container = document.getElementById('toast-container-js');
-    // if (!container) {
-    //     container = document.createElement('div');
-    //     container.id = 'toast-container-js';
-    //     container.className = 'toast-container position-fixed start-50 translate-middle-x p-3'; 
-    //     container.style.top = '30px';
-    //     container.style.zIndex = '99999';
-    //     document.body.appendChild(container);
-    // }
-
-    let bgClass = 'text-bg-success'; 
-    let icon = '<i class="bi bi-check-circle-fill me-2"></i>';
-
-    if (type === 'error') {
-        bgClass = 'text-bg-danger';
-        icon = '<i class="bi bi-exclamation-triangle-fill me-2"></i>';
-    }
-
-    const toastEl = document.createElement('div');
-    
-    toastEl.className = `toast align-items-center w-auto ${bgClass} border-0 show mb-2 shadow-lg`;
-    toastEl.style.maxWidth = 'none'; 
-    toastEl.setAttribute('role', 'alert');
-    toastEl.setAttribute('aria-live', 'assertive');
-    toastEl.setAttribute('aria-atomic', 'true');
-
-    toastEl.innerHTML = `
-        <div class="d-flex">
-            <div class="toast-body text-white text-nowrap"> 
-                ${icon} ${message}
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    `;
-
-    container.appendChild(toastEl);
-
-    setTimeout(() => {
-        toastEl.classList.remove('show');
-        setTimeout(() => {
-            if (toastEl.parentNode) toastEl.parentNode.removeChild(toastEl);
-        }, 500); 
-    }, 4000);
-};
-
-const ekstrakurikulerBtn = document.getElementById('id-ekstrakurikuler-dropdown-button');
-const ekstrakurikulerCheckboxes = document.querySelectorAll('.id-ekstrakurikuler-checkbox');
-
-if (ekstrakurikulerBtn && ekstrakurikulerCheckboxes.length > 0) {
-
-    const updateButtonText = () => {
-        const checkedCount = Array.from(ekstrakurikulerCheckboxes)
-            .filter(cb => cb.checked).length;
-
-        ekstrakurikulerBtn.textContent =
-            checkedCount > 0 ? `${checkedCount} Dipilih` : '-- Pilih Ekstrakurikuler --';
-
-        if (checkedCount > 0) {
-            ekstrakurikulerBtn.classList.add('text-primary', 'fw-bold');
-            ekstrakurikulerBtn.classList.remove('is-invalid');
-        } else {
-            ekstrakurikulerBtn.classList.remove('text-primary', 'fw-bold');
-        }
-    };
-
-    ekstrakurikulerCheckboxes.forEach(cb => {
-        cb.addEventListener('change', updateButtonText);
     });
 }

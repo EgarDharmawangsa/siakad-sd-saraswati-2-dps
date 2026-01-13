@@ -92,7 +92,6 @@ class StoreSiswaRequest extends FormRequest
             'nomor_urut'                => ['nullable','integer'],
         ];
 
-        // Nomor urut harus unik per kelas (jika diisi)
         if ($this->filled('nomor_urut') && $id_kelas) {
             $rules['nomor_urut'][] = Rule::unique('siswa')
                 ->where(fn ($q) => $q->where('id_kelas', $id_kelas));

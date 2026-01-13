@@ -4,7 +4,7 @@
     <div class="content-card mb-4">
         <div class="d-flex justify-content-between mb-2 title-form-container">
             <h5 class="d-flex align-items-center mb-0">Edit {{ $judul }}</h5>
-            <button type="button" class="btn btn-danger" id="cancel-button" data-route="{{ route('siswa.index') }}"
+            <button type="button" class="btn btn-danger" id="cancel-button" data-route="{{ route('profile.index') }}"
                 data-bs-toggle="modal" data-bs-target="#cancel-modal">
                 <i class="bi bi-x-lg me-2"></i>Batal</button>
         </div>

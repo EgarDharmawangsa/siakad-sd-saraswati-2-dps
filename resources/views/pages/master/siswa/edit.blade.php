@@ -73,7 +73,7 @@
                             <div class="input-group">
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
                                     name="password" id="password" placeholder="Masukkan password baru (kosongkan jika tetap)">
-                                <button class="btn btn-outline-secondary" type="button"><i class="bi bi-eye"></i></button>
+                                <button class="btn btn-outline-secondary btn-toggle-password" type="button"><i class="bi bi-eye"></i></button>
                             </div>
                             @error('password')
                                 <div class="small text-danger mt-1">{{ $message }}</div>

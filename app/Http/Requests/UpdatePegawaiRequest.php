@@ -43,7 +43,7 @@ class UpdatePegawaiRequest extends FormRequest
             'agama'                 => 'required|string|min:3|max:20',
             'tempat_lahir'          => 'required|string|min:3|max:25',
             'tanggal_lahir'         => 'required|date|before:today',
-            'alamat'                => 'required|string|min:10|max:255',
+            'alamat'                => 'required|string',
             'no_telepon_rumah'      => 'nullable|string|min:10|max:15',
             'no_telepon_seluler'    => 'required|string|min:10|max:15',
             'username'              => "nullable|string|min:5|max:50|unique:users,username,{$id_pegawai},id_pegawai",
