@@ -104,7 +104,7 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">NIPD</label>
+                            <label class="form-label">NIPD<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('nipd') is-invalid @enderror" name="nipd"
                                 value="{{ old('nipd') }}" placeholder="Masukkan NIPD">
                             @error('nipd')
@@ -189,7 +189,7 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">No. Telp Rumah</label>
+                            <label class="form-label">No. Telp Rumah<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('no_telepon_rumah') is-invalid @enderror" name="no_telepon_rumah"
                                 value="{{ old('no_telepon_rumah') }}" placeholder="Masukkan no. telp rumah">
                             @error('no_telepon_rumah')
@@ -205,7 +205,7 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">E-Mail</label>
+                            <label class="form-label">E-Mail<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="email" class="form-control @error('e_mail') is-invalid @enderror"
                                 name="e_mail" value="{{ old('e_mail') }}" placeholder="Masukkan e-mail">
                             @error('e_mail')
@@ -216,39 +216,39 @@
                             <hr class="text-muted opacity-25">
                         </div>
                         <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Fisik & Disabilitas</label></div>
-                        <div class="col-md-6"><label class="form-label">Berat Badan (kg)</label><input type="number"
+                        <div class="col-md-6"><label class="form-label">Berat Badan (kg)<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                 step="0.1" class="form-control @error('berat_badan') is-invalid @enderror" name="berat_badan"
                                 value="{{ old('berat_badan') }}" placeholder="Masukkan berat badan">
                             @error('berat_badan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">Tinggi Badan (cm)</label><input type="number"
+                        <div class="col-md-6"><label class="form-label">Tinggi Badan (cm)<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                 class="form-control @error('tinggi_badan') is-invalid @enderror" name="tinggi_badan" value="{{ old('tinggi_badan') }}" placeholder="Masukkan tinggi badan">
                         </div>
                             @error('tinggi_badan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                        <div class="col-md-6"><label class="form-label">Lingkar Kepala (cm)</label><input type="number"
+                        <div class="col-md-6"><label class="form-label">Lingkar Kepala (cm)<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                 class="form-control @error('lingkar_kepala') is-invalid @enderror" name="lingkar_kepala" value="{{ old('lingkar_kepala') }}" placeholder="Masukkan lingkar kepala">
                             @error('lingkar_kepala')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">Jumlah Saudara Kandung</label><input type="number"
+                        <div class="col-md-6"><label class="form-label">Jumlah Saudara Kandung<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                 class="form-control @error('jumlah_saudara_kandung') is-invalid @enderror" name="jumlah_saudara_kandung"
                                 value="{{ old('jumlah_saudara_kandung') }}" placeholder="Masukkan jumlah saudara kandung">
                             @error('jumlah_saudara_kandung')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">Anak Ke-</label><input type="number"
+                        <div class="col-md-6"><label class="form-label">Anak Ke-<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                 class="form-control @error('anak_ke_berapa') is-invalid @enderror" name="anak_ke_berapa" value="{{ old('anak_ke_berapa') }}" placeholder="Masukkan anak ke berapa">
                             @error('anak_ke_berapa')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">No. Reg. Akta Lahir</label><input type="text"
+                        <div class="col-md-6"><label class="form-label">No. Reg. Akta Lahir<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="text"
                                 class="form-control @error('no_registrasi_akta_lahir') is-invalid @enderror" name="no_registrasi_akta_lahir"
                                 value="{{ old('no_registrasi_akta_lahir') }}" placeholder="Masukkan no. reg. akta lahir">
                             @error('no_registrasi_akta_lahir')
@@ -256,7 +256,7 @@
                             @enderror
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Disabilitas</label>
+                            <label class="form-label">Disabilitas<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <select class="form-select @error('disabilitas') is-invalid @enderror" name="disabilitas" required>
                                 @foreach (['Tidak', 'Netra', 'Rungu', 'Grahita', 'Daksa', 'Laras', 'Wicara', 'Tuna Ganda', 'Hiperaktif', 'Cerdas Istimewa', 'Bakat Istimewa', 'Kesulitan Belajar', 'Lainnya'] as $dis)
                                     <option value="{{ $dis }}"
@@ -301,56 +301,56 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">RT</label><input type="text"
+                        <div class="col-md-6"><label class="form-label">RT<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="text"
                                 class="form-control @error('rt') is-invalid @enderror" name="rt" value="{{ old('rt') }}" placeholder="Masukkan RT">
                         @error('rt')
                                 <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">RW</label><input type="text"
+                        <div class="col-md-6"><label class="form-label">RW<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="text"
                                 class="form-control @error('rw') is-invalid @enderror" name="rw" value="{{ old('rw') }}" placeholder="Masukkan RW">
                         @error('rw')
                                 <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">Dusun</label><input type="text"
+                        <div class="col-md-6"><label class="form-label">Dusun<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="text"
                                 class="form-control @error('dusun') is-invalid @enderror" name="dusun" value="{{ old('dusun') }}" placeholder="Masukkan dusun">
                         @error('dusun')
                                 <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">Kelurahan</label><input type="text"
+                        <div class="col-md-6"><label class="form-label">Kelurahan<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="text"
                                 class="form-control @error('kelurahan') is-invalid @enderror" name="kelurahan" value="{{ old('kelurahan') }}" placeholder="Masukkan kelurahan">
                         @error('kelurahan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">Kecamatan</label><input type="text"
+                        <div class="col-md-6"><label class="form-label">Kecamatan<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="text"
                                 class="form-control @error('kecamatan') is-invalid @enderror" name="kecamatan" value="{{ old('kecamatan') }}" placeholder="Masukkan kecamatan">
                         @error('kecamatan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">Kode Pos</label><input type="number"
+                        <div class="col-md-6"><label class="form-label">Kode Pos<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                 class="form-control @error('kode_pos') is-invalid @enderror" name="kode_pos" value="{{ old('kode_pos') }}" placeholder="Masukkan kode pos">
                         @error('kode_pos')
                                 <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">Lintang</label><input type="number"
+                        <div class="col-md-6"><label class="form-label">Lintang<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                 class="form-control @error('lintang') is-invalid @enderror" name="lintang" value="{{ old('lintang') }}" placeholder="Masukkan lintang">
                         @error('lintang')
                                 <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">Bujur</label><input type="number"
+                        <div class="col-md-6"><label class="form-label">Bujur<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                 class="form-control @error('bujur') is-invalid @enderror" name="bujur" value="{{ old('bujur') }}" placeholder="Masukkan bujur">
                         @error('bujur')
                                 <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Jarak Rumah ke Sekolah (km)</label>
+                            <label class="form-label">Jarak Rumah ke Sekolah (km)<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" step="0.01" name="jarak_rumah_ke_sekolah"
                             class="form-control @error('jarak_rumah_ke_sekolah') is-invalid @enderror"
                             value="{{ old('jarak_rumah_ke_sekolah') }}" placeholder="Masukkan jarak (contoh: 1.5)">
@@ -378,29 +378,29 @@
                     <div class="tab-content border px-3 pt-0 pb-3 rounded bg-white shadow-sm mb-3" id="pendampingTabContent">
                         <div class="tab-pane fade show active" id="form-ayah">
                             <div class="row g-3">
-                                <div class="col-md-6"><label class="form-label">Nama Ayah</label><input type="text"
+                                <div class="col-md-6"><label class="form-label">Nama Ayah<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="text"
                                         class="form-control @error('nama_ayah') is-invalid @enderror" name="nama_ayah" value="{{ old('nama_ayah') }}" placeholder="Masukkan nama ayah">
                                     @error('nama_ayah')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror</div>
-                                <div class="col-md-6"><label class="form-label">NIK Ayah</label><input type="number"
+                                <div class="col-md-6"><label class="form-label">NIK Ayah<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                         class="form-control @error('nik_ayah') is-invalid @enderror" name="nik_ayah" value="{{ old('nik_ayah') }}" placeholder="Masukkan NIK ayah">
                                     @error('nik_ayah')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror</div>
-                                <div class="col-md-6"><label class="form-label">Tahun Lahir</label><input type="number"
+                                <div class="col-md-6"><label class="form-label">Tahun Lahir<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                         class="form-control @error('tahun_lahir_ayah') is-invalid @enderror" name="tahun_lahir_ayah"
                                         value="{{ old('tahun_lahir_ayah') }}" placeholder="Masukkan tahun lahir">
                                     @error('tahun_lahir_ayah')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror</div>
-                                <div class="col-md-6"><label class="form-label">Pekerjaan</label><input type="text"
+                                <div class="col-md-6"><label class="form-label">Pekerjaan<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="text"
                                         class="form-control @error('pekerjaan_ayah') is-invalid @enderror" name="pekerjaan_ayah" value="{{ old('pekerjaan_ayah') }}" placeholder="Masukkan pekerjaan">
                                     @error('pekerjaan_ayah')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6"><label class="form-label">Jenjang Pendidikan</label>
+                                <div class="col-md-6"><label class="form-label">Jenjang Pendidikan<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                                     <select class="form-select @error('jenjang_pendidikan_ayah') is-invalid @enderror" name="jenjang_pendidikan_ayah">
                                         <option value="">-- Pilih Jenjang Pendidikan --</option>
                                         @foreach (['Tidak Sekolah', 'SD Sederajat', 'SMP Sederajat', 'SMA Sederajat', 'D3', 'S1', 'S2'] as $p)
@@ -413,7 +413,7 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6"><label class="form-label">Penghasilan</label>
+                                <div class="col-md-6"><label class="form-label">Penghasilan<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                                     <select class="form-select @error('penghasilan_ayah') is-invalid @enderror" name="penghasilan_ayah">
                                         <option value="">-- Pilih Penghasilan --</option>
                                         @foreach (['Kurang dari 500.000', '500.000 - 999.999', '1jt - 2jt', '2jt - 5jt', '> 5jt'] as $g)
@@ -430,32 +430,32 @@
                         </div>
                         <div class="tab-pane fade" id="form-ibu">
                             <div class="row g-3">
-                                <div class="col-md-6"><label class="form-label">Nama Ibu</label><input type="text"
+                                <div class="col-md-6"><label class="form-label">Nama Ibu<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="text"
                                         class="form-control @error('nama_ibu') is-invalid @enderror" name="nama_ibu" value="{{ old('nama_ibu') }}" placeholder="Masukkan nama ibu">
                                     @error('nama_ibu')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6"><label class="form-label">NIK Ibu</label><input type="number"
+                                <div class="col-md-6"><label class="form-label">NIK Ibu<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                         class="form-control @error('nik_ibu') is-invalid @enderror" name="nik_ibu" value="{{ old('nik_ibu') }}" placeholder="Masukkan NIK ibu">
                                     @error('nik_ibu')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror    
                                 </div>
-                                <div class="col-md-6"><label class="form-label">Tahun Lahir</label><input type="number"
+                                <div class="col-md-6"><label class="form-label">Tahun Lahir<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                         class="form-control @error('tahun_lahir_ibu') is-invalid @enderror" name="tahun_lahir_ibu"
                                         value="{{ old('tahun_lahir_ibu') }}" placeholder="Masukkan tahun lahir">
                                     @error('tahun_lahir_ibu')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror    
                                 </div>
-                                <div class="col-md-6"><label class="form-label">Pekerjaan</label><input type="text"
+                                <div class="col-md-6"><label class="form-label">Pekerjaan<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="text"
                                         class="form-control @error('pekerjaan_ibu') is-invalid @enderror" name="pekerjaan_ibu" value="{{ old('pekerjaan_ibu') }}" placeholder="Masukkan pekerjaan">
                                     @error('pekerjaan_ibu')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6"><label class="form-label">Jenjang Pendidikan</label>
+                                <div class="col-md-6"><label class="form-label">Jenjang Pendidikan<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                                     <select class="form-select @error('jenjang_pendidikan_ibu') is-invalid @enderror" name="jenjang_pendidikan_ibu">
                                         <option value="">-- Pilih Pendidikan --</option>
                                         @foreach (['Tidak Sekolah', 'SD Sederajat', 'SMP Sederajat', 'SMA Sederajat', 'D3', 'S1', 'S2'] as $p)
@@ -468,7 +468,7 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6"><label class="form-label">Penghasilan</label>
+                                <div class="col-md-6"><label class="form-label">Penghasilan<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                                     <select class="form-select @error('penghasilan_ibu') is-invalid @enderror" name="penghasilan_ibu">
                                         <option value="">-- Pilih Penghasilan --</option>
                                         @foreach (['Kurang dari 500.000', '500.000 - 999.999', '1jt - 2jt', '2jt - 5jt', '> 5jt'] as $g)
@@ -485,32 +485,32 @@
                         </div>
                         <div class="tab-pane fade" id="form-wali">
                             <div class="row g-3">
-                                <div class="col-md-6"><label class="form-label">Nama Wali</label><input type="text"
+                                <div class="col-md-6"><label class="form-label">Nama Wali<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="text"
                                         class="form-control @error('nama_wali') is-invalid @enderror" name="nama_wali" value="{{ old('nama_wali') }}" placeholder="Masukkan nama wali">
                                     @error('nama_wali')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror    
                                 </div>
-                                <div class="col-md-6"><label class="form-label">NIK Wali</label><input type="number"
+                                <div class="col-md-6"><label class="form-label">NIK Wali<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                         class="form-control @error('nik_wali') is-invalid @enderror" name="nik_wali" value="{{ old('nik_wali') }}" placeholder="Masukkan NIK wali">
                                     @error('nik_wali')
                                         <div class="invalid-feedback">{{ $message }}</div>  
                                     @enderror
                                 </div>
-                                <div class="col-md-6"><label class="form-label">Tahun Lahir</label><input type="number"
+                                <div class="col-md-6"><label class="form-label">Tahun Lahir<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                         class="form-control @error('tahun_lahir_wali') is-invalid @enderror" name="tahun_lahir_wali"
                                         value="{{ old('tahun_lahir_wali') }}" placeholder="Masukkan tahun lahir">
                                     @error('tahun_lahir_wali')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6"><label class="form-label">Pekerjaan</label><input type="text"
+                                <div class="col-md-6"><label class="form-label">Pekerjaan<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="text"
                                         class="form-control @error('pekerjaan_wali') is-invalid @enderror" name="pekerjaan_wali" value="{{ old('pekerjaan_wali') }}" placeholder="Masukkan pekerjaan">
                                     @error('pekerjaan_wali')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6"><label class="form-label">Jenjang Pendidikan</label>
+                                <div class="col-md-6"><label class="form-label">Jenjang Pendidikan<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                                     <select class="form-select @error('jenjang_pendidikan_wali') is-invalid @enderror" name="jenjang_pendidikan_wali">
                                         <option value="">-- Pilih Pendidikan --</option>
                                         @foreach (['Tidak Sekolah', 'SD Sederajat', 'SMP Sederajat', 'SMA Sederajat', 'D3', 'S1', 'S2'] as $p)
@@ -523,7 +523,7 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6"><label class="form-label">Penghasilan</label>
+                                <div class="col-md-6"><label class="form-label">Penghasilan<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                                     <select class="form-select @error('penghasilan_wali') is-invalid @enderror" name="penghasilan_wali">
                                         <option value="">-- Pilih Penghasilan --</option>
                                         @foreach (['Kurang dari 500.000', '500.000 - 999.999', '1jt - 2jt', '2jt - 5jt', '> 5jt'] as $g)
@@ -551,7 +551,7 @@
                 <div class="tab-pane fade" id="content-pendidikan" role="tabpanel">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label">Sekolah Asal</label>
+                            <label class="form-label">Sekolah Asal<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="text" class="form-control @error('sekolah_asal') is-invalid @enderror" name="sekolah_asal"
                                 value="{{ old('sekolah_asal') }}" placeholder="Masukkan sekolah asal">
                             @error('sekolah_asal')
@@ -559,7 +559,7 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">No. Peserta UN</label>
+                            <label class="form-label">No. Peserta UN<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('no_peserta_un') is-invalid @enderror" name="no_peserta_un"
                                 value="{{ old('no_peserta_un') }}" placeholder="Masukkan no. peserta UN">
                             @error('no_peserta_un')
@@ -567,10 +567,18 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">No. Seri Ijazah</label>
+                            <label class="form-label">No. Seri Ijazah<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('no_seri_ijazah') is-invalid @enderror" name="no_seri_ijazah"
                                 value="{{ old('no_seri_ijazah') }}" placeholder="Masukkan no. seri ijazah">
                             @error('no_seri_ijazah')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">SKHUN<span class="text-muted mini-label ms-1">(Opsional)</span></label>
+                            <input type="number" class="form-control @error('skhun') is-invalid @enderror" name="skhun"
+                                value="{{ old('skhun') }}" placeholder="Masukkan no. SKHUN">
+                            @error('skhun')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -604,7 +612,7 @@
                         </div>
                         <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">KKS</label></div>
                         <div class="col-md-6">
-                            <label class="form-label">No. KKS</label>
+                            <label class="form-label">No. KKS<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('no_kks') is-invalid @enderror" name="no_kks" value="{{ old('no_kks') }}" placeholder="Masukkan no. KKS">
                         </div>
                         <div class="col-md-12 mt-0">
@@ -632,7 +640,7 @@
                         </div>
                         <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">PIP</label></div>
                         <div class="col-md-6">
-                            <label class="form-label">Layak PIP</label>
+                            <label class="form-label">Layak PIP<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <select class="form-select @error('layak_pip') is-invalid @enderror" name="layak_pip" required>
                                 <option value="">-- Pilih --</option>
                                 <option value="Tidak" {{ old('layak_pip') === 'Tidak' ? 'selected' : '' }}>Tidak</option>
@@ -649,17 +657,17 @@
                         </div>
                         <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Bank</label></div>
                         <div class="col-md-6">
-                            <label class="form-label">Nama Bank</label>
+                            <label class="form-label">Nama Bank<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="text" class="form-control @error('nama_bank') is-invalid @enderror" name="nama_bank"
                                 value="{{ old('nama_bank') }}" placeholder="Masukkan nama bank">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">No. Rekening</label>
+                            <label class="form-label">No. Rekening<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('no_rekening') is-invalid @enderror" name="no_rekening"
                                 value="{{ old('no_rekening') }}" placeholder="Masukkan no. rekening">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Atas Nama</label>
+                            <label class="form-label">Atas Nama<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="text" class="form-control @error('nama_rekening') is-invalid @enderror" name="nama_rekening"
                                 value="{{ old('nama_rekening') }}" placeholder="Masukkan atas nama">
                         </div>
@@ -681,7 +689,7 @@
                         </div>
                         <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Kelas</label></div>
                         <div class="col-md-4">
-                            <label for="id-kelas" class="form-label">Kelas</label>
+                            <label for="id-kelas" class="form-label">Kelas<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <select class="form-select @error('id_kelas') is-invalid @enderror" id="id-kelas" name="id_kelas"
                                 {{ $kelas->isEmpty() ? 'disabled' : '' }}>
                                 <option value="">
@@ -711,7 +719,7 @@
                         </div>
                         <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Ekstrakurikuler</label></div>
                         <div class="col-md-4">
-                            <label for="id-ekstrakurikuler" class="form-label">Ekstrakurikuler</label>
+                            <label for="id-ekstrakurikuler" class="form-label">Ekstrakurikuler<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <div class="dropdown" id="id-ekstrakurikuler">
                                 <button class="form-select text-start @error('id_ekstrakurikuler') is-invalid @enderror"
                                     type="button" data-bs-toggle="dropdown" aria-expanded="false"

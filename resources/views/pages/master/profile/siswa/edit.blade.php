@@ -10,7 +10,7 @@
         </div>
         <hr>
         <form action="{{ route('profile.siswa.update') }}" method="POST" enctype="multipart/form-data"
-            id="formSiswa" novalidate>
+            id="formSiswa" novalidate data-is-siswa="{{ auth()->user()->role === 'Siswa' ? 'true' : 'false' }}">
             @csrf
             @method('PUT')
 
@@ -552,6 +552,14 @@
                             <input type="number" class="form-control @error('no_seri_ijazah') is-invalid @enderror" name="no_seri_ijazah"
                                 value="{{ old('no_seri_ijazah', $user->no_seri_ijazah) }}" placeholder="Masukkan no. seri ijazah">
                             @error('no_seri_ijazah')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">SKHUN</label>
+                            <input type="number" class="form-control @error('skhun') is-invalid @enderror" name="skhun"
+                                value="{{ old('skhun', $user->skhun) }}" placeholder="Masukkan no. seri ijazah">
+                            @error('skhun')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

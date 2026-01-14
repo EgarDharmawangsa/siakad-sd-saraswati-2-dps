@@ -341,6 +341,10 @@
                         <label class="form-label">No. Seri Ijazah</label>
                         <input type="text" class="form-control" value="{{ $user->no_seri_ijazah ?? '-' }}" readonly>
                     </div>
+                    <div class="col-md-6">
+                        <label class="form-label">SKHUN</label>
+                        <input type="text" class="form-control" value="{{ $user->skhun ?? '-' }}" readonly>
+                    </div>
                 </div>
                 <div class="d-flex justify-content-between mt-4">
                     <button type="button" class="btn btn-secondary btn-nav" data-next="#view-pendamping">

@@ -65,19 +65,19 @@ class UpdateSiswaRequest extends FormRequest
             'nama_ayah'                 => 'nullable|string|min:3|max:255',
             'nik_ayah'                  => 'nullable|string|size:16',
             'tahun_lahir_ayah'          => 'nullable|integer|min:1900|max:' . date('Y'),
-            'jenjang_pendidikan_ayah'   => 'nullable|string|min:3|max:50',
+            'jenjang_pendidikan_ayah'   => 'nullable|string|min:2|max:50',
             'pekerjaan_ayah'            => 'nullable|string|min:3|max:100',
             'penghasilan_ayah'          => 'nullable|string|min:3|max:20',
             'nama_ibu'                  => 'nullable|string|min:3|max:255',
             'nik_ibu'                   => 'nullable|string|size:16',
             'tahun_lahir_ibu'           => 'nullable|integer|min:1900|max:' . date('Y'),
-            'jenjang_pendidikan_ibu'    => 'nullable|string|min:3|max:50',
+            'jenjang_pendidikan_ibu'    => 'nullable|string|min:2|max:50',
             'pekerjaan_ibu'             => 'nullable|string|min:3|max:100',
             'penghasilan_ibu'           => 'nullable|string|min:3|max:20',
             'nama_wali'                 => 'nullable|string|min:3|max:255',
             'nik_wali'                  => 'nullable|string|size:16',
             'tahun_lahir_wali'          => 'nullable|integer|min:1900|max:' . date('Y'),
-            'jenjang_pendidikan_wali'   => 'nullable|string|min:3|max:50',
+            'jenjang_pendidikan_wali'   => 'nullable|string|min:2|max:50',
             'pekerjaan_wali'            => 'nullable|string|min:3|max:100',
             'penghasilan_wali'          => 'nullable|string|min:3|max:20',
             'penerima_kps'              => 'required|string|min:3|max:5',
@@ -97,7 +97,8 @@ class UpdateSiswaRequest extends FormRequest
             'id_ekstrakurikuler'        => 'nullable|array',
             'id_ekstrakurikuler.*'      => 'nullable|exists:ekstrakurikuler,id_ekstrakurikuler',
             'id_kelas'                  => 'nullable|exists:kelas,id_kelas',
-            'nomor_urut'                => ['nullable','integer']
+            'nomor_urut'                => ['nullable','integer'],
+            'skhun'                     => 'nullable|string|min:5|max:15|unique:siswa,skhun,{$id_siswa},id_siswa',
         ];
 
         if ($this->filled('nomor_urut') && $id_kelas) {

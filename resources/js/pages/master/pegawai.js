@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
         form: document.getElementById('form-pegawai'),
         submitBtn: document.querySelector('button[type="submit"]'),
         posisi: document.getElementById('posisi'),
+        nama: document.getElementById('nama-pegawai'),
+        nik: document.getElementById('nik'),
 
         // Scoped Data
         statusKepegawaian: document.getElementById('status-kepegawaian'),
@@ -143,6 +145,63 @@ document.addEventListener("DOMContentLoaded", function () {
              if(els.password) els.password.removeAttribute('required');
         }
 
+        // --- Logic Readonly untuk Non-TU ---
+        const isTu = els.form.dataset.isTu === undefined || els.form.dataset.isTu === 'true';
+        if (!isTu) {
+            if(els.nama) els.nama.readOnly = true;
+            if(els.nik) els.nik.readOnly = true;
+            if(els.nip) els.nip.readOnly = true;
+            if(els.nipppk) els.nipppk.readOnly = true;
+            if(els.statusKepegawaian) els.statusKepegawaian.readOnly = true;
+            if(els.jabatan) els.jabatan.readOnly = true;
+            if(els.mapelBtn) els.mapelBtn.readOnly = true;
+            if(els.username) els.username.readOnly = true;
+            if(els.password) els.password.readOnly = true;
+            if(els.noSk) els.noSk.readOnly = true;
+            if(els.tglSk) els.tglSk.readOnly = true;
+            if(els.thnSertifikasi) els.thnSertifikasi.readOnly = true;
+            if(els.mapelBtn) els.mapelBtn.readOnly = true;
+            if(els.statusSertifikasi) els.statusSertifikasi.readOnly = true;
+            if(els.statusKepegawaian) els.statusKepegawaian.readOnly = true;
+            if(els.jabatan) els.jabatan.readOnly = true;
+            if(els.nip) els.nip.readOnly = true;
+            if(els.nipppk) els.nipppk.readOnly = true;
+            if(els.posisi) els.posisi.readOnly = true;
+            if(els.username) els.username.readOnly = true;
+            if(els.password) els.password.readOnly = true;
+            if(els.ijazah) els.ijazah.readOnly = true;
+            if(els.thnIjazah) els.thnIjazah.readOnly = true;
+
+            const lockSelect = (el) => {
+                if(el) {
+                    el.style.pointerEvents = 'none';
+                    el.style.backgroundColor = '#e9ecef';
+                    el.tabIndex = -1;
+                    el.setAttribute('aria-readonly', 'true');
+                    el.addEventListener('mousedown', e => e.preventDefault());
+                }
+            };
+
+            lockSelect(els.nama);
+            lockSelect(els.nik);
+            lockSelect(els.nip);
+            lockSelect(els.nipppk);
+            lockSelect(els.posisi);
+            lockSelect(els.statusKepegawaian);
+            lockSelect(els.jabatan);
+            lockSelect(els.mapelBtn);
+            lockSelect(els.statusSertifikasi);
+            lockSelect(els.username);
+            lockSelect(els.password);
+            lockSelect(els.noSk);
+            lockSelect(els.tglSk);
+            lockSelect(els.thnSertifikasi);
+            lockSelect(els.ijazah);
+            lockSelect(els.thnIjazah);
+            lockSelect(els.tglKerja);
+            lockSelect(els.tglKerjaRasda)
+        }
+
         // if (rolesWithSertifikasi.includes(currentPosisi)) {
         //     if(els.statusSertifikasi) els.statusSertifikasi.disabled = false;
         // }
@@ -210,6 +269,7 @@ document.addEventListener("DOMContentLoaded", function () {
     initTabNavigation();
     
     initFormSubmitValidation(els);
+    initInputValidation();
 });
 
 // helper functions
@@ -317,6 +377,87 @@ function setupGlobalHelpers() {
             imgPrev.classList.add('d-none'); imgDel.classList.add('d-none');
         }
     }
-    
+}
 
+// Logic Input Validation (Mirip Siswa)
+function initInputValidation() {
+    const rules = {
+        'nik': { type: 'numeric', length: 16, label: 'NIK' },
+        'nip': { type: 'numeric', min: 9, max: 20, label: 'NIP' }, 
+        'nipppk': { type: 'numeric', min: 9, max: 20, label: 'NIPPPK' },
+        'no_telepon_seluler': { type: 'numeric', min: 10, max: 15, label: 'No. HP' },
+        'no_telepon_rumah': { type: 'numeric', min: 10, max: 15, label: 'Telp Rumah' },
+        'tahun_ijazah': { type: 'numeric', length: 4, label: 'Tahun Ijazah' },
+        'tahun_sertifikasi': { type: 'numeric', length: 4, label: 'Tahun Sertifikasi' },
+    };
+
+    const toggleError = (input, isError, msg = '') => {
+        input.classList.remove('is-invalid', 'is-valid');
+        let oldMsg = input.parentElement.querySelector('.invalid-feedback.custom-msg');
+        if(oldMsg) oldMsg.remove();
+
+        if (isError) {
+            input.classList.add('is-invalid');
+            input.setCustomValidity(msg); 
+            if(msg) {
+                let div = document.createElement('div');
+                div.className = 'invalid-feedback custom-msg';
+                div.style.display = 'block';
+                div.innerText = msg;
+                input.parentElement.appendChild(div);
+            }
+        } else {
+            input.classList.add('is-valid');
+            input.setCustomValidity(''); 
+        }
+    };
+
+    Object.keys(rules).forEach(name => {
+        const input = document.querySelector(`[name="${name}"]`);
+        const rule = rules[name];
+
+        if (input) {
+            const validate = (updateUI = false) => {
+                if(!input.value) { 
+                    if(updateUI) input.classList.remove('is-invalid', 'is-valid');
+                    input.setCustomValidity('');
+                    return;
+                }
+                let error = false;
+                let msg = '';
+
+                if (rule.length && input.value.length !== rule.length) {
+                    error = true;
+                    msg = `${rule.label || 'Input'} harus ${rule.length} digit.`;
+                }
+                if (rule.min && input.value.length < rule.min) {
+                    error = true;
+                    msg = `${rule.label || 'Input'} minimal ${rule.min} digit.`;
+                }
+                if (rule.max && input.value.length > rule.max) {
+                    error = true;
+                    msg = `${rule.label || 'Input'} maksimal ${rule.max} digit.`;
+                }
+
+                input.setCustomValidity(error ? msg : '');
+                if (updateUI) toggleError(input, error, msg);
+            };
+
+            input.addEventListener('input', function() {
+                if (rule.type === 'numeric') this.value = this.value.replace(/[^0-9]/g, '');
+                
+                if (rule.length && this.value.length > rule.length) {
+                    this.value = this.value.substring(0, rule.length);
+                }
+                if (rule.max && this.value.length > rule.max) {
+                    this.value = this.value.substring(0, rule.max);
+                }
+                validate(false); 
+            });
+
+            input.addEventListener('blur', function() {
+                validate(true); 
+            });
+        }
+    });
 }

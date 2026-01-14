@@ -555,6 +555,14 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="col-md-6">
+                            <label class="form-label">SKHUN</label>
+                            <input type="number" class="form-control @error('skhun') is-invalid @enderror" name="skhun"
+                                value="{{ old('skhun', $siswa->skhun) }}" placeholder="Masukkan no. seri ijazah">
+                            @error('skhun')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                     <div class="d-flex justify-content-between mt-4">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#content-pendamping">

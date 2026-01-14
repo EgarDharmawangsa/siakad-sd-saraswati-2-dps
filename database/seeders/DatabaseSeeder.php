@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Siswa::factory(30)->create();
-        Kelas::factory(10)->create();
+        // Kelas::factory(10)->create();
 
         MataPelajaran::factory(30)->create();
         Ekstrakurikuler::factory(30)->create();

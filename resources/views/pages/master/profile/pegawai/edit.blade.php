@@ -15,6 +15,7 @@
               method="POST" 
               enctype="multipart/form-data" 
               id="form-pegawai" 
+              data-is-tu="{{ auth()->user()->posisi === 'Staf Tata Usaha' ? 'true' : 'false' }}"
               novalidate>
             @csrf
             @method('PUT')
