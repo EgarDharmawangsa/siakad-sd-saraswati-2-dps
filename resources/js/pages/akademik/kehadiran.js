@@ -35,10 +35,15 @@ if (kehadiran_input.length) {
 
 if (kehadiran_status_filter) {
     let keterangan_filter_value = keterangan_filter.value;
+
+    if (kehadiran_status_filter.value === 'Izin') {
+        keterangan_filter.disabled = false;
+    }
+
     kehadiran_status_filter.addEventListener('change', function () {
-        if (status_filter.value === 'Izin') {
+        if (kehadiran_status_filter.value === 'Izin') {
             keterangan_filter.disabled = false;
-            keterangan_filter.value = keterangan_filter_value
+            keterangan_filter.value = keterangan_filter_value;
         } else {
             keterangan_filter.disabled = true;
             keterangan_filter_value = keterangan_filter.value;

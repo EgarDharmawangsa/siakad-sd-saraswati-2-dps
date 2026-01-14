@@ -79,6 +79,10 @@ class Kehadiran extends Model
             $query->where('status', 'like', "%{$filters['status_filter']}%");
         }
 
+        if (!empty($filters['keterangan_filter'])) {
+            $query->where('keterangan', 'like', "%{$filters['keterangan_filter']}%");
+        }
+
         if (!empty($filters['tanggal_filter'])) {
             $query->whereDate('tanggal', $filters['tanggal_filter']);
         }
