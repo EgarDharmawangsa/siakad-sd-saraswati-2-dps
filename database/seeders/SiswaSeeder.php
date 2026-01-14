@@ -2,25 +2,219 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Siswa;
-use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class SiswaSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        Siswa::factory(50)->create()->each(function ($siswa) {
-            
-            $siswa->userAuth()->create([
-                'username' => $siswa->nisn, 
-                'password' => Hash::make('password'),
-                'role'     => 'siswa'
+        $siswaData = [
+            // Kelas 1A (id_kelas = 1)
+            [
+                'id_kelas' => 1,
+                'nomor_urut' => 1,
+                'no_kk' => '5171010101200001',
+                'nik' => '5171010101180001',
+                'nisn' => '0071234501',
+                'nipd' => '2018001',
+                'nama_siswa' => 'I Putu Bagus Arya',
+                'jenis_kelamin' => 'Laki-laki',
+                'agama' => 'Hindu',
+                'tempat_lahir' => 'Denpasar',
+                'tanggal_lahir' => '2018-01-15',
+                'alamat' => 'Jl. Gatot Subroto No. 15, Denpasar',
+                'rt' => '01', 'rw' => '02',
+                'kelurahan' => 'Dauh Puri',
+                'kecamatan' => 'Denpasar Barat',
+                'jenis_tinggal' => 'Bersama Orang Tua',
+                'alat_transportasi' => 'Motor',
+                'no_telepon_seluler' => '081234567001',
+                'disabilitas' => 'Tidak',
+                'penerima_kps' => 'Tidak',
+                'penerima_kip' => 'Tidak',
+                'layak_pip' => 'Tidak',
+                'nama_ayah' => 'I Made Arya',
+                'nama_ibu' => 'Ni Wayan Sari',
+            ],
+            [
+                'id_kelas' => 1,
+                'nomor_urut' => 2,
+                'no_kk' => '5171010202200002',
+                'nik' => '5171010202180002',
+                'nisn' => '0071234502',
+                'nipd' => '2018002',
+                'nama_siswa' => 'Ni Kadek Ayu Putri',
+                'jenis_kelamin' => 'Perempuan',
+                'agama' => 'Hindu',
+                'tempat_lahir' => 'Gianyar',
+                'tanggal_lahir' => '2018-02-20',
+                'alamat' => 'Jl. Raya Ubud No. 10, Gianyar',
+                'rt' => '03', 'rw' => '01',
+                'kelurahan' => 'Ubud',
+                'kecamatan' => 'Ubud',
+                'jenis_tinggal' => 'Bersama Orang Tua',
+                'alat_transportasi' => 'Mobil',
+                'no_telepon_seluler' => '081234567002',
+                'disabilitas' => 'Tidak',
+                'penerima_kps' => 'Tidak',
+                'penerima_kip' => 'Tidak',
+                'layak_pip' => 'Tidak',
+                'nama_ayah' => 'I Ketut Darma',
+                'nama_ibu' => 'Ni Made Dewi',
+            ],
+            // Kelas 2A (id_kelas = 3)
+            [
+                'id_kelas' => 3,
+                'nomor_urut' => 1,
+                'no_kk' => '5171020303200003',
+                'nik' => '5171020303170003',
+                'nisn' => '0071234503',
+                'nipd' => '2017001',
+                'nama_siswa' => 'I Komang Adi Putra',
+                'jenis_kelamin' => 'Laki-laki',
+                'agama' => 'Hindu',
+                'tempat_lahir' => 'Tabanan',
+                'tanggal_lahir' => '2017-03-10',
+                'alamat' => 'Jl. Raya Tabanan No. 25, Tabanan',
+                'rt' => '02', 'rw' => '03',
+                'kelurahan' => 'Tabanan',
+                'kecamatan' => 'Tabanan',
+                'jenis_tinggal' => 'Bersama Orang Tua',
+                'alat_transportasi' => 'Sepeda',
+                'no_telepon_seluler' => '081234567003',
+                'disabilitas' => 'Tidak',
+                'penerima_kps' => 'Ya',
+                'no_kps' => 'KPS0001234503',
+                'penerima_kip' => 'Ya',
+                'no_kip' => 'KIP0001234503',
+                'nama_kip' => 'I Komang Adi Putra',
+                'layak_pip' => 'Ya',
+                'alasan_layak_pip' => 'Pemegang KPS/KIP',
+                'nama_ayah' => 'I Wayan Sudirta',
+                'nama_ibu' => 'Ni Nyoman Suci',
+            ],
+            // Kelas 3A (id_kelas = 5)
+            [
+                'id_kelas' => 5,
+                'nomor_urut' => 1,
+                'no_kk' => '5171030404200004',
+                'nik' => '5171030404160004',
+                'nisn' => '0071234504',
+                'nipd' => '2016001',
+                'nama_siswa' => 'Ni Luh Gede Citra',
+                'jenis_kelamin' => 'Perempuan',
+                'agama' => 'Hindu',
+                'tempat_lahir' => 'Badung',
+                'tanggal_lahir' => '2016-04-05',
+                'alamat' => 'Jl. Sunset Road No. 100, Badung',
+                'rt' => '01', 'rw' => '01',
+                'kelurahan' => 'Kuta',
+                'kecamatan' => 'Kuta',
+                'jenis_tinggal' => 'Bersama Orang Tua',
+                'alat_transportasi' => 'Antar Jemput Sekolah',
+                'no_telepon_seluler' => '081234567004',
+                'disabilitas' => 'Tidak',
+                'penerima_kps' => 'Tidak',
+                'penerima_kip' => 'Tidak',
+                'layak_pip' => 'Tidak',
+                'nama_ayah' => 'I Gede Putra',
+                'nama_ibu' => 'Ni Wayan Rai',
+            ],
+            // Kelas 4A (id_kelas = 7)
+            [
+                'id_kelas' => 7,
+                'nomor_urut' => 1,
+                'no_kk' => '5171040505200005',
+                'nik' => '5171040505150005',
+                'nisn' => '0071234505',
+                'nipd' => '2015001',
+                'nama_siswa' => 'I Putu Gede Dharma',
+                'jenis_kelamin' => 'Laki-laki',
+                'agama' => 'Hindu',
+                'tempat_lahir' => 'Denpasar',
+                'tanggal_lahir' => '2015-05-15',
+                'alamat' => 'Jl. Diponegoro No. 50, Denpasar',
+                'rt' => '04', 'rw' => '02',
+                'kelurahan' => 'Dauh Puri Kaja',
+                'kecamatan' => 'Denpasar Utara',
+                'jenis_tinggal' => 'Bersama Orang Tua',
+                'alat_transportasi' => 'Motor',
+                'no_telepon_seluler' => '081234567005',
+                'disabilitas' => 'Tidak',
+                'penerima_kps' => 'Tidak',
+                'penerima_kip' => 'Tidak',
+                'layak_pip' => 'Tidak',
+                'nama_ayah' => 'I Wayan Dharma',
+                'nama_ibu' => 'Ni Ketut Suryani',
+            ],
+            // Kelas 5A (id_kelas = 9)
+            [
+                'id_kelas' => 9,
+                'nomor_urut' => 1,
+                'no_kk' => '5171050606200006',
+                'nik' => '5171050606140006',
+                'nisn' => '0071234506',
+                'nipd' => '2014001',
+                'nama_siswa' => 'Ni Kadek Puspa Dewi',
+                'jenis_kelamin' => 'Perempuan',
+                'agama' => 'Hindu',
+                'tempat_lahir' => 'Klungkung',
+                'tanggal_lahir' => '2014-06-25',
+                'alamat' => 'Jl. Raya Semarapura No. 30, Klungkung',
+                'rt' => '02', 'rw' => '01',
+                'kelurahan' => 'Semarapura',
+                'kecamatan' => 'Klungkung',
+                'jenis_tinggal' => 'Bersama Orang Tua',
+                'alat_transportasi' => 'Angkutan Umum',
+                'no_telepon_seluler' => '081234567006',
+                'disabilitas' => 'Tidak',
+                'penerima_kps' => 'Tidak',
+                'penerima_kip' => 'Tidak',
+                'layak_pip' => 'Tidak',
+                'nama_ayah' => 'I Made Arta',
+                'nama_ibu' => 'Ni Wayan Sulastri',
+            ],
+            // Kelas 6A (id_kelas = 11)
+            [
+                'id_kelas' => 11,
+                'nomor_urut' => 1,
+                'no_kk' => '5171060707200007',
+                'nik' => '5171060707130007',
+                'nisn' => '0071234507',
+                'nipd' => '2013001',
+                'nama_siswa' => 'I Gede Bagus Satria',
+                'jenis_kelamin' => 'Laki-laki',
+                'agama' => 'Hindu',
+                'tempat_lahir' => 'Bangli',
+                'tanggal_lahir' => '2013-07-10',
+                'alamat' => 'Jl. Raya Kintamani No. 15, Bangli',
+                'rt' => '01', 'rw' => '03',
+                'kelurahan' => 'Kintamani',
+                'kecamatan' => 'Kintamani',
+                'jenis_tinggal' => 'Bersama Orang Tua',
+                'alat_transportasi' => 'Motor',
+                'no_telepon_seluler' => '081234567007',
+                'disabilitas' => 'Tidak',
+                'penerima_kps' => 'Tidak',
+                'penerima_kip' => 'Tidak',
+                'layak_pip' => 'Tidak',
+                'nama_ayah' => 'I Nyoman Satria',
+                'nama_ibu' => 'Ni Made Padmi',
+            ],
+        ];
+
+        foreach ($siswaData as $index => $data) {
+            $siswa = Siswa::create($data);
+
+            // Create user for each siswa
+            User::create([
+                'id_siswa' => $siswa->id_siswa,
+                'username' => 'siswa' . str_pad($index + 1, 3, '0', STR_PAD_LEFT),
+                'password' => bcrypt('siswa123'),
+                'role' => 'Siswa'
             ]);
-            
-        });
+        }
     }
 }

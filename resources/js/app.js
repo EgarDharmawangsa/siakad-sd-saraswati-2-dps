@@ -13,6 +13,7 @@ import './partials/navbar.js';
 import './partials/sidebar.js';
 import './pages/beranda.js';
 import './pages/master/pegawai.js';
+import './pages/master/siswa.js';
 import './pages/akademik/jadwal_pelajaran.js';
 import './pages/akademik/kehadiran.js';
 import './pages/akademik/prestasi.js';

@@ -1,3 +1,5 @@
+console.log("pegawai.js loaded");
+
 document.addEventListener("DOMContentLoaded", function () {
 
     // defintion
@@ -99,13 +101,18 @@ document.addEventListener("DOMContentLoaded", function () {
     // logic posisi
     function updateMapelLabel() {
         if (!els.mapelBtn) return;
-        const checkedCount = Array.from(els.mapelCheckboxes).filter(i => i.checked).length;
-        els.mapelBtn.textContent = checkedCount > 0 ? `${checkedCount} Dipilih` : '-- Pilih Mata Pelajaran --';
+        const checkedBoxes = Array.from(els.mapelCheckboxes).filter(i => i.checked);
+        const checkedCount = checkedBoxes.length;
         
-        if(checkedCount > 0) {
+        if (checkedCount > 0) {
+            const names = checkedBoxes.map(cb => {
+                return cb.dataset.nama || cb.parentElement.textContent.trim();
+            });
+            els.mapelBtn.textContent = names.join(', ');
             els.mapelBtn.classList.add('text-primary', 'fw-bold');
             els.mapelBtn.classList.remove('is-invalid');
         } else {
+            els.mapelBtn.textContent = '-- Pilih Mata Pelajaran --';
             els.mapelBtn.classList.remove('text-primary', 'fw-bold');
         }
     }
@@ -200,10 +207,6 @@ document.addEventListener("DOMContentLoaded", function () {
             lockSelect(els.tglKerjaRasda)
         }
 
-        // if (rolesWithSertifikasi.includes(currentPosisi)) {
-        //     if(els.statusSertifikasi) els.statusSertifikasi.disabled = false;
-        // }
-
         if (currentPosisi === 'Guru') {
             if(els.mapelBtn) els.mapelBtn.disabled = false;
         }
@@ -297,7 +300,10 @@ function initFormSubmitValidation(els) {
         let isCustomValid = true;
         if (els.posisi && els.posisi.value === 'Guru') {
             const checkedCount = Array.from(els.mapelCheckboxes).filter(i => i.checked).length;
-            if (checkedCount === 0) {
+            const hiddenInputCount = form.querySelectorAll('input[type="hidden"][name="id_mata_pelajaran[]"]').length;
+            const totalMapel = checkedCount + hiddenInputCount;
+            
+            if (totalMapel === 0) {
                 isCustomValid = false;
                 if(els.mapelBtn) els.mapelBtn.classList.add('is-invalid');
                 if (window.showToast) window.showToast('Guru wajib memilih minimal satu Mata Pelajaran!', 'error');

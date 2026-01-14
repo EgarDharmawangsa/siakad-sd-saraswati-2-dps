@@ -60,7 +60,6 @@ class ProfileController extends Controller
         $validated_pegawai = $pegawai_request->validated();
         $pegawai = Auth::user()->pegawai;
 
-        // INI UNTUK FOTO
         if ($validated_pegawai['image_delete'] == 1) {
             if (!empty($pegawai->foto)) {
                 Storage::disk('public')->delete($pegawai->foto);
@@ -77,7 +76,6 @@ class ProfileController extends Controller
 
         unset($validated_pegawai['image_delete']);
 
-        // INI UNTUK USER
         if ($pegawai->posisi === 'Staf Tata Usaha' || $pegawai->posisi === 'Guru') {
             $user_data = [
                 'username' => $validated_pegawai['username'],
@@ -95,7 +93,6 @@ class ProfileController extends Controller
 
         unset($validated_pegawai['username'], $validated_pegawai['password']);
 
-        // INI UNTUK MATA PELAJARAN (APABILA GURU)
         if ($validated_pegawai['posisi'] === 'Guru' && !empty($validated_pegawai['id_mata_pelajaran'])) {
             $new_mata_pelajaran = $validated_pegawai['id_mata_pelajaran'];
             $old_mata_pelajaran = $pegawai->guruMataPelajaran->pluck('id_mata_pelajaran')->toArray();
@@ -136,7 +133,6 @@ class ProfileController extends Controller
         $validated_siswa = $siswa_request->validated();
         $siswa = Auth::user()->siswa;
 
-        // INI UNTUK FOTO
         if ($validated_siswa['image_delete'] == 1) {
             if (!empty($siswa->foto)) {
                 Storage::disk('public')->delete($siswa->foto);
@@ -153,7 +149,6 @@ class ProfileController extends Controller
 
         unset($validated_siswa['image_delete']);
 
-        // INI UNTUK USER
         $user_data = [
             'username' => $validated_siswa['username']
         ];
@@ -166,7 +161,6 @@ class ProfileController extends Controller
 
         unset($validated_siswa['username'], $validated_siswa['password'], $validated_siswa['konfirmasi_password']);
 
-        // INI UNTUK NOMOR URUT
         if (empty($validated_siswa['id_kelas'])) {
             $validated_siswa['nomor_urut'] = null;
         }
