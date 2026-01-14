@@ -22,22 +22,20 @@ class NilaiEkstrakurikuler extends Model
         $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
         $query->orderBy('created_at', $order_by_value);
 
-        if (Gate::any(['staf-tata-usaha', 'guru'])) {
-            if (!empty($filters['kelas_filter'])) {
-                $query->whereHas('pesertaEkstrakurikuler.siswa.kelas', fn($query) => $query->where('id_kelas', 'like', '%' . $filters['kelas_filter'] . '%'));
-            }
+        if (!empty($filters['kelas_filter'])) {
+            $query->whereHas('pesertaEkstrakurikuler.siswa.kelas', fn($query) => $query->where('id_kelas', 'like', '%' . $filters['kelas_filter'] . '%'));
+        }
 
-            if (!empty($filters['siswa_filter'])) {
-                $query->whereHas(
-                    'pesertaEkstrakurikuler.siswa',
+        if (!empty($filters['siswa_filter'])) {
+            $query->whereHas(
+                'pesertaEkstrakurikuler.siswa',
+                fn($query) =>
+                $query->where(
                     fn($query) =>
-                    $query->where(
-                        fn($query) =>
-                        $query->where('nisn', 'like', '%' . $filters['siswa_filter'] . '%')
-                            ->orWhere('nama_siswa', 'like', '%' . $filters['siswa_filter'] . '%')
-                    )
-                );
-            }
+                    $query->where('nisn', 'like', '%' . $filters['siswa_filter'] . '%')
+                        ->orWhere('nama_siswa', 'like', '%' . $filters['siswa_filter'] . '%')
+                )
+            );
         }
 
         if (!empty($filters['ekstrakurikuler_filter'])) {

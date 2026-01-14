@@ -68,11 +68,11 @@ class BerandaController extends Controller
 
     public function getPrestasiImprovementChartData()
     {
-        $prestasi_raw = Prestasi::filter(request(['prestasi_improvement_tahun_filter']))->get();
+        $prestasi_raw = Prestasi::prestasiImprovementYear(request('prestasi_improvement_tahun_filter'))->get();
 
         $prestasi_per_month = $prestasi_raw
-            ->groupBy(fn($item) => (int) $item->tanggal->month) 
-            ->map(fn($items) => $items->count());  
+            ->groupBy(fn($item) => (int) $item->tanggal->month)
+            ->map(fn($items) => $items->count());
 
         $prestasi_improvement_data = [];
 

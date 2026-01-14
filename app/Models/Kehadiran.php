@@ -16,6 +16,8 @@ class Kehadiran extends Model
 {
     protected $table = 'kehadiran';
 
+    protected $primaryKey = 'id_kehadiran';
+
     protected $guarded = [
         'id_kehadiran'
     ];
@@ -23,6 +25,22 @@ class Kehadiran extends Model
     protected $casts = [
         'tanggal' => 'date',
     ];
+
+    public function scopeSiswaRecap($query, $id_siswa = null)
+    {
+        if (!empty($id_siswa)) {
+            $query->where('id_siswa', $id_siswa);
+        }
+
+        $query->select('id_siswa', 'id_semester')
+            ->selectRaw("SUM(status = 'Hadir') as hadir")
+            ->selectRaw("SUM(status = 'Izin') as izin")
+            ->selectRaw("SUM(status = 'Sakit') as sakit")
+            ->selectRaw("SUM(status = 'Alfa') as alfa")
+            ->groupBy('id_siswa', 'id_semester');
+
+        return $query;
+    }
 
     public function getFormatedTanggal()
     {
@@ -33,22 +51,20 @@ class Kehadiran extends Model
 
     public function scopeFilter($query, array $filters)
     {
-        if (Gate::any(['staf-tata-usaha', 'guru'])) {
-            if (!empty($filters['kelas_filter'])) {
-                $query->whereHas('siswa.kelas', fn($query) => $query->where('id_kelas', $filters['kelas_filter']));
-            }
+        if (!empty($filters['kelas_filter'])) {
+            $query->whereHas('siswa.kelas', fn($query) => $query->where('id_kelas', $filters['kelas_filter']));
+        }
 
-            if (!empty($filters['siswa_filter'])) {
-                $query->whereHas(
-                    'siswa',
+        if (!empty($filters['siswa_filter'])) {
+            $query->whereHas(
+                'siswa',
+                fn($query) =>
+                $query->where(
                     fn($query) =>
-                    $query->where(
-                        fn($query) =>
-                        $query->where('nisn', 'like', '%' . $filters['siswa_filter'] . '%')
-                            ->orWhere('nama_siswa', 'like', '%' . $filters['siswa_filter'] . '%')
-                    )
-                );
-            }
+                    $query->where('nisn', 'like', '%' . $filters['siswa_filter'] . '%')
+                        ->orWhere('nama_siswa', 'like', '%' . $filters['siswa_filter'] . '%')
+                )
+            );
         }
 
         if (!empty($filters['semester_filter'])) {
@@ -61,6 +77,10 @@ class Kehadiran extends Model
 
         if (!empty($filters['status_filter'])) {
             $query->where('status', 'like', "%{$filters['status_filter']}%");
+        }
+
+        if (!empty($filters['keterangan_filter'])) {
+            $query->where('keterangan', 'like', "%{$filters['keterangan_filter']}%");
         }
 
         if (!empty($filters['tanggal_filter'])) {

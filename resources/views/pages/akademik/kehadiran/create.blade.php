@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="content-card mb-4">
-        <h5>Tambah {{ $judul }}</h5>
+        <h5>Tambah / Sinkronkan {{ $judul }}</h5>
         <hr>
 
         <form action="{{ route('kehadiran.store') }}" method="POST">
@@ -37,7 +37,7 @@
                         @foreach ($semester as $_semester)
                             <option value="{{ $_semester->id_semester }}"
                                 {{ request('id_semester') === $_semester->id_semester ? 'selected' : '' }}>
-                                {{ $_semester->getTahunAjaran(true) . ' ' . $_semester->getStatus() }}
+                                {{ "{$_semester->getTahunAjaran(true)} ({$_semester->getStatus()})" }}
                             </option>
                         @endforeach
                     </select>
@@ -60,7 +60,7 @@
                 <button type="button" class="btn btn-danger" id="cancel-button"
                     data-route="{{ route('kehadiran.index') }}" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
-                <button type="submit" class="btn btn-primary ms-2"><i class="bi bi-plus-lg me-2"></i>Tambah<span
+                <button type="submit" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Tambah<span
                         class="mx-2">/</span><i class="bi bi-arrow-repeat me-2"></i>Sinkronisasi</button>
             </div>
         </form>

@@ -148,19 +148,17 @@
                     <h5>Peningkatan Prestasi</h5>
                     <hr>
 
-                    <form action="{{ route('beranda') }}" id="prestasi-improvement-tahun-filter-form"
-                        class="d-flex align-items-center my-3">
+                    <div class="d-flex align-items-center my-3">
                         <label for="prestasi-improvement-tahun-select" class="form-label me-3 mb-0">Tahun</label>
                         <select class="form-select" id="prestasi-improvement-tahun-select"
                             name="prestasi_improvement_tahun_filter">
                             @for ($tahun = date('Y'); $tahun >= 2000; $tahun--)
-                                <option value="{{ $tahun }}"
-                                    {{ request('prestasi_improvement_tahun_filter', date('Y')) == $tahun ? 'selected' : '' }}>
+                                <option value="{{ $tahun }}" {{ $tahun === date('Y') ? 'selected' : '' }}>
                                     {{ $tahun }}
                                 </option>
                             @endfor
                         </select>
-                    </form>
+                    </div>
 
                     <canvas id="prestasi-improvement-chart"></canvas>
                 </div>
@@ -187,8 +185,8 @@
                         </div>
                         <hr class="my-3">
                         <p class="mb-0 fs-6">
-                            Kelas: <span class="fw-bold">{{ auth()->user()->siswa?->kelas?->nama_kelas }}</span> | NISN: <span
-                                class="fw-bold">{{ auth()->user()->siswa?->nisn }}</span>
+                            Kelas: <span class="fw-bold">{{ auth()->user()->siswa?->kelas?->nama_kelas ?? '-' }}</span> |
+                            NISN: <span class="fw-bold">{{ auth()->user()->siswa?->nisn }}</span>
                         </p>
                     </div>
                 </div>
@@ -214,7 +212,7 @@
                     <hr class="mt-0 {{ $loop->last ? 'd-none' : '' }}">
                 @endif
             @empty
-                <p class="text-center">Belum ada Pengumuman.</p>
+                <p class="text-center my-3">Belum ada Pengumuman.</p>
             @endforelse
 
             @if ($pengumuman->hasPages())

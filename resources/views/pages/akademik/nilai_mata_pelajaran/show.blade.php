@@ -6,11 +6,11 @@
         <hr>
 
         <div class="show-buttons">
-            <a href="{{ route('nilai-mata-pelajaran.index') }}" class="btn btn-secondary btn-sm me-1"><i
+            <a href="{{ route('nilai-mata-pelajaran.index') }}" class="btn btn-secondary"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
             @canany(['staf-tata-usaha', 'guru'])
                 <a href="{{ route('nilai-mata-pelajaran.edit', $nilai_mata_pelajaran->id_nilai_mata_pelajaran) }}"
-                    class="btn btn-warning btn-sm me-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                    class="btn btn-warning"><i class="bi bi-pencil me-2"></i>Edit</a>
             @endcanany
         </div>
 
@@ -70,7 +70,7 @@
             </div>
             <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Nilai Portofolio</label></div>
 
-            @foreach ($nilai_mata_pelajaran->nilai_portofolio as $_nilai_portofolio)
+            @forelse ($nilai_mata_pelajaran->nilai_portofolio as $_nilai_portofolio)
                 <div class="col-md-6">
                     <div class="border border-2 border-secondary bg-secondary-subtle rounded px-3 pb-3 pt-2">
                         <label class="form-label">Portofolio {{ $loop->iteration }}</label>
@@ -81,7 +81,9 @@
                             readonly>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <p class="text-center text-muted">Nilai Portofolio tidak tersedia.</p>
+            @endforelse
         </div>
     </div>
 @endsection

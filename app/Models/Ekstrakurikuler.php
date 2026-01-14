@@ -58,13 +58,13 @@ class Ekstrakurikuler extends Model
                         $query->where('nama_pembina', 'like', "%{$filters['nama_pembina_filter']}%");
                 }
 
-                if (!empty($filters['alamat_pembina_filter'])) {
-                        $query->where('alamat_pembina', 'like', "%{$filters['alamat_pembina_filter']}%");
-                }
+                // if (!empty($filters['alamat_pembina_filter'])) {
+                //         $query->where('alamat_pembina', 'like', "%{$filters['alamat_pembina_filter']}%");
+                // }
 
-                if (!empty($filters['no_telepon_filter'])) {
-                        $query->where('no_telepon', 'like', "%{$filters['no_telepon_filter']}%");
-                }
+                // if (!empty($filters['no_telepon_filter'])) {
+                //         $query->where('no_telepon', 'like', "%{$filters['no_telepon_filter']}%");
+                // }
 
                 if (!empty($filters['hari_filter'])) {
                         $query->where('hari', $filters['hari_filter']);

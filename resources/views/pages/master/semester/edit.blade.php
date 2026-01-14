@@ -46,7 +46,7 @@
                 <button type="button" class="btn btn-danger" id="cancel-button"
                     data-route="{{ route('semester.index') }}" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
-                <button type="submit" class="btn btn-primary ms-2"><i class="bi bi-pencil me-2"></i>Perbarui</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-pencil me-2"></i>Perbarui</button>
             </div>
         </form>
     </div>

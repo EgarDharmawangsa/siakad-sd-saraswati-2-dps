@@ -54,9 +54,9 @@ class Pengumuman extends Model
             $query->whereDate('tanggal', $filters['tanggal_filter']);
         }
 
-        if (!empty($filters['isi_filter'])) {
-            $query->where('isi', 'like', "%{$filters['isi_filter']}%");
-        }
+        // if (!empty($filters['isi_filter'])) {
+        //     $query->where('isi', 'like', "%{$filters['isi_filter']}%");
+        // }
 
         if (!empty($filters['status_filter'])) {
             if ($filters['status_filter'] === 'menunggu') {

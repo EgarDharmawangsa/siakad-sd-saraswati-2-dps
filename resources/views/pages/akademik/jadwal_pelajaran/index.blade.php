@@ -41,9 +41,10 @@
                                     <th>No.</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Guru</th>
-                                    <th>Jam Mulai (WITA)</th>
-                                    <th>Jam Selesai (WITA)</th>
-                                    <th>Aksi</th>
+                                    <th>Jam (WITA)</th>
+                                    @can('staf-tata-usaha')
+                                        <th>Aksi</th>
+                                    @endcan
                                 </tr>
                             </thead>
 
@@ -61,26 +62,26 @@
                                             <td colspan="2" class="text-center">Istirahat</td>
                                         @endif
 
-                                        <td>{{ $_jadwal_pelajaran->getFormatedJam('jam_mulai') }}</td>
-                                        <td>{{ $_jadwal_pelajaran->getFormatedJam('jam_selesai') }}</td>
-                                        <td class="aksi-column">
-                                            <a href="{{ route('jadwal-pelajaran.show', $_jadwal_pelajaran->id_jadwal_pelajaran) }}"
-                                                class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
-                                            @can('staf-tata-usaha')
-                                                <a href="{{ route('jadwal-pelajaran.edit', $_jadwal_pelajaran->id_jadwal_pelajaran) }}"
-                                                    class="btn btn-warning btn-sm mx-1"><i
-                                                        class="bi bi-pencil me-2"></i>Edit</a>
-                                                <form
-                                                    action="{{ route('jadwal-pelajaran.destroy', $_jadwal_pelajaran->id_jadwal_pelajaran) }}"
-                                                    method="POST" class="d-inline delete-form">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-danger btn-sm delete-button"
-                                                        data-bs-toggle="modal" data-bs-target="#delete-modal">
-                                                        <i class="bi bi-trash me-2"></i>Hapus</button>
-                                                </form>
-                                            @endcan
-                                        </td>
+                                        <td>{{ $_jadwal_pelajaran->getFormatedJam('jam_mulai') }} - {{ $_jadwal_pelajaran->getFormatedJam('jam_selesai') }}</td>
+
+                                        @can('staf-tata-usaha')
+                                            <td class="aksi-column">
+                                                {{-- <a href="{{ route('jadwal-pelajaran.show', $_jadwal_pelajaran->id_jadwal_pelajaran) }}"
+                                                    class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a> --}}
+                                                    <a href="{{ route('jadwal-pelajaran.edit', $_jadwal_pelajaran->id_jadwal_pelajaran) }}"
+                                                        class="btn btn-warning btn-sm me-1"><i
+                                                            class="bi bi-pencil me-2"></i>Edit</a>
+                                                    <form
+                                                        action="{{ route('jadwal-pelajaran.destroy', $_jadwal_pelajaran->id_jadwal_pelajaran) }}"
+                                                        method="POST" class="d-inline delete-form">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-danger btn-sm delete-button"
+                                                            data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                                            <i class="bi bi-trash me-2"></i>Hapus</button>
+                                                    </form>
+                                                </td>
+                                        @endcan
                                     </tr>
                                 @endforeach
                             </tbody>

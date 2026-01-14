@@ -1,6 +1,4 @@
-console.log("siswa.js loaded");
-
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function() {
     initTabNavigation();
     initClassLogic();
     initConditionalFields();

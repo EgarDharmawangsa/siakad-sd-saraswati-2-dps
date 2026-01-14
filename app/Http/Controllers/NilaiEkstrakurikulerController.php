@@ -26,7 +26,7 @@ class NilaiEkstrakurikulerController extends Controller
         if (Gate::any(['staf-tata-usaha', 'guru']))
             $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->filter(request()->all())->paginate(20)->withQueryString();
         else if (Gate::allows('siswa')) {
-            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->whereHas('pesertaEkstrakurikuler', fn ($query) => $query->where('id_siswa', Auth::user()->siswa->id_siswa))->filter(request()->all())->paginate(20)->withQueryString();
+            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->whereHas('pesertaEkstrakurikuler', fn ($query) => $query->where('id_siswa', Auth::user()->siswa->id_siswa))->filter(request()->except(['kelas_filter', 'siswa_filter']))->paginate(20)->withQueryString();
         } else {
             abort(404);
         }
@@ -108,13 +108,13 @@ class NilaiEkstrakurikulerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(NilaiEkstrakurikuler $nilaiEkstrakurikuler)
-    {
-        return view('pages.akademik.nilai_ekstrakurikuler.show', [
-            'judul' => 'Nilai Ekstrakurikuler',
-            'nilai_ekstrakurikuler' => $nilaiEkstrakurikuler
-        ]);
-    }
+    // public function show(NilaiEkstrakurikuler $nilaiEkstrakurikuler)
+    // {
+    //     return view('pages.akademik.nilai_ekstrakurikuler.show', [
+    //         'judul' => 'Nilai Ekstrakurikuler',
+    //         'nilai_ekstrakurikuler' => $nilaiEkstrakurikuler
+    //     ]);
+    // }
 
     /**
      * Show the form for editing the specified resource.

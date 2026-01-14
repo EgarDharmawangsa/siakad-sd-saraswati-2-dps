@@ -15,7 +15,7 @@
                         <i
                             class="bi bi-sort-down me-2"></i>{{ request('order_by') === 'asc' ? 'Lama ke Terbaru' : (request('order_by') === 'desc' ? 'Terbaru ke Lama' : 'Nama Kelas') }}
                     </a>
-    
+
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') !== 'asc' || request('order_by') !== 'desc' || !request('order_by') ? 'active' : '' }}"
                                 href="{{ request()->fullUrlWithQuery(['order_by' => 'nama_kelas']) }}">Nama Kelas</a>
@@ -27,14 +27,12 @@
                                 href="{{ request()->fullUrlWithQuery(['order_by' => 'asc']) }}">Lama ke Terbaru</a></li>
                     </ul>
                 </div>
-    
-                <div class="filter-modal-container">
-                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
-                        <i class="bi bi-funnel me-2"></i>Filter
-                    </button>
-    
-                    @include('components.master.kelas_filter_modal')
-                </div>
+
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                    <i class="bi bi-funnel me-2"></i>Filter
+                </button>
+
+                @include('components.master.kelas_filter_modal')
             </div>
         </div>
 
@@ -58,18 +56,18 @@
                             <td>{{ $_kelas->pegawai?->getFormatedNamaPegawai() ?? '-' }}</td>
                             <td>{{ $siswa->where('id_kelas', $_kelas->id_kelas)->count() }} Siswa</td>
                             <td class="aksi-column">
-                                <a href="{{ route('kelas.show', $_kelas->id_kelas) }}" class="btn btn-info btn-sm"><i
+                                <a href="{{ route('kelas.show', $_kelas->id_kelas) }}" class="btn btn-info"><i
                                         class="bi bi-info-lg me-2"></i>Detail</a>
                                 @can('staf-tata-usaha')
-                                    <a href="{{ route('kelas.edit', $_kelas->id_kelas) }}"
-                                        class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                    <a href="{{ route('kelas.edit', $_kelas->id_kelas) }}" class="btn btn-warning mx-1"><i
+                                            class="bi bi-pencil me-2"></i>Edit</a>
                                     <form action="{{ route('kelas.destroy', $_kelas->id_kelas) }}" method="POST"
                                         class="d-inline delete-form">
                                         @csrf
                                         @method('DELETE')
 
-                                        <button type="button" class="btn btn-danger btn-sm delete-button"
-                                            data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                        <button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal"
+                                            data-bs-target="#delete-modal">
                                             <i class="bi bi-trash me-2"></i>Hapus</button>
                                     </form>
                                 @endcan

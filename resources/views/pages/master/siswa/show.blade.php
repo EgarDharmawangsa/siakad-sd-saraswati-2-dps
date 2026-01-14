@@ -5,16 +5,16 @@
         <h5>Detail {{ $judul }}</h5>
         <hr>
         <div class="show-buttons">
-            <a href="{{ route('siswa.index') }}" class="btn btn-secondary btn-sm me-1"><i
+            <a href="{{ route('siswa.index') }}" class="btn btn-secondary"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
             @can('staf-tata-usaha')
-                <a href="{{ route('siswa.edit', $siswa->id_siswa) }}" class="btn btn-warning btn-sm me-1"><i
+                <a href="{{ route('siswa.edit', $siswa->id_siswa) }}" class="btn btn-warning"><i
                         class="bi bi-pencil me-2"></i>Edit</a>
                 <form action="{{ route('siswa.destroy', $siswa->id_siswa) }}" method="POST" class="d-inline delete-form">
                     @csrf
                     @method('DELETE')
 
-                    <button type="button" class="btn btn-danger btn-sm delete-button" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal"
                         data-bs-target="#delete-modal">
                         <i class="bi bi-trash me-2"></i>Hapus</button>
                 </form>
@@ -51,11 +51,9 @@
                 <div class="row g-3">
                     <div class="col-md-12 mt-4 d-flex justify-content-center">
                         @if ($siswa->foto)
-                            <img src="{{ asset("storage/{$siswa->foto}") }}" alt="Foto Siswa" 
-                                    class="foto my-3">
+                            <img src="{{ asset("storage/{$siswa->foto}") }}" alt="Foto Siswa" class="foto my-3">
                         @else
-                            <img src="{{ asset('images/default_profile_photo.png') }}" alt="Default Foto" 
-                                    class="foto my-3">
+                            <img src="{{ asset('images/default_profile_photo.png') }}" alt="Default Foto" class="foto my-3">
                         @endif
                     </div>
                     <div class="col-md-6">
@@ -109,7 +107,8 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">No. Telp. Rumah</label>
-                        <input type="text" class="form-control" value="{{ $siswa->no_telepon_rumah }}" readonly>
+                        <input type="text" class="form-control" value="{{ $siswa->no_telepon_rumah ?? '-' }}"
+                            readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">No. HP (WA)</label>
@@ -117,23 +116,24 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">E-Mail</label>
-                        <input type="text" class="form-control" value="{{ $siswa->e_mail }}" readonly>
+                        <input type="text" class="form-control" value="{{ $siswa->e_mail ?? '-' }}" readonly>
                     </div>
                     <div class="col-md-12 mt-0">
                         <hr class="text-muted opacity-25">
                     </div>
-                    <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Fisik & Disabilitas</label></div>
+                    <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Fisik & Disabilitas</label>
+                    </div>
                     <div class="col-md-6">
                         <label class="form-label">Berat Badan (kg)</label>
-                        <input type="text" class="form-control" value="{{ $siswa->berat_badan ?? '-' }}" readonly>
+                        <input type="text" class="form-control" value="{{ $siswa->berat_badan ?? '-' }} kg" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Tinggi Badan (cm)</label>
-                        <input type="text" class="form-control" value="{{ $siswa->tinggi_badan ?? '-' }}" readonly>
+                        <input type="text" class="form-control" value="{{ $siswa->tinggi_badan ?? '-' }} cm" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Lingkar Kepala (cm)</label>
-                        <input type="text" class="form-control" value="{{ $siswa->lingkar_kepala ?? '-' }}" readonly>
+                        <input type="text" class="form-control" value="{{ $siswa->lingkar_kepala ?? '-' }} cm" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Jumlah Saudara Kandung</label>
@@ -155,8 +155,7 @@
                     </div>
                     <div class="col-md-8">
                         <label class="form-label">Keterangan Disabilitas</label>
-                        <input type="text" class="form-control"
-                            value="{{ $siswa->keterangan_disabilitas ?? '-' }}"
+                        <input type="text" class="form-control" value="{{ $siswa->keterangan_disabilitas ?? '-' }}"
                             readonly>
                     </div>
                 </div>
@@ -221,7 +220,8 @@
             </div>
             <div class="tab-pane fade" id="view-pendamping">
                 <ul class="nav nav-tabs mb-3" id="pendampingTab" role="tablist">
-                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#detail-ayah">Ayah</a></li>
+                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#detail-ayah">Ayah</a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#detail-ibu">Ibu</a></li>
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#detail-wali">Wali</a>
                     </li>
@@ -231,11 +231,13 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">Nama Ayah</label>
-                                <input type="text" class="form-control" value="{{ $siswa->nama_ayah ?? '-' }}" readonly>
+                                <input type="text" class="form-control" value="{{ $siswa->nama_ayah ?? '-' }}"
+                                    readonly>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">NIK Ayah</label>
-                                <input type="text" class="form-control" value="{{ $siswa->nik_ayah ?? '-' }}" readonly>
+                                <input type="text" class="form-control" value="{{ $siswa->nik_ayah ?? '-' }}"
+                                    readonly>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Tahun Lahir</label>
@@ -249,8 +251,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Jenjang Pendidikan</label>
-                                <input type="text" class="form-control" value="{{ $siswa->jenjang_pendidikan_ayah ?? '-' }}"
-                                    readonly>
+                                <input type="text" class="form-control"
+                                    value="{{ $siswa->jenjang_pendidikan_ayah ?? '-' }}" readonly>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Penghasilan</label>
@@ -263,11 +265,13 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">Nama Ibu</label>
-                                <input type="text" class="form-control" value="{{ $siswa->nama_ibu ?? '-' }}" readonly>
+                                <input type="text" class="form-control" value="{{ $siswa->nama_ibu ?? '-' }}"
+                                    readonly>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">NIK Ibu</label>
-                                <input type="text" class="form-control" value="{{ $siswa->nik_ibu ?? '-' }}" readonly>
+                                <input type="text" class="form-control" value="{{ $siswa->nik_ibu ?? '-' }}"
+                                    readonly>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Tahun Lahir</label>
@@ -276,12 +280,13 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Pekerjaan</label>
-                                <input type="text" class="form-control" value="{{ $siswa->pekerjaan_ibu ?? '-' }}" readonly>
+                                <input type="text" class="form-control" value="{{ $siswa->pekerjaan_ibu ?? '-' }}"
+                                    readonly>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Jenjang Pendidikan</label>
-                                <input type="text" class="form-control" value="{{ $siswa->jenjang_pendidikan_ibu ?? '-' }}"
-                                    readonly>
+                                <input type="text" class="form-control"
+                                    value="{{ $siswa->jenjang_pendidikan_ibu ?? '-' }}" readonly>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Penghasilan</label>
@@ -294,11 +299,13 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">Nama Wali</label>
-                                <input type="text" class="form-control" value="{{ $siswa->nama_wali ?? '-' }}" readonly>
+                                <input type="text" class="form-control" value="{{ $siswa->nama_wali ?? '-' }}"
+                                    readonly>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">NIK Wali</label>
-                                <input type="text" class="form-control" value="{{ $siswa->nik_wali ?? '-' }}" readonly>
+                                <input type="text" class="form-control" value="{{ $siswa->nik_wali ?? '-' }}"
+                                    readonly>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Tahun Lahir</label>
@@ -312,8 +319,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Jenjang Pendidikan</label>
-                                <input type="text" class="form-control" value="{{ $siswa->jenjang_pendidikan_wali ?? '-' }}"
-                                    readonly>
+                                <input type="text" class="form-control"
+                                    value="{{ $siswa->jenjang_pendidikan_wali ?? '-' }}" readonly>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Penghasilan</label>
@@ -401,7 +408,8 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Alasan Layak PIP</label>
-                        <input type="text" class="form-control" value="{{ $siswa->alasan_layak_pip ?? '-' }}" readonly>
+                        <input type="text" class="form-control" value="{{ $siswa->alasan_layak_pip ?? '-' }}"
+                            readonly>
                     </div>
                     <div class="col-md-12 mt-0">
                         <hr class="text-muted opacity-25">
@@ -434,22 +442,23 @@
                     <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Kelas</label></div>
                     <div class="col-md-6">
                         <label class="form-label">Kelas</label>
-                        <input type="text" class="form-control" value="{{ $siswa->kelas?->nama_kelas }}" readonly>
+                        <input type="text" class="form-control" value="{{ $siswa->kelas?->nama_kelas ?? '-' }}" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Nomor Urut</label>
-                        <input type="text" class="form-control" value="{{ $siswa->nomor_urut }}" readonly>
+                        <input type="text" class="form-control" value="{{ $siswa->nomor_urut ?? '-' }}" readonly>
                     </div>
-                    
+
                     <div class="col-md-12 mt-0">
                         <hr class="text-muted opacity-25">
                     </div>
-                    <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Ekstrakurikuler</label></div>
+                    <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Ekstrakurikuler</label>
+                    </div>
                     <div class="col-md-6">
                         <label class="form-label ">Ekstrakurikuler</label>
                         <div class="dropdown w-100">
-                            <button class="form-select text-start w-100" 
-                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="form-select text-start w-100" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
                                 {{ $siswa->pesertaEkstrakurikuler?->count() . ' Ekstrakurikuler' }}
                             </button>
                             @if ($siswa->pesertaEkstrakurikuler?->isNotEmpty())

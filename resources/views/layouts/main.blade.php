@@ -23,8 +23,7 @@
             @yield('container')
 
             <footer class="mt-auto">
-                <p class="text-muted text-center mb-0 login-copyright-label">&copy; 2025 SIAKAD RASDA. All rights
-                    reserved.</p>
+                <p class="text-muted text-center mb-0 login-copyright-label">&copy; 2025 SIAKAD RASDA. Dikembangkan oleh I Komang Egar Suarama Dharmawangsa dan I Gusti Ngurah Satrya Wibawa.</p>
             </footer>
         </div>
     </div>

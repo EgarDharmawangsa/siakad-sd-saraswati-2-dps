@@ -211,6 +211,19 @@
     background-color: #e9ecef;
 }
 
+#prestasi-carousel {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+}
+
+.carousel-item img {
+    height: 20rem;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
 #semester-calendar .fc-header-toolbar {
     margin: 1rem 0;
 }

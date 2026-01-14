@@ -5,9 +5,9 @@
         <h5>Detail {{ $judul }}</h5>
         <hr>
         <div class="show-buttons">
-            <a href="{{ route('beranda') }}" class="btn btn-secondary btn-sm me-1"><i
+            <a href="{{ route('beranda') }}" class="btn btn-secondary"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
-            <a href="{{ route('profile.edit') }}" class="btn btn-warning btn-sm me-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+            <a href="{{ route('profile.edit') }}" class="btn btn-warning"><i class="bi bi-pencil me-2"></i>Edit</a>
         </div>
 
         <ul class="nav nav-tabs" id="detail-tab" role="tablist">
@@ -97,7 +97,8 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">No. Telp. Rumah</label>
-                        <input type="text" class="form-control" value="{{ $user->no_telepon_rumah }}" readonly>
+                        <input type="text" class="form-control" value="{{ $user->no_telepon_rumah ?? '-' }}"
+                            readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">No. HP (WA)</label>
@@ -105,7 +106,7 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">E-Mail</label>
-                        <input type="text" class="form-control" value="{{ $user->e_mail }}" readonly>
+                        <input type="text" class="form-control" value="{{ $user->e_mail ?? '-' }}" readonly>
                     </div>
                     <div class="col-md-12 mt-0">
                         <hr class="text-muted opacity-25">
@@ -114,15 +115,15 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Berat Badan (kg)</label>
-                        <input type="text" class="form-control" value="{{ $user->berat_badan ?? '-' }}" readonly>
+                        <input type="text" class="form-control" value="{{ $user->berat_badan ?? '-' }} kg" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Tinggi Badan (cm)</label>
-                        <input type="text" class="form-control" value="{{ $user->tinggi_badan ?? '-' }}" readonly>
+                        <input type="text" class="form-control" value="{{ $user->tinggi_badan ?? '-' }} cm" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Lingkar Kepala (cm)</label>
-                        <input type="text" class="form-control" value="{{ $user->lingkar_kepala ?? '-' }}" readonly>
+                        <input type="text" class="form-control" value="{{ $user->lingkar_kepala ?? '-' }} cm" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Jumlah Saudara Kandung</label>
@@ -434,11 +435,11 @@
                     <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Kelas</label></div>
                     <div class="col-md-6">
                         <label class="form-label">Kelas</label>
-                        <input type="text" class="form-control" value="{{ $user->kelas?->nama_kelas }}" readonly>
+                        <input type="text" class="form-control" value="{{ $user->kelas?->nama_kelas ?? '-' }}" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Nomor Urut</label>
-                        <input type="text" class="form-control" value="{{ $user->nomor_urut }}" readonly>
+                        <input type="text" class="form-control" value="{{ $user->nomor_urut ?? '-' }}" readonly>
                     </div>
 
                     <div class="col-md-12 mt-0">

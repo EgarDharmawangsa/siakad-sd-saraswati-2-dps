@@ -8,8 +8,159 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="filter-modal-form" action="{{ route('pegawai.index') }}">
-                    <ul class="nav nav-tabs mt-2" id="pegawai-filter-tab" role="tablist">
+                <form id="filter-modal-form" action="{{ $route_index }}">
+                    @canany(['staf-tata-usaha', 'guru'])
+                        <div class="mb-3">
+                            <label for="nip-filter" class="form-label">NIP</label>
+                            <input type="number" class="form-control" id="nip-filter" name="nip_filter"
+                                value="{{ request('nip_filter') }}" placeholder="Masukkan NIP">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="nipppk-filter" class="form-label">NIPPPK</label>
+                            <input type="number" class="form-control" id="nipppk-filter" name="nipppk_filter"
+                                value="{{ request('nipppk_filter') }}" placeholder="Masukkan NIPPPK">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="nama-pegawai-filter" class="form-label">Nama Pegawai</label>
+                            <input type="text" class="form-control" id="nama-pegawai-filter" name="nama_pegawai_filter"
+                                value="{{ request('nama_pegawai_filter') }}" placeholder="Masukkan nama pegawai">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="jenis-kelamin-filter" class="form-label">Jenis Kelamin</label>
+                            <select class="form-select" id="jenis-kelamin-filter" name="jenis_kelamin_filter">
+                                <option value="">-- Pilih Jenis Kelamin --</option>
+                                <option value="laki-laki"
+                                    {{ request('jenis_kelamin_filter') === 'laki-laki' ? 'selected' : '' }}>
+                                    Laki-Laki</option>
+                                <option value="perempuan"
+                                    {{ request('jenis_kelamin_filter') === 'perempuan' ? 'selected' : '' }}>
+                                    Perempuan
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="agama-filter" class="form-label">Agama</label>
+                            <select class="form-select" id="agama-filter" name="agama_filter">
+                                <option value="">-- Pilih Agama --</option>
+                                <option value="islam"
+                                    {{ request('agama_filter') === 'islam' ? 'selected' : '' }}>
+                                    Islam</option>
+                                <option value="kristen protestan"
+                                    {{ request('agama_filter') === 'kristen protestan' ? 'selected' : '' }}>
+                                    Kristen</option>
+                                <option value="kristen katolik"
+                                    {{ request('agama_filter') === 'kristen katolik' ? 'selected' : '' }}>
+                                    Katolik</option>
+                                <option value="hindu"
+                                    {{ request('agama_filter') === 'hindu' ? 'selected' : '' }}>
+                                    Hindu</option>
+                                <option value="budha"
+                                    {{ request('agama_filter') === 'budha' ? 'selected' : '' }}>
+                                    Budha</option>
+                                <option value="konghucu"
+                                    {{ request('agama_filter') === 'konghucu' ? 'selected' : '' }}>
+                                    Konghucu</option>
+                                <option value="tidak beragama"
+                                    {{ request('agama_filter') === 'tidak beragama' ? 'selected' : '' }}>
+                                    Tidak Beragama</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="no-telepon-seluler-filter" class="form-label">No. Telepon
+                                Seluler</label>
+                            <input type="number" class="form-control" id="no-telepon-seluler-filter"
+                                name="no_telepon_seluler_filter" placeholder="Masukkan no. telepon seluler"
+                                value="{{ request('no_telepon_seluler_filter') }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="alamat-filter" class="form-label">Alamat</label>
+                            <input type="text" class="form-control" id="alamat-filter"
+                                name="alamat_filter" value="{{ request('alamat_filter') }}"
+                                placeholder="Masukkan alamat">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="posisi-filter" class="form-label">Posisi</label>
+                            <select class="form-select" id="posisi-filter" name="posisi_filter">
+                                <option value="">-- Pilih Posisi --</option>
+                                <option value="staf tata usaha"
+                                    {{ request('posisi_filter') === 'staf tata usaha' ? 'selected' : '' }}>
+                                    Staf Tata Usaha</option>
+                                <option value="guru" {{ request('posisi_filter') === 'guru' ? 'selected' : '' }}>
+                                    Guru
+                                </option>
+                                <option value="pegawai perpustakaan"
+                                    {{ request('posisi_filter') === 'pegawai perpustakaan' ? 'selected' : '' }}>
+                                    Pegawai Perpustkaan
+                                </option>
+                                <option value="satuan keamanan"
+                                    {{ request('posisi_filter') === 'satuan keamanan' ? 'selected' : '' }}>
+                                    Satuan Keamanan
+                                </option>
+                                <option value="pegawai kebersihan"
+                                    {{ request('posisi_filter') === 'pegawai kebersihan' ? 'selected' : '' }}>
+                                    Pegawai Kebersihan
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="status-kepegawaian-filter" class="form-label">Status
+                                Kepegawaian</label>
+                            <select class="form-select" id="status-kepegawaian-filter" name="status_kepegawaian_filter">
+                                <option value="">-- Pilih Status Kepegawaian --</option>
+                                <option value="pns"
+                                    {{ request('status_kepegawaian_filter') === 'pns' ? 'selected' : '' }}>
+                                    PNS</option>
+                                <option value="pppk"
+                                    {{ request('status_kepegawaian_filter') === 'pppk' ? 'selected' : '' }}>
+                                    PPPK</option>
+                                <option value="honorer"
+                                    {{ request('status_kepegawaian_filter') === 'honorer' ? 'selected' : '' }}>
+                                    Honorer</option>
+                                <option value="kontrak"
+                                    {{ request('status_kepegawaian_filter') === 'kontrak' ? 'selected' : '' }}>
+                                    Kontrak</option>
+                                <option value="tetap"
+                                    {{ request('status_kepegawaian_filter') === 'tetap' ? 'selected' : '' }}>
+                                    Tetap</option>
+                                <option value="tidak tetap"
+                                    {{ request('status_kepegawaian_filter') === 'tidak tetap' ? 'selected' : '' }}>
+                                    Tidak Tetap</option>
+                            </select>
+                        </div>
+                    @endcanany
+
+                    @can('siswa')
+                        <div class="mb-3">
+                            <label for="nama-guru-filter" class="form-label">Nama Guru</label>
+                            <input type="text" class="form-control" id="nama-guru-filter" name="nama_guru_filter"
+                                value="{{ request('nama_guru_filter') }}" placeholder="Masukkan nama guru">
+                        </div>
+                    @endcan
+
+                    <div class="mb-2">
+                        <label for="guru-mata-pelajaran-filter" class="form-label">Guru Mata Pelajaran</label>
+                        <select class="form-select" id="guru-mata-pelajaran-filter" name="guru_mata_pelajaran_filter"
+                            {{ $mata_pelajaran->isEmpty() ? 'disabled' : '' }}>
+                            <option value="">
+                                {{ $mata_pelajaran->isNotEmpty() ? '-- Pilih Mata Pelajaran --' : '-- Mata Pelajaran Tidak Tersedia --' }}
+                            </option>
+                            @foreach ($mata_pelajaran as $_mata_pelajaran)
+                                <option value="{{ $_mata_pelajaran->id_mata_pelajaran }}"
+                                    {{ request('guru_mata_pelajaran_filter') == $_mata_pelajaran->id_mata_pelajaran ? 'selected' : '' }}>
+                                    {{ $_mata_pelajaran->nama_mata_pelajaran }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    {{-- <ul class="nav nav-tabs mt-2" id="pegawai-filter-tab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="data-pribadi-filter-tab-button" data-bs-toggle="tab"
                                 data-bs-target="#data-pribadi-filter-tab" type="button">Pribadi</button>
@@ -27,9 +178,9 @@
                             <button class="nav-link" id="data-sk-filter-tab-button" data-bs-toggle="tab"
                                 data-bs-target="#data-sk-filter-tab" type="button">SK</button>
                         </li>
-                    </ul>
+                    </ul> --}}
 
-                    <div class="tab-content mb-0" id="pegawai-tab-content">
+                    {{-- <div class="tab-content mb-0" id="pegawai-tab-content">
                         <div class="tab-pane fade show active" id="data-pribadi-filter-tab" role="tabpanel">
                             <div class="mt-3">
                                 <div class="mb-3">
@@ -186,8 +337,18 @@
 
                                 <div class="mb-3">
                                     <label for="guru-mata-pelajaran-filter" class="form-label">Guru Mata Pelajaran</label>
-                                    <input type="text" class="form-control" id="guru-mata-pelajaran-filter" name="guru_mata_pelajaran_filter"
-                                        value="{{ request('guru_mata_pelajaran_filter') }}" placeholder="Masukkan mata pelajaran">
+                                    <select class="form-select" id="guru-mata-pelajaran-filter" name="guru_mata_pelajaran_filter"
+                                        {{ $mata_pelajaran->isEmpty() ? 'disabled' : '' }}>
+                                        <option value="">
+                                            {{ $mata_pelajaran->isNotEmpty() ? '-- Pilih Mata Pelajaran --' : '-- Mata Pelajaran Tidak Tersedia --' }}
+                                        </option>
+                                        @foreach ($mata_pelajaran as $_mata_pelajaran)
+                                            <option value="{{ $_mata_pelajaran->id_mata_pelajaran }}"
+                                                {{ request('guru_mata_pelajaran_filter') == $_mata_pelajaran->id_mata_pelajaran ? 'selected' : '' }}>
+                                                {{ $_mata_pelajaran->nama_mata_pelajaran }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="mb-3">
@@ -369,12 +530,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </form>
             </div>
             <div class="modal-footer form-buttons justify-content-between mt-0">
-                <button id="filter-modal-clear-button" class="btn btn-danger"><i class="bi bi-eraser me-2"></i>Bersihkan</button>
-                <button id="filter-modal-apply-button" class="btn btn-primary"><i class="bi bi-check-lg me-2"></i>Terapkan</button>
+                <button id="filter-modal-clear-button" class="btn btn-danger"><i
+                        class="bi bi-eraser me-2"></i>Bersihkan</button>
+                <button id="filter-modal-apply-button" class="btn btn-primary"><i
+                        class="bi bi-check-lg me-2"></i>Terapkan</button>
             </div>
         </div>
     </div>

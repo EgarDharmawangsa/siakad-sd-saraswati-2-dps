@@ -7,7 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Gate;
 
 /**
- * @property Carbon $tanggal
+ * @property Carbon $tanggal_peraihan
  * @property string|null $dokumentasi
  */
 
@@ -20,93 +20,80 @@ class Prestasi extends Model
     protected $guarded = ['id_prestasi'];
 
     protected $casts = [
+        // 'tanggal_peraihan' => 'datetime'
         'tanggal' => 'datetime'
     ];
 
-    public function getFormatedTanggal()
+    public function getFormatedTanggalPeraihan()
     {
-        $formated_tanggal = $this->tanggal->translatedFormat('d F Y');
+        $formated_tanggal_peraihan = $this->tanggal_peraihan->translatedFormat('d F Y');
 
-        return $formated_tanggal;
+        return $formated_tanggal_peraihan;
     }
 
     public function scopeFilter($query, array $filters)
     {
         $order_by_array = ['desc', 'asc'];
-        $jenis_array = ['akademik', 'non-akademik'];
-        $peringkat_array = [
-            '1 (pertama)',
-            '2 (kedua)',
-            '3 (ketiga)',
-            'harapan 1',
-            'harapan 2',
-            'harapan 3',
-            'lainnya'
-        ];
-        $tingkat_array = [
-            'desa',
-            'kecamatan',
-            'kabupaten/kota',
-            'provinsi',
-            'nasional',
-            'internasional'
-        ];
 
-        if (request()->routeIs('beranda')) {
-            $prestasi_improvement_tahun_value = !empty($filters['prestasi_improvement_tahun_filter']) ? $filters['prestasi_improvement_tahun_filter'] : date('Y');
-            $query->whereYear('tanggal', $prestasi_improvement_tahun_value);
-        } else {
-            $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
-            $query->orderBy('tanggal', $order_by_value);
+        $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
+        $query->orderBy('tanggal_peraihan', $order_by_value);
 
-            if (!empty($filters['nama_prestasi_filter'])) {
-                $query->where('nama_prestasi', 'like', "%{$filters['nama_prestasi_filter']}%");
-            }
+        if (!empty($filters['nama_prestasi_filter'])) {
+            $query->where('nama_prestasi', 'like', "%{$filters['nama_prestasi_filter']}%");
+        }
 
-            if (Gate::any(['staf-tata-usaha', 'guru'])) {
-                if (!empty($filters['peraih_filter'])) {
-                    $query->whereHas('siswa', fn($query) => 
-                        $query->where(fn($query) => 
-                            $query->where('nisn', 'like', '%' . $filters['peraih_filter'] . '%')
-                                ->orWhere('nama_siswa', 'like', '%' . $filters['peraih_filter'] . '%')
-                        )
-                    );
-                }
-            }
-
-            if (!empty($filters['penyelenggara_filter'])) {
-                $query->where('penyelenggara', 'like', "%{$filters['penyelenggara_filter']}%");
-            }
-
-            if (!empty($filters['jenis_filter'])) {
-                $jenis_filter_value = \in_array(strtolower($filters['jenis_filter']), $jenis_array) ? $filters['jenis_filter'] : '';
-                $query->where('jenis', $jenis_filter_value);
-            }
-
-            if (!empty($filters['peringkat_filter'])) {
-                $peringkat_filter_value = \in_array(strtolower($filters['peringkat_filter']), $peringkat_array) ? $filters['peringkat_filter'] : '';
-                $query->where('peringkat', $peringkat_filter_value);
-            }
-
-            if (!empty($filters['peringkat_lainnya'])) {
-                $query->where('peringkat', 'like', "%{$filters['peringkat_lainnya']}%");
-            }
-
-            if (!empty($filters['tingkat_filter'])) {
-                $tingkat_filter_value = \in_array(strtolower($filters['tingkat_filter']), $tingkat_array) ? $filters['tingkat_filter'] : '';
-                $query->where('tingkat', $tingkat_filter_value);
-            }
-
-            if (!empty($filters['nama_wilayah_filter'])) {
-                $query->where('nama_wilayah', 'like', "%{$filters['nama_wilayah_filter']}%");
-            }
-
-            if (!empty($filters['tanggal_filter'])) {
-                $query->whereDate('tanggal', $filters['tanggal_filter']);
+        if (Gate::any(['staf-tata-usaha', 'guru'])) {
+            if (!empty($filters['peraih_filter'])) {
+                $query->whereHas(
+                    'siswa',
+                    fn($query) =>
+                    $query->where(
+                        fn($query) =>
+                        $query->where('nisn', 'like', '%' . $filters['peraih_filter'] . '%')
+                            ->orWhere('nama_siswa', 'like', '%' . $filters['peraih_filter'] . '%')
+                    )
+                );
             }
         }
 
+        // if (!empty($filters['penyelenggara_filter'])) {
+        //     $query->where('penyelenggara', 'like', "%{$filters['penyelenggara_filter']}%");
+        // }
+
+        // if (!empty($filters['jenis_filter'])) {
+        //     $query->where('jenis', $filters['jenis_filter']);
+        // }
+
+        // if (!empty($filters['peringkat_filter'])) {
+        //     $query->where('peringkat', $filters['peringkat_filter']);
+        // }
+
+        // if (!empty($filters['peringkat_lainnya'])) {
+        //     $query->where('peringkat', 'like', "%{$filters['peringkat_lainnya']}%");
+        // }
+
+        // if (!empty($filters['tingkat_filter'])) {
+        //     $query->where('tingkat', $filters['tingkat_filter']);
+        // }
+
+        // if (!empty($filters['nama_wilayah_filter'])) {
+        //     $query->where('nama_wilayah', 'like', "%{$filters['nama_wilayah_filter']}%");
+        // }
+
+        if (!empty($filters['tanggal_peraihan_filter'])) {
+            $query->whereDate('tanggal_peraihan', $filters['tanggal_peraihan_filter']);
+        }
+
         return $query;
+    }
+
+    public function scopePrestasiImprovementYear($query, $year)
+    {
+        $prestas_improvement_tahun_value = is_numeric($year ?? null)
+            ? $year
+            : date('Y');
+
+        $query->whereYear('tanggal_peraihan', $prestas_improvement_tahun_value);
     }
 
     public function siswa()

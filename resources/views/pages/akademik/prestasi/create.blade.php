@@ -112,10 +112,10 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="tanggal" class="form-label">Tanggal</label>
-                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal"
-                        name="tanggal" value="{{ old('tanggal') }}" required>
-                    @error('tanggal')
+                    <label for="tanggal-peraihan" class="form-label">Tanggal Peraihan</label>
+                    <input type="date" class="form-control @error('tanggal_peraihan') is-invalid @enderror" id="tanggal-peraihan"
+                        name="tanggal" value="{{ old('tanggal_peraihan') }}" required>
+                    @error('tanggal_peraihan')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
@@ -139,7 +139,7 @@
                 <button type="button" class="btn btn-danger" id="cancel-button"
                     data-route="{{ route('prestasi.index') }}" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
-                <button type="submit" class="btn btn-primary ms-2"><i class="bi bi-plus-lg me-2"></i>Tambah</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Tambah</button>
             </div>
         </form>
     </div>

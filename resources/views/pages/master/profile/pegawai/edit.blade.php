@@ -190,7 +190,7 @@
                     </div>
 
                     {{-- NAVIGASI TAB 1 --}}
-                    <div class="d-flex justify-content-end mt-4">
+                    <div class="form-buttons">
                         {{-- Tombol Next (Class btn-nav Wajib ada) --}}
                         <button type="button" class="btn btn-primary btn-nav" data-next="#data-kepegawaian-tab">
                             Selanjutnya<i class="bi bi-arrow-right ms-2"></i>
@@ -312,7 +312,7 @@
                     </div>
                     
                     {{-- NAVIGASI TAB 2 --}}
-                    <div class="d-flex justify-content-between mt-4">
+                    <div class="form-buttons justify-content-between">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#data-pribadi-tab">
                             <i class="bi bi-arrow-left me-2"></i>Kembali
                         </button>
@@ -361,7 +361,7 @@
                     </div>
 
                     {{-- NAVIGASI TAB 3 --}}
-                    <div class="d-flex justify-content-between mt-4">
+                    <div class="form-buttons justify-content-between">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#data-kepegawaian-tab">
                             <i class="bi bi-arrow-left me-2"></i>Kembali
                         </button>
@@ -391,7 +391,7 @@
                     </div>
 
                     {{-- NAVIGASI TAB 4 (FINAL) --}}
-                    <div class="d-flex justify-content-between mt-4">
+                    <div class="form-buttons justify-content-between">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#data-pendidikan-tab">
                             <i class="bi bi-arrow-left me-2"></i>Kembali
                         </button>

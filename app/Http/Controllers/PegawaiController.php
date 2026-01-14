@@ -18,16 +18,22 @@ class PegawaiController extends Controller
         if (Gate::any(['staf-tata-usaha', 'guru'])) {
             $judul = 'Pegawai';
             $pegawai = Pegawai::with(['guruMataPelajaran', 'userAuth'])->filter(request()->all())->paginate(30)->withQueryString();
+            $route_index = route('pegawai.index');
         } else if (Gate::allows('siswa')) {
             $judul = 'Guru';
-            $pegawai = Pegawai::where('posisi', 'Guru')->with('guruMataPelajaran')->filter(request()->all())->paginate(30)->withQueryString();
+            $pegawai = Pegawai::where('posisi', 'Guru')->with('guruMataPelajaran')->filter(request()->only(['nama_guru_filter', 'guru_mata_pelajaran_filter']))->paginate(30)->withQueryString();
+            $route_index = route('guru.index');
         } else {
             abort(404);
         }
 
+        $mata_pelajaran = MataPelajaran::latest()->get();
+
         return view('pages.master.pegawai.index', [
             'judul' => $judul,
-            'pegawai' => $pegawai
+            'pegawai' => $pegawai,
+            'mata_pelajaran' => $mata_pelajaran,
+            'route_index' => $route_index
         ]);
     }
 

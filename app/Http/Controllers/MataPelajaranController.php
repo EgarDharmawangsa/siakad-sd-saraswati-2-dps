@@ -63,17 +63,17 @@ class MataPelajaranController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MataPelajaran $mataPelajaran)
-    {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
-            abort(404);
-        }
+    // public function show(MataPelajaran $mataPelajaran)
+    // {
+    //     if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+    //         abort(404);
+    //     }
 
-        return view('pages.master.mata_pelajaran.show', [
-            'judul' => 'Mata Pelajaran',
-            'mata_pelajaran' => $mataPelajaran
-        ]);
-    }
+    //     return view('pages.master.mata_pelajaran.show', [
+    //         'judul' => 'Mata Pelajaran',
+    //         'mata_pelajaran' => $mataPelajaran
+    //     ]);
+    // }
 
     /**
      * Show the form for editing the specified resource.

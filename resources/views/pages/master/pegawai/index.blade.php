@@ -9,45 +9,45 @@
             @endcan
 
             <div class="modifier-buttons">
-                <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle order-by-dropdown-toggle" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i
-                            class="bi bi-sort-down me-2"></i>{{ request('order_by') === 'asc' ? 'Lama ke Terbaru' : 'Terbaru ke Lama' }}
-                    </a>
+                @canany(['staf-tata-usaha', 'guru'])
+                    <div class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle order-by-dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i
+                                class="bi bi-sort-down me-2"></i>{{ request('order_by') === 'asc' ? 'Lama ke Terbaru' : 'Terbaru ke Lama' }}
+                        </a>
 
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') !== 'asc' || !request('order_by') ? 'active' : '' }}"
-                                href="{{ request()->fullUrlWithQuery(['order_by' => 'desc']) }}">Terbaru ke Lama</a>
-                        </li>
-                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'asc' ? 'active' : '' }}"
-                                href="{{ request()->fullUrlWithQuery(['order_by' => 'asc']) }}">Lama ke Terbaru</a></li>
-                    </ul>
-                </div>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') !== 'asc' || !request('order_by') ? 'active' : '' }}"
+                                    href="{{ request()->fullUrlWithQuery(['order_by' => 'desc']) }}">Terbaru ke Lama</a>
+                            </li>
+                            <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'asc' ? 'active' : '' }}"
+                                    href="{{ request()->fullUrlWithQuery(['order_by' => 'asc']) }}">Lama ke Terbaru</a></li>
+                        </ul>
+                    </div>
+                @endcanany
 
-                <div class="filter-modal-container">
-                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
-                        <i class="bi bi-funnel me-2"></i>Filter
-                    </button>
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                    <i class="bi bi-funnel me-2"></i>Filter
+                </button>
 
-                    @include('components.master.pegawai_filter_modal')
-                </div>
+                @include('components.master.pegawai_filter_modal')
             </div>
         </div>
 
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
                 <thead>
-                    <tr>
+                    {{-- <tr>
                         <th rowspan="2">No.</td>
                         <th colspan="12">Pribadi</th>
                         <th colspan="8">Kepegawaian</th>
                         <th colspan="4">Pendidikan & Sertifikasi</th>
                         <th colspan="2">SK</th>
                         <th rowspan="2">Aksi</th>
-                    </tr>
-                    <tr>
-                        {{-- <th>No.</th> --}}
+                    </tr> --}}
+                    {{-- <tr>
+                        <th>No.</th>
                         <th>NIK</th>
                         <th>Username</th>
                         <th>Nama Pegawai</th>
@@ -77,14 +77,36 @@
 
                         <th>No. SK</th>
                         <th>Tanggal SK Terakhir</th>
-                        {{-- <th>Aksi</th> --}}
+                        <th>Aksi</th>
+                    </tr> --}}
+                    <tr>
+                        <th>No.</th>
+
+                        @canany(['staf-tata-usaha', 'guru'])
+                            <th>NIP</th>
+                            <th>NIPPPK</th>
+                        @endcanany
+
+                        <th>Nama Pegawai</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Agama</th>
+                        <th>No. Telp (WA)</th>
+                        <th>Alamat</th>
+
+                        @canany(['staf-tata-usaha', 'guru'])
+                            <th>Posisi</th>
+                            <th>Status Kepegawaian</th>
+                        @endcanany
+                        
+                        <th>Guru Mata Pelajaran</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     @forelse ($pegawai as $_pegawai)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            {{-- <td>{{ $loop->iteration }}</td>
                             <td>{{ $_pegawai->nik }}</td>
                             <td>{{ $_pegawai->userAuth?->username ?? '-' }}</td>
                             <td>{{ $_pegawai->nama_pegawai }}</td>
@@ -115,21 +137,46 @@
                             <td>{{ $_pegawai->tahun_ijazah ?? '-' }}</td>
                             <td>{{ $_pegawai->status_sertifikasi }}</td>
                             <td>{{ $_pegawai->tahun_sertifikasi ?? '-' }}</td>
-                            <td>{{ $_pegawai->no_sk ?? '-' }}</td>
-                            <td>{{ $_pegawai->getFormatedTanggal('tanggal_sk_terakhir') }}</td>
+                            <td>{{ $_pegawai->no_sk ?? '-' }}</td> --}}
+
+                            <td>{{ $loop->iteration }}</td>
+
+                            @canany(['staf-tata-usaha', 'guru'])
+                                <td>{{ $_pegawai->nip ?? '-' }}</td>
+                                <td>{{ $_pegawai->nipppk ?? '-' }}</td>
+                            @endcanany
+
+                            <td>{{ $_pegawai->nama_pegawai }}</td>
+                            <td>{{ $_pegawai->jenis_kelamin }}</td>
+                            <td>{{ $_pegawai->agama }}</td>
+                            <td>{{ $_pegawai->no_telepon_seluler }}</td>
+                            <td class="text-truncate">{{ $_pegawai->alamat }}</td>
+
+                            @canany(['staf-tata-usaha', 'guru'])
+                                <td>{{ $_pegawai->posisi }}</td>
+                                <td>{{ $_pegawai->status_kepegawaian }}</td>
+                            @endcanany
+
+                            <td>
+                                @if ($_pegawai->posisi === 'Guru')
+                                    {{ $_pegawai->guruMataPelajaran?->count() }} Mata Pelajaran
+                                @else
+                                    -
+                                @endif
+                            </td>
                             <td class="aksi-column">
                                 <a href="{{ request()->routeIs('pegawai.index') ? route('pegawai.show', $_pegawai->id_pegawai) : route('guru.show', $_pegawai->id_pegawai) }}"
-                                    class="btn btn-info btn-sm"><i class="bi bi-info-lg me-2"></i>Detail</a>
+                                    class="btn btn-info"><i class="bi bi-info-lg me-2"></i>Detail</a>
                                 @can('staf-tata-usaha')
                                     <a href="{{ route('pegawai.edit', $_pegawai->id_pegawai) }}"
-                                        class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                        class="btn btn-warning mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
                                     <form action="{{ route('pegawai.destroy', $_pegawai->id_pegawai) }}" method="POST"
                                         class="d-inline delete-form">
                                         @csrf
                                         @method('DELETE')
 
-                                        <button type="button" class="btn btn-danger btn-sm delete-button"
-                                            data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                        <button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal"
+                                            data-bs-target="#delete-modal">
                                             <i class="bi bi-trash me-2"></i>Hapus</button>
                                     </form>
                                 @endcan

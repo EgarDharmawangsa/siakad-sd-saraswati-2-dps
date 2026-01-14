@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('peringkat_lainnya', 50)->nullable();
             $table->string('tingkat', 15); 
             $table->string('wilayah', 25);
-            $table->date('tanggal');
+            $table->date('tanggal_peraihan');
             $table->string('dokumentasi')->nullable();
             $table->timestamps();
         });

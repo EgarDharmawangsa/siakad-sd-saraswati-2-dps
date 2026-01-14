@@ -21,7 +21,7 @@
                             value="{{ request('nama_pembina_filter') }}" placeholder="Masukkan nama pembina">
                     </div>
 
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="alamat-pembina-filter" class="form-label">Alamat Pembina</label>
                         <input type="text" class="form-control" id="alamat-pembina-filter" name="alamat_pembina_filter"
                             value="{{ request('alamat_pembina_filter') }}" placeholder="Masukkan alamat pembina">
@@ -31,7 +31,7 @@
                         <label for="no-telepon-filter" class="form-label">No. Telepon</label>
                         <input type="number" class="form-control" id="no-telepon-filter" name="no_telepon_filter"
                             value="{{ request('no_telepon_filter') }}" placeholder="Masukkan no. telepon">
-                    </div>
+                    </div> --}}
 
                     <div class="mb-3">
                         <label for="hari-filter" class="form-label">Hari</label>
