@@ -108,13 +108,13 @@ class NilaiEkstrakurikulerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(NilaiEkstrakurikuler $nilaiEkstrakurikuler)
-    {
-        return view('pages.akademik.nilai_ekstrakurikuler.show', [
-            'judul' => 'Nilai Ekstrakurikuler',
-            'nilai_ekstrakurikuler' => $nilaiEkstrakurikuler
-        ]);
-    }
+    // public function show(NilaiEkstrakurikuler $nilaiEkstrakurikuler)
+    // {
+    //     return view('pages.akademik.nilai_ekstrakurikuler.show', [
+    //         'judul' => 'Nilai Ekstrakurikuler',
+    //         'nilai_ekstrakurikuler' => $nilaiEkstrakurikuler
+    //     ]);
+    // }
 
     /**
      * Show the form for editing the specified resource.

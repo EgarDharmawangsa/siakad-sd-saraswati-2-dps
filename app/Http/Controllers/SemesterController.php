@@ -69,17 +69,17 @@ class SemesterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Semester $semester)
-    {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
-            abort(404);
-        }
+    // public function show(Semester $semester)
+    // {
+    //     if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+    //         abort(404);
+    //     }
         
-        return view('pages.master.semester.show', [
-            'judul' => 'Semester',
-            'semester' => $semester
-        ]);
-    }
+    //     return view('pages.master.semester.show', [
+    //         'judul' => 'Semester',
+    //         'semester' => $semester
+    //     ]);
+    // }
 
     /**
      * Show the form for editing the specified resource.

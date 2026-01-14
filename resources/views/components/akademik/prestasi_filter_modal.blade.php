@@ -23,7 +23,7 @@
                         </div>
                     @endcanany
 
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="penyelenggara-filter" class="form-label">Penyelenggara</label>
                         <input type="text" class="form-control" id="penyelenggara-filter" name="penyelenggara_filter"
                             value="{{ request('penyelenggara_filter') }}" placeholder="Masukkan penyelenggara">
@@ -103,7 +103,7 @@
                         <label for="nama-wilayah-filter" class="form-label">Nama Wilayah</label>
                         <input type="text" class="form-control" id="nama-wilayah-filter" name="nama_wilayah_filter"
                             value="{{ request('nama_wilayah_filter') }}" placeholder="Masukkan nama wilayah">
-                    </div>
+                    </div> --}}
 
                     <div class="mb-2">
                         <label for="tanggal-peraihan-filter" class="form-label">Tanggal Peraihan</label>

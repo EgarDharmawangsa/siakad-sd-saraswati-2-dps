@@ -3,10 +3,10 @@
 @section('container')
     <div class="content-card mb-4">
         <div class="index-buttons">
-            @canany(['staf-tata-usaha', 'guru'])
+            @can('guru')
                 <a href="{{ route('kehadiran.create') }}" class="btn btn-success"><i class="bi bi-plus-lg me-2"></i>Tambah<span
                         class="mx-2">/</span><i class="bi bi-arrow-repeat me-2"></i>Sinkronkan Kehadiran</a>
-            @endcanany
+            @endcan
 
             <a href="{{ route('kehadiran.recapitulation') }}" class="btn btn-info recapitulation-button"><i
                     class="bi bi-clipboard-check me-2"></i>Rekapitulasi Kehadiran</a>
@@ -36,10 +36,10 @@
                                     <th>Kelas</th>
                                 @endcanany
                                 <th>Semester</th>
-                                <th>Status Kehadiran</th>
+                                <th>Status</th>
                                 <th>Keterangan</th>
                                 <th>Tanggal</th>
-                                <th>Aksi</th>
+                                {{-- <th>Aksi</th> --}}
                             </tr>
                         </thead>
 
@@ -65,7 +65,7 @@
                                         </span>
                                     </td>
 
-                                    @canany(['staf-tata-usaha', 'guru'])
+                                    @can('guru')
                                         <td>
                                             <input type="hidden" name="status[{{ $_kehadiran->id_kehadiran }}]"
                                                 value="{{ $_kehadiran->status }}">
@@ -82,13 +82,7 @@
                                                 @endforeach
                                             </div>
                                         </td>
-                                    @endcanany
-
-                                    @can('siswa')
-                                        <td>{{ $_kehadiran->status }}</td>
-                                    @endcan
-
-                                    @canany(['staf-tata-usaha', 'guru'])
+                                    
                                         <td>
                                             <input type="text" name="keterangan[{{ $_kehadiran->id_kehadiran }}]"
                                                 class="form-control keterangan-input @error("keterangan.{$_kehadiran->id_kehadiran}") is-invalid @enderror"
@@ -100,28 +94,33 @@
                                                 </div>
                                             @enderror
                                         </td>
+                                    @endcan
+
+                                    @canany(['staf-tata-usaha', 'siswa'])
+                                        <td>{{ $_kehadiran->status }}</td>
                                     @endcanany
 
-                                    @can('siswa')
+                                    @canany(['staf-tata-usaha', 'siswa'])
                                         <td>{{ $_kehadiran->keterangan ?? '-' }}</td>
-                                    @endcan
+                                    @endcanany
 
                                     <td>{{ $_kehadiran->getFormatedTanggal() }}</td>
 
-                                    <td class="aksi-column">
+                                    {{-- <td class="aksi-column">
                                         <a href="{{ route('kehadiran.show', $_kehadiran->id_kehadiran) }}"
                                             class="btn btn-info">
                                             <i class="bi bi-info-lg me-2"></i>Detail
                                         </a>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @empty
                                 <tr class="text-center">
                                     @canany(['staf-tata-usaha', 'guru'])
-                                        <td colspan="8">Belum ada data kehadiran.</td>
+                                        <td colspan="7">Belum ada data kehadiran.</td>
                                     @endcanany
+
                                     @can('siswa')
-                                        <td colspan="6">Belum ada data kehadiran.</td>
+                                        <td colspan="5">Belum ada data kehadiran.</td>
                                     @endcan
                                 </tr>
                             @endforelse
@@ -129,7 +128,7 @@
                     </table>
                 </div>
 
-                @canany(['staf-tata-usaha', 'guru'])
+                @can('guru')
                     <div class="d-flex justify-content-between rounded-3 mt-4 p-3 submit-warning-container">
                         <p class="mini-label submit-warning-text">
                             Simpan kehadiran sebelum berpindah ke halaman atau daftar berikutnya!
@@ -138,14 +137,12 @@
                             <i class="bi bi-floppy me-2"></i>Simpan
                         </button>
                     </div>
-                @endcanany
-
-                <div class="d-flex justify-content-end mt-4">
-                    @canany(['staf-tata-usaha', 'guru'])
+                
+                    <div class="d-flex justify-content-end mt-4">
                         <a href="{{ route('kehadiran.delete') }}" class="btn btn-danger"><i class="bi bi-trash me-2"></i>Hapus
                             Kehadiran</a>
-                    @endcanany
-                </div>
+                    </div>
+                @endcan
             </form>
         @else
             <p class="empty-message text-center mb-0 p-3 rounded">Siswa tidak tersedia.</p>

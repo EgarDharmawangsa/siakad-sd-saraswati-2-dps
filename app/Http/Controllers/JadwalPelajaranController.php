@@ -111,13 +111,13 @@ class JadwalPelajaranController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(JadwalPelajaran $jadwalPelajaran)
-    {
-        return view('pages.akademik.jadwal_pelajaran.show', [
-            'judul' => 'Jadwal Pelajaran',
-            'jadwal_pelajaran' => $jadwalPelajaran
-        ]);
-    }
+    // public function show(JadwalPelajaran $jadwalPelajaran)
+    // {
+    //     return view('pages.akademik.jadwal_pelajaran.show', [
+    //         'judul' => 'Jadwal Pelajaran',
+    //         'jadwal_pelajaran' => $jadwalPelajaran
+    //     ]);
+    // }
 
     /**
      * Show the form for editing the specified resource.

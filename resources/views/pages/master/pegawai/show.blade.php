@@ -5,8 +5,14 @@
         <h5>Detail {{ $judul }}</h5>
         <hr>
         <div class="show-buttons">
-            <a href="{{ route('pegawai.index') }}" class="btn btn-secondary"><i
-                    class="bi bi-arrow-left me-2"></i>Kembali</a>
+            @canany(['staf-tata-usaha', 'guru'])
+                <a href="{{ route('pegawai.index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left me-2"></i>Kembali</a>
+            @endcanany
+
+            @can('siswa')
+                <a href="{{ route('guru.index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left me-2"></i>Kembali</a>
+            @endcan
+
             @can('staf-tata-usaha')
                 <a href="{{ route('pegawai.edit', $pegawai->id_pegawai) }}" class="btn btn-warning"><i
                     class="bi bi-pencil me-2"></i>Edit</a>
@@ -29,14 +35,17 @@
                 <button class="nav-link" id="data-kepegawaian-tab-button" data-bs-toggle="tab" data-bs-target="#data-kepegawaian-tab"
                     type="button" role="tab">Kepegawaian</button>
             </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="data-pendidikan-tab-button" data-bs-toggle="tab" data-bs-target="#data-pendidikan-tab"
-                    type="button" role="tab">Pendidikan & Sertifikasi</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="data-sk-tab-button" data-bs-toggle="tab" data-bs-target="#data-sk-tab" 
-                    type="button" role="tab">SK</button>
-            </li>
+
+            @canany(['staf-tata-usaha', 'guru'])
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="data-pendidikan-tab-button" data-bs-toggle="tab" data-bs-target="#data-pendidikan-tab"
+                        type="button" role="tab">Pendidikan & Sertifikasi</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="data-sk-tab-button" data-bs-toggle="tab" data-bs-target="#data-sk-tab" 
+                        type="button" role="tab">SK</button>
+                </li>
+            @endcan
         </ul>
 
         <div class="tab-content mb-0" id="pegawai-tab-content">
@@ -122,10 +131,12 @@
             </div>
             <div class="tab-pane fade" id="data-kepegawaian-tab" role="tabpanel">
                 <div class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label ">Posisi</label>
-                        <input type="text" class="form-control" value="{{ $pegawai->posisi }}" readonly>
-                    </div>
+                    @canany(['staf-tata-usaha', 'guru'])
+                        <div class="col-md-6">
+                            <label class="form-label ">Posisi</label>
+                            <input type="text" class="form-control" value="{{ $pegawai->posisi }}" readonly>
+                        </div>
+                    @endcanany
 
                     <div class="col-md-6">
                         <label class="form-label ">Guru Mata Pelajaran</label>
@@ -153,6 +164,7 @@
                         </div>
                     </div>
 
+                    @canany(['staf-tata-usaha', 'guru'])
                     <div class="col-md-6">
                         <label class="form-label ">Status Kepegawaian</label>
                         <input type="text" class="form-control" value="{{ $pegawai->status_kepegawaian ?? '-' }}" readonly>
@@ -183,14 +195,18 @@
                         <input type="text" class="form-control" 
                                value="{{ $pegawai->permulaan_kerja_sds2 ? $pegawai->permulaan_kerja_sds2->format('d F Y') : '-' }}" readonly>
                     </div>
+                    @endcanany
                 </div>
                 <div class="d-flex justify-content-between mt-4">
                     <button type="button" class="btn btn-secondary btn-nav" data-next="#data-pribadi-tab">
                         <i class="bi bi-arrow-left me-2"></i>Kembali
                     </button>
-                    <button type="button" class="btn btn-primary btn-nav" data-next="#data-pendidikan-tab">
-                        Selanjutnya<i class="bi bi-arrow-right ms-2"></i>
-                    </button>
+                    
+                    @canany(['staf-tata-usaha', 'guru'])
+                        <button type="button" class="btn btn-primary btn-nav" data-next="#data-pendidikan-tab">
+                            Selanjutnya<i class="bi bi-arrow-right ms-2"></i>
+                        </button>
+                    @endcanany
                 </div>
             </div>
             <div class="tab-pane fade" id="data-pendidikan-tab" role="tabpanel">

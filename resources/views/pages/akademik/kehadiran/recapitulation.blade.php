@@ -42,7 +42,6 @@
                                     <td>{{ $loop->iteration }}</td>
 
                                     <td>
-                                        <input type="hidden" name="id_kehadiran[]" value="{{ $_kehadiran->id_kehadiran }}">
                                         {{ $_kehadiran->siswa->getFormatedNamaSiswa(true) }}
                                     </td>
 

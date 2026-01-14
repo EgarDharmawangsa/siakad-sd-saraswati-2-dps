@@ -15,7 +15,7 @@
                         <i
                             class="bi bi-sort-down me-2"></i>{{ request('order_by') === 'asc' ? 'Lama ke Terbaru' : 'Terbaru ke Lama' }}
                     </a>
-    
+
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') !== 'asc' || !request('order_by') ? 'active' : '' }}"
                                 href="{{ request()->fullUrlWithQuery(['order_by' => 'desc']) }}">Terbaru ke Lama</a>
@@ -24,12 +24,12 @@
                                 href="{{ request()->fullUrlWithQuery(['order_by' => 'asc']) }}">Lama ke Terbaru</a></li>
                     </ul>
                 </div>
-    
-                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
-                        <i class="bi bi-funnel me-2"></i>Filter
-                    </button>
-    
-                    @include('components.master.semester_filter_modal')
+
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                    <i class="bi bi-funnel me-2"></i>Filter
+                </button>
+
+                @include('components.master.semester_filter_modal')
             </div>
         </div>
 
@@ -43,7 +43,9 @@
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
                         <th>Status</th>
-                        <th>Aksi</th>
+                        @can('staf-tata-usaha')
+                            <th>Aksi</th>
+                        @endcan
                     </tr>
                 </thead>
 
@@ -61,23 +63,23 @@
                                     {{ $_semester->getStatus() }}
                                 </span>
                             </td>
-                            <td class="aksi-column">
-                                <a href="{{ route('semester.show', $_semester->id_semester) }}" class="btn btn-info"><i
-                                        class="bi bi-info-lg me-2"></i>Detail</a>
-                                @can('staf-tata-usaha')
+                            @can('staf-tata-usaha')
+                                <td class="aksi-column">
+                                    {{-- <a href="{{ route('semester.show', $_semester->id_semester) }}" class="btn btn-info"><i
+                                        class="bi bi-info-lg me-2"></i>Detail</a> --}}
                                     <a href="{{ route('semester.edit', $_semester->id_semester) }}"
-                                        class="btn btn-warning mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                    <form action="{{ route('semester.destroy', $_semester->id_semester) }}"
-                                        method="POST" class="d-inline delete-form">
+                                        class="btn btn-warning me-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                    <form action="{{ route('semester.destroy', $_semester->id_semester) }}" method="POST"
+                                        class="d-inline delete-form">
                                         @csrf
                                         @method('DELETE')
 
-                                        <button type="button" class="btn btn-danger delete-button"
-                                            data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                        <button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal"
+                                            data-bs-target="#delete-modal">
                                             <i class="bi bi-trash me-2"></i>Hapus</button>
                                     </form>
-                                @endcan
-                            </td>
+                                </td>
+                            @endcan
                         </tr>
                     @empty
                         <tr class="text-center">

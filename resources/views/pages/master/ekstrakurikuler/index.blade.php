@@ -9,21 +9,23 @@
             @endcan
 
             <div class="modifier-buttons">
-                <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle order-by-dropdown-toggle" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i
-                            class="bi bi-sort-down me-2"></i>{{ request('order_by') === 'asc' ? 'Lama ke Terbaru' : 'Terbaru ke Lama' }}
-                    </a>
-    
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') !== 'asc' || !request('order_by') ? 'active' : '' }}"
-                                href="{{ request()->fullUrlWithQuery(['order_by' => 'desc']) }}">Terbaru ke Lama</a>
-                        </li>
-                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'asc' ? 'active' : '' }}"
-                                href="{{ request()->fullUrlWithQuery(['order_by' => 'asc']) }}">Lama ke Terbaru</a></li>
-                    </ul>
-                </div>
+                @canany(['staf-tata-usaha', 'guru'])
+                    <div class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle order-by-dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i
+                                class="bi bi-sort-down me-2"></i>{{ request('order_by') === 'asc' ? 'Lama ke Terbaru' : 'Terbaru ke Lama' }}
+                        </a>
+        
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') !== 'asc' || !request('order_by') ? 'active' : '' }}"
+                                    href="{{ request()->fullUrlWithQuery(['order_by' => 'desc']) }}">Terbaru ke Lama</a>
+                            </li>
+                            <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'asc' ? 'active' : '' }}"
+                                    href="{{ request()->fullUrlWithQuery(['order_by' => 'asc']) }}">Lama ke Terbaru</a></li>
+                        </ul>
+                    </div>
+                @endcanany
     
                     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
                         <i class="bi bi-funnel me-2"></i>Filter
@@ -40,11 +42,10 @@
                         <th>No.</th>
                         <th>Nama Ekstrakurikuler</th>
                         <th>Nama Pembina</th>
-                        <th>Alamat Pembina</th>
-                        <th>No. Telepon</th>
+                        {{-- <th>Alamat Pembina</th>
+                        <th>No. Telepon</th> --}}
                         <th>Hari</th>
-                        <th>Jam Mulai (WITA)</th>
-                        <th>Jam Selesai (WITA)</th>
+                        <th>Jam (WITA)</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -55,11 +56,10 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $_ekstrakurikuler->nama_ekstrakurikuler }}</td>
                             <td>{{ $_ekstrakurikuler->nama_pembina }}</td>
-                            <td>{!! Str::limit($_ekstrakurikuler->alamat_pembina, 40, '...') !!}</td>
-                            <td>{{ $_ekstrakurikuler->no_telepon }}</td>
+                            {{-- <td>{!! Str::limit($_ekstrakurikuler->alamat_pembina, 40, '...') !!}</td>
+                            <td>{{ $_ekstrakurikuler->no_telepon }}</td> --}}
                             <td>{{ $_ekstrakurikuler->hari }}</td>
-                            <td>{{ $_ekstrakurikuler->getFormatedJam('jam_mulai') }}</td>
-                            <td>{{ $_ekstrakurikuler->getFormatedJam('jam_selesai') }}</td>
+                            <td>{{ $_ekstrakurikuler->getFormatedJam('jam_mulai') }} - {{ $_ekstrakurikuler->getFormatedJam('jam_selesai') }}</td>
                             <td class="aksi-column">
                                 <a href="{{ route('ekstrakurikuler.show', $_ekstrakurikuler->id_ekstrakurikuler) }}"
                                     class="btn btn-info"><i class="bi bi-info-lg me-2"></i>Detail</a>
@@ -80,7 +80,7 @@
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="9">Belum ada Ekstrakurikuler.</td>
+                            <td colspan="6">Belum ada Ekstrakurikuler.</td>
                         </tr>
                     @endforelse
                 </tbody>

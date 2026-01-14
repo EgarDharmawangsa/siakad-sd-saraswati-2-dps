@@ -21,11 +21,11 @@
                             value="{{ request('tanggal_filter') }}">
                     </div>
 
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="isi-filter" class="form-label">Isi</label>
                         <input type="text" class="form-control" id="isi-filter" name="isi_filter"
                             value="{{ request('isi_filter') }}" placeholder="Masukkan isi">
-                    </div>
+                    </div> --}}
 
                     <div class="mb-2">
                         <label for="status-filter" class="form-label">Status</label>

@@ -26,8 +26,7 @@ class Prestasi extends Model
 
     public function getFormatedTanggalPeraihan()
     {
-        $formated_tanggal_peraihan = $this->tanggal->translatedFormat('d F Y');
-        // $formated_tanggal_peraihan = $this->tanggal_peraihan->translatedFormat('d F Y');
+        $formated_tanggal_peraihan = $this->tanggal_peraihan->translatedFormat('d F Y');
 
         return $formated_tanggal_peraihan;
     }
@@ -57,29 +56,29 @@ class Prestasi extends Model
             }
         }
 
-        if (!empty($filters['penyelenggara_filter'])) {
-            $query->where('penyelenggara', 'like', "%{$filters['penyelenggara_filter']}%");
-        }
+        // if (!empty($filters['penyelenggara_filter'])) {
+        //     $query->where('penyelenggara', 'like', "%{$filters['penyelenggara_filter']}%");
+        // }
 
-        if (!empty($filters['jenis_filter'])) {
-            $query->where('jenis', $filters['jenis_filter']);
-        }
+        // if (!empty($filters['jenis_filter'])) {
+        //     $query->where('jenis', $filters['jenis_filter']);
+        // }
 
-        if (!empty($filters['peringkat_filter'])) {
-            $query->where('peringkat', $filters['peringkat_filter']);
-        }
+        // if (!empty($filters['peringkat_filter'])) {
+        //     $query->where('peringkat', $filters['peringkat_filter']);
+        // }
 
-        if (!empty($filters['peringkat_lainnya'])) {
-            $query->where('peringkat', 'like', "%{$filters['peringkat_lainnya']}%");
-        }
+        // if (!empty($filters['peringkat_lainnya'])) {
+        //     $query->where('peringkat', 'like', "%{$filters['peringkat_lainnya']}%");
+        // }
 
-        if (!empty($filters['tingkat_filter'])) {
-            $query->where('tingkat', $filters['tingkat_filter']);
-        }
+        // if (!empty($filters['tingkat_filter'])) {
+        //     $query->where('tingkat', $filters['tingkat_filter']);
+        // }
 
-        if (!empty($filters['nama_wilayah_filter'])) {
-            $query->where('nama_wilayah', 'like', "%{$filters['nama_wilayah_filter']}%");
-        }
+        // if (!empty($filters['nama_wilayah_filter'])) {
+        //     $query->where('nama_wilayah', 'like', "%{$filters['nama_wilayah_filter']}%");
+        // }
 
         if (!empty($filters['tanggal_peraihan_filter'])) {
             $query->whereDate('tanggal_peraihan', $filters['tanggal_peraihan_filter']);

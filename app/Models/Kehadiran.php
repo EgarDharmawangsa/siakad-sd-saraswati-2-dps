@@ -26,30 +26,20 @@ class Kehadiran extends Model
         'tanggal' => 'date',
     ];
 
-    public function scopeAllSiswaRecap($query)
+    public function scopeSiswaRecap($query, $id_siswa = null)
     {
-        $all_siswa_recap = $query
-            ->select('id_siswa', 'id_semester')
+        if (!empty($id_siswa)) {
+            $query->where('id_siswa', $id_siswa);
+        }
+
+        $query->select('id_siswa', 'id_semester')
             ->selectRaw("SUM(status = 'Hadir') as hadir")
             ->selectRaw("SUM(status = 'Izin') as izin")
             ->selectRaw("SUM(status = 'Sakit') as sakit")
             ->selectRaw("SUM(status = 'Alfa') as alfa")
             ->groupBy('id_siswa', 'id_semester');
 
-        return $all_siswa_recap;
-    }
-
-    public static function scopeSiswaRecap($query, $id_siswa)
-    {
-        $siswa_recap = $query->where('id_siswa', $id_siswa)
-            ->select('id_siswa', 'id_semester')
-            ->selectRaw("SUM(status = 'Hadir') as hadir")
-            ->selectRaw("SUM(status = 'Izin') as izin")
-            ->selectRaw("SUM(status = 'Sakit') as sakit")
-            ->selectRaw("SUM(status = 'Alfa') as alfa")
-            ->groupBy('id_siswa', 'id_semester');
-
-        return $siswa_recap;
+        return $query;
     }
 
     public function getFormatedTanggal()

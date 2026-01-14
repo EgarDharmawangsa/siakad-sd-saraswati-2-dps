@@ -36,7 +36,8 @@ class Siswa extends Model
         return $formated_nama_siswa;
     }
 
-    public function scopeOrderedNomorUrutSiswa($query, $kelas = null) {
+    public function scopeOrderedNomorUrutSiswa($query, $kelas = null)
+    {
         if ($kelas) {
             $query->whereHas('kelas', fn($query) => $query->where('id_kelas', $kelas));
         } else {
@@ -45,81 +46,103 @@ class Siswa extends Model
 
         return $query;
     }
-    
+
     public function scopeFilter($query, array $filters)
     {
-        $like_fields = [
-            // Pribadi
-            'nik', 'no_kk', 'nisn', 'nipd', 'nama_siswa', 
-            'tempat_lahir', 'no_telepon_rumah', 'no_telepon_seluler', 
-            'e_mail', 'no_registrasi_akta_lahir', 'keterangan_disabilitas',
-            
-            // Alamat
-            'alamat', 'dusun', 'kelurahan', 
-            'kecamatan', 'kode_pos', 
-            
-            // Pendamping
-            'nama_ayah', 'nik_ayah', 'tahun_lahir_ayah', 'jenjang_pendidikan_ayah', 'pekerjaan_ayah',
-            'nama_ibu', 'nik_ibu', 'tahun_lahir_ibu', 'jenjang_pendidikan_ibu', 'pekerjaan_ibu',
-            'nama_wali', 'nik_wali', 'tahun_lahir_wali', 'jenjang_pendidikan_wali', 'pekerjaan_wali',
-            
-            // Pendidikan
-            'sekolah_asal', 'no_peserta_un', 'no_seri_ijazah',
+        $order_by_array = ['desc', 'asc'];
 
-            'no_kps', 'no_kks', 'no_kip', 'nama_kip', 'alasan_layak_pip', 
-            'nama_bank', 'no_rekening', 'nama_rekening',
+        $sort_by = \in_array(strtolower($filters['sort_by'] ?? ''), $order_by_array) ? strtolower($filters['sort_by']) : 'desc';
+        $query->orderBy('created_at', $sort_by);
+        
+        // $like_fields = [
+        //     // Pribadi
+        //     'nik', 'no_kk', 'nisn', 'nipd', 'nama_siswa', 
+        //     'tempat_lahir', 'no_telepon_rumah', 'no_telepon_seluler', 
+        //     'e_mail', 'no_registrasi_akta_lahir', 'keterangan_disabilitas',
 
-            // Akademik
-            'nomor_urut'
-        ];
+        //     // Alamat
+        //     'alamat', 'dusun', 'kelurahan', 
+        //     'kecamatan', 'kode_pos', 
 
-        foreach ($like_fields as $_like_fields) {
-            if (!empty($filters[$_like_fields])) {
-                $query->where($_like_fields, 'like', "%{$filters[$_like_fields]}%");
-            }
-        }
+        //     // Pendamping
+        //     'nama_ayah', 'nik_ayah', 'tahun_lahir_ayah', 'jenjang_pendidikan_ayah', 'pekerjaan_ayah',
+        //     'nama_ibu', 'nik_ibu', 'tahun_lahir_ibu', 'jenjang_pendidikan_ibu', 'pekerjaan_ibu',
+        //     'nama_wali', 'nik_wali', 'tahun_lahir_wali', 'jenjang_pendidikan_wali', 'pekerjaan_wali',
 
-        $exact_fields = [
-            // Pribadi
-            'jenis_kelamin', 'agama', 'jenis_tinggal', 'alat_transportasi',
-            'berat_badan', 'tinggi_badan', 'lingkar_kepala',
-            'jumlah_saudara_kandung', 'anak_ke_berapa',
-            'disabilitas',
+        //     // Pendidikan
+        //     'sekolah_asal', 'no_peserta_un', 'no_seri_ijazah',
 
-            // Alamat
-            'rt', 'rw', 'lintang', 'bujur', 'jarak_rumah_ke_sekolah', 
+        //     'no_kps', 'no_kks', 'no_kip', 'nama_kip', 'alasan_layak_pip', 
+        //     'nama_bank', 'no_rekening', 'nama_rekening',
 
-            // Pendamping
-            'penghasilan_ayah', 'penghasilan_ibu', 'penghasilan_wali',
+        //     // Akademik
+        //     'nomor_urut'
+        // ];
 
-            // Pendidikan
-            'penerima_kps', 'penerima_kip', 'layak_pip'
-        ];
+        // foreach ($like_fields as $_like_fields) {
+        //     if (!empty($filters[$_like_fields])) {
+        //         $query->where($_like_fields, 'like', "%{$filters[$_like_fields]}%");
+        //     }
+        // }
 
-        foreach ($exact_fields as $_exact_fields) {
-            if (!empty($filters[$_exact_fields])) {
-                $query->where($_exact_fields, $filters[$_exact_fields]);
-            }
-        }
+        // $exact_fields = [
+        //     // Pribadi
+        //     'jenis_kelamin', 'agama', 'jenis_tinggal', 'alat_transportasi',
+        //     'berat_badan', 'tinggi_badan', 'lingkar_kepala',
+        //     'jumlah_saudara_kandung', 'anak_ke_berapa',
+        //     'disabilitas',
 
-        if (!empty($filters['tanggal_lahir'])) {
-            $query->whereDate('tanggal_lahir', $filters['tanggal_lahir']);
-        }
+        //     // Alamat
+        //     'rt', 'rw', 'lintang', 'bujur', 'jarak_rumah_ke_sekolah', 
 
-        if (!empty($filters['username'])) {
-            $query->whereHas('userAuth', fn($query) => $query->where('username', 'like', '%' . $filters['username'] . '%'));
-        }
+        //     // Pendamping
+        //     'penghasilan_ayah', 'penghasilan_ibu', 'penghasilan_wali',
+
+        //     // Pendidikan
+        //     'penerima_kps', 'penerima_kip', 'layak_pip'
+        // ];
+
+        // foreach ($exact_fields as $_exact_fields) {
+        //     if (!empty($filters[$_exact_fields])) {
+        //         $query->where($_exact_fields, $filters[$_exact_fields]);
+        //     }
+        // }
+
+        // if (!empty($filters['tanggal_lahir'])) {
+        //     $query->whereDate('tanggal_lahir', $filters['tanggal_lahir']);
+        // }
+
+        // if (!empty($filters['username'])) {
+        //     $query->whereHas('userAuth', fn($query) => $query->where('username', 'like', '%' . $filters['username'] . '%'));
+        // }
 
         if (!empty($filters['kelas'])) {
             $query->whereHas('kelas', fn($query) => $query->where('id_kelas', $filters['kelas']));
         }
 
+        if (!empty($filters['nisn'])) {
+            $query->where('nisn', 'like', '%' . $filters['nisn'] . '%');
+        }
+
+        if (!empty($filters['nama_siswa'])) {
+            $query->where('nama_siswa', 'like', '%' . $filters['nama_siswa'] . '%');
+        }
+
+        if (!empty($filters['jenis_kelamin'])) {
+            $query->where('jenis_kelamin', $filters['jenis_kelamin']);
+        }
+
+        if (!empty($filters['agama'])) {
+            $query->where('agama', $filters['agama']);
+        }
+
+        if (!empty($filters['no_telepon_seluler'])) {
+            $query->where('no_telepon_seluler', 'like', '%' . $filters['no_telepon_seluler'] . '%');
+        }
+
         if (!empty($filters['ekstrakurikuler'])) {
             $query->whereHas('siswa.pesertaEkstrakurikuler.ekstrakurikuler', fn($query) => $query->where('id_ekstrakurikuler', $filters['ekstrakurikuler']));
         }
-
-        $sort_by = \in_array(strtolower($filters['sort_by'] ?? ''), ['asc', 'desc']) ? strtolower($filters['sort_by']) : 'desc';
-        $query->orderBy('created_at', $sort_by);
 
         return $query;
     }

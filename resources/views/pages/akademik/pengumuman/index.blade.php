@@ -39,7 +39,7 @@
                         <th>No.</th>
                         <th>Judul</th>
                         <th>Tanggal</th>
-                        <th>Isi</th>
+                        {{-- <th>Isi</th> --}}
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -51,7 +51,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $_pengumuman->judul }}</td>
                             <td>{{ $_pengumuman->getFormatedTanggal() }}</td>
-                            <td>{!! strip_tags(Str::limit($_pengumuman->isi, 40, '...')) !!}</td>
+                            {{-- <td>{!! strip_tags(Str::limit($_pengumuman->isi, 40, '...')) !!}</td> --}}
                             <td><span class="badge bg-{{ $_pengumuman->getStatus() === 'Terbit' ? 'success' : 'primary' }}">
                                     {{ $_pengumuman->getStatus() }}
                                 </span>
@@ -76,7 +76,7 @@
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="6">Belum ada Pengumuman.</td>
+                            <td colspan="5">Belum ada Pengumuman.</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -48,7 +48,7 @@ class KehadiranController extends Controller
      */
     public function create()
     {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (!Gate::allows('guru')) {
             abort(404);
         }
 
@@ -67,7 +67,7 @@ class KehadiranController extends Controller
      */
     public function store(Request $request)
     {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (!Gate::allows('guru')) {
             abort(404);
         }
 
@@ -102,20 +102,20 @@ class KehadiranController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Kehadiran $kehadiran)
-    {
-        return view('pages.akademik.kehadiran.show', [
-            'judul' => 'Kehadiran',
-            'kehadiran' => $kehadiran
-        ]);
-    }
+    // public function show(Kehadiran $kehadiran)
+    // {
+    //     return view('pages.akademik.kehadiran.show', [
+    //         'judul' => 'Kehadiran',
+    //         'kehadiran' => $kehadiran
+    //     ]);
+    // }
 
     public function recapitulation()
     {
         if (Gate::any(['staf-tata-usaha', 'guru']))
-            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->allSiswaRecap()->filter(request()->except(['status_filter', 'keterangan_filter', 'tanggal_filter']))->paginate(20)->withQueryString();
+            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->SiswaRecap()->filter(request()->except(['status_filter', 'keterangan_filter', 'tanggal_filter']))->paginate(20)->withQueryString();
         else if (Gate::allows('siswa')) {
-            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->siswaRecap(Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter', 'status_filter', 'keterangan_filter', 'tanggal_filter']));
+            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->siswaRecap(Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter', 'status_filter', 'keterangan_filter', 'tanggal_filter']))->paginate(20)->withQueryString();
         } else {
             abort(404);
         }
@@ -146,11 +146,9 @@ class KehadiranController extends Controller
      */
     public function massUpdate(Request $request)
     {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (!Gate::allows('guru')) {
             abort(404);
         }
-
-        // dd($request->all());
 
         $kehadiran_update_validation_rules = [
             'id_kehadiran'   => 'required|array',
@@ -208,7 +206,7 @@ class KehadiranController extends Controller
 
     public function delete()
     {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (!Gate::allows('guru')) {
             abort(404);
         }
 
@@ -227,7 +225,7 @@ class KehadiranController extends Controller
      */
     public function destroy(Request $request)
     {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (!Gate::allows('guru')) {
             abort(404);
         }
 

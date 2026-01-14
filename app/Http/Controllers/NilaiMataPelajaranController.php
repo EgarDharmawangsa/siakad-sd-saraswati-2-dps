@@ -52,7 +52,7 @@ class NilaiMataPelajaranController extends Controller
      */
     public function create()
     {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (!Gate::allows('guru')) {
             abort(404);
         }
 
@@ -73,7 +73,7 @@ class NilaiMataPelajaranController extends Controller
      */
     public function store(Request $request)
     {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (!Gate::allows('guru')) {
             abort(404);
         }
 
@@ -137,7 +137,7 @@ class NilaiMataPelajaranController extends Controller
      */
     public function edit(NilaiMataPelajaran $nilaiMataPelajaran)
     {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (!Gate::allows('guru')) {
             abort(404);
         }
 
@@ -152,7 +152,7 @@ class NilaiMataPelajaranController extends Controller
      */
     public function update(Request $request, NilaiMataPelajaran $nilaiMataPelajaran)
     {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (!Gate::allows('guru')) {
             abort(404);
         }
 
@@ -176,7 +176,7 @@ class NilaiMataPelajaranController extends Controller
 
     public function massUpdate(Request $request)
     {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (!Gate::allows('guru')) {
             abort(404);
         }
 
@@ -225,7 +225,7 @@ class NilaiMataPelajaranController extends Controller
 
     public function delete()
     {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (!Gate::allows('guru')) {
             abort(404);
         }
 
@@ -246,7 +246,7 @@ class NilaiMataPelajaranController extends Controller
      */
     public function destroy(Request $request)
     {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (!Gate::allows('guru')) {
             abort(404);
         }
 
@@ -271,7 +271,7 @@ class NilaiMataPelajaranController extends Controller
 
     private function syncPortofolio(array $nilai_portofolio, int $jumlah_portofolio): array
     {
-        if (!Gate::any(['staf-tata-usaha', 'guru'])) {
+        if (!Gate::allows('guru')) {
             abort(404);
         }
 

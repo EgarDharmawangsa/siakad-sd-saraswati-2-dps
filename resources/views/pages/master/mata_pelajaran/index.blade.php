@@ -39,7 +39,9 @@
                     <tr>
                         <th>No.</th>
                         <th>Nama Mata Pelajaran</th>
-                        <th>Aksi</th>
+                        @can('staf-tata-usaha')
+                            <th>Aksi</th>
+                        @endcan
                     </tr>
                 </thead>
 
@@ -48,12 +50,12 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $_mata_pelajaran->nama_mata_pelajaran }}</td>
-                            <td class="aksi-column">
-                                <a href="{{ route('mata-pelajaran.show', $_mata_pelajaran->id_mata_pelajaran) }}"
-                                    class="btn btn-info"><i class="bi bi-info-lg me-2"></i>Detail</a>
-                                @can('staf-tata-usaha')
+                            @can('staf-tata-usaha')
+                                <td class="aksi-column">
+                                    {{-- <a href="{{ route('mata-pelajaran.show', $_mata_pelajaran->id_mata_pelajaran) }}"
+                                        class="btn btn-info"><i class="bi bi-info-lg me-2"></i>Detail</a> --}}
                                     <a href="{{ route('mata-pelajaran.edit', $_mata_pelajaran->id_mata_pelajaran) }}"
-                                        class="btn btn-warning mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                        class="btn btn-warning me-1"><i class="bi bi-pencil me-2"></i>Edit</a>
                                     <form action="{{ route('mata-pelajaran.destroy', $_mata_pelajaran->id_mata_pelajaran) }}"
                                         method="POST" class="d-inline delete-form">
                                         @csrf
@@ -63,8 +65,8 @@
                                             data-bs-target="#delete-modal">
                                             <i class="bi bi-trash me-2"></i>Hapus</button>
                                     </form>
-                                @endcan
-                            </td>
+                                </td>
+                            @endcan
                         </tr>
                     @empty
                         <tr class="text-center">

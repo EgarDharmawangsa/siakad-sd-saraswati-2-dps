@@ -37,7 +37,7 @@
                         @foreach ($semester as $_semester)
                             <option value="{{ $_semester->id_semester }}"
                                 {{ request('id_semester') === $_semester->id_semester ? 'selected' : '' }}>
-                                {{ $_semester->getTahunAjaran(true) . ' ' . $_semester->getStatus() }}
+                                {{ "{$_semester->getTahunAjaran(true)} ({$_semester->getStatus()})" }}
                             </option>
                         @endforeach
                     </select>

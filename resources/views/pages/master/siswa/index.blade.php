@@ -36,7 +36,7 @@
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
                 <thead>
-                    <tr>
+                    {{-- <tr>
                         <th rowspan="2">No.</th>
                         <th colspan="23">Pribadi</th>
                         <th colspan="10">Alamat</th>
@@ -45,10 +45,9 @@
                         <th colspan="11">Bantuan</th>
                         <th colspan="3">Akademik</th>
                         <th rowspan="2">Aksi</th>
-                    </tr>
-                    <tr>
-                        {{-- Pribadi --}}
-                        {{-- <th>No.</th> --}}
+                    </tr> --}}
+                    {{-- <tr>
+                        <th>No.</th>
                         <th>Username</th>
                         <th>NIK</th>
                         <th>No. KK</th>
@@ -73,7 +72,6 @@
                         <th>Disabilitas</th>
                         <th>Keterangan Disabilitas</th>
 
-                        {{-- Alamat --}}
                         <th>Alamat Lengkap</th>
                         <th>RT</th>
                         <th>RW</th>
@@ -85,7 +83,6 @@
                         <th>Bujur</th>
                         <th>Jarak Rumah ke Sekolah</th>
 
-                        {{-- Orang Tua --}}
                         <th>Nama Ayah</th>
                         <th>NIK Ayah</th>
                         <th>Tahun Lahir Ayah</th>
@@ -105,12 +102,10 @@
                         <th>Pekerjaan Wali</th>
                         <th>Penghasilan Wali</th>
 
-                        {{-- Pendidikan --}}
                         <th>Sekolah Asal</th>
                         <th>No. Peserta UN</th>
                         <th>No. Seri Ijazah</th>
 
-                        {{-- Bantuan --}}
                         <th>Penerima KPS</th>
                         <th>No. KPS</th>
                         <th>No. KKS</th>
@@ -123,12 +118,23 @@
                         <th>No. Rekening</th>
                         <th>Nama Rekening</th>
 
-                        {{-- Akademik --}}
                         <th>Kelas</th>
                         <th>Nomor Urut</th>
                         <th>Ekstrakurikuler</th>
 
-                        {{-- <th>Aksi</th> --}}
+                        <th>Aksi</th>
+                    </tr> --}}
+                    <tr>
+                        <th>No.</th>
+                        <th>Kelas</th>
+                        <th>NISN</th>
+                        <th>Nama Siswa</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Agama</th>
+                        <th>No. HP (WA)</th>
+                        <th>Alamat</th>
+                        <th>Ekstrakurikuler</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
 
@@ -137,9 +143,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
 
-                            {{-- Pribadi --}}
-                            <td>{{ $_siswa->userAuth->username }}</td>
-                            {{-- <td>{{ $item->userAuth?->username ?? '-' }}</td> --}}
+                            {{-- <td>{{ $_siswa->userAuth->username }}</td>
                             <td>{{ $_siswa->nik }}</td>
                             <td>{{ $_siswa->no_kk }}</td>
                             <td>{{ $_siswa->nisn }}</td>
@@ -163,7 +167,6 @@
                             <td>{{ $_siswa->disabilitas }}</td>
                             <td class="text-truncate">{{ $_siswa->keterangan_disabilitas ?? '-' }}</td>
 
-                            {{-- Alamat --}}
                             <td class="text-truncate">{{ $_siswa->alamat }}</td>
                             <td>{{ $_siswa->rt ?? '-' }}</td>
                             <td>{{ $_siswa->rw ?? '-' }}</td>
@@ -175,7 +178,6 @@
                             <td>{{ $_siswa->bujur ?? '-' }}</td>
                             <td>{{ $_siswa->jarak_rumah_ke_sekolah ?? '-' }}</td>
 
-                            {{-- Orang Tua --}}
                             <td>{{ $_siswa->nama_ayah ?? '-' }}</td>
                             <td>{{ $_siswa->nik_ayah ?? '-' }}</td>
                             <td>{{ $_siswa->tahun_lahir_ayah ?? '-' }}</td>
@@ -195,12 +197,10 @@
                             <td>{{ $_siswa->pekerjaan_wali ?? '-' }}</td>
                             <td>{{ $_siswa->penghasilan_wali ?? '-' }}</td>
 
-                            {{-- Pendidikan --}}
                             <td>{{ $_siswa->sekolah_asal ?? '-' }}</td>
                             <td>{{ $_siswa->no_peserta_un ?? '-' }}</td>
                             <td>{{ $_siswa->no_seri_ijazah ?? '-' }}</td>
 
-                            {{-- Bantuan --}}
                             <td>{{ $_siswa->penerima_kps }}</td>
                             <td>{{ $_siswa->no_kps ?? '-' }}</td>
                             <td>{{ $_siswa->no_kks ?? '-' }}</td>
@@ -213,9 +213,17 @@
                             <td>{{ $_siswa->no_rekening ?? '-' }}</td>
                             <td>{{ $_siswa->nama_rekening ?? '-' }}</td>
 
-                            {{-- Akademik --}}
                             <td>{{ $_siswa->kelas->nama_kelas ?? '-' }}</td>
                             <td>{{ $_siswa->nomor_urut ?? '-' }}</td>
+                            <td>{{ $_siswa->pesertaEkstrakurikuler?->count() }} Ekstrakurikuler</td> --}}
+
+                            <td>{{ $_siswa->kelas?->nama_kelas }}</td>
+                            <td>{{ $_siswa->nisn }}</td>
+                            <td>{{ $_siswa->nama_siswa }}</td>
+                            <td>{{ $_siswa->jenis_kelamin }}</td>
+                            <td>{{ $_siswa->agama }}</td>
+                            <td>{{ $_siswa->no_telepon_seluler }}</td>
+                            <td class="text-truncate">{{ $_siswa->alamat }}</td>
                             <td>{{ $_siswa->pesertaEkstrakurikuler?->count() }} Ekstrakurikuler</td>
 
                             <td class="aksi-column">
