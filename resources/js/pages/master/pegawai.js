@@ -383,17 +383,20 @@ function setupGlobalHelpers() {
     }
 }
 
-// Logic Input Validation (Mirip Siswa)
+// logic input validation
 function initInputValidation() {
     const rules = {
         'nik': { type: 'numeric', length: 16, label: 'NIK' },
-        'nip': { type: 'numeric', min: 9, max: 20, label: 'NIP' }, 
-        'nipppk': { type: 'numeric', min: 9, max: 20, label: 'NIPPPK' },
+        'nip': { type: 'numeric', length: 18 , label: 'NIP' }, 
+        'nipppk': { type: 'numeric', length: 18, label: 'NIPPPK' },
         'no_telepon_seluler': { type: 'numeric', min: 10, max: 15, label: 'No. HP' },
         'no_telepon_rumah': { type: 'numeric', min: 10, max: 15, label: 'Telp Rumah' },
         'tahun_ijazah': { type: 'numeric', length: 4, label: 'Tahun Ijazah' },
         'tahun_sertifikasi': { type: 'numeric', length: 4, label: 'Tahun Sertifikasi' },
+        'e_mail': { type: 'email', label: 'E-Mail' },
     };
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const toggleError = (input, isError, msg = '') => {
         input.classList.remove('is-invalid', 'is-valid');
@@ -430,6 +433,10 @@ function initInputValidation() {
                 let error = false;
                 let msg = '';
 
+                if (rule.type === 'email' && !emailRegex.test(input.value)) {
+                    error = true;
+                    msg = `Format ${rule.label || 'Email'} tidak valid.`;
+                }
                 if (rule.length && input.value.length !== rule.length) {
                     error = true;
                     msg = `${rule.label || 'Input'} harus ${rule.length} digit.`;

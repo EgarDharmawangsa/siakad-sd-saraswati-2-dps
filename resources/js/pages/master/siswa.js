@@ -258,7 +258,16 @@ function initInputValidation() {
         tahun_lahir_wali: { type: "numeric", length: 4 },
         nomor_urut: { type: "numeric", maxValue: 45, label: "Nomor Urut" },
         skhun: { type: "numeric", length: 15, label: "SKHUN" },
+        e_mail: { type: "email", label: "E-Mail" },
+        rt: { type: "numeric", max: 5, label: "RT" },
+        rw: { type: "numeric", max: 5, label: "RW" },
+        no_kps: { type: "numeric", length: 13, label: "No. KPS" },
+        no_kip: { type: "numeric", length: 13, label: "No. KIP" },
+        no_kks: { type: "numeric", length: 16, label: "No. KKS" },
+        no_rekening: { type: "numeric", max: 25, label: "No. Rekening" },
     };
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const toggleError = (input, isError, msg = "") => {
         input.classList.remove("is-invalid", "is-valid");
@@ -298,6 +307,10 @@ function initInputValidation() {
                 let error = false;
                 let msg = "";
 
+                if (rule.type === "email" && !emailRegex.test(input.value)) {
+                    error = true;
+                    msg = `Format ${rule.label || "Email"} tidak valid.`;
+                }
                 if (rule.length && input.value.length !== rule.length) {
                     error = true;
                     msg = `${rule.label || "Input"} harus ${
@@ -348,7 +361,6 @@ function initInputValidation() {
 // copy data wali
 function initBulkActions() {
     const form = document.getElementById('formSiswa');
-    // Restrict this feature to Admin only (if isSiswa is true, do not show buttons)
     if (form && form.dataset.isSiswa === 'true') return;
 
     const tabWali = document.getElementById("form-wali");
