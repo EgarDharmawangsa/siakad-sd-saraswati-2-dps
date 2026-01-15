@@ -34,7 +34,7 @@ class NilaiEkstrakurikulerController extends Controller
         $kelas = Kelas::orderedNamaKelas()->get();
         $siswa = Siswa::get();
         $ekstrakurikuler = Ekstrakurikuler::latest()->get();
-        $semester = Semester::latest()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
 
         return view('pages.akademik.nilai_ekstrakurikuler.index', [
             'judul' => 'Nilai Ekstrakurikuler',
@@ -141,7 +141,7 @@ class NilaiEkstrakurikulerController extends Controller
             'id_nilai_ekstrakurikuler' => 'required|array',
             'id_nilai_ekstrakurikuler.*' => 'required|exists:nilai_ekstrakurikuler,id_nilai_ekstrakurikuler',
             'nilai' => 'required|array',
-            'nilai.*' => 'nullable|integer|min:0|max:100'
+            'nilai.*' => 'nullable|numeric|min:0|max:100'
         ];
 
         $validated_nilai_ekstrakurikuler = $request->validate($nilai_ekstrakurikuler_update_validation_rules);

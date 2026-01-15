@@ -217,7 +217,7 @@
                         </div>
                         <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Fisik & Disabilitas</label></div>
                         <div class="col-md-6"><label class="form-label">Berat Badan (kg)<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
-                                step="0.1" class="form-control @error('berat_badan') is-invalid @enderror" name="berat_badan"
+                                class="form-control @error('berat_badan') is-invalid @enderror" name="berat_badan"
                                 value="{{ old('berat_badan') }}" placeholder="Masukkan berat badan">
                             @error('berat_badan')
                                 <div class="invalid-feedback">{{ $message }}</div>

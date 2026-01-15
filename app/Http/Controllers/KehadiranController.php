@@ -122,7 +122,7 @@ class KehadiranController extends Controller
 
         $kelas = Kelas::orderedNamaKelas()->get();
         $siswa = Siswa::get();
-        $semester = Semester::latest()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
 
         return view('pages.akademik.kehadiran.recapitulation', [
             'judul' => 'Kehadiran',

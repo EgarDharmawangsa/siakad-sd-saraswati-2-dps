@@ -72,7 +72,7 @@
                                         </span>
                                     </td>
 
-                                    <td>{{ $_nilai_mata_pelajaran->getNilaiPortofolioAverage() }}</td>
+                                    <td>{{ number_format($_nilai_mata_pelajaran->getNilaiPortofolioAverage(), 2) }}</td>
 
                                     @canany('guru')
                                         <td>
@@ -142,7 +142,7 @@
                                         </td>
                                     @endcanany
 
-                                    <td>{{ $_nilai_mata_pelajaran->getNilaiAkhir() }}</td>
+                                    <td>{{ number_format($_nilai_mata_pelajaran->getNilaiAKhir(), 2) }}</td>
 
                                     <td class="aksi-column">
                                         <a href="{{ route('nilai-mata-pelajaran.show', $_nilai_mata_pelajaran->id_nilai_mata_pelajaran) }}"

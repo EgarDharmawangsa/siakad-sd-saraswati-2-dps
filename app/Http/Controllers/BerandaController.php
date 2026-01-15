@@ -52,7 +52,6 @@ class BerandaController extends Controller
                 ->whereNotNull('user_id');
         })->get()->groupBy('role');
         $pengumuman = Pengumuman::query()->orderBy('tanggal', 'desc')->paginate(20)->withQueryString();
-
         $user_data['judul'] = 'Beranda';
         $user_data['pengumuman'] = $pengumuman;
         $user_data['active_users'] = $active_users;

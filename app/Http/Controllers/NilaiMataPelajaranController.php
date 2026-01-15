@@ -35,7 +35,7 @@ class NilaiMataPelajaranController extends Controller
         $kelas = Kelas::orderedNamaKelas()->get();
         $siswa = Siswa::orderedNomorUrutSiswa()->get();
         $mata_pelajaran = MataPelajaran::latest()->get();
-        $semester = Semester::latest()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
 
         return view('pages.akademik.nilai_mata_pelajaran.index', [
             'judul' => 'Nilai Mata Pelajaran',
@@ -160,11 +160,11 @@ class NilaiMataPelajaranController extends Controller
             'nilai_portofolio' => 'required|array',
             'nilai_portofolio.*' => 'required|min:1|max:20',
             'nilai_portofolio.*.judul' => 'required|string|min:3|max:50',
-            'nilai_portofolio.*.nilai' => 'required|integer|min:0|max:100',
-            'nilai_ub_1' => 'required|integer|min:0|max:100',
-            'nilai_ub_2' => 'required|integer|min:0|max:100',
-            'nilai_uts' => 'required|integer|min:0|max:100',
-            'nilai_uas' => 'required|integer|min:0|max:100'
+            'nilai_portofolio.*.nilai' => 'required|numeric|min:0|max:100',
+            'nilai_ub_1' => 'required|numeric|min:0|max:100',
+            'nilai_ub_2' => 'required|numeric|min:0|max:100',
+            'nilai_uts' => 'required|numeric|min:0|max:100',
+            'nilai_uas' => 'required|numeric|min:0|max:100'
         ];
 
         $validated_nilai_mata_pelajaran = $request->validate($nilai_mata_pelajaran_validation_rules);
