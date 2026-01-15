@@ -39,7 +39,8 @@
                 <div class="tab-pane fade show active" id="data-pribadi-tab" role="tabpanel">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label for="username" class="form-label">Username</label>
+                            <label for="username" class="form-label">Username <span
+                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="text" class="form-control @error('username') is-invalid @enderror"
                                 id="username" name="username" placeholder="Masukkan username"
                                 value="{{ old('username') }}" required>
@@ -49,7 +50,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="password" class="form-label">Password</label>
+                            <label for="password" class="form-label">Password<span
+                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <div class="input-group">
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
                                     id="password" name="password" placeholder="Masukkan password"
@@ -249,7 +251,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="id-mata-pelajaran" class="form-label">Guru Mata Pelajaran</label>
+                            <label for="id-mata-pelajaran" class="form-label">Guru Mata Pelajaran <span
+                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <div class="dropdown" id="id-mata-pelajaran">
                                 <button class="form-select text-start @error('id_mata_pelajaran') is-invalid @enderror"
                                     type="button" data-bs-toggle="dropdown" aria-expanded="false"
@@ -276,7 +279,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="status-kepegawaian" class="form-label">Status Kepegawaian</label>
+                            <label for="status-kepegawaian" class="form-label">Status Kepegawaian<span
+                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <select class="form-select @error('status_kepegawaian') is-invalid @enderror"
                                 id="status-kepegawaian" name="status_kepegawaian" required>
                                 <option value="">-- Pilih Status Kepegawaian --</option>
@@ -300,7 +304,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="nip" class="form-label">NIP</label>
+                            <label for="nip" class="form-label">NIP <span
+                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('nip') is-invalid @enderror" id="nip"
                                 name="nip" placeholder="Masukkan NIP" value="{{ old('nip') }}" required>
                             @error('nip')
@@ -309,7 +314,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="nipppk" class="form-label">NIPPPK</label>
+                            <label for="nipppk" class="form-label">NIPPPK <span
+                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('nipppk') is-invalid @enderror"
                                 id="nipppk" name="nipppk" placeholder="Masukkan NIPPPK" value="{{ old('nipppk') }}"
                                 required>
@@ -319,7 +325,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="jabatan" class="form-label">Jabatan</label>
+                            <label for="jabatan" class="form-label">Jabatan <span
+                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <select class="form-select @error('jabatan') is-invalid @enderror" id="jabatan"
                                 name="jabatan" required>
                                 <option value="">-- Pilih Jabatan --</option>
@@ -436,7 +443,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="tahun-sertifikasi" class="form-label">Tahun Sertifikasi</label>
+                            <label for="tahun-sertifikasi" class="form-label">Tahun Sertifikasi<span
+                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('tahun_sertifikasi') is-invalid @enderror"
                                 id="tahun-sertifikasi" name="tahun_sertifikasi" placeholder="Masukkan tahun sertifikasi"
                                 value="{{ old('tahun_sertifikasi') }}" min="1900" max="{{ date('Y') }}"
@@ -460,7 +468,8 @@
                 <div class="tab-pane fade" id="data-sk-tab" role="tabpanel">
                     <div class="row g-3 pt-3">
                         <div class="col-md-6">
-                            <label for="no-sk" class="form-label">Nomor SK</label>
+                            <label for="no-sk" class="form-label">Nomor SK <span
+                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="text" class="form-control @error('no_sk') is-invalid @enderror"
                                 id="no-sk" name="no_sk" placeholder="Masukkan no. SK terakhir"
                                 value="{{ old('no_sk') }}" required>
@@ -470,7 +479,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="tanggal-sk-terakhir" class="form-label">Tanggal SK Terakhir</label>
+                            <label for="tanggal-sk-terakhir" class="form-label">Tanggal SK Terakhir<span
+                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="date" class="form-control @error('tanggal_sk_terakhir') is-invalid @enderror"
                                 id="tanggal-sk-terakhir" name="tanggal_sk_terakhir"
                                 value="{{ old('tanggal_sk_terakhir') }}" required>

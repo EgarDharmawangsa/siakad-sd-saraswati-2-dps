@@ -21,7 +21,7 @@ class Prestasi extends Model
 
     protected $casts = [
         // 'tanggal_peraihan' => 'datetime'
-        'tanggal' => 'datetime'
+        'tanggal_peraihan' => 'datetime'
     ];
 
     public function getFormatedTanggalPeraihan()
