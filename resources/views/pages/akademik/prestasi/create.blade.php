@@ -114,7 +114,7 @@
                 <div class="col-md-6">
                     <label for="tanggal-peraihan" class="form-label">Tanggal Peraihan</label>
                     <input type="date" class="form-control @error('tanggal_peraihan') is-invalid @enderror" id="tanggal-peraihan"
-                        name="tanggal" value="{{ old('tanggal_peraihan') }}" required>
+                        name="tanggal_peraihan" value="{{ old('tanggal_peraihan') }}" required>
                     @error('tanggal_peraihan')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

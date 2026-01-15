@@ -69,7 +69,7 @@
                                     @can('staf-tata-usaha')
                                         <a href="{{ route('prestasi.edit', $_prestasi->id_prestasi) }}"
                                             class="btn btn-warning btn-sm mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                        <form action="{{ route('pengumuman.destroy', $_prestasi->id_prestasi) }}"
+                                        <form action="{{ route('prestasi.destroy', $_prestasi->id_prestasi) }}"
                                             method="POST" class="d-inline delete-form">
                                             @csrf
                                             @method('DELETE')

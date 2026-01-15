@@ -81,6 +81,7 @@ return new class extends Migration
             $table->string('penghasilan_wali', 20)->nullable();
             $table->string('foto')->nullable(); 
             $table->timestamps();
+            $table->string('skhun')->nullable();
         });
     }
 

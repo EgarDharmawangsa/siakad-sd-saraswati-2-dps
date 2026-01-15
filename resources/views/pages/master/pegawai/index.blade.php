@@ -171,7 +171,7 @@
                                     <a href="{{ route('pegawai.edit', $_pegawai->id_pegawai) }}"
                                         class="btn btn-warning mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
                                     <form action="{{ route('pegawai.destroy', $_pegawai->id_pegawai) }}" method="POST"
-                                        class="d-inline delete-form">
+                                        class="d-inline delete-form {{ Auth::user()->pegawai->id_pegawai == $_pegawai->id_pegawai ? 'd-none' : '' }}">
                                         @csrf
                                         @method('DELETE')
 

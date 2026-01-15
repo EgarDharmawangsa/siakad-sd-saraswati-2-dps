@@ -41,7 +41,7 @@
                         <th colspan="23">Pribadi</th>
                         <th colspan="10">Alamat</th>
                         <th colspan="18">Pendamping</th>
-                        <th colspan="3">Pendidikan</th>
+                        <th colspan="4">Pendidikan</th>
                         <th colspan="11">Bantuan</th>
                         <th colspan="3">Akademik</th>
                         <th rowspan="2">Aksi</th>
@@ -105,6 +105,7 @@
                         <th>Sekolah Asal</th>
                         <th>No. Peserta UN</th>
                         <th>No. Seri Ijazah</th>
+                        <th>SKHUN</th>
 
                         <th>Penerima KPS</th>
                         <th>No. KPS</th>
@@ -200,6 +201,7 @@
                             <td>{{ $_siswa->sekolah_asal ?? '-' }}</td>
                             <td>{{ $_siswa->no_peserta_un ?? '-' }}</td>
                             <td>{{ $_siswa->no_seri_ijazah ?? '-' }}</td>
+                            <td>{{ $_siswa->skhun ?? '-' }}</td>
 
                             <td>{{ $_siswa->penerima_kps }}</td>
                             <td>{{ $_siswa->no_kps ?? '-' }}</td>

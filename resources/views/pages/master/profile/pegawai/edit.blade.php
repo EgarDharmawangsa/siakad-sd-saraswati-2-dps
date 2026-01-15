@@ -10,11 +10,11 @@
         </div>
         <hr>
 
-        {{-- Form dengan ID form-pegawai, enctype multipart, dan novalidate --}}
         <form action="{{ route('profile.pegawai.update') }}" 
               method="POST" 
               enctype="multipart/form-data" 
               id="form-pegawai" 
+              data-is-tu="{{ $user->posisi === 'Staf Tata Usaha' ? 'true' : 'false' }}"
               novalidate>
             @csrf
             @method('PUT')
@@ -167,30 +167,24 @@
                         <div class="col-md-6">
                             <label for="foto" class="form-label">Foto<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             
-                            {{-- Preview Gambar Existing/Baru --}}
                             <img src='{{ $user->foto ? asset("storage/{$user->foto}") : '' }}'
                                 class="foto mt-2 mb-3 {{ $user->foto ? '' : 'd-none' }}" id="image-preview">
                             
-                            {{-- Tombol Hapus --}}
                             <button type="button"
                                 class="btn btn-danger btn-sm d-block mx-auto mb-4 {{ $user->foto ? '' : 'd-none' }}"
                                 id="image-delete-button"><i class="bi bi-trash me-2"></i>Hapus Foto</button>
                             
-                            {{-- Input File --}}
                             <input type="file" class="form-control @error('foto') is-invalid @enderror image-input"
                                 id="foto" name="foto">
                             
                             <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 2 MB</span>
                             @error('foto') <div class="invalid-feedback">{{ $message }}</div> @enderror
 
-                            {{-- Input hidden untuk menandai penghapusan foto --}}
                             <input type="hidden" name="image_delete" id="image-delete" value="0">
                         </div>
                     </div>
 
-                    {{-- NAVIGASI TAB 1 --}}
                     <div class="form-buttons">
-                        {{-- Tombol Next (Class btn-nav Wajib ada) --}}
                         <button type="button" class="btn btn-primary btn-nav" data-next="#data-kepegawaian-tab">
                             Selanjutnya<i class="bi bi-arrow-right ms-2"></i>
                         </button>
@@ -215,29 +209,57 @@
 
                         <div class="col-md-6">
                             <label for="id-mata-pelajaran" class="form-label">Guru Mata Pelajaran</label>
-                            <div class="dropdown" id="id-mata-pelajaran">
-                                <button class="form-select text-start @error('id_mata_pelajaran') is-invalid @enderror"
-                                    type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                                    id="id-mata-pelajaran-dropdown-button"
-                                    {{ $mata_pelajaran->isEmpty() ? 'disabled' : '' }}>
-                                    {{ $mata_pelajaran->isNotEmpty() ? '-- Pilih Mata Pelajaran --' : '-- Mata Pelajaran Tidak Tersedia --' }}
-                                </button>
-                                <ul class="dropdown-menu w-100 p-2 dropdown-options-container"
-                                    aria-labelledby="id-mata-pelajaran-dropdown-button">
-                                    @php
-                                        $selected_mata_pelajaran = old('id_mata_pelajaran', $user->guruMataPelajaran?->pluck('id_mata_pelajaran')->toArray() ?? []);
-                                    @endphp
-                                    @forelse ($mata_pelajaran as $_mata_pelajaran)
-                                        <li><label class="dropdown-item"><input type="checkbox"
-                                                    name="id_mata_pelajaran[]"
-                                                    class="form-check-input me-2 id-mata-pelajaran-checkbox"
-                                                    value="{{ $_mata_pelajaran->id_mata_pelajaran }}"
-                                                    {{ in_array($_mata_pelajaran->id_mata_pelajaran, $selected_mata_pelajaran) ? 'checked' : '' }}>{{ $_mata_pelajaran->nama_mata_pelajaran }}</label>
-                                        </li>
-                                    @empty
-                                    @endforelse
-                                </ul>
-                            </div>
+                            @php
+                                $selected_mata_pelajaran = old('id_mata_pelajaran', $user->guruMataPelajaran?->pluck('id_mata_pelajaran')->toArray() ?? []);
+                                $isTuUser = $user->posisi === 'Staf Tata Usaha';
+                            @endphp
+                            
+                            @if($isTuUser)
+                                <div class="dropdown" id="id-mata-pelajaran">
+                                    <button class="form-select text-start @error('id_mata_pelajaran') is-invalid @enderror"
+                                        type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                        id="id-mata-pelajaran-dropdown-button"
+                                        {{ $mata_pelajaran->isEmpty() ? 'disabled' : '' }}>
+                                        {{ $mata_pelajaran->isNotEmpty() ? '-- Pilih Mata Pelajaran --' : '-- Mata Pelajaran Tidak Tersedia --' }}
+                                    </button>
+                                    <ul class="dropdown-menu w-100 p-2 dropdown-options-container"
+                                        aria-labelledby="id-mata-pelajaran-dropdown-button">
+                                        @forelse ($mata_pelajaran as $_mata_pelajaran)
+                                            <li><label class="dropdown-item"><input type="checkbox"
+                                                        name="id_mata_pelajaran[]"
+                                                        class="form-check-input me-2 id-mata-pelajaran-checkbox"
+                                                        value="{{ $_mata_pelajaran->id_mata_pelajaran }}"
+                                                        data-nama="{{ $_mata_pelajaran->nama_mata_pelajaran }}"
+                                                        {{ in_array($_mata_pelajaran->id_mata_pelajaran, $selected_mata_pelajaran) ? 'checked' : '' }}>{{ $_mata_pelajaran->nama_mata_pelajaran }}</label>
+                                            </li>
+                                        @empty
+                                        @endforelse
+                                    </ul>
+                                </div>
+                            @else
+                                <div class="dropdown w-100" id="id-mata-pelajaran-readonly">
+                                    <button class="form-select text-start w-100 {{ $user->guruMataPelajaran?->isEmpty() ? 'text-muted' : '' }}" 
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                            style="background-color: #e9ecef;">
+                                        {{ $user->guruMataPelajaran?->isNotEmpty() ? $user->guruMataPelajaran->count() . ' Mata Pelajaran' : 'Tidak ada mapel' }}
+                                    </button>
+                                    @if ($user->guruMataPelajaran?->isNotEmpty())
+                                        <ul class="dropdown-menu w-100 p-2 shadow-sm border-0">
+                                            @foreach ($user->guruMataPelajaran as $_guru_mata_pelajaran)
+                                                <li>
+                                                    <div class="dropdown-item d-flex align-items-center" style="cursor: default;">
+                                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                        {{ $_guru_mata_pelajaran->mataPelajaran->nama_mata_pelajaran }}
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </div>
+                                @foreach ($selected_mata_pelajaran as $mapel_id)
+                                    <input type="hidden" name="id_mata_pelajaran[]" value="{{ $mapel_id }}">
+                                @endforeach
+                            @endif
                             @error('id_mata_pelajaran') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
                         </div>
 
@@ -310,7 +332,6 @@
                         </div>
                     </div>
                     
-                    {{-- NAVIGASI TAB 2 --}}
                     <div class="form-buttons justify-content-between">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#data-pribadi-tab">
                             <i class="bi bi-arrow-left me-2"></i>Kembali
@@ -359,7 +380,6 @@
                         </div>
                     </div>
 
-                    {{-- NAVIGASI TAB 3 --}}
                     <div class="form-buttons justify-content-between">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#data-kepegawaian-tab">
                             <i class="bi bi-arrow-left me-2"></i>Kembali
@@ -389,7 +409,6 @@
                         </div>
                     </div>
 
-                    {{-- NAVIGASI TAB 4 (FINAL) --}}
                     <div class="form-buttons justify-content-between">
                         <button type="button" class="btn btn-secondary btn-nav" data-next="#data-pendidikan-tab">
                             <i class="bi bi-arrow-left me-2"></i>Kembali
@@ -404,7 +423,6 @@
         </form>
     </div>
 
-    {{-- Script Khusus untuk handle Delete Image agar sync dengan JS External --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const deleteBtn = document.getElementById('image-delete-button');
@@ -440,5 +458,4 @@
 @endsection
 
 @push('scripts')
-    {{-- Menggunakan JS Wizard --}}
 @endpush

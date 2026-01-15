@@ -20,7 +20,7 @@ class PrestasiController extends Controller
         'peringkat_lainnya' => 'nullable|string|min:3|max:50',
         'tingkat' => 'required|string|min:3|max:15',
         'wilayah' => 'required|string|min:3|max:25',
-        'tanggal' => 'required|date|before_or_equal:today',
+        'tanggal_peraihan' => 'required|date|before_or_equal:today',
         'dokumentasi' => 'nullable|file|mimes:jpg,png,jpeg|max:10240'
     ];
 
