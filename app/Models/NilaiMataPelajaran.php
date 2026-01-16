@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 
 /**
+ * @property int $id_siswa
  * @property int $jumlah_portofolio
  * @property array $nilai_portofolio
  * @property int $nilai_ub_1
@@ -30,7 +31,7 @@ class NilaiMataPelajaran extends Model
 
     public function getNilaiPortofolioAverage()
     {
-        if (empty($this->nilai_portofolio) || $this->jumlah_portofolio === 0) {
+        if ($this->jumlah_portofolio === 0 || empty($this->nilai_portofolio)) {
             return 0;
         }
 

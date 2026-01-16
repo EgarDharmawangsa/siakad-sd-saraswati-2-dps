@@ -88,6 +88,10 @@ class PrestasiController extends Controller
      */
     public function show(Prestasi $prestasi)
     {
+        if (Gate::allows('siswa') && $prestasi->id_siswa !== Auth::user()->siswa->id_siswa) {
+            abort(404);
+        }
+
         $siswa = Siswa::latest()->get();
 
         return view('pages.akademik.prestasi.show', [

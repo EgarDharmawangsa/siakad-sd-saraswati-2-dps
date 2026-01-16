@@ -21,7 +21,7 @@
         </div>
 
         @if ($siswa->isNotEmpty())
-            <form action="{{ route('kehadiran.mass-update') }}" method="POST" id="nilai-form">
+            <form action="{{ route('kehadiran.mass-update') }}" method="POST" id="kehadiran-form">
                 @method('PUT')
                 @csrf
 
@@ -50,7 +50,8 @@
 
                                     @canany(['staf-tata-usaha', 'guru'])
                                         <td>
-                                            <input type="hidden" name="id_kehadiran[]" value="{{ $_kehadiran->id_kehadiran }}">
+                                            <input type="hidden" name="id_kehadiran[]" value="{{ $_kehadiran->id_kehadiran }}"
+                                                data-row="{{ $_kehadiran->id_kehadiran }}">
                                             {{ $_kehadiran->siswa->getFormatedNamaSiswa(true) }}
                                         </td>
 
@@ -67,9 +68,6 @@
 
                                     @can('guru')
                                         <td>
-                                            <input type="hidden" name="status[{{ $_kehadiran->id_kehadiran }}]"
-                                                value="{{ $_kehadiran->status }}">
-
                                             <div class="d-flex gap-2 px-2">
                                                 @foreach (['Hadir', 'Izin', 'Sakit', 'Alfa'] as $status)
                                                     <label class="mx-auto">
@@ -82,10 +80,11 @@
                                                 @endforeach
                                             </div>
                                         </td>
-                                    
+
                                         <td>
                                             <input type="text" name="keterangan[{{ $_kehadiran->id_kehadiran }}]"
                                                 class="form-control keterangan-input @error("keterangan.{$_kehadiran->id_kehadiran}") is-invalid @enderror"
+                                                data-row="{{ $_kehadiran->id_kehadiran }}"
                                                 value="{{ $_kehadiran->keterangan }}" placeholder="Masukkan keterangan"
                                                 {{ $_kehadiran->status === 'Izin' ? '' : 'disabled' }}>
                                             @error("keterangan.{$_kehadiran->id_kehadiran}")
@@ -137,7 +136,7 @@
                             <i class="bi bi-floppy me-2"></i>Simpan
                         </button>
                     </div>
-                
+
                     <div class="d-flex justify-content-end mt-4">
                         <a href="{{ route('kehadiran.delete') }}" class="btn btn-danger"><i class="bi bi-trash me-2"></i>Hapus
                             Kehadiran</a>

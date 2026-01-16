@@ -8,7 +8,7 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="filter-modal-form" action="{{ route('nilai-ekstrakurikuler.index') }}">
+                <form id="filter-modal-form" action="{{ route('nilai-mata-pelajaran.index') }}">
                     @canany(['staf-tata-usaha', 'guru'])
                         <div class="mb-3">
                             <label for="kelas-filter" class="form-label">Kelas</label>

@@ -7,7 +7,7 @@
 
         <div class="show-buttons">
             @can('staf-tata-usaha')
-                <a href="{{ route('nilai-mata-pelajaran.index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left me-2"></i>Kembali</a>
+                <a href="{{ route('pengumuman.index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left me-2"></i>Kembali</a>
             @endcan
 
             @canany(['guru', 'siswa'])

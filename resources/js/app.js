@@ -20,8 +20,8 @@ import './pages/akademik/prestasi.js';
 import './pages/akademik/pengumuman.js';
 
 const page_body = document.getElementById('page-body');
-const success_toast = document.getElementById('success-toast');
-const error_toast = document.getElementById('error-toast');
+// const success_toast = document.getElementById('success-toast');
+// const error_toast = document.getElementById('error-toast');
 const filter_modal_close_button = document.getElementById('filter-modal-close-button');
 const filter_modal_form = document.getElementById('filter-modal-form');
 const filter_modal_apply_button = document.getElementById('filter-modal-apply-button');
@@ -33,8 +33,8 @@ const image_input = document.querySelector('.image-input');
 const image_preview = document.getElementById('image-preview');
 const image_delete_button = document.getElementById('image-delete-button');
 const image_delete = document.getElementById('image-delete');
-const nilai_or_kehadiran_form = document.getElementById('nilai-form' || 'kehadiran-form');
-const nilai_or_kehadiran_inputs = document.querySelectorAll('.nilai-input, .kehadiran-input');
+const nilai_form = document.getElementById('nilai-form');
+const nilai_inputs = document.querySelectorAll('.nilai-input');
 
 const jam_array = [];
 jam_array[0] = document.getElementById('jam-mulai') || document.getElementById('jam-mulai-filter');
@@ -133,62 +133,36 @@ if (page_body && jam_array) {
     }
 }
 
-if (nilai_or_kehadiran_inputs) {
-    nilai_or_kehadiran_inputs.forEach(_nilai_or_kehadiran_inputs => {
-        _nilai_or_kehadiran_inputs.addEventListener('change', function () {
+if (nilai_inputs.length) {
+    nilai_inputs.forEach(_nilai_inputs => {
+        _nilai_inputs.addEventListener('change', function () {
             this.dataset.change = "1";
         });
     });
 }
 
-// if (nilai_or_kehadiran_form) {
-//     nilai_or_kehadiran_form.addEventListener('submit', () => {
-
-//         nilai_or_kehadiran_inputs.forEach(_nilai_or_kehadiran_inputs => {
-//             if (_nilai_or_kehadiran_inputs.dataset.change !== "1") {
-//                 const row_key = _nilai_or_kehadiran_inputs.dataset.row;
-
-//                 _nilai_or_kehadiran_inputs.remove();
-
-//                 if (row_key) {
-//                     const hidden = document.querySelector(
-//                         `input[type="hidden"][data-row="${row_key}"]`
-//                     );
-//                     if (hidden) hidden.remove();
-//                 }
-//             }
-//         });
-//     });
-// }
-
-
-if (nilai_or_kehadiran_form) {
-    nilai_or_kehadiran_form.addEventListener('submit', () => {
-
+if (nilai_form) {
+    nilai_form.addEventListener('submit', () => {
         const processed_rows = new Set();
 
-        nilai_or_kehadiran_inputs.forEach(input => {
-            const row_key = input.dataset.row;
-
+        nilai_inputs.forEach(_nilai_inputs => {
+            const row_key = _nilai_inputs.dataset.row;
             if (!row_key || processed_rows.has(row_key)) return;
 
             const rowInputs = document.querySelectorAll(
-                `.nilai-input[data-row="${row_key}"]`
+                `.nilai-input[data-row="${row_key}"], 
+                 input[type="hidden"][data-row="${row_key}"]`
             );
 
             const hasChange = Array.from(rowInputs)
                 .some(i => i.dataset.change === "1");
 
             if (!hasChange) {
-                rowInputs.forEach(i => i.remove());
-
-                const hidden = document.querySelector(
-                    `input[type="hidden"][data-row="${row_key}"]`
-                );
-                if (hidden) hidden.remove();
+                rowInputs.forEach(i => i.disabled = true);
             }
 
             processed_rows.add(row_key);
         });
     });
 }
+

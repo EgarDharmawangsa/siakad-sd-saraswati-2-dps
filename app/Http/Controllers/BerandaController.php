@@ -52,7 +52,6 @@ class BerandaController extends Controller
                 ->whereNotNull('user_id');
         })->get()->groupBy('role');
         $pengumuman = Pengumuman::query()->orderBy('tanggal', 'desc')->paginate(20)->withQueryString();
-
         $user_data['judul'] = 'Beranda';
         $user_data['pengumuman'] = $pengumuman;
         $user_data['active_users'] = $active_users;
@@ -71,7 +70,7 @@ class BerandaController extends Controller
         $prestasi_raw = Prestasi::prestasiImprovementYear(request('prestasi_improvement_tahun_filter'))->get();
 
         $prestasi_per_month = $prestasi_raw
-            ->groupBy(fn($item) => (int) $item->tanggal->month)
+            ->groupBy(fn($item) => (int) $item->tanggal_peraihan->month)
             ->map(fn($items) => $items->count());
 
         $prestasi_improvement_data = [];

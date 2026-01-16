@@ -5,9 +5,9 @@
         <h5>Detail {{ $judul }}</h5>
         <hr>
         <div class="show-buttons">
-            <a href="{{ route('beranda') }}" class="btn btn-secondary btn-sm me-1"><i
+            <a href="{{ route('beranda') }}" class="btn btn-secondary"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
-            <a href="{{ route('profile.edit') }}" class="btn btn-warning btn-sm me-1"><i
+            <a href="{{ route('profile.edit') }}" class="btn btn-warning"><i
                     class="bi bi-pencil me-2"></i>Edit</a>
         </div>
         <ul class="nav nav-tabs" id="pegawai-tab" role="tablist">

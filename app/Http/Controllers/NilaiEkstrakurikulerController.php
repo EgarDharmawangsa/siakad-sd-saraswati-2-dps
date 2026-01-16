@@ -34,7 +34,7 @@ class NilaiEkstrakurikulerController extends Controller
         $kelas = Kelas::orderedNamaKelas()->get();
         $siswa = Siswa::get();
         $ekstrakurikuler = Ekstrakurikuler::latest()->get();
-        $semester = Semester::latest()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
 
         return view('pages.akademik.nilai_ekstrakurikuler.index', [
             'judul' => 'Nilai Ekstrakurikuler',
@@ -56,7 +56,7 @@ class NilaiEkstrakurikulerController extends Controller
         }
 
         $ekstrakurikuler = Ekstrakurikuler::latest()->get();
-        $semester = Semester::latest()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
 
         return view('pages.akademik.nilai_ekstrakurikuler.create', [
             'judul' => 'Nilai Ekstrakurikuler',
@@ -81,6 +81,12 @@ class NilaiEkstrakurikulerController extends Controller
         }
 
         $validated_ekstrakurikuler = $request->validate($this->ekstrakurikuler_validation_rules);
+
+        $peserta_in_ekstrakurikuler = PesertaEkstrakurikuler::where('id_ekstrakurikuler', $validated_ekstrakurikuler['id_ekstrakurikuler'])->get();
+
+        if ($peserta_in_ekstrakurikuler->isEmpty()) {
+            return back()->withErrors(['id_ekstrakurikuler' => 'Ekstrakurikuler belum memiliki anggota.'])->withInput();
+        }
 
         $peserta_ekstrakurikuler = PesertaEkstrakurikuler::where('id_ekstrakurikuler', $validated_ekstrakurikuler['id_ekstrakurikuler'])->get();
 
@@ -137,11 +143,15 @@ class NilaiEkstrakurikulerController extends Controller
             abort(404);
         }
 
+        if (!$request->has('id_nilai_ekstrakurikuler')) {
+            return back()->with('error', 'Tidak ada perubahan pada Nilai Ekstrakurikuler.');
+        }
+
         $nilai_ekstrakurikuler_update_validation_rules = [
             'id_nilai_ekstrakurikuler' => 'required|array',
             'id_nilai_ekstrakurikuler.*' => 'required|exists:nilai_ekstrakurikuler,id_nilai_ekstrakurikuler',
             'nilai' => 'required|array',
-            'nilai.*' => 'nullable|integer|min:0|max:100'
+            'nilai.*' => 'nullable|numeric|min:0|max:100'
         ];
 
         $validated_nilai_ekstrakurikuler = $request->validate($nilai_ekstrakurikuler_update_validation_rules);

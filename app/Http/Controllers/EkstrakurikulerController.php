@@ -19,7 +19,7 @@ class EkstrakurikulerController extends Controller
         'jam_mulai' => 'required|date_format:H:i',
         'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
     ];
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -28,7 +28,7 @@ class EkstrakurikulerController extends Controller
         if (Gate::any(['staf-tata-usaha', 'guru'])) {
             $ekstrakurikuler = Ekstrakurikuler::filter(request()->all())->paginate(20)->withQueryString();
         } else if (Gate::allows('siswa')) {
-            $ekstrakurikuler = Ekstrakurikuler::withWhereHas('pesertaEkstrakurikuler', fn ($query) => $query->where('id_siswa', Auth::user()->siswa->id_siswa))->paginate(20)->withQueryString();
+            $ekstrakurikuler = Ekstrakurikuler::withWhereHas('pesertaEkstrakurikuler', fn($query) => $query->where('id_siswa', Auth::user()->siswa->id_siswa))->paginate(20)->withQueryString();
         } else {
             abort(404);
         }
@@ -36,7 +36,7 @@ class EkstrakurikulerController extends Controller
         return view('pages.master.ekstrakurikuler.index', [
             'judul' => 'Ekstrakurikuler',
             'ekstrakurikuler' => $ekstrakurikuler
-        ]);        
+        ]);
     }
 
     /**
@@ -74,6 +74,10 @@ class EkstrakurikulerController extends Controller
      */
     public function show(Ekstrakurikuler $ekstrakurikuler)
     {
+        if (Gate::allows('siswa') && !$ekstrakurikuler->pesertaEkstrakurikuler()->where('id_siswa', Auth::user()->siswa->id_siswa)->exists()) {
+            abort(404);
+        }
+
         return view('pages.master.ekstrakurikuler.show', [
             'judul' => 'Ekstrakurikuler',
             'ekstrakurikuler' => $ekstrakurikuler
@@ -123,7 +127,7 @@ class EkstrakurikulerController extends Controller
         if (!Gate::allows('staf-tata-usaha')) {
             abort(404);
         }
-        
+
         $ekstrakurikuler->delete();
 
         return redirect()->route('ekstrakurikuler.index')->with('success', 'Ekstrakurikuler berhasil dihapus.');

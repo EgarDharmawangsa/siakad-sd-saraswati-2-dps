@@ -35,7 +35,7 @@ class NilaiMataPelajaranController extends Controller
         $kelas = Kelas::orderedNamaKelas()->get();
         $siswa = Siswa::orderedNomorUrutSiswa()->get();
         $mata_pelajaran = MataPelajaran::latest()->get();
-        $semester = Semester::latest()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
 
         return view('pages.akademik.nilai_mata_pelajaran.index', [
             'judul' => 'Nilai Mata Pelajaran',
@@ -57,7 +57,7 @@ class NilaiMataPelajaranController extends Controller
         }
 
         $kelas = Kelas::orderedNamaKelas()->get();
-        $semester = Semester::latest()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
         $mata_pelajaran = MataPelajaran::latest()->get();
 
         return view('pages.akademik.nilai_mata_pelajaran.create', [
@@ -126,6 +126,10 @@ class NilaiMataPelajaranController extends Controller
      */
     public function show(NilaiMataPelajaran $nilaiMataPelajaran)
     {
+        if (Gate::allows('siswa') && $nilaiMataPelajaran->siswa->id_siswa !== Auth::user()->siswa->id_siswa) {
+            abort(404);
+        }
+
         return view('pages.akademik.nilai_mata_pelajaran.show', [
             'judul' => 'Nilai Mata Pelajaran',
             'nilai_mata_pelajaran' => $nilaiMataPelajaran
@@ -160,11 +164,11 @@ class NilaiMataPelajaranController extends Controller
             'nilai_portofolio' => 'required|array',
             'nilai_portofolio.*' => 'required|min:1|max:20',
             'nilai_portofolio.*.judul' => 'required|string|min:3|max:50',
-            'nilai_portofolio.*.nilai' => 'required|integer|min:0|max:100',
-            'nilai_ub_1' => 'required|integer|min:0|max:100',
-            'nilai_ub_2' => 'required|integer|min:0|max:100',
-            'nilai_uts' => 'required|integer|min:0|max:100',
-            'nilai_uas' => 'required|integer|min:0|max:100'
+            'nilai_portofolio.*.nilai' => 'required|numeric|min:0|max:100',
+            'nilai_ub_1' => 'required|numeric|min:0|max:100',
+            'nilai_ub_2' => 'required|numeric|min:0|max:100',
+            'nilai_uts' => 'required|numeric|min:0|max:100',
+            'nilai_uas' => 'required|numeric|min:0|max:100'
         ];
 
         $validated_nilai_mata_pelajaran = $request->validate($nilai_mata_pelajaran_validation_rules);
@@ -180,17 +184,21 @@ class NilaiMataPelajaranController extends Controller
             abort(404);
         }
 
+        if (!$request->has('id_nilai_mata_pelajaran')) {
+            return back()->with('error', 'Tidak ada perubahan pada Nilai Mata Pelajaran.');
+        }
+
         $nilai_mata_pelajaran_validation_rules = [
             'id_nilai_mata_pelajaran' => 'required|array',
             'id_nilai_mata_pelajaran.*' => 'required|exists:nilai_mata_pelajaran,id_nilai_mata_pelajaran',
             'nilai_ub_1' => 'required|array',
-            'nilai_ub_1.*' => 'required|integer|min:0|max:100',
+            'nilai_ub_1.*' => 'required|numeric|min:0|max:100',
             'nilai_ub_2' => 'required|array',
-            'nilai_ub_2.*' => 'required|integer|min:0|max:100',
+            'nilai_ub_2.*' => 'required|numeric|min:0|max:100',
             'nilai_uts' => 'required|array',
-            'nilai_uts.*' => 'required|integer|min:0|max:100',
+            'nilai_uts.*' => 'required|numeric|min:0|max:100',
             'nilai_uas' => 'required|array',
-            'nilai_uas.*' => 'required|integer|min:0|max:100'
+            'nilai_uas.*' => 'required|numeric|min:0|max:100'
         ];
 
         $validated_nilai_mata_pelajaran = $request->validate($nilai_mata_pelajaran_validation_rules);

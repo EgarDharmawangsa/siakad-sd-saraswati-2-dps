@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Gate;
 
 /**
+ * @property int $id_siswa
  * @property Carbon $tanggal_peraihan
  * @property string|null $dokumentasi
  */

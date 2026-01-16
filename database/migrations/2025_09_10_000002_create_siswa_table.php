@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('nipd', 15)->unique()->nullable(); 
             $table->string('nama_siswa');
             $table->string('jenis_kelamin', 10); 
-            $table->double('berat_badan')->nullable();
-            $table->double('tinggi_badan')->nullable();
-            $table->double('lingkar_kepala')->nullable();
+            $table->decimal('berat_badan', 5, 2)->nullable();
+            $table->decimal('tinggi_badan', 5, 2)->nullable();
+            $table->decimal('lingkar_kepala', 5, 2)->nullable();
             $table->integer('jumlah_saudara_kandung')->nullable();
             $table->integer('anak_ke_berapa')->nullable();
             $table->string('agama', 20);
@@ -39,7 +39,7 @@ return new class extends Migration
             $table->string('kode_pos', 5)->nullable();
             $table->string('lintang', 10)->nullable();
             $table->string('bujur', 10)->nullable();
-            $table->double('jarak_rumah_ke_sekolah')->nullable();
+            $table->decimal('jarak_rumah_ke_sekolah', 5, 2)->nullable();
             $table->string('jenis_tinggal', 20);
             $table->string('alat_transportasi', 25);
             $table->string('no_telepon_rumah', 15)->nullable();
