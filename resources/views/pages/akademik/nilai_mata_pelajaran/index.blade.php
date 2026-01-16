@@ -79,7 +79,7 @@
                                             <input type="number"
                                                 name="nilai_ub_1[{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}]"
                                                 class="form-control nilai-input @error("nilai_ub_1.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}") is-invalid @enderror"
-                                                value="{{ $_nilai_mata_pelajaran->nilai_ub_1 }}" min="0" max="100"
+                                                value="{{ $_nilai_mata_pelajaran->nilai_ub_1 }}" min="0" max="100" step="0.01" 
                                                 data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
                                                 placeholder="Masukkan nilai UB 1">
                                             @error("nilai_ub_1.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}")
@@ -91,7 +91,7 @@
                                             <input type="number"
                                                 name="nilai_ub_2[{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}]"
                                                 class="form-control nilai-input @error("nilai_ub_2.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}") is-invalid @enderror"
-                                                value="{{ $_nilai_mata_pelajaran->nilai_ub_2 }}" min="0" max="100"
+                                                value="{{ $_nilai_mata_pelajaran->nilai_ub_2 }}" min="0" max="100" step="0.01" 
                                                 data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
                                                 placeholder="Masukkan nilai UB 2">
                                             @error("nilai_ub_2.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}")
@@ -103,7 +103,7 @@
                                             <input type="number"
                                                 name="nilai_uts[{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}]"
                                                 class="form-control nilai-input @error("nilai_uts.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}") is-invalid @enderror"
-                                                value="{{ $_nilai_mata_pelajaran->nilai_uts }}" min="0" max="100"
+                                                value="{{ $_nilai_mata_pelajaran->nilai_uts }}" min="0" max="100" step="0.01" 
                                                 data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
                                                 placeholder="Masukkan nilai UTS">
                                             @error("nilai_uts.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}")
@@ -115,7 +115,7 @@
                                             <input type="number"
                                                 name="nilai_uas[{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}]"
                                                 class="form-control nilai-input @error("nilai_uas.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}") is-invalid @enderror"
-                                                value="{{ $_nilai_mata_pelajaran->nilai_uas }}" min="0" max="100"
+                                                value="{{ $_nilai_mata_pelajaran->nilai_uas }}" min="0" max="100" step="0.01" 
                                                 data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
                                                 placeholder="Masukkan nilai UAS">
                                             @error("nilai_uas.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}")

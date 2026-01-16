@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id_peserta_ekstrakurikuler
+ * @property int $id_siswa
  */
 
 class PesertaEkstrakurikuler extends Model

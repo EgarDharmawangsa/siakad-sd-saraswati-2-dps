@@ -225,21 +225,21 @@
                         <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Fisik & Disabilitas</label></div>
                         <div class="col-md-6"><label class="form-label">Berat Badan (kg)</label><input type="number"
                                 class="form-control @error('berat_badan') is-invalid @enderror" name="berat_badan"
-                                value="{{ old('berat_badan', $user->berat_badan) }}" placeholder="Masukkan berat badan">
+                                value="{{ old('berat_badan', $user->berat_badan) }}" step="0.01" placeholder="Masukkan berat badan">
                             @error('berat_badan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-md-6"><label class="form-label">Tinggi Badan (cm)</label><input type="number"
                                 class="form-control @error('tinggi_badan') is-invalid @enderror" name="tinggi_badan"
-                                value="{{ old('tinggi_badan', $user->tinggi_badan) }}" placeholder="Masukkan tinggi badan">
+                                value="{{ old('tinggi_badan', $user->tinggi_badan) }}" step="0.01" placeholder="Masukkan tinggi badan">
                             @error('tinggi_badan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-md-6"><label class="form-label">Lingkar Kepala (cm)</label><input type="number"
                                 class="form-control @error('lingkar_kepala') is-invalid @enderror" name="lingkar_kepala"
-                                value="{{ old('lingkar_kepala', $user->lingkar_kepala) }}" placeholder="Masukkan lingkar kepala">
+                                value="{{ old('lingkar_kepala', $user->lingkar_kepala) }}" step="0.01" placeholder="Masukkan lingkar kepala">
                             @error('lingkar_kepala')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -350,7 +350,7 @@
                             <label class="form-label">Jarak Rumah ke Sekolah (km)</label>
                             <input type="number" step="0.01" name="jarak_rumah_ke_sekolah"
                                 class="form-control @error('jarak_rumah_ke_sekolah') is-invalid @enderror"
-                                value="{{ old('jarak_rumah_ke_sekolah', $user->jarak_rumah_ke_sekolah) }}"
+                                value="{{ old('jarak_rumah_ke_sekolah', $user->jarak_rumah_ke_sekolah) }}" step="0.01" 
                                 placeholder="Masukkan jarak (contoh: 1.5)">
                             @error('jarak_rumah_ke_sekolah')
                                 <div class="invalid-feedback">{{ $message }}</div>

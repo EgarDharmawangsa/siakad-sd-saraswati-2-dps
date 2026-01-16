@@ -9,6 +9,7 @@ use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class KehadiranController extends Controller
 {
@@ -32,7 +33,7 @@ class KehadiranController extends Controller
 
         $kelas = Kelas::orderedNamaKelas()->get();
         $siswa = Siswa::get();
-        $semester = Semester::latest()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
 
         return view('pages.akademik.kehadiran.index', [
             'judul' => 'Kehadiran',
@@ -53,7 +54,7 @@ class KehadiranController extends Controller
         }
 
         $kelas = kelas::orderedNamaKelas()->get();
-        $semester = Semester::latest()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
 
         return view('pages.akademik.kehadiran.create', [
             'judul' => 'Kehadiran',
@@ -148,6 +149,10 @@ class KehadiranController extends Controller
     {
         if (!Gate::allows('guru')) {
             abort(404);
+        }
+
+        if (!$request->has('id_kehadiran')) {
+            return back()->with('error', 'Tidak ada perubahan pada Kehadiran.');
         }
 
         $kehadiran_update_validation_rules = [

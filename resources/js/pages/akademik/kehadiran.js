@@ -1,20 +1,20 @@
-const kehadiran_input = document.querySelectorAll('.kehadiran-input');
+const kehadiran_form = document.getElementById('kehadiran-form');
+const kehadiran_inputs = document.querySelectorAll('.kehadiran-input');
+const keterangan_inputs = document.querySelectorAll('.keterangan-input');
 const kehadiran_status_filter = document.getElementById('kehadiran-status-filter');
 const keterangan_filter = document.getElementById('keterangan-filter');
 
-if (kehadiran_input.length) {
-    kehadiran_input.forEach(_kehadiran_input => {
-        _kehadiran_input.addEventListener('change', function () {
-
-            const row_id = this.dataset.row;
+// Event listener untuk input kehadiran
+if (kehadiran_inputs.length) {
+    kehadiran_inputs.forEach((input) => {
+        input.addEventListener('change', function () {
+            const rowId = this.dataset.row;
             const tr = this.closest('tr');
 
-            const hidden_status = tr.querySelector(
-                `input[name="status[${row_id}]"]`
-            );
+            const hiddenStatus = tr.querySelector(`input[name="status[${rowId}]"]`);
             const keterangan = tr.querySelector('.keterangan-input');
 
-            hidden_status.value = this.value;
+            hiddenStatus.value = this.value;
 
             if (this.value === 'Izin') {
                 if (keterangan.dataset.prev !== undefined) {
@@ -27,8 +27,45 @@ if (kehadiran_input.length) {
                 keterangan.disabled = true;
             }
 
-            keterangan.dataset.change = 1;
-            hidden_status.dataset.change = 1;
+            keterangan.dataset.change = '1';
+            hiddenStatus.dataset.change = '1';
+        });
+    });
+}
+
+// Event listener untuk input keterangan
+if (keterangan_inputs.length) {
+    keterangan_inputs.forEach((input) => {
+        input.addEventListener('input', function () {
+            this.dataset.change = '1';
+        });
+    });
+}
+
+// Saat submit form kehadiran
+if (kehadiran_form) {
+    kehadiran_form.addEventListener('submit', () => {
+        const processedRows = new Set();
+
+        kehadiran_inputs.forEach((input) => {
+            const rowKey = input.dataset.row;
+            if (!rowKey || processedRows.has(rowKey)) return;
+
+            const rowInputs = document.querySelectorAll(
+                `.kehadiran-input[data-row="${rowKey}"], 
+                 .keterangan-input[data-row="${rowKey}"],
+                 input[type="hidden"][data-row="${rowKey}"]`
+            );
+
+            const hasChange = Array.from(rowInputs).some(
+                (el) => el.dataset.change === '1'
+            );
+
+            if (!hasChange) {
+                rowInputs.forEach((el) => (el.disabled = true));
+            }
+
+            processedRows.add(rowKey);
         });
     });
 }

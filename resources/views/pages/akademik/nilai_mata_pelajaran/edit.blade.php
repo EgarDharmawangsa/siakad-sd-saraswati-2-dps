@@ -39,7 +39,7 @@
                     <label for="nilai-ub-1" class="form-label">Nilai UB 1</label>
                     <input type="text" class="form-control @error('nilai_ub_1') is-invalid @enderror" id="nilai-ub-1"
                         name="nilai_ub_1" placeholder="Masukkan nilai UB 1"
-                        value="{{ old('nilai_ub_1', $nilai_mata_pelajaran->nilai_ub_1) }}" min="0" max="100"
+                        value="{{ old('nilai_ub_1', $nilai_mata_pelajaran->nilai_ub_1) }}" min="0" max="100" step="0.01" 
                         required>
                     @error('nilai_ub_1')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -50,7 +50,7 @@
                     <label for="nilai-ub-2" class="form-label">Nilai UB 2</label>
                     <input type="text" class="form-control @error('nilai_ub_2') is-invalid @enderror" id="nilai-ub-2"
                         name="nilai_ub_2" placeholder="Masukkan nilai UB 2"
-                        value="{{ old('nilai_ub_2', $nilai_mata_pelajaran->nilai_ub_2) }}" min="0" max="100"
+                        value="{{ old('nilai_ub_2', $nilai_mata_pelajaran->nilai_ub_2) }}" min="0" max="100" step="0.01" 
                         required>
                     @error('nilai_ub_2')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -61,7 +61,7 @@
                     <label for="nilai-uts" class="form-label">Nilai UTS</label>
                     <input type="text" class="form-control @error('nilai_uts') is-invalid @enderror" id="nilai-uts"
                         name="nilai_uts" placeholder="Masukkan nilai UTS"
-                        value="{{ old('nilai_uts', $nilai_mata_pelajaran->nilai_uts) }}" min="0" max="100"
+                        value="{{ old('nilai_uts', $nilai_mata_pelajaran->nilai_uts) }}" min="0" max="100" step="0.01" 
                         required>
                     @error('nilai_uts')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -72,7 +72,7 @@
                     <label for="nilai-uas" class="form-label">Nilai UAS</label>
                     <input type="text" class="form-control @error('nilai_uas') is-invalid @enderror" id="nilai-uas"
                         name="nilai_uas" placeholder="Masukkan nilai UAS"
-                        value="{{ old('nilai_uas', $nilai_mata_pelajaran->nilai_uas) }}" min="0" max="100"
+                        value="{{ old('nilai_uas', $nilai_mata_pelajaran->nilai_uas) }}" min="0" max="100" step="0.01" 
                         required>
                     @error('nilai_uas')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -103,7 +103,7 @@
                                 class="form-control mt-2 @error("nilai_portofolio.$index.nilai") is-invalid @enderror"
                                 name="nilai_portofolio[{{ $index }}][nilai]" placeholder="Masukkan nilai portofolio"
                                 value="{{ old("nilai_portofolio.$index.nilai", $portofolio['nilai']) }}" min="0"
-                                max="100" required>
+                                max="100" step="0.01" required>
 
                             @error("nilai_portofolio.$index.nilai")
                                 <div class="invalid-feedback">{{ $message }}</div>

@@ -87,7 +87,7 @@
                                             <input type="number"
                                                 name="nilai[{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}]"
                                                 class="form-control nilai-input @error("nilai.{$_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler}") is-invalid @enderror"
-                                                value="{{ $_nilai_ekstrakurikuler->nilai }}" min="0" max="100"
+                                                value="{{ $_nilai_ekstrakurikuler->nilai }}" min="0" max="100" step="0.01" 
                                                 data-row="{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}"
                                                 placeholder="Masukkan nilai">
                                             @error("nilai.{$_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler}")
@@ -96,9 +96,9 @@
                                         </td>
                                     @endcan
 
-                                    @can('siswa')
+                                    @canany(['guru', 'siswa'])
                                         <td>{{ $_nilai_ekstrakurikuler->nilai }}</td>
-                                    @endcan
+                                    @endcanany
 
                                     {{-- <td class="aksi-column">
                                         <a href="{{ route('nilai-ekstrakurikuler.show', $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler) }}"
