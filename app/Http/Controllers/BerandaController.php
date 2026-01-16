@@ -70,7 +70,7 @@ class BerandaController extends Controller
         $prestasi_raw = Prestasi::prestasiImprovementYear(request('prestasi_improvement_tahun_filter'))->get();
 
         $prestasi_per_month = $prestasi_raw
-            ->groupBy(fn($item) => (int) $item->tanggal->month)
+            ->groupBy(fn($item) => (int) $item->tanggal_peraihan->month)
             ->map(fn($items) => $items->count());
 
         $prestasi_improvement_data = [];
