@@ -49,7 +49,7 @@ class AuthController extends Controller
 
 
         return redirect()->back()
-            ->with(['error' => 'Username atau kata sandi salah.'])
+            ->with(['error' => 'Username atau password salah.'])
             ->withInput();
     }
 

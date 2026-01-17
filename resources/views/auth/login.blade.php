@@ -57,7 +57,7 @@
             </div>
 
             <div class="mb-4">
-                <label for="password" class="form-label">Kata Sandi</label>
+                <label for="password" class="form-label">Password</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-key"></i></span>
                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
