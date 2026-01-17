@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 return [
-    'reset'     => 'Kata sandi Anda sudah direset!',
-    'sent'      => 'Kami sudah mengirim surel yang berisi tautan untuk mereset kata sandi Anda!',
+    'reset'     => 'Password Anda sudah direset!',
+    'sent'      => 'Kami sudah mengirim surel yang berisi tautan untuk mereset password Anda!',
     'throttled' => 'Harap tunggu sebelum mencoba lagi.',
-    'token'     => 'Token pengaturan ulang kata sandi tidak sah.',
+    'token'     => 'Token pengaturan ulang password tidak sah.',
     'user'      => 'Kami tidak dapat menemukan pengguna dengan alamat surel tersebut.',
 ];
