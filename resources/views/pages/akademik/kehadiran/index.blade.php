@@ -10,6 +10,24 @@
 
             <a href="{{ route('kehadiran.recapitulation') }}" class="btn btn-info recapitulation-button"><i
                     class="bi bi-clipboard-check me-2"></i>Rekapitulasi Kehadiran</a>
+            
+            @canany(['staf-tata-usaha', 'guru'])
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle order-by-dropdown-toggle" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i
+                            class="bi bi-sort-down me-2"></i>{{ request('order_by') === 'asc' ? 'Lama ke Terbaru' : 'Terbaru ke Lama' }}
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') !== 'asc' || !request('order_by') ? 'active' : '' }}"
+                                href="{{ request()->fullUrlWithQuery(['order_by' => 'desc']) }}">Terbaru ke Lama</a>
+                        </li>
+                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'asc' ? 'active' : '' }}"
+                                href="{{ request()->fullUrlWithQuery(['order_by' => 'asc']) }}">Lama ke Terbaru</a></li>
+                    </ul>
+                </div>
+            @endcanany
 
             <div class="modifier-buttons ms-auto">
                 <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">

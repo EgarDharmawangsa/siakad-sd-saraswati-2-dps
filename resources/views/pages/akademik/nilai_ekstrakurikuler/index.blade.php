@@ -67,7 +67,7 @@
                                     </td>
 
                                     @canany(['staf-tata-usaha', 'guru'])
-                                        <td>{{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->siswa->getFormatedNamaSiswa() }}
+                                        <td>{{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->siswa->getFormatedNamaSiswa(true) }}
                                         </td>
                                     @endcanany
 
@@ -89,7 +89,7 @@
                                                 class="form-control nilai-input @error("nilai.{$_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler}") is-invalid @enderror"
                                                 value="{{ $_nilai_ekstrakurikuler->nilai }}" min="0" max="100" step="0.01" 
                                                 data-row="{{ $_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler }}"
-                                                placeholder="Masukkan nilai">
+                                                placeholder="Masukkan nilai" required>
                                             @error("nilai.{$_nilai_ekstrakurikuler->id_nilai_ekstrakurikuler}")
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror

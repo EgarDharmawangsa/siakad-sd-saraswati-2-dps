@@ -9,13 +9,11 @@
             @endcan
 
             <div class="modifier-buttons">
-                <div>
-                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
-                        <i class="bi bi-funnel me-2"></i>Filter
-                    </button>
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                    <i class="bi bi-funnel me-2"></i>Filter
+                </button>
 
-                    @include('components.akademik.jadwal_pelajaran_filter_modal')
-                </div>
+                @include('components.akademik.jadwal_pelajaran_filter_modal')
             </div>
         </div>
 

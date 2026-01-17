@@ -25,7 +25,11 @@ class NilaiMataPelajaranController extends Controller
     public function index()
     {
         if (Gate::any(['staf-tata-usaha', 'guru']))
-            $nilai_mata_pelajaran = NilaiMataPelajaran::with(['siswa', 'siswa.kelas', 'mataPelajaran', 'semester'])->filter(request()->all())->paginate(20)->withQueryString();
+            $nilai_mata_pelajaran = NilaiMataPelajaran::with(['siswa', 'siswa.kelas', 'mataPelajaran', 'semester'])
+                                                        ->join('siswa', 'siswa.id_siswa', '=', 'nilai_mata_pelajaran.id_siswa')
+                                                        ->orderBy('siswa.nomor_urut')->select('nilai_mata_pelajaran.*')
+                                                        ->filter(request()->all())->paginate(20)
+                                                        ->withQueryString();
         else if (Gate::allows('siswa')) {
             $nilai_mata_pelajaran = NilaiMataPelajaran::with(['siswa', 'siswa.kelas', 'mataPelajaran', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter']))->paginate(20)->withQueryString();
         } else {
@@ -88,7 +92,7 @@ class NilaiMataPelajaranController extends Controller
         $siswa_in_kelas = Siswa::where('id_kelas', $validated_nilai_mata_pelajaran['id_kelas'])->get();
 
         if ($siswa_in_kelas->isEmpty()) {
-            return back()->withErrors(['id_kelas' => 'Siswa tidak tersedia di kelas ini.'])->withInput();
+            return back()->withErrors(['id_kelas' => 'Kelas belum memiliki anggota.'])->withInput();
         }
 
         $jumlah_portofolio = (int) $validated_nilai_mata_pelajaran['jumlah_portofolio'];

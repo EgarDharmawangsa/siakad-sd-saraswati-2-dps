@@ -24,7 +24,13 @@ class NilaiEkstrakurikulerController extends Controller
     public function index()
     {
         if (Gate::any(['staf-tata-usaha', 'guru']))
-            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->filter(request()->all())->paginate(20)->withQueryString();
+            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])
+                                                        ->join('peserta_ekstrakurikuler', 'peserta_ekstrakurikuler.id_peserta_ekstrakurikuler', '=', 'nilai_ekstrakurikuler.id_peserta_ekstrakurikuler')
+                                                        ->join('siswa', 'siswa.id_siswa', '=', 'peserta_ekstrakurikuler.id_siswa')
+                                                        ->orderBy('siswa.nomor_urut')
+                                                        ->select('nilai_ekstrakurikuler.*')
+                                                        ->paginate(20)
+                                                        ->withQueryString();
         else if (Gate::allows('siswa')) {
             $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->whereHas('pesertaEkstrakurikuler', fn ($query) => $query->where('id_siswa', Auth::user()->siswa->id_siswa))->filter(request()->except(['kelas_filter', 'siswa_filter']))->paginate(20)->withQueryString();
         } else {

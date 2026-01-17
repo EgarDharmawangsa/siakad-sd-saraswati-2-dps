@@ -24,7 +24,11 @@ class KehadiranController extends Controller
     public function index()
     {
         if (Gate::any(['staf-tata-usaha', 'guru']))
-            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->filter(request()->all())->paginate(20)->withQueryString();
+            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])
+                                ->join('siswa', 'siswa.id_siswa', '=', 'kehadiran.id_siswa')
+                                ->orderBy('siswa.nomor_urut')->select('kehadiran.*')
+                                ->filter(request()->all())->paginate(20)
+                                ->withQueryString();
         else if (Gate::allows('siswa')) {
             $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter']))->paginate(20)->withQueryString();
         } else {
@@ -79,6 +83,12 @@ class KehadiranController extends Controller
         }
 
         $validated_kehadiran = $request->validate($this->kehadian_validation_rules);
+
+        $siswa_in_kelas = Siswa::where('id_kelas', $validated_kehadiran['id_kelas'])->get();
+
+        if ($siswa_in_kelas->isEmpty()) {
+            return back()->withErrors(['id_kelas' => 'Kelas belum memiliki anggota.'])->withInput();
+        }
 
         Siswa::where('id_kelas', $validated_kehadiran['id_kelas'])->get()->each(function ($_siswa) use ($validated_kehadiran) {
             $kehadiran_data = Kehadiran::firstOrNew(
@@ -178,6 +188,10 @@ class KehadiranController extends Controller
 
             if ($new_status === 'Izin') {
                 $new_keterangan = $validated_kehadiran['keterangan'][$id_kehadiran] ?? null;
+
+                if (empty($new_keterangan)) {
+                    return back()->withErrors(["keterangan.$id_kehadiran" => 'Keterangan Izin wajib diisi.'])->withInput();
+                }
             }
 
             $current_kehadiran = Kehadiran::query()->select('status', 'keterangan')

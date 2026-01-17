@@ -66,7 +66,7 @@
                                 @can('staf-tata-usaha')
                                     <a href="{{ route('ekstrakurikuler.edit', $_ekstrakurikuler->id_ekstrakurikuler) }}"
                                         class="btn btn-warning mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                    <form action="{{ route('pengumuman.destroy', $_ekstrakurikuler->id_ekstrakurikuler) }}"
+                                    <form action="{{ route('ekstrakurikuler.destroy', $_ekstrakurikuler->id_ekstrakurikuler) }}"
                                         method="POST" class="d-inline delete-form">
                                         @csrf
                                         @method('DELETE')

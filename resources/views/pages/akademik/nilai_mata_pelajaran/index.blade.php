@@ -10,6 +10,24 @@
             @endcan
 
             <div class="modifier-buttons">
+                @canany(['staf-tata-usaha', 'guru'])
+                    <div class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle order-by-dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i
+                                class="bi bi-sort-down me-2"></i>{{ request('order_by') === 'asc' ? 'Lama ke Terbaru' : 'Terbaru ke Lama' }}
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') !== 'asc' || !request('order_by') ? 'active' : '' }}"
+                                    href="{{ request()->fullUrlWithQuery(['order_by' => 'desc']) }}">Terbaru ke Lama</a>
+                            </li>
+                            <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'asc' ? 'active' : '' }}"
+                                    href="{{ request()->fullUrlWithQuery(['order_by' => 'asc']) }}">Lama ke Terbaru</a></li>
+                        </ul>
+                    </div>
+                @endcanany
+                
                 <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#filter-modal">
                     <i class="bi bi-funnel me-2"></i>Filter
                 </button>
@@ -81,7 +99,7 @@
                                                 class="form-control nilai-input @error("nilai_ub_1.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}") is-invalid @enderror"
                                                 value="{{ $_nilai_mata_pelajaran->nilai_ub_1 }}" min="0" max="100" step="0.01" 
                                                 data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
-                                                placeholder="Masukkan nilai UB 1">
+                                                placeholder="Masukkan nilai UB 1" required>
                                             @error("nilai_ub_1.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}")
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -93,7 +111,7 @@
                                                 class="form-control nilai-input @error("nilai_ub_2.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}") is-invalid @enderror"
                                                 value="{{ $_nilai_mata_pelajaran->nilai_ub_2 }}" min="0" max="100" step="0.01" 
                                                 data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
-                                                placeholder="Masukkan nilai UB 2">
+                                                placeholder="Masukkan nilai UB 2" required>
                                             @error("nilai_ub_2.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}")
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -105,7 +123,7 @@
                                                 class="form-control nilai-input @error("nilai_uts.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}") is-invalid @enderror"
                                                 value="{{ $_nilai_mata_pelajaran->nilai_uts }}" min="0" max="100" step="0.01" 
                                                 data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
-                                                placeholder="Masukkan nilai UTS">
+                                                placeholder="Masukkan nilai UTS" required>
                                             @error("nilai_uts.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}")
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -117,7 +135,7 @@
                                                 class="form-control nilai-input @error("nilai_uas.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}") is-invalid @enderror"
                                                 value="{{ $_nilai_mata_pelajaran->nilai_uas }}" min="0" max="100" step="0.01" 
                                                 data-row="{{ $_nilai_mata_pelajaran->id_nilai_mata_pelajaran }}"
-                                                placeholder="Masukkan nilai UAS">
+                                                placeholder="Masukkan nilai UAS" required>
                                             @error("nilai_uas.{$_nilai_mata_pelajaran->id_nilai_mata_pelajaran}")
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -147,8 +165,10 @@
                                     <td class="aksi-column">
                                         <a href="{{ route('nilai-mata-pelajaran.show', $_nilai_mata_pelajaran->id_nilai_mata_pelajaran) }}"
                                             class="btn btn-info"><i class="bi bi-info-lg me-2"></i>Detail</a>
-                                        <a href="{{ route('nilai-mata-pelajaran.edit', $_nilai_mata_pelajaran->id_nilai_mata_pelajaran) }}"
-                                            class="btn btn-warning mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                        @can('guru')
+                                            <a href="{{ route('nilai-mata-pelajaran.edit', $_nilai_mata_pelajaran->id_nilai_mata_pelajaran) }}"
+                                                class="btn btn-warning mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @empty

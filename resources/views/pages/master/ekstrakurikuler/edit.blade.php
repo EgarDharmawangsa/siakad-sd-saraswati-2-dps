@@ -5,14 +5,15 @@
         <h5>Edit {{ $judul }}</h5>
         <hr>
 
-        <form action="{{ route('ekstrakurikuler.edit', $ekstrakurikuler->id_ekstrakurikuler) }}" method="POST">
+        <form action="{{ route('ekstrakurikuler.update', $ekstrakurikuler->id_ekstrakurikuler) }}" method="POST">
+            @method('PUT')
             @csrf
             <div class="row g-3">
                 <div class="col-md-6">
                     <label for="nama-ekstrakurikuler" class="form-label">Nama Ekstrakurikuler</label>
                     <input type="text" class="form-control @error('nama_ekstrakurikuler') is-invalid @enderror"
                         id="nama-ekstrakurikuler" name="nama_ekstrakurikuler" placeholder="Masukkan nama ekstrakurikuler"
-                        value="{{ old('nama_ekstrakurikuler', $ekstrakurikuler->nama) }}" required>
+                        value="{{ old('nama_ekstrakurikuler', $ekstrakurikuler->nama_ekstrakurikuler) }}" required>
                     @error('nama_ekstrakurikuler')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -22,7 +23,7 @@
                     <label for="nama-pembina" class="form-label">Nama Pembina</label>
                     <input type="text" class="form-control @error('nama_pembina') is-invalid @enderror" id="nama-pembina"
                         name="nama_pembina" placeholder="Masukkan nama pembina"
-                        value="{{ old('nama_pembina', $ekstrakurikuler->pembina) }}" required>
+                        value="{{ old('nama_pembina', $ekstrakurikuler->nama_pembina) }}" required>
                     @error('nama_pembina')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -32,7 +33,7 @@
                     <label for="alamat-pembina" class="form-label">Alamat Pembina</label>
                     <input type="text" class="form-control @error('alamat_pembina') is-invalid @enderror"
                         id="alamat-pembina" name="alamat_pembina" placeholder="Masukkan alamat pembina"
-                        value="{{ old('alamat_pembina', $ekstrakurikuler->alamat) }}" required>
+                        value="{{ old('alamat_pembina', $ekstrakurikuler->alamat_pembina) }}" required>
                     @error('alamat_pembina')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
