@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="content-card mb-4">
-        <h5>Tambah {{ $judul }}</h5>
+        <h5>Kelas {{ $judul }}</h5>
         <hr>
 
         <form action="{{ route('kelas.update', $kelas->id_kelas) }}" method="POST">
