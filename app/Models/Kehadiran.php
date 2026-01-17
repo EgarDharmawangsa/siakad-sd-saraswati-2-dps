@@ -49,13 +49,16 @@ class Kehadiran extends Model
         return $formated_tanggal;
     }
 
-    public function scopeFilter($query, array $filters)
+    public function scopeOrderByFilter($query, $filters)
     {
         $order_by_array = ['desc', 'asc'];
-
+    
         $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
         $query->orderBy('tanggal', $order_by_value);
+    }
 
+    public function scopeFilter($query, array $filters)
+    {
         if (!empty($filters['kelas_filter'])) {
             $query->whereHas('siswa.kelas', fn($query) => $query->where('id_kelas', $filters['kelas_filter']));
         }

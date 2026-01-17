@@ -27,10 +27,10 @@ class KehadiranController extends Controller
             $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])
                                 ->join('siswa', 'siswa.id_siswa', '=', 'kehadiran.id_siswa')
                                 ->orderBy('siswa.nomor_urut')->select('kehadiran.*')
-                                ->filter(request()->all())->paginate(20)
+                                ->filter(request()->all())->orderByFilter('order_by')->paginate(20)
                                 ->withQueryString();
         else if (Gate::allows('siswa')) {
-            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter']))->paginate(20)->withQueryString();
+            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter']))->orderByFilter('order_by')->paginate(20)->withQueryString();
         } else {
             abort(404);
         }
