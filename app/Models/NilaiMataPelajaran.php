@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Gate;
 
 /**
  * @property int $id_siswa
+ * @property int $id_semester
+ * @property int $id_mata_pelajaran
  * @property int $jumlah_portofolio
  * @property array $nilai_portofolio
  * @property int $nilai_ub_1

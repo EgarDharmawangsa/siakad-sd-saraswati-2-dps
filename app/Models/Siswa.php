@@ -141,7 +141,7 @@ class Siswa extends Model
         }
 
         if (!empty($filters['ekstrakurikuler'])) {
-            $query->whereHas('siswa.pesertaEkstrakurikuler.ekstrakurikuler', fn($query) => $query->where('id_ekstrakurikuler', $filters['ekstrakurikuler']));
+            $query->whereHas('pesertaEkstrakurikuler.ekstrakurikuler', fn($query) => $query->where('id_ekstrakurikuler', $filters['ekstrakurikuler']));
         }
 
         return $query;
