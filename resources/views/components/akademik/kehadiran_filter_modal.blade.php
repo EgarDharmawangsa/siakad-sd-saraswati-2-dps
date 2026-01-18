@@ -8,7 +8,7 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="filter-modal-form" action="{{ !request()->routeIs('kehadiran.recapitulation') ? route('kehadiran.index') : route('kehadiran.recapitulation') }}">
+                <form id="filter-modal-form" action="{{ $route_kehadiran_filter }}">
                     @canany(['staf-tata-usaha', 'guru'])
                         <div class="mb-3">
                             <label for="kelas-filter" class="form-label">Kelas</label>

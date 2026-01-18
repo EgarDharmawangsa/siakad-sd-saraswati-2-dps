@@ -38,9 +38,11 @@ class KehadiranController extends Controller
         $kelas = Kelas::orderedNamaKelas()->get();
         $siswa = Siswa::get();
         $semester = Semester::filter(['order_by' => 'desc'])->get();
+        $route_kehadiran_filter = route('kehadiran.recapitulation');
 
         return view('pages.akademik.kehadiran.index', [
             'judul' => 'Kehadiran',
+            'route_kehadiran_filter' => $route_kehadiran_filter,
             'kehadiran' => $kehadiran,
             'kelas' => $kelas,
             'siswa' => $siswa,
@@ -134,9 +136,11 @@ class KehadiranController extends Controller
         $kelas = Kelas::orderedNamaKelas()->get();
         $siswa = Siswa::get();
         $semester = Semester::filter(['order_by' => 'desc'])->get();
+        $route_kehadiran_filter = route('kehadiran.recapitulation');
 
         return view('pages.akademik.kehadiran.recapitulation', [
             'judul' => 'Kehadiran',
+            'route_kehadiran_filter' => $route_kehadiran_filter,
             'kehadiran' => $kehadiran,
             'kelas' => $kelas,
             'siswa' => $siswa,
