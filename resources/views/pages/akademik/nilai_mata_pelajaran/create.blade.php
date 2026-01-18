@@ -36,7 +36,7 @@
                         </option>
                         @foreach ($semester as $_semester)
                             <option value="{{ $_semester->id_semester }}"
-                                {{ request('id_semester') === $_semester->id_semester ? 'selected' : '' }}>
+                                {{ old('id_semester') == $_semester->id_semester ? 'selected' : '' }}>
                                 {{ "{$_semester->getTahunAjaran(true)} ({$_semester->getStatus()})" }}
                             </option>
                         @endforeach
@@ -55,7 +55,7 @@
                         </option>
                         @foreach ($mata_pelajaran as $_mata_pelajaran)
                             <option value="{{ $_mata_pelajaran->id_mata_pelajaran }}"
-                                {{ request('id_mata_pelajaran') === $_mata_pelajaran->id_mata_pelajaran ? 'selected' : '' }}>
+                                {{ old('id_mata_pelajaran') == $_mata_pelajaran->id_mata_pelajaran ? 'selected' : '' }}>
                                 {{ $_mata_pelajaran->nama_mata_pelajaran }}
                             </option>
                         @endforeach

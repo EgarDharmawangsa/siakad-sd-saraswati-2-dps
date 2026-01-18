@@ -29,18 +29,25 @@ class Kehadiran extends Model
     public function scopeSiswaRecap($query, $id_siswa = null)
     {
         if (!empty($id_siswa)) {
-            $query->where('id_siswa', $id_siswa);
+            $query->where('kehadiran.id_siswa', $id_siswa);
         }
 
-        $query->select('id_siswa', 'id_semester')
+        $query->select(
+                'kehadiran.id_siswa',
+                'kehadiran.id_semester'
+            )
             ->selectRaw("SUM(status = 'Hadir') as hadir")
             ->selectRaw("SUM(status = 'Izin') as izin")
             ->selectRaw("SUM(status = 'Sakit') as sakit")
             ->selectRaw("SUM(status = 'Alfa') as alfa")
-            ->groupBy('id_siswa', 'id_semester');
+            ->groupBy(
+                'kehadiran.id_siswa',
+                'kehadiran.id_semester'
+            );
 
         return $query;
     }
+
 
     public function getFormatedTanggal()
     {
@@ -48,17 +55,14 @@ class Kehadiran extends Model
 
         return $formated_tanggal;
     }
-
-    public function scopeOrderByFilter($query, $filters)
+    
+    public function scopeFilter($query, array $filters)
     {
         $order_by_array = ['desc', 'asc'];
     
         $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
-        $query->orderBy('tanggal', $order_by_value);
-    }
-
-    public function scopeFilter($query, array $filters)
-    {
+        $query->join('semester', 'semester.id_semester', '=', 'kehadiran.id_semester')->orderBy('semester.tanggal_mulai', $order_by_value);
+        
         if (!empty($filters['kelas_filter'])) {
             $query->whereHas('siswa.kelas', fn($query) => $query->where('id_kelas', $filters['kelas_filter']));
         }

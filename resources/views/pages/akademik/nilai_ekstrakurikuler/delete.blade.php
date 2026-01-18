@@ -18,7 +18,7 @@
                         </option>
                         @foreach ($ekstrakurikuler as $_ekstrakurikuler)
                             <option value="{{ $_ekstrakurikuler->id_ekstrakurikuler }}"
-                                {{ old('id_ekstrakurikuler') === $_ekstrakurikuler->id_ekstrakurikuler ? 'selected' : '' }}>
+                                {{ old('id_ekstrakurikuler') == $_ekstrakurikuler->id_ekstrakurikuler ? 'selected' : '' }}>
                                 {{ $_ekstrakurikuler->nama_ekstrakurikuler }}</option>
                         @endforeach
                     </select>
@@ -36,7 +36,7 @@
                         </option>
                         @foreach ($semester as $_semester)
                             <option value="{{ $_semester->id_semester }}"
-                                {{ request('id_semester') === $_semester->id_semester ? 'selected' : '' }}>
+                                {{ old('id_semester') == $_semester->id_semester ? 'selected' : '' }}>
                                 {{ $_semester->getTahunAjaran(true) . ' ' . $_semester->getStatus() }}
                             </option>
                         @endforeach

@@ -24,13 +24,13 @@ class KehadiranController extends Controller
     public function index()
     {
         if (Gate::any(['staf-tata-usaha', 'guru']))
-            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])
+            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->filter(request()->all())
                                 ->join('siswa', 'siswa.id_siswa', '=', 'kehadiran.id_siswa')
                                 ->orderBy('siswa.nomor_urut')->select('kehadiran.*')
-                                ->filter(request()->all())->orderByFilter('order_by')->paginate(20)
+                                ->paginate(20)
                                 ->withQueryString();
         else if (Gate::allows('siswa')) {
-            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter']))->orderByFilter('order_by')->paginate(20)->withQueryString();
+            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter']))->paginate(20)->withQueryString();
         } else {
             abort(404);
         }
@@ -126,7 +126,11 @@ class KehadiranController extends Controller
     public function recapitulation()
     {
         if (Gate::any(['staf-tata-usaha', 'guru']))
-            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->SiswaRecap()->filter(request()->except(['status_filter', 'keterangan_filter', 'tanggal_filter']))->paginate(20)->withQueryString();
+            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->filter(request()->except(['status_filter', 'keterangan_filter', 'tanggal_filter']))
+                                ->join('siswa', 'siswa.id_siswa', '=', 'kehadiran.id_siswa')
+                                ->orderBy('siswa.nomor_urut')->select('kehadiran.*')
+                                ->paginate(20)
+                                ->withQueryString();
         else if (Gate::allows('siswa')) {
             $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->siswaRecap(Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter', 'status_filter', 'keterangan_filter', 'tanggal_filter']))->paginate(20)->withQueryString();
         } else {

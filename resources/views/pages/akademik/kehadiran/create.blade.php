@@ -18,7 +18,7 @@
                         </option>
                         @foreach ($kelas as $_kelas)
                             <option value="{{ $_kelas->id_kelas }}"
-                                {{ old('id_kelas') === $_kelas->id_kelas ? 'selected' : '' }}>
+                                {{ old('id_kelas') == $_kelas->id_kelas ? 'selected' : '' }}>
                                 {{ $_kelas->nama_kelas }}</option>
                         @endforeach
                     </select>
@@ -36,7 +36,7 @@
                         </option>
                         @foreach ($semester as $_semester)
                             <option value="{{ $_semester->id_semester }}"
-                                {{ request('id_semester') === $_semester->id_semester ? 'selected' : '' }}>
+                                {{ old('id_semester') == $_semester->id_semester ? 'selected' : '' }}>
                                 {{ "{$_semester->getTahunAjaran(true)} ({$_semester->getStatus()})" }}
                             </option>
                         @endforeach
