@@ -52,7 +52,7 @@
                     data-route="{{ route('nilai-ekstrakurikuler.index') }}" data-bs-toggle="modal"
                     data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
-                <button type="submit" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Tambah<span class="mx-2">/</span><i class="bi bi-arrow-repeat me-2"></i>Sinkronisasi</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Tambah<span class="mx-2">/</span><i class="bi bi-arrow-repeat me-2"></i>Sinkronkan</button>
             </div>
         </form>
     </div>
