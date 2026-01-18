@@ -1,6 +1,6 @@
 @auth
     <nav class="navbar navbar-expand-lg navbar-dark position-fixed top-0 w-100">
-        <div class="container-fluid px-3">
+        <div class="container-fluid">
             <button class="btn d-lg-none sidebar-toggle-button me-2" id="toggle-sidebar"><i
                     class="bi bi-list fs-2"></i></button>
 

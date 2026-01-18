@@ -4,6 +4,10 @@ nav.navbar {
     z-index: 99999;
 }
 
+.navbar .container-fluid {
+    padding: 0 1rem;
+}
+
 .btn.sidebar-toggle-button {
     border: none;
     color: white;
@@ -110,6 +114,12 @@ nav.navbar {
     border-color: white;
     opacity: 0.5;
     margin: 0.5rem 0;
+}
+
+@media (max-width: 992px) {
+    .navbar .container-fluid {
+        padding: 0 0.5rem;
+    }
 }
 
 @media (max-width: 576px) {

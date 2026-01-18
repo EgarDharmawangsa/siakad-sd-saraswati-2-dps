@@ -329,6 +329,7 @@ td {
 @media (max-width: 992px) {
     .container-fluid.content-container {
         margin-left: 0;
+        padding: 1.5rem 1rem; 
     }
 }
 
