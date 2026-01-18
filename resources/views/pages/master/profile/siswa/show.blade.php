@@ -96,12 +96,12 @@
                         <input type="text" class="form-control" value="{{ $user->alat_transportasi }}" readonly>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">No. Telp. Rumah</label>
+                        <label class="form-label">No. Telepon Rumah</label>
                         <input type="text" class="form-control" value="{{ $user->no_telepon_rumah ?? '-' }}"
                             readonly>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">No. HP (WA)</label>
+                        <label class="form-label">No. Telepon Seluler</label>
                         <input type="text" class="form-control" value="{{ $user->no_telepon_seluler }}" readonly>
                     </div>
                     <div class="col-md-6">

@@ -189,7 +189,7 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">No. Telp Rumah<span class="text-muted mini-label ms-1">(Opsional)</span></label>
+                            <label class="form-label">No. Telepon Rumah<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('no_telepon_rumah') is-invalid @enderror" name="no_telepon_rumah"
                                 value="{{ old('no_telepon_rumah') }}" placeholder="Masukkan no. telp rumah">
                             @error('no_telepon_rumah')
@@ -197,7 +197,7 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">No. HP (WA)</label>
+                            <label class="form-label">No. Telepon Seluler</label>
                             <input type="number" class="form-control @error('no_telepon_seluler') is-invalid @enderror"
                                 name="no_telepon_seluler" value="{{ old('no_telepon_seluler') }}" placeholder="Masukkan no. HP" required>
                             @error('no_telepon_seluler')

@@ -11,14 +11,14 @@
                 <form id="filter-modal-form" action="{{ route('siswa.index') }}">
                     <div class="mb-3">
                         <label for="kelas-filter" class="form-label">Kelas</label>
-                        <select class="form-select" id="kelas-filter" name="kelas"
+                        <select class="form-select" id="kelas-filter" name="kelas_filter"
                             {{ $kelas->isEmpty() ? 'disabled' : '' }}>
                             <option value="">
                                 {{ $kelas->isNotEmpty() ? '-- Pilih Kelas --' : '-- Kelas Tidak Tersedia --' }}
                             </option>
                             @foreach ($kelas as $_kelas)
                                 <option value="{{ $_kelas->id_kelas }}"
-                                    {{ request('kelas') == $_kelas->id_kelas ? 'selected' : '' }}>
+                                    {{ request('kelas_filter') == $_kelas->id_kelas ? 'selected' : '' }}>
                                     {{ $_kelas->nama_kelas }}
                                 </option>
                             @endforeach
@@ -27,72 +27,72 @@
 
                     <div class="mb-3">
                         <label for="nisn-filter" class="form-label">NISN</label>
-                        <input type="number" class="form-control" id="nisn-filter" name="nisn" value="{{ request('nisn') }}"
+                        <input type="number" class="form-control" id="nisn-filter" name="nisn_filter" value="{{ request('nisn_filter') }}"
                             placeholder="Masukkan NISN">
                     </div>
 
                     <div class="mb-3">
                         <label for="nama-siswa-filter" class="form-label">Nama Siswa</label>
-                        <input type="text" class="form-control" id="nama-siswa-filter" name="nama_siswa" value="{{ request('nama_siswa') }}"
+                        <input type="text" class="form-control" id="nama-siswa-filter" name="nama_siswa_filter" value="{{ request('nama_siswa_filter') }}"
                             placeholder="Masukkan nama siswa">
                     </div>
 
                     <div class="mb-3">
                         <label for="jenis-kelamin-filter" class="form-label">Jenis Kelamin</label>
-                        <select class="form-select" id="jenis-kelamin-filter" name="jenis_kelamin">
+                        <select class="form-select" id="jenis-kelamin-filter" name="jenis_kelamin_filter">
                             <option value="">-- Pilih Jenis Kelamin --</option>
                             <option value="Laki-laki"
-                                {{ request('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki
+                                {{ request('jenis_kelamin_filter') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki
                             </option>
                             <option value="Perempuan"
-                                {{ request('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan
+                                {{ request('jenis_kelamin_filter') == 'Perempuan' ? 'selected' : '' }}>Perempuan
                             </option>
                         </select>
                     </div>
 
                     <div class="mb-3">
                         <label for="agama-filter" class="form-label">Agama</label>
-                        <select class="form-select" id="agama-filter" name="agama">
+                        <select class="form-select" id="agama-filter" name="agama_filter">
                             <option value="">-- Pilih Agama --</option>
-                            <option value="Islam" {{ request('agama') == 'Islam' ? 'selected' : '' }}>
+                            <option value="Islam" {{ request('agama_filter') == 'Islam' ? 'selected' : '' }}>
                                 Islam</option>
                             <option value="Kristen"
-                                {{ request('agama') == 'Kristen Protestan' ? 'selected' : '' }}>Kristen
+                                {{ request('agama_filter') == 'Kristen Protestan' ? 'selected' : '' }}>Kristen
                             </option>
                             <option value="Katolik"
-                                {{ request('agama') == 'Kristen Katolik' ? 'selected' : '' }}>Katolik
+                                {{ request('agama_filter') == 'Kristen Katolik' ? 'selected' : '' }}>Katolik
                             </option>
-                            <option value="Hindu" {{ request('agama') == 'Hindu' ? 'selected' : '' }}>
+                            <option value="Hindu" {{ request('agama_filter') == 'Hindu' ? 'selected' : '' }}>
                                 Hindu</option>
-                            <option value="Budha" {{ request('agama') == 'Budha' ? 'selected' : '' }}>
+                            <option value="Budha" {{ request('agama_filter') == 'Budha' ? 'selected' : '' }}>
                                 Budha</option>
                             <option value="Konghucu"
-                                {{ request('agama') == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
+                                {{ request('agama_filter') == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
                         </select>
                     </div>
 
                     <div class="mb-3">
                         <label for="no-telepon-seluler-filter" class="form-label">No. HP (WA)</label>
-                        <input type="number" class="form-control" id="no-telepon-seluler-filter" name="no_telepon_seluler"
-                            value="{{ request('no_telepon_seluler') }}" placeholder="Masukkan no. hp">
+                        <input type="number" class="form-control" id="no-telepon-seluler-filter" name="no_telepon_seluler_filter"
+                            value="{{ request('no_telepon_seluler_filter') }}" placeholder="Masukkan no. hp">
                     </div>
 
                     <div class="mb-3">
                         <label for="alamat-filter" class="form-label">Alamat</label>
-                        <input type="text" id="alamat-filter" class="form-control" name="alamat"
-                            value="{{ request('alamat') }}" placeholder="Masukkan alamat">
+                        <input type="text" id="alamat-filter" class="form-control" name="alamat_filter"
+                            value="{{ request('alamat_filter') }}" placeholder="Masukkan alamat">
                     </div>
                     
                     <div class="mb-2">
                         <label class="form-label">Ekstrakurikuler</label>
-                        <select class="form-select" name="ekstrakurikuler"
+                        <select class="form-select" name="ekstrakurikuler_filter"
                             {{ $ekstrakurikuler->isEmpty() ? 'disabled' : '' }}>
                             <option value="">
                                 {{ $ekstrakurikuler->isNotEmpty() ? '-- Pilih Ekstrakurikuler --' : '-- Ekstrakurikuler Tidak Tersedia --' }}
                             </option>
                             @foreach ($ekstrakurikuler as $_ekstrakurikuler)
                                 <option value="{{ $_ekstrakurikuler->id_ekstrakurikuler }}"
-                                    {{ request('ekstrakurikuler') == $_ekstrakurikuler->id_ekstrakurikuler ? 'selected' : '' }}>
+                                    {{ request('ekstrakurikuler_filter') == $_ekstrakurikuler->id_ekstrakurikuler ? 'selected' : '' }}>
                                     {{ $_ekstrakurikuler->nama_ekstrakurikuler }}
                                 </option>
                             @endforeach

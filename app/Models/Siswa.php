@@ -116,32 +116,32 @@ class Siswa extends Model
         //     $query->whereHas('userAuth', fn($query) => $query->where('username', 'like', '%' . $filters['username'] . '%'));
         // }
 
-        if (!empty($filters['kelas'])) {
-            $query->whereHas('kelas', fn($query) => $query->where('id_kelas', $filters['kelas']));
+        if (!empty($filters['kelas_filter'])) {
+            $query->whereHas('kelas', fn($query) => $query->where('id_kelas', $filters['kelas_filter']));
         }
 
-        if (!empty($filters['nisn'])) {
-            $query->where('nisn', 'like', '%' . $filters['nisn'] . '%');
+        if (!empty($filters['nisn_filter'])) {
+            $query->where('nisn', 'like', '%' . $filters['nisn_filter'] . '%');
         }
 
-        if (!empty($filters['nama_siswa'])) {
-            $query->where('nama_siswa', 'like', '%' . $filters['nama_siswa'] . '%');
+        if (!empty($filters['nama_siswa_filter'])) {
+            $query->where('nama_siswa', 'like', '%' . $filters['nama_siswa_filter'] . '%');
         }
 
-        if (!empty($filters['jenis_kelamin'])) {
-            $query->where('jenis_kelamin', $filters['jenis_kelamin']);
+        if (!empty($filters['jenis_kelamin_filter'])) {
+            $query->where('jenis_kelamin', $filters['jenis_kelamin_filter']);
         }
 
-        if (!empty($filters['agama'])) {
-            $query->where('agama', $filters['agama']);
+        if (!empty($filters['agama_filter'])) {
+            $query->where('agama', $filters['agama_filter']);
         }
 
-        if (!empty($filters['no_telepon_seluler'])) {
-            $query->where('no_telepon_seluler', 'like', '%' . $filters['no_telepon_seluler'] . '%');
+        if (!empty($filters['no_telepon_seluler_filter'])) {
+            $query->where('no_telepon_seluler', 'like', '%' . $filters['no_telepon_seluler_filter'] . '%');
         }
 
-        if (!empty($filters['ekstrakurikuler'])) {
-            $query->whereHas('pesertaEkstrakurikuler.ekstrakurikuler', fn($query) => $query->where('id_ekstrakurikuler', $filters['ekstrakurikuler']));
+        if (!empty($filters['ekstrakurikuler_filter'])) {
+            $query->whereHas('pesertaEkstrakurikuler.ekstrakurikuler', fn($query) => $query->where('id_ekstrakurikuler', $filters['ekstrakurikuler_filter']));
         }
 
         return $query;

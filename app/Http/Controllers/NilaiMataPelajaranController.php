@@ -303,7 +303,7 @@ class NilaiMataPelajaranController extends Controller
         }
 
         $kelas = Kelas::orderedNamaKelas()->get();
-        $semester = Semester::latest()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
         $mata_pelajaran = MataPelajaran::latest()->get();
 
         return view('pages.akademik.nilai_mata_pelajaran.delete', [

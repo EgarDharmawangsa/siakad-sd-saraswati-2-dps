@@ -238,7 +238,7 @@ class KehadiranController extends Controller
         }
 
         $kelas = kelas::orderedNamaKelas()->get();
-        $semester = Semester::latest()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
 
         return view('pages.akademik.kehadiran.delete', [
             'judul' => 'Kehadiran',

@@ -219,7 +219,7 @@
                             <td>{{ $_siswa->nomor_urut ?? '-' }}</td>
                             <td>{{ $_siswa->pesertaEkstrakurikuler?->count() }} Ekstrakurikuler</td> --}}
 
-                            <td>{{ $_siswa->kelas?->nama_kelas }}</td>
+                            <td>{{ $_siswa->kelas?->nama_kelas ?? '-' }}</td>
                             <td>{{ $_siswa->nisn }}</td>
                             <td>{{ $_siswa->nama_siswa }}</td>
                             <td>{{ $_siswa->jenis_kelamin }}</td>

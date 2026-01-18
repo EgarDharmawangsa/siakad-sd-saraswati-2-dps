@@ -17,7 +17,7 @@
                     </a>
 
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') !== 'asc' || request('order_by') !== 'desc' || !request('order_by') ? 'active' : '' }}"
+                        <li><a class="dropdown-item order-by-dropdown-item {{ !request('order_by') ? 'active' : '' }}"
                                 href="{{ request()->fullUrlWithQuery(['order_by' => 'nama_kelas']) }}">Nama Kelas</a>
                         </li>
                         <li><a class="dropdown-item order-by-dropdown-item {{ request('order_by') === 'desc' ? 'active' : '' }}"

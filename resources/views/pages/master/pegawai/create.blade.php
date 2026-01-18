@@ -39,8 +39,7 @@
                 <div class="tab-pane fade show active" id="data-pribadi-tab" role="tabpanel">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label for="username" class="form-label">Username <span
-                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
+                            <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control @error('username') is-invalid @enderror"
                                 id="username" name="username" placeholder="Masukkan username"
                                 value="{{ old('username') }}" required>
@@ -50,8 +49,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="password" class="form-label">Password<span
-                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
+                            <label for="password" class="form-label">Password</label>
                             <div class="input-group">
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
                                     id="password" name="password" placeholder="Masukkan password"
@@ -226,7 +224,7 @@
                 </div>
 
                 <div class="tab-pane fade" id="data-kepegawaian-tab" role="tabpanel">
-                    <div class="row g-3 pt-3">
+                    <div class="row g-3">
                         <div class="col-md-6">
                             <label for="posisi" class="form-label">Posisi</label>
                             <select class="form-select @error('posisi') is-invalid @enderror" id="posisi"
@@ -251,8 +249,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="id-mata-pelajaran" class="form-label">Guru Mata Pelajaran <span
-                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
+                            <label for="id-mata-pelajaran" class="form-label">Guru Mata Pelajaran</label>
                             <div class="dropdown" id="id-mata-pelajaran">
                                 <button class="form-select text-start @error('id_mata_pelajaran') is-invalid @enderror"
                                     type="button" data-bs-toggle="dropdown" aria-expanded="false"
@@ -279,8 +276,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="status-kepegawaian" class="form-label">Status Kepegawaian<span
-                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
+                            <label for="status-kepegawaian" class="form-label">Status Kepegawaian</label>
                             <select class="form-select @error('status_kepegawaian') is-invalid @enderror"
                                 id="status-kepegawaian" name="status_kepegawaian" required>
                                 <option value="">-- Pilih Status Kepegawaian --</option>
@@ -304,8 +300,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="nip" class="form-label">NIP <span
-                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
+                            <label for="nip" class="form-label">NIP</label>
                             <input type="number" class="form-control @error('nip') is-invalid @enderror" id="nip"
                                 name="nip" placeholder="Masukkan NIP" value="{{ old('nip') }}" required>
                             @error('nip')
@@ -314,8 +309,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="nipppk" class="form-label">NIPPPK <span
-                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
+                            <label for="nipppk" class="form-label">NIPPPK</label>
                             <input type="number" class="form-control @error('nipppk') is-invalid @enderror"
                                 id="nipppk" name="nipppk" placeholder="Masukkan NIPPPK" value="{{ old('nipppk') }}"
                                 required>
@@ -404,7 +398,7 @@
                 </div>
 
                 <div class="tab-pane fade" id="data-pendidikan-tab" role="tabpanel">
-                    <div class="row g-3 pt-3">
+                    <div class="row g-3">
                         <div class="col-md-6">
                             <label for="ijazah-terakhir" class="form-label">Ijazah Terakhir<span
                                     class="text-muted mini-label ms-1">(Opsional)</span></label>
@@ -443,8 +437,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="tahun-sertifikasi" class="form-label">Tahun Sertifikasi<span
-                                    class="text-muted mini-label ms-1">(Opsional)</span></label>
+                            <label for="tahun-sertifikasi" class="form-label">Tahun Sertifikasi</label>
                             <input type="number" class="form-control @error('tahun_sertifikasi') is-invalid @enderror"
                                 id="tahun-sertifikasi" name="tahun_sertifikasi" placeholder="Masukkan tahun sertifikasi"
                                 value="{{ old('tahun_sertifikasi') }}" min="1900" max="{{ date('Y') }}"
@@ -466,7 +459,7 @@
                 </div>
 
                 <div class="tab-pane fade" id="data-sk-tab" role="tabpanel">
-                    <div class="row g-3 pt-3">
+                    <div class="row g-3">
                         <div class="col-md-6">
                             <label for="no-sk" class="form-label">Nomor SK <span
                                     class="text-muted mini-label ms-1">(Opsional)</span></label>

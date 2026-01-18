@@ -183,7 +183,7 @@ class NilaiEkstrakurikulerController extends Controller
         }
 
         $ekstrakurikuler = Ekstrakurikuler::latest()->get();
-        $semester = Semester::latest()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
 
         return view('pages.akademik.nilai_ekstrakurikuler.delete', [
             'judul' => 'Nilai Ekstrakurikuler',

@@ -114,7 +114,7 @@
                         <div class="col-md-6">
                             <label class="form-label">NIPD</label>
                             <input type="number" class="form-control @error('nipd') is-invalid @enderror" name="nipd"
-                                value="{{ old('nipd', $siswa->nipd) }}" placeholder="Masukkan NIPD" required>
+                                value="{{ old('nipd', $siswa->nipd) }}" placeholder="Masukkan NIPD">
                             @error('nipd')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -195,7 +195,7 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">No. Telp Rumah</label>
+                            <label class="form-label">No. Telepon Rumah</label>
                             <input type="number" class="form-control @error('no_telepon_rumah') is-invalid @enderror" name="no_telepon_rumah"
                                 value="{{ old('no_telepon_rumah', $siswa->no_telepon_rumah) }}" placeholder="Masukkan no. telp rumah">
                             @error('no_telepon_rumah')
@@ -203,7 +203,7 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">No. HP (WA)</label>
+                            <label class="form-label">No. Telepon Seluler</label>
                             <input type="number" class="form-control @error('no_telepon_seluler') is-invalid @enderror"
                                 name="no_telepon_seluler"
                                 value="{{ old('no_telepon_seluler', $siswa->no_telepon_seluler) }}" placeholder="Masukkan no. hp" required>

@@ -63,9 +63,9 @@
                         <option value="1 (Pertama)" {{ old('peringkat', $prestasi->peringkat) === '1 (Pertama)' ? 'selected' : '' }}>1 (Pertama)</option>
                         <option value="2 (Kedua)" {{ old('peringkat', $prestasi->peringkat) === '2 (Kedua)' ? 'selected' : '' }}>2 (Kedua)</option>
                         <option value="3 (Ketiga)" {{ old('peringkat', $prestasi->peringkat) === '3 (Ketiga)' ? 'selected' : '' }}>3 (Ketiga)</option>
-                        <option value="Harapan 4" {{ old('peringkat', $prestasi->peringkat) === 'Harapan 4' ? 'selected' : '' }}>Harapan 1</option>
-                        <option value="Harapan 5" {{ old('peringkat', $prestasi->peringkat) === 'Harapan 5' ? 'selected' : '' }}>Harapan 2</option>
-                        <option value="Harapan 6" {{ old('peringkat', $prestasi->peringkat) === 'Harapan 6' ? 'selected' : '' }}>Harapan 3</option>
+                        <option value="Harapan 1" {{ old('peringkat', $prestasi->peringkat) === 'Harapan 1' ? 'selected' : '' }}>Harapan 1</option>
+                        <option value="Harapan 2" {{ old('peringkat', $prestasi->peringkat) === 'Harapan 2' ? 'selected' : '' }}>Harapan 2</option>
+                        <option value="Harapan 3" {{ old('peringkat', $prestasi->peringkat) === 'Harapan 3' ? 'selected' : '' }}>Harapan 3</option>
                         <option value="Lainnya" {{ old('peringkat', $prestasi->peringkat) === 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                     </select>
                     @error('peringkat')
