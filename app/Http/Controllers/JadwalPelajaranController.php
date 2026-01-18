@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Auth;
 class JadwalPelajaranController extends Controller
 {
     public $jadwal_pelajaran_validation_rules = [
-        'id_kelas' => 'nullable|integer',
-        'id_guru_mata_pelajaran' => 'nullable|integer',
+        'id_kelas' => 'nullable|integer|exists:kelas,id_kelas',
+        'id_guru_mata_pelajaran' => 'nullable|integer|exists:guru_mata_pelajaran,id_guru_mata_pelajaran',
         'kegiatan' => 'required|string|min:3|max:10',
         'hari' => 'required|string|min:3|max:10',
         'jam_mulai' => 'required|date_format:H:i',

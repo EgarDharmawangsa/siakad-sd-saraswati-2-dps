@@ -129,7 +129,7 @@ class Pegawai extends Model
         // }
 
         if (!empty($filters['nip_filter'])) {
-            $query->where('nip', 'like', '%' . $filters['nip'] . '%');
+            $query->where('nip', 'like', '%' . $filters['nip_filter'] . '%');
         }
 
         if (!empty($filters['nipppk_filter'])) {
