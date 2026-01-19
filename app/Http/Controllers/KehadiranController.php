@@ -13,7 +13,7 @@ use Illuminate\Validation\ValidationException;
 
 class KehadiranController extends Controller
 {
-    public $kehadian_validation_rules = [
+    public $kehadiran_validation_rules = [
         'id_kelas' => 'required|exists:kelas,id_kelas',
         'id_semester' => 'required|exists:semester,id_semester',
         'tanggal' => 'required|date|after_or_equal:today'
@@ -25,10 +25,10 @@ class KehadiranController extends Controller
     {
         if (Gate::any(['staf-tata-usaha', 'guru']))
             $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->filter(request()->all())
-                                ->join('siswa', 'siswa.id_siswa', '=', 'kehadiran.id_siswa')
-                                ->orderBy('siswa.nomor_urut')->select('kehadiran.*')
-                                ->paginate(20)
-                                ->withQueryString();
+                ->join('siswa', 'siswa.id_siswa', '=', 'kehadiran.id_siswa')
+                ->orderBy('siswa.nomor_urut')->select('kehadiran.*')
+                ->paginate(20)
+                ->withQueryString();
         else if (Gate::allows('siswa')) {
             $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter']))->paginate(20)->withQueryString();
         } else {
@@ -81,10 +81,10 @@ class KehadiranController extends Controller
         $siswa = Siswa::get();
 
         if ($siswa->isEmpty()) {
-            return back()->with('error', 'Siswa tidak tersedia.');
+            return back()->with('error', 'Siswa tidak tersedia.')->withInput();
         }
 
-        $validated_kehadiran = $request->validate($this->kehadian_validation_rules);
+        $validated_kehadiran = $request->validate($this->kehadiran_validation_rules);
 
         $siswa_in_kelas = Siswa::where('id_kelas', $validated_kehadiran['id_kelas'])->get();
 
@@ -127,10 +127,10 @@ class KehadiranController extends Controller
     {
         if (Gate::any(['staf-tata-usaha', 'guru']))
             $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->filter(request()->except(['status_filter', 'keterangan_filter', 'tanggal_filter']))
-                                ->join('siswa', 'siswa.id_siswa', '=', 'kehadiran.id_siswa')
-                                ->orderBy('siswa.nomor_urut')->select('kehadiran.*')
-                                ->paginate(20)
-                                ->withQueryString();
+                ->join('siswa', 'siswa.id_siswa', '=', 'kehadiran.id_siswa')
+                ->orderBy('siswa.nomor_urut')->select('kehadiran.*')
+                ->paginate(20)
+                ->withQueryString();
         else if (Gate::allows('siswa')) {
             $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->siswaRecap(Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter', 'status_filter', 'keterangan_filter', 'tanggal_filter']))->paginate(20)->withQueryString();
         } else {
@@ -150,6 +150,76 @@ class KehadiranController extends Controller
             'siswa' => $siswa,
             'semester' => $semester
         ]);
+    }
+
+    public function editForm()
+    {
+        if (!Gate::allows('guru')) {
+            abort(404);
+        }
+
+        $kelas = kelas::orderedNamaKelas()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
+
+        return view('pages.akademik.kehadiran.edit_form', [
+            'judul' => 'Kehadiran',
+            'kelas' => $kelas,
+            'semester' => $semester
+        ]);
+    }
+
+    public function updateForm(Request $request)
+    {
+        if (!Gate::allows('guru')) {
+            abort(404);
+        }
+
+        $kehadiran_update_validation_rules = $this->kehadiran_validation_rules;
+
+        $kehadiran_update_validation_rules['id_semester_new'] = 'required|exists:semester,id_semester';
+        $kehadiran_update_validation_rules['tanggal_new'] = 'required|date|after_or_equal:today';
+
+        $validated_kehadiran = $request->validate($kehadiran_update_validation_rules);
+
+        $kehadiran = Kehadiran::whereHas(
+            'siswa',
+            function ($query) use ($validated_kehadiran) {
+                $query->where('id_kelas', $validated_kehadiran['id_kelas']);
+            }
+        )
+            ->where('id_semester', $validated_kehadiran['id_semester'])
+            ->where('tanggal', $validated_kehadiran['tanggal'])
+            ->get();
+
+        $kehadiran_new = Kehadiran::whereHas(
+            'siswa',
+            function ($query) use ($validated_kehadiran) {
+                $query->where('id_kelas', $validated_kehadiran['id_kelas']);
+            }
+        )
+            ->where('id_semester', $validated_kehadiran['id_semester_new'])
+            ->where('tanggal', $validated_kehadiran['tanggal_new'])
+            ->get();
+
+        if ($kehadiran->isEmpty()) {
+            return back()->with('error', 'kehadiran yang ingin diperbarui tidak ditemukan.')->withInput();
+        }
+
+        if ($kehadiran_new->isNotEmpty()) {
+            return back()->with('error', 'Kehadiran dengan data baru sudah tersedia sebelumnya.')->withInput();
+        }
+
+        Kehadiran::query()->whereIn(
+            'id_kehadiran',
+            $kehadiran->pluck('id_kehadiran')
+        )->update([
+            'id_semester'       => $validated_kehadiran['id_semester_new'],
+            'tanggal' => $validated_kehadiran['tanggal_new'],
+        ]);
+
+        return redirect()
+            ->route('kehadiran.index')
+            ->with('success', 'kehadiran berhasil diperbarui.');
     }
 
     /**
@@ -256,7 +326,7 @@ class KehadiranController extends Controller
             abort(404);
         }
 
-        $kehadiran_update_validation_rules = $this->kehadian_validation_rules;
+        $kehadiran_update_validation_rules = $this->kehadiran_validation_rules;
         $kehadiran_update_validation_rules['tanggal'] = 'required|date';
 
         $validated_kehadiran = $request->validate($kehadiran_update_validation_rules);
@@ -267,7 +337,7 @@ class KehadiranController extends Controller
             ->where('tanggal', $validated_kehadiran['tanggal']);
 
         if (!$kehadiran_data->exists()) {
-            return back()->with('error', 'Kehadiran tidak ditemukan untuk dihapus.');
+            return back()->with('error', 'Kehadiran tidak ditemukan untuk dihapus.')->withInput();
         }
 
         $kehadiran_data->delete();

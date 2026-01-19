@@ -2,14 +2,13 @@
 
 @section('container')
     <div class="content-card mb-4">
-        <h5>Tambah / Sinkronkan {{ $judul }}</h5>
+        <h5>Hapus {{ $judul }}</h5>
         <hr>
 
-        <form action="{{ route('nilai-mata-pelajaran.store') }}" method="POST">
+        <form action="{{ route('nilai-mata-pelajaran.update-form') }}" method="POST">
             @csrf
-
             <div class="row g-3">
-                <div class="col-md-6">
+               <div class="col-md-6">
                     <label for="id-kelas" class="form-label">Kelas</label>
                     <select class="form-select" id="id-kelas" name="id_kelas" {{ $kelas->isEmpty() ? 'disabled' : '' }}
                         required>
@@ -27,10 +26,15 @@
                     @enderror
                 </div>
 
+                <div class="col-md-12 mt-0">
+                    <hr class="text-muted opacity-25">
+                </div>
+                <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Data Sebelumnya</label></div>
+
                 <div class="col-md-6">
                     <label for="id-semester" class="form-label">Semester</label>
-                    <select class="form-select" id="id-semester" name="id_semester"
-                        {{ $semester->isEmpty() ? 'disabled' : '' }} required>
+                    <select class="form-select @error('id_semester') is-invalid @enderror" id="id-semester"
+                        name="id_semester" {{ $semester->isEmpty() ? 'disabled' : '' }} required>
                         <option value="">
                             {{ $semester->isNotEmpty() ? '-- Pilih Semester --' : '-- Semester Tidak Tersedia --' }}
                         </option>
@@ -65,11 +69,42 @@
                     @enderror
                 </div>
 
+                <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Data Baru</label></div>
+
                 <div class="col-md-6">
-                    <label for="jumlah-portofolio" class="form-label">Jumlah Portofolio</label>
-                    <input type="number" class="form-control @error('jumlah_portofolio') is-invalid @enderror" id="jumlah-portofolio"
-                        name="jumlah_portofolio" placeholder="Masukkan jumlah portofolio" value="{{ old('jumlah_portofolio', 0) }}" min="0" max="20" required>
-                    @error('jumlah_portofolio')
+                    <label for="id-semester-new" class="form-label">Semester</label>
+                    <select class="form-select @error('id_semester') is-invalid @enderror" id="id-semester-new"
+                        name="id_semester_new" {{ $semester->isEmpty() ? 'disabled' : '' }} required>
+                        <option value="">
+                            {{ $semester->isNotEmpty() ? '-- Pilih Semester --' : '-- Semester Tidak Tersedia --' }}
+                        </option>
+                        @foreach ($semester as $_semester)
+                            <option value="{{ $_semester->id_semester }}"
+                                {{ old('id_semester_new') == $_semester->id_semester ? 'selected' : '' }}>
+                                {{ "{$_semester->getTahunAjaran(true)} ({$_semester->getStatus()})" }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('id_semester_new')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-md-6">
+                    <label for="id-mata-pelajaran-new" class="form-label">Mata Pelajaran</label>
+                    <select class="form-select" id="id-mata-pelajaran-new" name="id_mata_pelajaran_new"
+                        {{ $mata_pelajaran->isEmpty() ? 'disabled' : '' }} required>
+                        <option value="">
+                            {{ $mata_pelajaran->isNotEmpty() ? '-- Pilih Mata Pelajaran --' : '-- Mata Pelajaran Tidak Tersedia --' }}
+                        </option>
+                        @foreach ($mata_pelajaran as $_mata_pelajaran)
+                            <option value="{{ $_mata_pelajaran->id_mata_pelajaran }}"
+                                {{ old('id_mata_pelajaran_new') == $_mata_pelajaran->id_mata_pelajaran ? 'selected' : '' }}>
+                                {{ $_mata_pelajaran->nama_mata_pelajaran }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('id_mata_pelajaran_new')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
@@ -77,10 +112,10 @@
 
             <div class="form-buttons">
                 <button type="button" class="btn btn-danger" id="cancel-button"
-                    data-route="{{ route('nilai-mata-pelajaran.index') }}" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                    data-route="{{ route('nilai-mata-pelajaran.index') }}" data-bs-toggle="modal"
+                    data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
-                <button type="submit" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Tambah<span
-                        class="mx-2">/</span><i class="bi bi-arrow-repeat me-2"></i>Sinkronkan</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-pencil me-2"></i>Perbarui</button>
             </div>
         </form>
     </div>

@@ -84,7 +84,7 @@ class NilaiMataPelajaranController extends Controller
         $siswa = Siswa::get();
 
         if ($siswa->isEmpty()) {
-            return back()->with('error', 'Siswa tidak tersedia.');
+            return back()->with('error', 'Siswa tidak tersedia.')->withInput();
         }
 
         $validated_nilai_mata_pelajaran = $request->validate($this->nilai_mata_pelajaran_validation_rules);
@@ -187,6 +187,78 @@ class NilaiMataPelajaranController extends Controller
             'judul' => 'Nilai Mata Pelajaran',
             'nilai_mata_pelajaran' => $nilaiMataPelajaran
         ]);
+    }
+
+    public function editForm()
+    {
+        if (!Gate::allows('guru')) {
+            abort(404);
+        }
+
+        $kelas = Kelas::orderedNamaKelas()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
+        $mata_pelajaran = MataPelajaran::latest()->get();
+
+        return view('pages.akademik.nilai_mata_pelajaran.edit_form', [
+            'judul' => 'Nilai Mata Pelajaran',
+            'kelas' => $kelas,
+            'semester' => $semester,
+            'mata_pelajaran' => $mata_pelajaran
+        ]);
+    }
+
+    public function updateForm(Request $request)
+    {
+        if (!Gate::allows('guru')) {
+            abort(404);
+        }
+
+        $nilai_mata_pelajaran_update_validation_rules = $this->nilai_mata_pelajaran_validation_rules;
+
+        unset($nilai_mata_pelajaran_update_validation_rules['jumlah_portofolio']);
+
+        $nilai_mata_pelajaran_update_validation_rules['id_semester_new'] = 'required|exists:semester,id_semester';
+        $nilai_mata_pelajaran_update_validation_rules['id_mata_pelajaran_new'] = 'required|exists:mata_pelajaran,id_mata_pelajaran';
+
+        $validated_nilai_mata_pelajaran = $request->validate($nilai_mata_pelajaran_update_validation_rules);
+
+        $nilai_mata_pelajaran = NilaiMataPelajaran::whereHas(
+            'siswa', function ($query) use ($validated_nilai_mata_pelajaran) {
+                $query->where('id_kelas', $validated_nilai_mata_pelajaran['id_kelas']);
+            }
+        )
+            ->where('id_semester', $validated_nilai_mata_pelajaran['id_semester'])
+            ->where('id_mata_pelajaran', $validated_nilai_mata_pelajaran['id_mata_pelajaran'])
+            ->get();
+
+        $nilai_mata_pelajaran_new = NilaiMataPelajaran::whereHas(
+            'siswa', function ($query) use ($validated_nilai_mata_pelajaran) {
+                $query->where('id_kelas', $validated_nilai_mata_pelajaran['id_kelas']);
+            }
+        )
+            ->where('id_semester', $validated_nilai_mata_pelajaran['id_semester_new'])
+            ->where('id_mata_pelajaran', $validated_nilai_mata_pelajaran['id_mata_pelajaran_new'])
+            ->get();
+
+        if ($nilai_mata_pelajaran->isEmpty()) {
+            return back()->with('error', 'Nilai Mata Pelajaran yang ingin diperbarui tidak ditemukan.')->withInput();
+        }
+
+        if ($nilai_mata_pelajaran_new->isNotEmpty()) {
+            return back()->with('error', 'Nilai Mata Pelajaran dengan data baru sudah tersedia sebelumnya.')->withInput();
+        }
+
+        NilaiMataPelajaran::query()->whereIn(
+            'id_nilai_mata_pelajaran',
+            $nilai_mata_pelajaran->pluck('id_nilai_mata_pelajaran')
+        )->update([
+            'id_semester'       => $validated_nilai_mata_pelajaran['id_semester_new'],
+            'id_mata_pelajaran' => $validated_nilai_mata_pelajaran['id_mata_pelajaran_new'],
+        ]);
+
+        return redirect()
+            ->route('nilai-mata-pelajaran.index')
+            ->with('success', 'Nilai Mata Pelajaran berhasil diperbarui.');
     }
 
     /**
@@ -334,7 +406,7 @@ class NilaiMataPelajaranController extends Controller
             ->where('id_mata_pelajaran', $validated_nilai_mata_pelajaran['id_mata_pelajaran']);
 
         if (!$nilai_mata_pelajaran_data->exists()) {
-            return back()->with('error', 'Nilai Mata Pelajaran tidak ditemukan untuk dihapus.');
+            return back()->with('error', 'Nilai Mata Pelajaran tidak ditemukan untuk dihapus.')->withInput();
         }
 
         $nilai_mata_pelajaran_data->delete();

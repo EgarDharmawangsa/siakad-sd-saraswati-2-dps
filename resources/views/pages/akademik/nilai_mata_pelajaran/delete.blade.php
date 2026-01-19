@@ -60,7 +60,7 @@
                             </option>
                         @endforeach
                     </select>
-                    @error('id_semester')
+                    @error('id_mata_pelajaran')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

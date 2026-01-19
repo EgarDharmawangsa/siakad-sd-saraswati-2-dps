@@ -35,36 +35,6 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
-
-                <div class="col-md-12">
-                    <label for="siswa" class="form-label">Anggota</label>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Nomor Urut</th>
-                                    <th>NISN</th>
-                                    <th>Nama Siswa</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @forelse ($kelas->getSiswaInKelas() as $_siswa_in_kelas)
-                                    {{-- <tr>
-                                        <td>{{ $_siswa_in_kelas->nomor_urut }}</td>
-                                        <td>{{ $_siswa_in_kelas->nisn }}</td>
-                                        <td>{{ $_siswa_in_kelas->nama_siswa }}</td>
-                                    </tr> --}}
-                                @empty
-                                    <tr class="text-center">
-                                        <td colspan="5">Belum memiliki Siswa.</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                    <span class="text-muted d-block mini-label mt-1">Pengeditan anggota hanya dapat dilakukan di halaman edit masing-masing Siswa.</span>
-                </div>
             </div>
 
             <div class="form-buttons">

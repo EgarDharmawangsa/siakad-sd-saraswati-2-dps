@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 class NilaiEkstrakurikulerController extends Controller
 {
-    public $ekstrakurikuler_validation_rules = [
+    public $nilai_ekstrakurikuler_validation_rules = [
         'id_ekstrakurikuler' => 'required|exists:ekstrakurikuler,id_ekstrakurikuler',
         'id_semester' => 'required|exists:semester,id_semester'
     ];
@@ -25,14 +25,14 @@ class NilaiEkstrakurikulerController extends Controller
     {
         if (Gate::any(['staf-tata-usaha', 'guru']))
             $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->filter(request()->all())
-                                                        ->join('peserta_ekstrakurikuler', 'peserta_ekstrakurikuler.id_peserta_ekstrakurikuler', '=', 'nilai_ekstrakurikuler.id_peserta_ekstrakurikuler')
-                                                        ->join('siswa', 'siswa.id_siswa', '=', 'peserta_ekstrakurikuler.id_siswa')
-                                                        ->orderBy('siswa.nomor_urut')
-                                                        ->select('nilai_ekstrakurikuler.*')
-                                                        ->paginate(20)
-                                                        ->withQueryString();
+                ->join('peserta_ekstrakurikuler', 'peserta_ekstrakurikuler.id_peserta_ekstrakurikuler', '=', 'nilai_ekstrakurikuler.id_peserta_ekstrakurikuler')
+                ->join('siswa', 'siswa.id_siswa', '=', 'peserta_ekstrakurikuler.id_siswa')
+                ->orderBy('siswa.nomor_urut')
+                ->select('nilai_ekstrakurikuler.*')
+                ->paginate(20)
+                ->withQueryString();
         else if (Gate::allows('siswa')) {
-            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->whereHas('pesertaEkstrakurikuler', fn ($query) => $query->where('id_siswa', Auth::user()->siswa->id_siswa))->filter(request()->except(['kelas_filter', 'siswa_filter']))->paginate(20)->withQueryString();
+            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->whereHas('pesertaEkstrakurikuler', fn($query) => $query->where('id_siswa', Auth::user()->siswa->id_siswa))->filter(request()->except(['kelas_filter', 'siswa_filter']))->paginate(20)->withQueryString();
         } else {
             abort(404);
         }
@@ -83,10 +83,10 @@ class NilaiEkstrakurikulerController extends Controller
         $siswa = Siswa::get();
 
         if ($siswa->isEmpty()) {
-            return back()->with('error', 'Siswa tidak tersedia.');
+            return back()->with('error', 'Siswa tidak tersedia.')->withInput();
         }
 
-        $validated_ekstrakurikuler = $request->validate($this->ekstrakurikuler_validation_rules);
+        $validated_ekstrakurikuler = $request->validate($this->nilai_ekstrakurikuler_validation_rules);
 
         $peserta_in_ekstrakurikuler = PesertaEkstrakurikuler::where('id_ekstrakurikuler', $validated_ekstrakurikuler['id_ekstrakurikuler'])->get();
 
@@ -131,17 +131,76 @@ class NilaiEkstrakurikulerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    // public function edit(NilaiEkstrakurikuler $nilaiEkstrakurikuler)
-    // {
-    //     //
-    // }
+    public function editForm()
+    {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
+        $ekstrakurikuler = Ekstrakurikuler::latest()->get();
+        $semester = Semester::filter(['order_by' => 'desc'])->get();
+
+        return view('pages.akademik.nilai_ekstrakurikuler.edit_form', [
+            'judul' => 'Nilai Ekstrakurikuler',
+            'ekstrakurikuler' => $ekstrakurikuler,
+            'semester' => $semester
+        ]);
+    }
 
     /**
      * Update the specified resource in storage.
      */
-    // public function update(Request $request, NilaiEkstrakurikuler $nilaiEkstrakurikuler)
-    // {
-    // }
+    public function updateForm(Request $request)
+    {
+        if (!Gate::allows('staf-tata-usaha')) {
+            abort(404);
+        }
+
+        $nilai_ekstrakurikuler_update_validation_rules = $this->nilai_ekstrakurikuler_validation_rules;
+        $nilai_ekstrakurikuler_update_validation_rules['id_semester_new']
+            = 'required|exists:semester,id_semester';
+
+        $validated = $request->validate($nilai_ekstrakurikuler_update_validation_rules);
+
+        $nilai_ekstrakurikuler = NilaiEkstrakurikuler::whereHas(
+            'pesertaEkstrakurikuler.ekstrakurikuler',
+            fn($query) => $query->where(
+                'id_ekstrakurikuler',
+                $validated['id_ekstrakurikuler']
+            )
+        )
+            ->where('id_semester', $validated['id_semester'])
+            ->get();
+
+        $nilai_ekstrakurikuler_new = NilaiEkstrakurikuler::whereHas(
+            'pesertaEkstrakurikuler.ekstrakurikuler',
+            fn($query) => $query->where(
+                'id_ekstrakurikuler',
+                $validated['id_ekstrakurikuler']
+            )
+        )
+            ->where('id_semester', $validated['id_semester_new'])
+            ->get();
+
+        if ($nilai_ekstrakurikuler->isEmpty()) {
+            return back()->with('error', 'Nilai Ekstrakurikuler yang ingin diperbarui tidak ditemukan.')->withInput();
+        }
+
+        if ($nilai_ekstrakurikuler_new->isNotEmpty()) {
+            return back()->with('error', 'Nilai Ekstrakurikuler dengan data baru sudah tersedia sebelumnya.')->withInput();
+        }
+
+        NilaiEkstrakurikuler::query()->whereIn(
+            'id_nilai_ekstrakurikuler',
+            $nilai_ekstrakurikuler->pluck('id_nilai_ekstrakurikuler')
+        )->update([
+            'id_semester' => $validated['id_semester_new']
+        ]);
+
+        return redirect()
+            ->route('nilai-ekstrakurikuler.index')
+            ->with('success', 'Semester Nilai Ekstrakurikuler berhasil diperbarui.');
+    }
 
     public function massUpdate(Request $request)
     {
@@ -201,18 +260,18 @@ class NilaiEkstrakurikulerController extends Controller
             abort(404);
         }
 
-        $validated_ekstrakurikuler = $request->validate($this->ekstrakurikuler_validation_rules);
+        $validated_ekstrakurikuler = $request->validate($this->nilai_ekstrakurikuler_validation_rules);
 
         /** @var \Illuminate\Database\Eloquent\Builder $nilai_ekstrakurikuler_data */
-        $nilai_ekstrakurikuler_data = NilaiEkstrakurikuler::whereHas('pesertaEkstrakurikuler', fn ($query) => $query->where('id_ekstrakurikuler', $validated_ekstrakurikuler['id_ekstrakurikuler']))
+        $nilai_ekstrakurikuler_data = NilaiEkstrakurikuler::whereHas('pesertaEkstrakurikuler', fn($query) => $query->where('id_ekstrakurikuler', $validated_ekstrakurikuler['id_ekstrakurikuler']))
             ->where('id_semester', $validated_ekstrakurikuler['id_semester']);
 
         if (!$nilai_ekstrakurikuler_data->exists()) {
-            return back()->with('error', 'Nilai Ekstrakurikuler tidak ditemukan untuk dihapus.');
+            return back()->with('error', 'Nilai Ekstrakurikuler tidak ditemukan untuk dihapus.')->withInput();
         }
 
         $nilai_ekstrakurikuler_data->delete();
-        
+
         return redirect()->route('nilai-ekstrakurikuler.index')->with('success', 'Nilai Ekstrakurikuler berhasil dihapus.');
     }
 }
