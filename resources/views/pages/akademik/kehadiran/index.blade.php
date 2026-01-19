@@ -155,9 +155,8 @@
                     </div>
 
                     <div class="index-buttons mt-4 mb-0">
-                        <a href="{{ route('kehadiran.edit-form') }}" class="btn btn-warning"><i class="bi bi-pencil me-2"></i>Edit Kehadiran</a>
-                        <a href="{{ route('kehadiran.delete') }}" class="btn btn-danger"><i class="bi bi-trash me-2"></i>Hapus
-                            Kehadiran</a>
+                        <a href="{{ route('kehadiran.edit-form') }}" class="btn btn-warning"><i class="bi bi-pencil me-2"></i>Edit Semua Kehadiran</a>
+                        <a href="{{ route('kehadiran.delete') }}" class="btn btn-danger"><i class="bi bi-trash me-2"></i>Hapus Semua Kehadiran</a>
                     </div>
                 @endcan
             </form>

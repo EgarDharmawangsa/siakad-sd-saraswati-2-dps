@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="content-card mb-4">
-        <h5>Hapus {{ $judul }}</h5>
+        <h5>Hapus Semua {{ $judul }}</h5>
         <hr>
 
         <form action="{{ route('nilai-mata-pelajaran.destroy') }}" method="POST">

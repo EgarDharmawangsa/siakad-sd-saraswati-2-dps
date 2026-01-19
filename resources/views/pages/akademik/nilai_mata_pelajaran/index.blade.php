@@ -206,9 +206,9 @@
                 
                     <div class="index-buttons mt-4 mb-0">
                         <a href="{{ route('nilai-mata-pelajaran.edit-form') }}" class="btn btn-warning"><i
-                                class="bi bi-pencil me-2"></i>Edit Nilai Mata Pelajaran</a>
+                                class="bi bi-pencil me-2"></i>Edit Semua Nilai Mata Pelajaran</a>
                         <a href="{{ route('nilai-mata-pelajaran.delete') }}" class="btn btn-danger"><i
-                                class="bi bi-trash me-2"></i>Hapus Nilai Mata Pelajaran</a>
+                                class="bi bi-trash me-2"></i>Hapus Semua Nilai Mata Pelajaran</a>
                     </div>
                 @endcan
             </form>

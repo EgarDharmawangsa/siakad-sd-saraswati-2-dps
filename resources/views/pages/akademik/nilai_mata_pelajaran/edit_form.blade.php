@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="content-card mb-4">
-        <h5>Hapus {{ $judul }}</h5>
+        <h5>Edit Semua {{ $judul }}</h5>
         <hr>
 
         <form action="{{ route('nilai-mata-pelajaran.update-form') }}" method="POST">
@@ -109,6 +109,10 @@
                     @enderror
                 </div>
             </div>
+
+            <p class="mini-label text-muted mt-3 mb-0">
+                Pengeditan jumlah portofolio hanya bisa dilakukan pada halaman tambah / sinkronisasi. Judul setiap portofolio hanya bisa dirubah pada halaman edit masing-masing nilai.
+            </p>
 
             <div class="form-buttons">
                 <button type="button" class="btn btn-danger" id="cancel-button"

@@ -140,9 +140,9 @@
 
                     <div class="index-buttons mt-4 mb-0">
                         <a href="{{ route('nilai-ekstrakurikuler.edit-form') }}" class="btn btn-warning"><i
-                                class="bi bi-pencil me-2"></i>Edit Nilai Ekstrakurikuler</a>
+                                class="bi bi-pencil me-2"></i>Edit Semua Nilai Ekstrakurikuler</a>
                         <a href="{{ route('nilai-ekstrakurikuler.delete') }}" class="btn btn-danger"><i
-                                class="bi bi-trash me-2"></i>Hapus Nilai Ekstrakurikuler</a>
+                                class="bi bi-trash me-2"></i>Hapus Semua Nilai Ekstrakurikuler</a>
                     </div>
                 @endcan
             </form>

@@ -115,6 +115,10 @@
                 @endforelse
             </div>
 
+            <p class="mini-label text-muted mt-3 mb-0">
+                Mengubah judul portofolio akan mengubah seluruh judul portofolio lainnya di nilai mata pelajaran dengan kelas, mata pelajaran, dan semester yang sama.
+            </p>
+
             <div class="form-buttons">
                 <button type="button" class="btn btn-danger" id="cancel-button"
                     data-route="{{ route('nilai-mata-pelajaran.index') }}" data-bs-toggle="modal"
