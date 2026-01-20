@@ -124,7 +124,7 @@
                     data-route="{{ route('nilai-mata-pelajaran.index') }}" data-bs-toggle="modal"
                     data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
-                <button type="submit" class="btn btn-primary"><i class="bi bi-pencil me-2"></i>Simpan</button>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-floppy me-2"></i>Simpan</button>
             </div>
         </form>
     </div>
