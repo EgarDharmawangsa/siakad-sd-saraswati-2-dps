@@ -125,14 +125,26 @@ class KehadiranController extends Controller
 
     public function recapitulation()
     {
-        if (Gate::any(['staf-tata-usaha', 'guru']))
-            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->filter(request()->except(['status_filter', 'keterangan_filter', 'tanggal_filter']))
+        $orderBy = request('order_by') === 'asc' ? 'asc' : 'desc';
+
+        if (Gate::any(['staf-tata-usaha', 'guru'])) {
+
+            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])
+                ->siswaRecap()
                 ->join('siswa', 'siswa.id_siswa', '=', 'kehadiran.id_siswa')
-                ->orderBy('siswa.nomor_urut')->select('kehadiran.*')
+                ->join('semester', 'semester.id_semester', '=', 'kehadiran.id_semester')
+                ->orderBy('semester.tanggal_mulai', $orderBy)
+                ->orderBy('siswa.nomor_urut')
                 ->paginate(20)
                 ->withQueryString();
-        else if (Gate::allows('siswa')) {
-            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->siswaRecap(Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter', 'status_filter', 'keterangan_filter', 'tanggal_filter']))->paginate(20)->withQueryString();
+        } elseif (Gate::allows('siswa')) {
+
+            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])
+                ->siswaRecap(Auth::user()->siswa->id_siswa)
+                ->join('semester', 'semester.id_semester', '=', 'kehadiran.id_semester')
+                ->orderBy('semester.tanggal_mulai', $orderBy)
+                ->paginate(20)
+                ->withQueryString();
         } else {
             abort(404);
         }
@@ -148,7 +160,7 @@ class KehadiranController extends Controller
             'kehadiran' => $kehadiran,
             'kelas' => $kelas,
             'siswa' => $siswa,
-            'semester' => $semester
+            'semester' => $semester,
         ]);
     }
 
