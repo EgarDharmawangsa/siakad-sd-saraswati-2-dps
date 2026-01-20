@@ -197,7 +197,7 @@
                         <div class="col-md-6">
                             <label class="form-label">No. Telepon Rumah</label>
                             <input type="number" class="form-control @error('no_telepon_rumah') is-invalid @enderror" name="no_telepon_rumah"
-                                value="{{ old('no_telepon_rumah', $siswa->no_telepon_rumah) }}" placeholder="Masukkan no. telp rumah">
+                                value="{{ old('no_telepon_rumah', $siswa->no_telepon_rumah) }}" placeholder="Masukkan no. telepon rumah">
                             @error('no_telepon_rumah')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -206,7 +206,7 @@
                             <label class="form-label">No. Telepon Seluler</label>
                             <input type="number" class="form-control @error('no_telepon_seluler') is-invalid @enderror"
                                 name="no_telepon_seluler"
-                                value="{{ old('no_telepon_seluler', $siswa->no_telepon_seluler) }}" placeholder="Masukkan no. hp" required>
+                                value="{{ old('no_telepon_seluler', $siswa->no_telepon_seluler) }}" placeholder="Masukkan no. telepon seluler" required>
                             @error('no_telepon_seluler')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

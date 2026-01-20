@@ -90,7 +90,7 @@
                         <th>Nama Pegawai</th>
                         <th>Jenis Kelamin</th>
                         <th>Agama</th>
-                        <th>No. Telp (WA)</th>
+                        <th>No. Telepon Seluler</th>
                         <th>Alamat</th>
 
                         @canany(['staf-tata-usaha', 'guru'])

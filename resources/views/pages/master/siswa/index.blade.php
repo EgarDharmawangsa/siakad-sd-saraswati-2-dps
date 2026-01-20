@@ -132,7 +132,7 @@
                         <th>Nama Siswa</th>
                         <th>Jenis Kelamin</th>
                         <th>Agama</th>
-                        <th>No. HP (WA)</th>
+                        <th>No. Telepon Seluler</th>
                         <th>Alamat</th>
                         <th>Ekstrakurikuler</th>
                         <th>Aksi</th>
