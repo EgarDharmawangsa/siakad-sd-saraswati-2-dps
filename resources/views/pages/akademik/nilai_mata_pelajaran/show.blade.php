@@ -8,10 +8,10 @@
         <div class="show-buttons">
             <a href="{{ route('nilai-mata-pelajaran.index') }}" class="btn btn-secondary"><i
                     class="bi bi-arrow-left me-2"></i>Kembali</a>
-            @canany(['staf-tata-usaha', 'guru'])
+            @can('guru')
                 <a href="{{ route('nilai-mata-pelajaran.edit', $nilai_mata_pelajaran->id_nilai_mata_pelajaran) }}"
                     class="btn btn-warning"><i class="bi bi-pencil me-2"></i>Edit</a>
-            @endcanany
+            @endcan
         </div>
 
         <div class="row g-3">
