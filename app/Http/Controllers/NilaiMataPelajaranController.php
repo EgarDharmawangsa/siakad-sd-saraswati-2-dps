@@ -24,14 +24,24 @@ class NilaiMataPelajaranController extends Controller
      */
     public function index()
     {
+        $semester_default_filter = Semester::filter(['order_by' => 'desc'])->first()->id_semester ?? null;
+
         if (Gate::any(['staf-tata-usaha', 'guru']))
-            $nilai_mata_pelajaran = NilaiMataPelajaran::with(['siswa', 'siswa.kelas', 'mataPelajaran', 'semester'])->filter(request()->all())
+            $nilai_mata_pelajaran = NilaiMataPelajaran::with(['siswa', 'siswa.kelas', 'mataPelajaran', 'semester'])
+                ->filter([
+                    ...request()->all(),
+                    'semester_filter' => request('semester_filter', $semester_default_filter)
+                ])
                 ->join('siswa', 'siswa.id_siswa', '=', 'nilai_mata_pelajaran.id_siswa')
                 ->orderBy('siswa.nomor_urut')->select('nilai_mata_pelajaran.*')
                 ->paginate(20)
                 ->withQueryString();
         else if (Gate::allows('siswa')) {
-            $nilai_mata_pelajaran = NilaiMataPelajaran::with(['siswa', 'siswa.kelas', 'mataPelajaran', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter']))->paginate(20)->withQueryString();
+            $nilai_mata_pelajaran = NilaiMataPelajaran::with(['siswa', 'siswa.kelas', 'mataPelajaran', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)
+                ->filter([
+                    ...request()->except(['kelas_filter', 'siswa_filter']),
+                    'semester_filter' => request('semester_filter', $semester_default_filter)
+                ])->paginate(20)->withQueryString();
         } else {
             abort(404);
         }
@@ -47,7 +57,8 @@ class NilaiMataPelajaranController extends Controller
             'kelas' => $kelas,
             'siswa' => $siswa,
             'mata_pelajaran' => $mata_pelajaran,
-            'semester' => $semester
+            'semester' => $semester,
+            'semester_default_filter' => $semester_default_filter
         ]);
     }
 
@@ -155,7 +166,11 @@ class NilaiMataPelajaranController extends Controller
             });
 
         return redirect()
-            ->route('nilai-mata-pelajaran.index')
+            ->route('nilai-mata-pelajaran.index', [
+                'kelas_filter' => $validated_nilai_mata_pelajaran['id_kelas'],
+                'semester_filter' => $validated_nilai_mata_pelajaran['id_semester'],
+                'mata_pelajaran_filter' => $validated_nilai_mata_pelajaran['id_mata_pelajaran']
+            ])
             ->with('success', 'Nilai Mata Pelajaran berhasil ditambahkan / disinkronkan.');
     }
 
@@ -223,7 +238,8 @@ class NilaiMataPelajaranController extends Controller
         $validated_nilai_mata_pelajaran = $request->validate($nilai_mata_pelajaran_update_validation_rules);
 
         $nilai_mata_pelajaran = NilaiMataPelajaran::whereHas(
-            'siswa', function ($query) use ($validated_nilai_mata_pelajaran) {
+            'siswa',
+            function ($query) use ($validated_nilai_mata_pelajaran) {
                 $query->where('id_kelas', $validated_nilai_mata_pelajaran['id_kelas']);
             }
         )
@@ -232,7 +248,8 @@ class NilaiMataPelajaranController extends Controller
             ->get();
 
         $nilai_mata_pelajaran_new = NilaiMataPelajaran::whereHas(
-            'siswa', function ($query) use ($validated_nilai_mata_pelajaran) {
+            'siswa',
+            function ($query) use ($validated_nilai_mata_pelajaran) {
                 $query->where('id_kelas', $validated_nilai_mata_pelajaran['id_kelas']);
             }
         )
@@ -257,7 +274,11 @@ class NilaiMataPelajaranController extends Controller
         ]);
 
         return redirect()
-            ->route('nilai-mata-pelajaran.index')
+            ->route('nilai-mata-pelajaran.index', [
+                'id_kelas' => $validated_nilai_mata_pelajaran['id_kelas'],
+                'id_semester' => $validated_nilai_mata_pelajaran['id_semester_new'],
+                'id_mata_pelajaran' => $validated_nilai_mata_pelajaran['id_mata_pelajaran_new']
+            ])
             ->with('success', 'Nilai Mata Pelajaran berhasil diperbarui.');
     }
 

@@ -28,6 +28,12 @@ class DatabaseSeeder extends Seeder
             KelasSeeder::class,
             SiswaSeeder::class,
             PengumumanSeeder::class,
+            PrestasiSeeder::class,
+            JadwalPelajaranSeeder::class,
+            KehadiranSeeder::class,
+            NilaiMataPelajaranSeeder::class,
+            NilaiEkstrakurikulerSeeder::class,
+            PesertaEkstrakurikulerSeeder::class
         ]);
     }
 }

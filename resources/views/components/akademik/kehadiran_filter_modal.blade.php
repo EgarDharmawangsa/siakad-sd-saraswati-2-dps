@@ -33,32 +33,35 @@
                         </div>
                     @endcanany
 
-                    <div class="{{ !request()->routeIs('kehadiran.recapitulation') ? 'mb-3' : 'mb-2' }}">
-                        <label for="semester-filter" class="form-label">Semester</label>
-                        <select class="form-select" id="semester-filter" name="semester_filter"
-                            {{ $semester->isEmpty() ? 'disabled' : '' }}>
-                            <option value="">
-                                {{ $semester->isNotEmpty() ? '-- Pilih Semester --' : '-- Semester Tidak Tersedia --' }}
-                            </option>
-                            @foreach ($semester as $_semester)
-                                <option value="{{ $_semester->id_semester }}"
-                                    {{ request('semester_filter') == $_semester->id_semester ? 'selected' : '' }}>
-                                    {{ "{$_semester->getTahunAjaran(true)} ({$_semester->getStatus()})" }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
                     @if (!request()->routeIs('kehadiran.recapitulation'))
+                        <div class="{{ !request()->routeIs('kehadiran.recapitulation') ? 'mb-3' : 'mb-2' }}">
+                            <label for="semester-filter" class="form-label">Semester</label>
+                            <select class="form-select" id="semester-filter" name="semester_filter"
+                                {{ $semester->isEmpty() ? 'disabled' : '' }}
+                                data-semester-default-filter="{{ $semester_default_filter }}">
+                                @if ($semester->isEmpty())
+                                    <option value="">-- Semester Tidak Tersedia --</option>
+                                @endif
+                                @foreach ($semester as $_semester)
+                                    <option value="{{ $_semester->id_semester }}"
+                                        {{ request('semester_filter', $semester_default_filter) == $_semester->id_semester ? 'selected' : '' }}>
+                                        {{ "{$_semester->getTahunAjaran(true)} ({$_semester->getStatus()})" }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="mb-3">
                             <label for="kehadiran-status-filter" class="form-label">Status</label>
                             <select class="form-select" id="kehadiran-status-filter" name="status_filter">
                                 <option value="">-- Pilih Status --</option>
-                                <option value="Hadir" {{ request('status_filter') === 'Hadir' ? 'selected' : '' }}>Hadir
+                                <option value="Hadir" {{ request('status_filter') === 'Hadir' ? 'selected' : '' }}>
+                                    Hadir
                                 </option>
                                 <option value="Izin" {{ request('status_filter') === 'Izin' ? 'selected' : '' }}>Izin
                                 </option>
-                                <option value="Sakit" {{ request('status_filter') === 'Sakit' ? 'selected' : '' }}>Sakit
+                                <option value="Sakit" {{ request('status_filter') === 'Sakit' ? 'selected' : '' }}>
+                                    Sakit
                                 </option>
                                 <option value="Alfa" {{ request('status_filter') === 'Alfa' ? 'selected' : '' }}>Alfa
                                 </option>
@@ -76,12 +79,34 @@
                             <input type="date" class="form-control" id="tanggal-filter" name="tanggal_filter"
                                 value="{{ request('tanggal_filter') }}">
                         </div>
+                    @else
+                        <div class="mb-2">
+                            <label for="semester-filter" class="form-label">Semester</label>
+                            <select class="form-select" id="semester-filter" name="semester_filter"
+                                {{ $semester->isEmpty() ? 'disabled' : '' }}>
+                                <option value="">
+                                    {{ $semester->isNotEmpty() ? '-- Pilih Semester --' : '-- Semester Tidak Tersedia --' }}
+                                </option>
+                                @foreach ($semester as $_semester)
+                                    <option value="{{ $_semester->id_semester }}"
+                                        {{ request('semester_filter') == $_semester->id_semester ? 'selected' : '' }}>
+                                        {{ "{$_semester->getTahunAjaran(true)} ({$_semester->getStatus()})" }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     @endif
                 </form>
             </div>
             <div class="modal-footer form-buttons justify-content-between mt-0">
-                <button id="filter-modal-clear-button" class="btn btn-danger"><i
-                        class="bi bi-eraser me-2"></i>Bersihkan</button>
+                @if (!request()->routeIs('kehadiran.recapitulation'))
+                    <button id="filter-modal-default-button" class="btn btn-secondary"><i
+                            class="bi bi-arrow-counterclockwise me-2"></i>Default</button>
+                @else
+                    <button id="filter-modal-clear-button" class="btn btn-danger"><i
+                            class="bi bi-eraser me-2"></i>Bersihkan</button>
+                @endif
+
                 <button id="filter-modal-apply-button" class="btn btn-primary"><i
                         class="bi bi-check-lg me-2"></i>Terapkan</button>
             </div>

@@ -10,8 +10,8 @@
 
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label for="id-kelas" class="form-label">Kelas</label>
-                    <select class="form-select" id="id-kelas" name="id_kelas" {{ $kelas->isEmpty() ? 'disabled' : '' }}
+                    <label for="id-kelas-delete" class="form-label">Kelas</label>
+                    <select class="form-select" id="id-kelas-delete" name="id_kelas" {{ $kelas->isEmpty() ? 'disabled' : '' }}
                         required>
                         <option value="">
                             {{ $kelas->isNotEmpty() ? '-- Pilih Kelas --' : '-- Kelas Tidak Tersedia --' }}

@@ -28,7 +28,7 @@ class NilaiEkstrakurikuler extends Model
         $query->join('semester', 'semester.id_semester', '=', 'nilai_ekstrakurikuler.id_semester')->orderBy('semester.tanggal_mulai', $order_by_value);
 
         if (!empty($filters['kelas_filter'])) {
-            $query->whereHas('pesertaEkstrakurikuler.siswa.kelas', fn($query) => $query->where('id_kelas', 'like', '%' . $filters['kelas_filter'] . '%'));
+            $query->whereHas('pesertaEkstrakurikuler.siswa.kelas', fn($query) => $query->where('id_kelas', $filters['kelas_filter']));
         }
 
         if (!empty($filters['siswa_filter'])) {

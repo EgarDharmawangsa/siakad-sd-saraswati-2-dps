@@ -23,8 +23,14 @@ class NilaiEkstrakurikulerController extends Controller
      */
     public function index()
     {
+        $semester_default_filter = Semester::filter(['order_by' => 'desc'])->first()->id_semester ?? null;
+
         if (Gate::any(['staf-tata-usaha', 'guru']))
-            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->filter(request()->all())
+            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.siswa.kelas', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])
+                ->filter([
+                    ...request()->all(),
+                    'semester_filter' => request('semester_filter', $semester_default_filter)
+                ])
                 ->join('peserta_ekstrakurikuler', 'peserta_ekstrakurikuler.id_peserta_ekstrakurikuler', '=', 'nilai_ekstrakurikuler.id_peserta_ekstrakurikuler')
                 ->join('siswa', 'siswa.id_siswa', '=', 'peserta_ekstrakurikuler.id_siswa')
                 ->orderBy('siswa.nomor_urut')
@@ -32,7 +38,14 @@ class NilaiEkstrakurikulerController extends Controller
                 ->paginate(20)
                 ->withQueryString();
         else if (Gate::allows('siswa')) {
-            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])->whereHas('pesertaEkstrakurikuler', fn($query) => $query->where('id_siswa', Auth::user()->siswa->id_siswa))->filter(request()->except(['kelas_filter', 'siswa_filter']))->paginate(20)->withQueryString();
+            $nilai_ekstrakurikuler = NilaiEkstrakurikuler::with(['pesertaEkstrakurikuler.siswa', 'pesertaEkstrakurikuler.ekstrakurikuler', 'semester'])
+                ->whereHas('pesertaEkstrakurikuler', fn($query) => $query->where('id_siswa', Auth::user()->siswa->id_siswa))
+                ->filter([
+                    ...request()->except(['kelas_filter', 'siswa_filter']),
+                    'semester_filter' => request('semester_filter', $semester_default_filter)
+                ])
+                ->paginate(20)
+                ->withQueryString();
         } else {
             abort(404);
         }
@@ -48,7 +61,8 @@ class NilaiEkstrakurikulerController extends Controller
             'kelas' => $kelas,
             'siswa' => $siswa,
             'ekstrakurikuler' => $ekstrakurikuler,
-            'semester' => $semester
+            'semester' => $semester,
+            'semester_default_filter' => $semester_default_filter
         ]);
     }
 
@@ -114,7 +128,10 @@ class NilaiEkstrakurikulerController extends Controller
             );
         });
 
-        return redirect()->route('nilai-ekstrakurikuler.index')->with('success', 'Nilai Ekstrakurikuler berhasil ditambahkan / disinkronkan.');
+        return redirect()->route('nilai-ekstrakurikuler.index', [
+            'ekstrakurikuler_filter' => $validated_ekstrakurikuler['id_ekstrakurikuler'],
+            'semester_filter' => $validated_ekstrakurikuler['id_semester']
+        ])->with('success', 'Nilai Ekstrakurikuler berhasil ditambahkan / disinkronkan.');
     }
 
     /**
@@ -198,7 +215,10 @@ class NilaiEkstrakurikulerController extends Controller
         ]);
 
         return redirect()
-            ->route('nilai-ekstrakurikuler.index')
+            ->route('nilai-ekstrakurikuler.index', [
+                'ekstrakurikuler_filter' => $validated['id_ekstrakurikuler'],
+                'semester_filter' => $validated['id_semester_new']
+            ])
             ->with('success', 'Semester Nilai Ekstrakurikuler berhasil diperbarui.');
     }
 

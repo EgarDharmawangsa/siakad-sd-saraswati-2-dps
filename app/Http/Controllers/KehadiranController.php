@@ -23,14 +23,26 @@ class KehadiranController extends Controller
      */
     public function index()
     {
+        $semester_default_filter = Semester::filter(['order_by' => 'desc'])->first()->id_semester ?? null;
+
         if (Gate::any(['staf-tata-usaha', 'guru']))
-            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->filter(request()->all())
+            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])
+                ->filter([
+                    ...request()->all(),
+                    'semester_filter' => request('semester_filter', $semester_default_filter),
+                ])
                 ->join('siswa', 'siswa.id_siswa', '=', 'kehadiran.id_siswa')
                 ->orderBy('siswa.nomor_urut')->select('kehadiran.*')
                 ->paginate(20)
                 ->withQueryString();
         else if (Gate::allows('siswa')) {
-            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])->where('id_siswa', Auth::user()->siswa->id_siswa)->filter(request()->except(['kelas_filter', 'siswa_filter']))->paginate(20)->withQueryString();
+            $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])
+                ->where('id_siswa', Auth::user()->siswa->id_siswa)
+                ->filter([
+                    ...request()->except(['kelas_filter', 'siswa_filter']),
+                    'semester_filter' => request('semester_filter', $semester_default_filter),
+                ])
+                ->paginate(20)->withQueryString();
         } else {
             abort(404);
         }
@@ -38,7 +50,7 @@ class KehadiranController extends Controller
         $kelas = Kelas::orderedNamaKelas()->get();
         $siswa = Siswa::get();
         $semester = Semester::filter(['order_by' => 'desc'])->get();
-        $route_kehadiran_filter = route('kehadiran.recapitulation');
+        $route_kehadiran_filter = route('kehadiran.index');
 
         return view('pages.akademik.kehadiran.index', [
             'judul' => 'Kehadiran',
@@ -46,7 +58,8 @@ class KehadiranController extends Controller
             'kehadiran' => $kehadiran,
             'kelas' => $kelas,
             'siswa' => $siswa,
-            'semester' => $semester
+            'semester' => $semester,
+            'semester_default_filter' => $semester_default_filter
         ]);
     }
 
@@ -109,7 +122,11 @@ class KehadiranController extends Controller
             $kehadiran_data->save();
         });
 
-        return redirect()->route('kehadiran.index')->with('success', 'Kehadiran berhasil ditambahkan / disinkronkan.');
+        return redirect()->route('kehadiran.index', [
+            'kelas_filter' => $validated_kehadiran['id_kelas'],
+            'semester_filter' => $validated_kehadiran['id_semester'],
+            'tanggal_filter' => $validated_kehadiran['tanggal']
+        ])->with('success', 'Kehadiran berhasil ditambahkan / disinkronkan.');
     }
 
     /**
@@ -125,24 +142,29 @@ class KehadiranController extends Controller
 
     public function recapitulation()
     {
-        $orderBy = request('order_by') === 'asc' ? 'asc' : 'desc';
-
         if (Gate::any(['staf-tata-usaha', 'guru'])) {
-
             $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])
-                ->siswaRecap()
+                ->siswaRecap([
+                    'kelas_filter' => request('kelas_filter'),
+                    'siswa_filter' => request('siswa_filter'),
+                    'semester_filter' => request('semester_filter'),
+                    'order_by' => request('order_by')
+                ])
                 ->join('siswa', 'siswa.id_siswa', '=', 'kehadiran.id_siswa')
-                ->join('semester', 'semester.id_semester', '=', 'kehadiran.id_semester')
-                ->orderBy('semester.tanggal_mulai', $orderBy)
+                // ->join('semester', 'semester.id_semester', '=', 'kehadiran.id_semester')
+                // ->orderBy('semester.tanggal_mulai', $orderBy)
                 ->orderBy('siswa.nomor_urut')
                 ->paginate(20)
                 ->withQueryString();
         } elseif (Gate::allows('siswa')) {
-
             $kehadiran = Kehadiran::with(['siswa', 'siswa.kelas', 'semester'])
-                ->siswaRecap(Auth::user()->siswa->id_siswa)
-                ->join('semester', 'semester.id_semester', '=', 'kehadiran.id_semester')
-                ->orderBy('semester.tanggal_mulai', $orderBy)
+                ->siswaRecap([
+                    'id_siswa_filter' => Auth::user()->siswa->id_siswa,
+                    'semester_filter' => request('semester_filter'),
+                    'order_by' => request('order_by')
+                ])
+                // ->join('semester', 'semester.id_semester', '=', 'kehadiran.id_semester')
+                // ->orderBy('semester.tanggal_mulai', $orderBy)
                 ->paginate(20)
                 ->withQueryString();
         } else {
@@ -160,7 +182,7 @@ class KehadiranController extends Controller
             'kehadiran' => $kehadiran,
             'kelas' => $kelas,
             'siswa' => $siswa,
-            'semester' => $semester,
+            'semester' => $semester
         ]);
     }
 
@@ -189,7 +211,7 @@ class KehadiranController extends Controller
         $kehadiran_update_validation_rules = $this->kehadiran_validation_rules;
 
         $kehadiran_update_validation_rules['id_semester_new'] = 'required|exists:semester,id_semester';
-        $kehadiran_update_validation_rules['tanggal_new'] = 'required|date|after_or_equal:today';
+        $kehadiran_update_validation_rules['tanggal_new'] = 'required|date';
 
         $validated_kehadiran = $request->validate($kehadiran_update_validation_rules);
 
@@ -230,7 +252,11 @@ class KehadiranController extends Controller
         ]);
 
         return redirect()
-            ->route('kehadiran.index')
+            ->route('kehadiran.index', [
+                'id_kelas' => $validated_kehadiran['id_kelas'],
+                'id_semester' => $validated_kehadiran['id_semester_new'],
+                'tanggal' => $validated_kehadiran['tanggal_new']
+            ])
             ->with('success', 'kehadiran berhasil diperbarui.');
     }
 
@@ -255,62 +281,59 @@ class KehadiranController extends Controller
             return back()->with('error', 'Tidak ada perubahan pada Kehadiran.');
         }
 
-        $kehadiran_update_validation_rules = [
+        $validated = $request->validate([
             'id_kehadiran'   => 'required|array',
             'id_kehadiran.*' => 'required|exists:kehadiran,id_kehadiran',
-            'status'   => 'required|array',
-            'status.*' => 'required|in:Hadir,Sakit,Izin,Alfa',
-            'keterangan'   => 'nullable|array',
-            'keterangan.*' => 'nullable|string|max:255',
-        ];
+            'status'         => 'required|array',
+            'status.*'       => 'required|in:Hadir,Sakit,Izin,Alfa',
+            'keterangan'     => 'nullable|array',
+            'keterangan.*'   => 'nullable|string|max:255',
+        ]);
 
-        $validated_kehadiran = $request->validate($kehadiran_update_validation_rules);
+        $errors = [];
+        $updatedCount = 0;
 
-        foreach ($validated_kehadiran['id_kehadiran'] as $id_kehadiran) {
+        foreach ($validated['id_kehadiran'] as $id) {
 
-            if (!isset($validated_kehadiran['status'][$id_kehadiran])) {
+            $newStatus = $validated['status'][$id] ?? null;
+            $newKeterangan = $newStatus === 'Izin'
+                ? ($validated['keterangan'][$id] ?? null)
+                : null;
+
+            if ($newStatus === 'Izin' && empty($newKeterangan)) {
+                $errors["keterangan.$id"] = 'Keterangan Izin wajib diisi.';
                 continue;
             }
 
-            $new_status = $validated_kehadiran['status'][$id_kehadiran];
-
-            $new_keterangan = null;
-
-            if ($new_status === 'Izin') {
-                $new_keterangan = $validated_kehadiran['keterangan'][$id_kehadiran] ?? null;
-
-                if (empty($new_keterangan)) {
-                    return back()->withErrors(["keterangan.$id_kehadiran" => 'Keterangan Izin wajib diisi.'])->withInput();
-                }
-            }
-
-            $current_kehadiran = Kehadiran::query()->select('status', 'keterangan')
-                ->where('id_kehadiran', $id_kehadiran)
+            $current = Kehadiran::select('status', 'keterangan')
+                ->where('id_kehadiran', $id)
                 ->first();
 
-            if (!$current_kehadiran) {
-                continue;
+            if (!$current) continue;
+
+            $update = [];
+            if ($current->status !== $newStatus) $update['status'] = $newStatus;
+            if ($current->keterangan !== $newKeterangan) $update['keterangan'] = $newKeterangan;
+
+            if (!empty($update)) {
+                Kehadiran::where('id_kehadiran', $id)->update($update);
+                $updatedCount++;
             }
-
-            $kehadiran_data_update = [];
-
-            if ($current_kehadiran->status !== $new_status) {
-                $kehadiran_data_update['status'] = $new_status;
-            }
-
-            if ($current_kehadiran->keterangan !== $new_keterangan) {
-                $kehadiran_data_update['keterangan'] = $new_keterangan;
-            }
-
-            if (empty($kehadiran_data_update)) {
-                continue;
-            }
-
-            Kehadiran::where('id_kehadiran', $id_kehadiran)
-                ->update($kehadiran_data_update);
         }
 
-        return back()->with('success', 'Kehadiran berhasil disimpan.');
+        $errorCount = \count($errors);
+
+        $response = back()->withInput();
+
+        if ($updatedCount > 0) {
+            $response->with('success', "$updatedCount baris berhasil disimpan.");
+        }
+
+        if ($errorCount > 0) {
+            $response->with('error', "$errorCount baris terjadi kesalahan.")->withErrors($errors)->withInput();
+        }
+
+        return $response;
     }
 
     public function delete()

@@ -52,13 +52,14 @@
                     <div class="mb-3">
                         <label for="semester-filter" class="form-label">Semester</label>
                         <select class="form-select" id="semester-filter" name="semester_filter"
-                            {{ $semester->isEmpty() ? 'disabled' : '' }}>
-                            <option value="">
-                                {{ $semester->isNotEmpty() ? '-- Pilih Semester --' : '-- Semester Tidak Tersedia --' }}
-                            </option>
+                            {{ $semester->isEmpty() ? 'disabled' : '' }}
+                            data-semester-default-filter="{{ $semester_default_filter }}">
+                            @if ($semester->isEmpty())
+                                <option value="">-- Semester Tidak Tersedia --</option>
+                            @endif
                             @foreach ($semester as $_semester)
                                 <option value="{{ $_semester->id_semester }}"
-                                    {{ request('semester_filter') == $_semester->id_semester ? 'selected' : '' }}>
+                                    {{ request('semester_filter', $semester_default_filter) == $_semester->id_semester ? 'selected' : '' }}>
                                     {{ "{$_semester->getTahunAjaran(true)} ({$_semester->getStatus()})" }}
                                 </option>
                             @endforeach
@@ -73,8 +74,8 @@
                 </form>
             </div>
             <div class="modal-footer form-buttons justify-content-between mt-0">
-                <button id="filter-modal-clear-button" class="btn btn-danger"><i
-                        class="bi bi-eraser me-2"></i>Bersihkan</button>
+                <button id="filter-modal-default-button" class="btn btn-secondary"><i
+                        class="bi bi-arrow-counterclockwise me-2"></i>Default</button>
                 <button id="filter-modal-apply-button" class="btn btn-primary"><i
                         class="bi bi-check-lg me-2"></i>Terapkan</button>
             </div>

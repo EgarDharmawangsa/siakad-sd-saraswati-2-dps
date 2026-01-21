@@ -1,26 +1,3 @@
-/* .kehadiran-index-buttons {
-    align-items: center;
+.keterangan-input {
+    width: 30rem;
 }
-
-.recapitulation-button {
-    margin-left: 0.5rem;
-}
-
-@media (max-width: 635px) {
-    .kehadiran-index-buttons {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.5rem;
-    }
-
-    .recapitulation-button {
-        margin-left: 0;
-    }
-}
-
-@media (max-width: 264px) {
-    .recap-show-buttons {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-} */

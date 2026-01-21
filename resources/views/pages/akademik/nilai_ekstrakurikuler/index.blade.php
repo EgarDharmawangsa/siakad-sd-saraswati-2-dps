@@ -45,6 +45,7 @@
                             <tr>
                                 <th>No.</th>
                                 @canany(['staf-tata-usaha', 'guru'])
+                                    <th>Kelas</th>
                                     <th>Siswa</th>
                                 @endcanany
                                 <th>Ekstrakurikuler</th>
@@ -65,8 +66,8 @@
                                     </td>
 
                                     @canany(['staf-tata-usaha', 'guru'])
-                                        <td>{{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->siswa->getFormatedNamaSiswa(true) }}
-                                        </td>
+                                        <td>{{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->siswa->kelas?->nama_kelas }}</td>
+                                        <td>{{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->siswa->getFormatedNamaSiswa(true) }}</td>
                                     @endcanany
 
                                     <td>{{ $_nilai_ekstrakurikuler->pesertaEkstrakurikuler->ekstrakurikuler->nama_ekstrakurikuler }}
@@ -108,7 +109,7 @@
                             @empty
                                 @canany(['staf-tata-usaha', 'guru'])
                                     <tr class="text-center">
-                                        <td colspan="5">Belum ada Nilai Ekstrakurikuler.</td>
+                                        <td colspan="6">Belum ada Nilai Ekstrakurikuler.</td>
                                     </tr>
                                 @endcanany
 

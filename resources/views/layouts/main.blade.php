@@ -59,8 +59,6 @@
 </body>
 
 <script>
-
-
     window.showToast = function(message, type = 'success') {
         let container = document.getElementById('toast-container-js');
         if (!container) {

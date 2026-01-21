@@ -1,10 +1,11 @@
 const kehadiran_form = document.getElementById('kehadiran-form');
 const kehadiran_inputs = document.querySelectorAll('.kehadiran-input');
 const keterangan_inputs = document.querySelectorAll('.keterangan-input');
+const kehadiran_filter_modal_form = document.getElementById('filter-modal-form');
 const kehadiran_status_filter = document.getElementById('kehadiran-status-filter');
 const keterangan_filter = document.getElementById('keterangan-filter');
+const kehadiran_default_filter = document.getElementById('kehadiran-default-filter');
 
-// Event listener untuk input kehadiran
 if (kehadiran_inputs.length) {
     kehadiran_inputs.forEach((input) => {
         input.addEventListener('change', function () {
@@ -33,7 +34,6 @@ if (kehadiran_inputs.length) {
     });
 }
 
-// Event listener untuk input keterangan
 if (keterangan_inputs.length) {
     keterangan_inputs.forEach((input) => {
         input.addEventListener('input', function () {
@@ -42,7 +42,6 @@ if (keterangan_inputs.length) {
     });
 }
 
-// Saat submit form kehadiran
 if (kehadiran_form) {
     kehadiran_form.addEventListener('submit', () => {
         const processedRows = new Set();

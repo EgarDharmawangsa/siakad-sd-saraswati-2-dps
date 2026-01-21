@@ -84,39 +84,37 @@
                                     </td>
 
                                     @can('guru')
-                                        <td>
-                                            <div class="d-flex gap-2 px-2">
-                                                @foreach (['Hadir', 'Izin', 'Sakit', 'Alfa'] as $status)
-                                                    <label class="mx-auto">
-                                                        <input type="radio" name="status[{{ $_kehadiran->id_kehadiran }}]"
-                                                            class="kehadiran-input" data-row="{{ $_kehadiran->id_kehadiran }}"
-                                                            value="{{ $status }}"
-                                                            {{ $_kehadiran->status === $status ? 'checked' : '' }}>
-                                                        {{ $status }}
-                                                    </label>
-                                                @endforeach
-                                            </div>
-                                        </td>
+                                    <td>
+                                        <div class="d-flex gap-2 px-2">
+                                            @foreach (['Hadir', 'Izin', 'Sakit', 'Alfa'] as $status)
+                                                <label class="mx-auto">
+                                                    <input type="radio" name="status[{{ $_kehadiran->id_kehadiran }}]"
+                                                        class="kehadiran-input" data-row="{{ $_kehadiran->id_kehadiran }}"
+                                                        value="{{ $status }}"
+                                                        {{ old("status.{$_kehadiran->id_kehadiran}", $_kehadiran->status) === $status ? 'checked' : '' }}>
+                                                    {{ $status }}
+                                                </label>
+                                            @endforeach
+                                        </div>
+                                    </td>
 
-                                        <td>
-                                            <input type="text" name="keterangan[{{ $_kehadiran->id_kehadiran }}]"
-                                                class="form-control keterangan-input @error("keterangan.{$_kehadiran->id_kehadiran}") is-invalid @enderror"
-                                                data-row="{{ $_kehadiran->id_kehadiran }}"
-                                                value="{{ $_kehadiran->keterangan }}" placeholder="Masukkan keterangan"
-                                                {{ $_kehadiran->status === 'Izin' ? '' : 'disabled' }}>
-                                            @error("keterangan.{$_kehadiran->id_kehadiran}")
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </td>
+                                    <td>
+                                        <input type="text" name="keterangan[{{ $_kehadiran->id_kehadiran }}]"
+                                            class="form-control keterangan-input @error("keterangan.{$_kehadiran->id_kehadiran}") is-invalid @enderror"
+                                            data-row="{{ $_kehadiran->id_kehadiran }}"
+                                            value="{{ old("keterangan.{$_kehadiran->id_kehadiran}", $_kehadiran->keterangan) }}"
+                                            placeholder="Masukkan keterangan"
+                                            {{ old("status.{$_kehadiran->id_kehadiran}", $_kehadiran->status) === 'Izin' ? '' : 'disabled' }} required>
+                                        @error("keterangan.{$_kehadiran->id_kehadiran}")
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </td>
                                     @endcan
 
                                     @canany(['staf-tata-usaha', 'siswa'])
                                         <td>{{ $_kehadiran->status }}</td>
-                                    @endcanany
-
-                                    @canany(['staf-tata-usaha', 'siswa'])
                                         <td>{{ $_kehadiran->keterangan ?? '-' }}</td>
                                     @endcanany
 
@@ -144,6 +142,12 @@
                     </table>
                 </div>
 
+                @if ($kehadiran->hasPages())
+                    <div class="d-flex justify-content-end mt-2">
+                        {{ $kehadiran->links() }}
+                    </div>
+                @endif
+
                 @can('guru')
                     <div class="d-flex justify-content-between rounded-3 mt-4 p-3 submit-warning-container">
                         <p class="mini-label submit-warning-text">
@@ -155,8 +159,10 @@
                     </div>
 
                     <div class="index-buttons mt-4 mb-0">
-                        <a href="{{ route('kehadiran.edit-form') }}" class="btn btn-warning"><i class="bi bi-pencil me-2"></i>Edit Semua Kehadiran</a>
-                        <a href="{{ route('kehadiran.delete') }}" class="btn btn-danger"><i class="bi bi-trash me-2"></i>Hapus Semua Kehadiran</a>
+                        <a href="{{ route('kehadiran.edit-form') }}" class="btn btn-warning"><i
+                                class="bi bi-pencil me-2"></i>Edit Semua Kehadiran</a>
+                        <a href="{{ route('kehadiran.delete') }}" class="btn btn-danger"><i class="bi bi-trash me-2"></i>Hapus
+                            Semua Kehadiran</a>
                     </div>
                 @endcan
             </form>

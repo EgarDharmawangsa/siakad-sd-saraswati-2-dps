@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
+ * @property int $id_ekstrakurikuler
  * @property Carbon $jam_mulai
  * @property Carbon $jam_selesai
  */

@@ -20,12 +20,12 @@ import './pages/akademik/prestasi.js';
 import './pages/akademik/pengumuman.js';
 
 const page_body = document.getElementById('page-body');
-// const success_toast = document.getElementById('success-toast');
-// const error_toast = document.getElementById('error-toast');
 const filter_modal_close_button = document.getElementById('filter-modal-close-button');
 const filter_modal_form = document.getElementById('filter-modal-form');
 const filter_modal_apply_button = document.getElementById('filter-modal-apply-button');
 const filter_modal_clear_button = document.getElementById('filter-modal-clear-button');
+const filter_modal_default_button = document.getElementById('filter-modal-default-button');
+const semester_filter = document.getElementById('semester-filter');
 const password = document.getElementById('password');
 const password_toggle_button = document.getElementById('password-toggle-button');
 const password_eye_icon = document.getElementById('password-eye-icon');
@@ -49,16 +49,25 @@ existingToasts.forEach(toastEl => {
     });
 });
 
-if (filter_modal_close_button && filter_modal_clear_button) {
-    const filter_modal_array = [filter_modal_close_button, filter_modal_clear_button];
+if (filter_modal_close_button && (filter_modal_clear_button || filter_modal_default_button)) {
+    const buttons_array = [filter_modal_clear_button, filter_modal_default_button].filter(Boolean);
 
-    filter_modal_array.forEach((_filter_modal_array) => {
-        _filter_modal_array.addEventListener('click', () => {
+    const semester_default = semester_filter?.dataset.semesterDefaultFilter ?? '';
+
+    buttons_array.forEach((button) => {
+        button.addEventListener('click', () => {
             filter_modal_form.querySelectorAll('input, select').forEach((input) => {
                 input.value = '';
             });
-            document.activeElement.blur();
+
+            if (semester_filter) {
+                semester_filter.value = semester_default;
+            }
         });
+    });
+
+    filter_modal_close_button.addEventListener('click', () => {
+        document.activeElement.blur();
     });
 }
 

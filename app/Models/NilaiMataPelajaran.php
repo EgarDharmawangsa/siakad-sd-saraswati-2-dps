@@ -60,9 +60,9 @@ class NilaiMataPelajaran extends Model
 
         $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
         $query->join('semester', 'semester.id_semester', '=', 'nilai_mata_pelajaran.id_semester')->orderBy('semester.tanggal_mulai', $order_by_value);
-        
+
         if (!empty($filters['kelas_filter'])) {
-            $query->whereHas('siswa.kelas', fn($query) => $query->where('id_kelas', 'like', '%' . $filters['kelas_filter'] . '%'));
+            $query->whereHas('siswa.kelas', fn($query) => $query->where('id_kelas', $filters['kelas_filter']));
         }
 
         if (!empty($filters['siswa_filter'])) {
@@ -77,11 +77,11 @@ class NilaiMataPelajaran extends Model
             );
         }
 
-        if (!empty($filter['mata_pelajaran_filter'])) {
+        if (!empty($filters['mata_pelajaran_filter'])) {
             $query->whereHas(
                 'mataPelajaran',
                 fn($query) =>
-                $query->where('id_mata_pelajaran', 'like', '%' . $filters['mata_pelajaran_filter'] . '%')
+                $query->where('id_mata_pelajaran', $filters['mata_pelajaran_filter'])
             );
         }
 
@@ -89,7 +89,7 @@ class NilaiMataPelajaran extends Model
             $query->whereHas(
                 'semester',
                 fn($query) =>
-                $query->where('id_semester', 'like', '%' . $filters['semester_filter'] . '%')
+                $query->where('id_semester', $filters['semester_filter'])
             );
         }
 

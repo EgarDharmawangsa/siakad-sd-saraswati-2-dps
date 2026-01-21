@@ -26,13 +26,36 @@ class Kehadiran extends Model
         'tanggal' => 'date',
     ];
 
-    public function scopeSiswaRecap($query, $id_siswa = null)
+    public function scopeSiswaRecap($query, array $filters)
     {
-        if (!empty($id_siswa)) {
-            $query->where('kehadiran.id_siswa', $id_siswa);
+        $order_by_array = ['desc', 'asc'];
+
+        $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
+        $query->join('semester', 'semester.id_semester', '=', 'kehadiran.id_semester')->orderBy('semester.tanggal_mulai', $order_by_value);
+
+        if (!empty($filters['kelas_filter'])) {
+            $query->whereHas('siswa', function ($query) use ($filters) {
+                $query->where('id_kelas', $filters['kelas_filter']);
+            });
         }
 
-        $query->select(
+        if (!empty($filters['id_siswa_filter'])) {
+            $query->where('kehadiran.id_siswa', $filters['id_siswa_filter']);
+        }
+
+        if (!empty($filters['siswa_filter'])) {
+            $query->whereHas('siswa', function ($query) use ($filters) {
+                $query->where('nisn', 'like', "%{$filters['siswa_filter']}%")
+                    ->orWhere('nama_siswa', 'like', "%{$filters['siswa_filter']}%");
+            });
+        }
+
+        if (!empty($filters['semester_filter'])) {
+            $query->where('kehadiran.id_semester', $filters['semester_filter']);
+        }
+
+        return $query
+            ->select(
                 'kehadiran.id_siswa',
                 'kehadiran.id_semester'
             )
@@ -44,10 +67,7 @@ class Kehadiran extends Model
                 'kehadiran.id_siswa',
                 'kehadiran.id_semester'
             );
-
-        return $query;
     }
-
 
     public function getFormatedTanggal()
     {
@@ -55,14 +75,15 @@ class Kehadiran extends Model
 
         return $formated_tanggal;
     }
-    
+
     public function scopeFilter($query, array $filters)
     {
         $order_by_array = ['desc', 'asc'];
-    
+
         $order_by_value = \in_array(strtolower($filters['order_by'] ?? ''), $order_by_array) ? $filters['order_by'] : 'desc';
-        $query->join('semester', 'semester.id_semester', '=', 'kehadiran.id_semester')->orderBy('semester.tanggal_mulai', $order_by_value);
-        
+        // $query->join('semester', 'semester.id_semester', '=', 'kehadiran.id_semester')->orderBy('semester.tanggal_mulai', $order_by_value);
+        $query->orderBy('tanggal', $order_by_value);
+
         if (!empty($filters['kelas_filter'])) {
             $query->whereHas('siswa.kelas', fn($query) => $query->where('id_kelas', $filters['kelas_filter']));
         }

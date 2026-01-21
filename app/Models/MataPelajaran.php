@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @property int $id_mata_pelajaran
+ */
+
 class MataPelajaran extends Model
 {
     use HasFactory;
