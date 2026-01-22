@@ -24,16 +24,16 @@ class DatabaseSeeder extends Seeder
             SemesterSeeder::class,
             MataPelajaranSeeder::class,
             EkstrakurikulerSeeder::class,
-            PegawaiSeeder::class,
             KelasSeeder::class,
+            PegawaiSeeder::class,
             SiswaSeeder::class,
-            PengumumanSeeder::class,
+            PesertaEkstrakurikulerSeeder::class,
             PrestasiSeeder::class,
             JadwalPelajaranSeeder::class,
             KehadiranSeeder::class,
             NilaiMataPelajaranSeeder::class,
             NilaiEkstrakurikulerSeeder::class,
-            PesertaEkstrakurikulerSeeder::class
+            PengumumanSeeder::class
         ]);
     }
 }
