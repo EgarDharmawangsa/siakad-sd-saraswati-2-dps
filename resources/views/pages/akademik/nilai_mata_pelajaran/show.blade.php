@@ -6,10 +6,19 @@
         <hr>
 
         <div class="show-buttons">
-            <a href="{{ route('nilai-mata-pelajaran.index') }}" class="btn btn-secondary"><i
-                    class="bi bi-arrow-left me-2"></i>Kembali</a>
+            @canany(['staf-tata-usaha', 'guru'])
+                <a href="{{ route('nilai-mata-pelajaran.index', request()->query()) }}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left me-2"></i>Kembali
+                </a>
+            @endcanany
+            @can('siswa')
+                <a href="{{ route('nilai-mata-pelajaran.index', Arr::except(request()->query(), ['kelas_filter', 'siswa_filter'])) }}"
+                    class="btn btn-secondary">
+                    <i class="bi bi-arrow-left me-2"></i>Kembali
+                </a>
+            @endcan
             @can('guru')
-                <a href="{{ route('nilai-mata-pelajaran.edit', $nilai_mata_pelajaran->id_nilai_mata_pelajaran) }}"
+                <a href="{{ route('nilai-mata-pelajaran.edit', [$nilai_mata_pelajaran->id_nilai_mata_pelajaran, ...request()->query()]) }}"
                     class="btn btn-warning"><i class="bi bi-pencil me-2"></i>Edit</a>
             @endcan
         </div>
@@ -75,10 +84,10 @@
                     <div class="border border-2 border-secondary bg-secondary-subtle rounded px-3 pb-3 pt-2">
                         <label class="form-label">Portofolio {{ $loop->iteration }}</label>
 
-                        <input type="text" class="form-control" id="nilai-portofolio" value="{{ $_nilai_portofolio['judul'] }}"
-                            readonly>
-                        <input type="text" class="form-control" id="nilai-portofolio" value="{{ $_nilai_portofolio['nilai'] }}"
-                            readonly>
+                        <input type="text" class="form-control" id="nilai-portofolio"
+                            value="{{ $_nilai_portofolio['judul'] }}" readonly>
+                        <input type="text" class="form-control" id="nilai-portofolio"
+                            value="{{ $_nilai_portofolio['nilai'] }}" readonly>
                     </div>
                 </div>
             @empty

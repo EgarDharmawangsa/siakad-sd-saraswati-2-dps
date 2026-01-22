@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="content-card mb-4">
-        <h5>Tambah {{ $judul }}</h5>
+        <h5>Edit {{ $judul }}</h5>
         <hr>
 
         <form action="{{ route('prestasi.update', $prestasi->id_prestasi) }}" method="POST" enctype="multipart/form-data">
