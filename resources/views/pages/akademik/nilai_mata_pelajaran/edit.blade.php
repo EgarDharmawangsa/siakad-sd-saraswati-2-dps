@@ -5,7 +5,8 @@
         <h5>Edit {{ $judul }}</h5>
         <hr>
 
-        <form action="{{ route('nilai-mata-pelajaran.update', $nilai_mata_pelajaran->id_nilai_mata_pelajaran) }}"
+        <form
+            action="{{ route('nilai-mata-pelajaran.update', [$nilai_mata_pelajaran->id_nilai_mata_pelajaran, ...request()->query()]) }}"
             method="POST">
             @method('PUT')
             @csrf
@@ -39,8 +40,8 @@
                     <label for="nilai-ub-1" class="form-label">Nilai UB 1</label>
                     <input type="text" class="form-control @error('nilai_ub_1') is-invalid @enderror" id="nilai-ub-1"
                         name="nilai_ub_1" placeholder="Masukkan nilai UB 1"
-                        value="{{ old('nilai_ub_1', $nilai_mata_pelajaran->nilai_ub_1) }}" min="0" max="100" step="0.01" 
-                        required>
+                        value="{{ old('nilai_ub_1', $nilai_mata_pelajaran->nilai_ub_1) }}" min="0" max="100"
+                        step="0.01" required>
                     @error('nilai_ub_1')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -50,8 +51,8 @@
                     <label for="nilai-ub-2" class="form-label">Nilai UB 2</label>
                     <input type="text" class="form-control @error('nilai_ub_2') is-invalid @enderror" id="nilai-ub-2"
                         name="nilai_ub_2" placeholder="Masukkan nilai UB 2"
-                        value="{{ old('nilai_ub_2', $nilai_mata_pelajaran->nilai_ub_2) }}" min="0" max="100" step="0.01" 
-                        required>
+                        value="{{ old('nilai_ub_2', $nilai_mata_pelajaran->nilai_ub_2) }}" min="0" max="100"
+                        step="0.01" required>
                     @error('nilai_ub_2')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -61,8 +62,8 @@
                     <label for="nilai-uts" class="form-label">Nilai UTS</label>
                     <input type="text" class="form-control @error('nilai_uts') is-invalid @enderror" id="nilai-uts"
                         name="nilai_uts" placeholder="Masukkan nilai UTS"
-                        value="{{ old('nilai_uts', $nilai_mata_pelajaran->nilai_uts) }}" min="0" max="100" step="0.01" 
-                        required>
+                        value="{{ old('nilai_uts', $nilai_mata_pelajaran->nilai_uts) }}" min="0" max="100"
+                        step="0.01" required>
                     @error('nilai_uts')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -72,8 +73,8 @@
                     <label for="nilai-uas" class="form-label">Nilai UAS</label>
                     <input type="text" class="form-control @error('nilai_uas') is-invalid @enderror" id="nilai-uas"
                         name="nilai_uas" placeholder="Masukkan nilai UAS"
-                        value="{{ old('nilai_uas', $nilai_mata_pelajaran->nilai_uas) }}" min="0" max="100" step="0.01" 
-                        required>
+                        value="{{ old('nilai_uas', $nilai_mata_pelajaran->nilai_uas) }}" min="0" max="100"
+                        step="0.01" required>
                     @error('nilai_uas')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -101,7 +102,8 @@
 
                             <input type="number"
                                 class="form-control mt-2 @error("nilai_portofolio.$index.nilai") is-invalid @enderror"
-                                name="nilai_portofolio[{{ $index }}][nilai]" placeholder="Masukkan nilai portofolio"
+                                name="nilai_portofolio[{{ $index }}][nilai]"
+                                placeholder="Masukkan nilai portofolio"
                                 value="{{ old("nilai_portofolio.$index.nilai", $portofolio['nilai']) }}" min="0"
                                 max="100" step="0.01" required>
 
@@ -116,12 +118,13 @@
             </div>
 
             <p class="mini-label text-muted mt-3 mb-0">
-                Mengubah judul portofolio akan mengubah seluruh judul portofolio lainnya di nilai mata pelajaran dengan kelas, mata pelajaran, dan semester yang sama.
+                Mengubah judul portofolio akan mengubah seluruh judul portofolio lainnya di nilai mata pelajaran dengan
+                kelas, mata pelajaran, dan semester yang sama.
             </p>
 
             <div class="form-buttons">
                 <button type="button" class="btn btn-danger" id="cancel-button"
-                    data-route="{{ route('nilai-mata-pelajaran.index') }}" data-bs-toggle="modal"
+                    data-route="{{ route('nilai-mata-pelajaran.index', request()->query()) }}" data-bs-toggle="modal"
                     data-bs-target="#cancel-modal">
                     <i class="bi bi-x-lg me-2 batal-icon-button"></i>Batal</button>
                 <button type="submit" class="btn btn-primary"><i class="bi bi-floppy me-2"></i>Simpan</button>

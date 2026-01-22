@@ -161,10 +161,16 @@
                                     <td>{{ number_format($_nilai_mata_pelajaran->getNilaiAKhir(), 2) }}</td>
 
                                     <td class="aksi-column">
-                                        <a href="{{ route('nilai-mata-pelajaran.show', $_nilai_mata_pelajaran->id_nilai_mata_pelajaran) }}"
-                                            class="btn btn-info"><i class="bi bi-info-lg me-2"></i>Detail</a>
+                                        @canany(['staf-tata-usaha', 'guru'])
+                                            <a href="{{ route('nilai-mata-pelajaran.show', [$_nilai_mata_pelajaran->id_nilai_mata_pelajaran, ...request()->query()]) }}"
+                                                class="btn btn-info"><i class="bi bi-info-lg me-2"></i>Detail</a>
+                                        @endcanany
+                                        @can('siswa')
+                                            <a href="{{ route('nilai-mata-pelajaran.show', [$_nilai_mata_pelajaran->id_nilai_mata_pelajaran, ...Arr::except(request()->query(), ['kelas_filter', 'siswa_filter'])]) }}"
+                                                class="btn btn-info"><i class="bi bi-info-lg me-2"></i>Detail</a>
+                                        @endcan
                                         @can('guru')
-                                            <a href="{{ route('nilai-mata-pelajaran.edit', $_nilai_mata_pelajaran->id_nilai_mata_pelajaran) }}"
+                                            <a href="{{ route('nilai-mata-pelajaran.edit', [$_nilai_mata_pelajaran->id_nilai_mata_pelajaran, ...request()->query()]) }}"
                                                 class="btn btn-warning mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
                                         @endcan
                                     </td>

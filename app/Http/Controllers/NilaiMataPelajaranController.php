@@ -51,6 +51,8 @@ class NilaiMataPelajaranController extends Controller
         $mata_pelajaran = MataPelajaran::latest()->get();
         $semester = Semester::filter(['order_by' => 'desc'])->get();
 
+        session(['nilai_mp_query' => request()->query()]);
+
         return view('pages.akademik.nilai_mata_pelajaran.index', [
             'judul' => 'Nilai Mata Pelajaran',
             'nilai_mata_pelajaran' => $nilai_mata_pelajaran,
@@ -333,7 +335,9 @@ class NilaiMataPelajaranController extends Controller
             ]);
         }
 
-        return redirect()->route('nilai-mata-pelajaran.index')->with('success', 'Nilai Mata Pelajaran berhasil disimpan.');
+        $query_data = $request->query();
+
+        return redirect()->route('nilai-mata-pelajaran.index', $query_data)->with('success', 'Nilai Mata Pelajaran berhasil disimpan.');
     }
 
     public function massUpdate(Request $request)

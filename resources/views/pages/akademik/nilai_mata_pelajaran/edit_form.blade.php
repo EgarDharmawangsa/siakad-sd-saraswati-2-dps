@@ -9,8 +9,8 @@
             @csrf
             <div class="row g-3">
                <div class="col-md-6">
-                    <label for="id-kelas-edit" class="form-label">Kelas</label>
-                    <select class="form-select" id="id-kelas-edit" name="id_kelas" {{ $kelas->isEmpty() ? 'disabled' : '' }}
+                    <label for="id-kelas-create" class="form-label">Kelas</label>
+                    <select class="form-select" id="id-kelas-create" name="id_kelas" {{ $kelas->isEmpty() ? 'disabled' : '' }}
                         required>
                         <option value="">
                             {{ $kelas->isNotEmpty() ? '-- Pilih Kelas --' : '-- Kelas Tidak Tersedia --' }}
