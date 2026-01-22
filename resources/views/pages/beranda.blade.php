@@ -71,7 +71,7 @@
                         <div>Ekstrakurikuler</div>
                     </div>
                     <a class="text-decoration-none d-block p-2 pe-3 text-end text-white ekstrakurikuler-count-card-link"
-                        href="{{ route('mata-pelajaran.index') }}">Lihat
+                        href="{{ route('ekstrakurikuler.index') }}">Lihat
                         detail<i class="bi bi-arrow-right-circle ms-2"></i></a>
                 </div>
             </div>
