@@ -47,7 +47,7 @@ class UpdatePegawaiRequest extends FormRequest
             'no_telepon_rumah'      => 'nullable|string|min:10|max:15',
             'no_telepon_seluler'    => 'required|string|min:10|max:15',
             'username'              => "nullable|string|min:5|max:50|unique:users,username,{$id_pegawai},id_pegawai",
-            'password'              => 'nullable|string|min:8|max:255',
+            'password'              => 'nullable|string|min:6|max:255',
             'e_mail'                => "nullable|email|min:7|max:255|unique:pegawai,e_mail,{$id_pegawai},id_pegawai|unique:siswa,e_mail",
             'jabatan'               => 'nullable|string|min:3|max:30',
             'status_perkawinan'     => 'required|min:3|max:10|string',
