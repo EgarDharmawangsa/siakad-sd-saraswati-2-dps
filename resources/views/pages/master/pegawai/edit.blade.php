@@ -60,7 +60,7 @@
                                     <i class="bi bi-eye" id="password-eye-icon"></i>
                                 </button>
                             </div>
-                            @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @error('password') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
                         </div>
                         
                         <div class="col-md-6">

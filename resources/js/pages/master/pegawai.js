@@ -357,7 +357,6 @@ function initFormSubmitValidation(els) {
             if(tabBtn) tabBtn.click();
         }
         setTimeout(() => firstError.focus(), 300);
-        if(window.showToast) window.showToast('Terdapat kesalahan input. Silakan periksa kembali.', 'error');
     }
 }
 
