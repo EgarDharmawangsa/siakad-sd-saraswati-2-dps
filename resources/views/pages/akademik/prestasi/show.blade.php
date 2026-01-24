@@ -46,12 +46,12 @@
                 <div>{{ $prestasi->jenis }}</div>
             </div>
             <div class="col-md-6">
-                <div class="fw-bold">Tingkat:</div>
-                <div>{{ $prestasi->tingkat }}</div>
+                <div class="fw-bold">Peringkat:</div>
+                <div>{{ $prestasi->peringkat !== "Lainnya" ? $prestasi->peringkat : $prestasi->peringkat_lainnya }}</div>
             </div>
             <div class="col-md-6">
-                <div class="fw-bold">Peringkat:</div>
-                <div>{{ $prestasi->peringkat ?? $prestasi->peringkat_lainnya }}</div>
+                <div class="fw-bold">Tingkat:</div>
+                <div>{{ $prestasi->tingkat }}</div>
             </div>
             <div class="col-md-6">
                 <div class="fw-bold">Wilayah:</div>
