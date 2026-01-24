@@ -172,7 +172,7 @@
                 <div class="row g-3">
                     <div class="col-sm-3 my-3 px-3 d-flex align-items-center">
                         @if (auth()->user()->siswa?->foto)
-                            <img src="{{ asset('storage/' . auth()->user()->siswa?->foto) }}" alt="Foto Siswa"
+                            <img src="{{ Storage::url(auth()->user()->siswa?->foto) }}" alt="Foto Siswa"
                                 class="siswa-bio-foto">
                         @else
                             <img src="{{ asset('images/default_profile_photo.png') }}" alt="Foto Siswa" class="siswa-bio-foto">
@@ -245,7 +245,7 @@
 
                         @forelse ($active_users['Staf Tata Usaha'] ?? [] as $_active_users)
                             <div class="d-flex align-items-center mt-3">
-                                <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo.png') }}"
+                                <img src="{{ $_active_users->pegawai->foto ? Storage::url($_active_users->pegawai->foto) : asset('images/default_profile_photo.png') }}"
                                     alt="Foto Pegawai" class="profile-avatar me-2">
                                 <div>{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</div>
                             </div>
@@ -261,7 +261,7 @@
 
                     @forelse ($active_users['Guru'] ?? [] as $_active_users)
                         <div class="d-flex align-items-center mt-3">
-                            <img src="{{ $_active_users->pegawai->foto ? asset('storage/' . $_active_users->pegawai->foto) : asset('images/default_profile_photo.png') }}"
+                            <img src="{{ $_active_users->pegawai->foto ? Storage::url($_active_users->pegawai->foto) : asset('images/default_profile_photo.png') }}"
                                 alt="Foto Pegawai" class="profile-avatar me-2">
                             <div>{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</div>
                         </div>
@@ -276,7 +276,7 @@
 
                     @forelse ($active_users['Siswa'] ?? [] as $_active_users)
                         <div class="d-flex align-items-center mt-3">
-                            <img src="{{ $_active_users->siswa->foto ? asset('storage/' . $_active_users->siswa->foto) : asset('images/default_profile_photo.png') }}"
+                            <img src="{{ $_active_users->siswa->foto ? Storage::url($_active_users->siswa->foto) : asset('images/default_profile_photo.png') }}"
                                 alt="Foto Pegawai" class="profile-avatar me-2">
                             <div>{{ $_active_users->siswa->getFormatedNamaSiswa() }}</div>
                         </div>

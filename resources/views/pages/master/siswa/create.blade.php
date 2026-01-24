@@ -640,7 +640,7 @@
                         </div>
                         <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">PIP</label></div>
                         <div class="col-md-6">
-                            <label class="form-label">Layak PIP<span class="text-muted mini-label ms-1">(Opsional)</span></label>
+                            <label class="form-label">Layak PIP</label>
                             <select class="form-select @error('layak_pip') is-invalid @enderror" name="layak_pip" required>
                                 <option value="">-- Pilih --</option>
                                 <option value="Tidak" {{ old('layak_pip') === 'Tidak' ? 'selected' : '' }}>Tidak</option>
@@ -705,7 +705,7 @@
                             @enderror
                         </div>
                         <div class="col-md-4">
-                            <label for="nomor-urut" class="form-label">Nomor Urut</label>
+                            <label for="nomor-urut" class="form-label">Nomor Urut<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('nomor_urut') is-invalid @enderror"
                                 id="nomor-urut" name="nomor_urut" placeholder="Masukkan nomor urut"
                                 value="{{ old('nomor_urut') }}" min="1" max="45">

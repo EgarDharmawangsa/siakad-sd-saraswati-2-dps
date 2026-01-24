@@ -67,16 +67,19 @@ class PegawaiController extends Controller
         $validated_pegawai = $request->validated();
 
         if ($request->hasFile('foto')) {
-            $validated_pegawai['foto'] = $request->file('foto')->store('foto_pegawai', 'public');
+            $validated_pegawai['foto'] = $request->file('foto')->store('foto_pegawai');
         }
 
-        $user_data = [
-            'username' => $validated_pegawai['username'],
-            'password' => bcrypt(trim($validated_pegawai['password'])),
-            'role' => $validated_pegawai['posisi']
-        ]; 
+        if ($validated_pegawai['posisi'] === 'Staf Tata Usaha' || $validated_pegawai['posisi'] === 'Guru') {
+            $user_data = [
+                'username' => $validated_pegawai['username'],
+                'password' => bcrypt(trim($validated_pegawai['password'])),
+                'role' => $validated_pegawai['posisi']
+            ];
+             
+            unset($validated_pegawai['username'], $validated_pegawai['password']);
+        }
 
-        unset($validated_pegawai['username'], $validated_pegawai['password']);
 
         if (!empty($validated_pegawai['id_mata_pelajaran'])) {
             $mata_pelajaran_data = $validated_pegawai['id_mata_pelajaran'];
@@ -152,14 +155,14 @@ class PegawaiController extends Controller
         // INI UNTUK FOTO
         if ($validated_pegawai['image_delete'] == 1) {
             if (!empty($pegawai->foto)) {
-                Storage::disk('public')->delete($pegawai->foto);
+                Storage::delete($pegawai->foto);
             }
             $validated_pegawai['foto'] = null;
         } elseif ($request->hasFile('foto')) {
             if (!empty($pegawai->foto)) {
-                Storage::disk('public')->delete($pegawai->foto);
+                Storage::delete($pegawai->foto);
             }
-            $validated_pegawai['foto'] = $request->file('foto')->store('foto_pegawai', 'public');
+            $validated_pegawai['foto'] = $request->file('foto')->store('foto_pegawai');
         } else {
             $validated_pegawai['foto'] = $pegawai->foto;
         }
@@ -224,14 +227,14 @@ class PegawaiController extends Controller
         if (!Gate::allows('staf-tata-usaha')) {
             abort(404);
         }
-
-        $pegawai->delete();
-
-        User::where('id_pegawai', $pegawai->id_pegawai)->delete();
-
+        
+        User::where('id_pegawai', $pegawai->id_pegawai)->first()?->delete();
+        
         if (!empty($pegawai->foto)) {
             Storage::delete($pegawai->foto);
         }
+
+        $pegawai->delete();
 
         return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil dihapus.');
     }

@@ -63,7 +63,7 @@ class SiswaController extends Controller
         $validated_siswa = $request->validated();
 
         if ($request->hasFile('foto')) {
-            $validated_siswa['foto'] = $request->file('foto')->store('foto_siswa', 'public');
+            $validated_siswa['foto'] = $request->file('foto')->store('foto_siswa');
         }
 
         $user_data = [
@@ -130,14 +130,14 @@ class SiswaController extends Controller
         // INI UNTUK FOTO
         if ($validated_siswa['image_delete'] == 1) {
             if (!empty($siswa->foto)) {
-                Storage::disk('public')->delete($siswa->foto);
+                Storage::delete($siswa->foto);
             }
             $validated_siswa['foto'] = null;
         } elseif ($request->hasFile('foto')) {
             if (!empty($siswa->foto)) {
-                Storage::disk('public')->delete($siswa->foto);
+                Storage::delete($siswa->foto);
             }
-            $validated_siswa['foto'] = $request->file('foto')->store('foto_siswa', 'public');
+            $validated_siswa['foto'] = $request->file('foto')->store('foto_siswa');
         } else {
             $validated_siswa['foto'] = $siswa->foto;
         }
@@ -193,12 +193,10 @@ class SiswaController extends Controller
             abort(404);
         }
 
-        if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
-            Storage::disk('public')->delete($siswa->foto);
-        }
+        User::where('id_siswa', $siswa->id_siswa)->first()?->delete();
 
-        if ($siswa->userAuth) {
-            $siswa->userAuth()->delete();
+        if (!empty($siswa->foto)) {
+            Storage::delete($siswa->foto);
         }
 
         $siswa->delete();

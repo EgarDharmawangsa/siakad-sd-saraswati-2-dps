@@ -28,7 +28,7 @@
         <small class="text-muted mb-3">Diraih pada {{ $prestasi->getFormatedTanggalPeraihan() }}</small>
 
         @if ($prestasi->dokumentasi)
-            <img src="{{ asset("storage/{$prestasi->dokumentasi}") }}" alt="Dokumentasi Prestasi"
+            <img src="{{ Storage::url($prestasi->dokumentasi) }}" alt="Dokumentasi Prestasi"
                 class="image-content mt-4 mb-2 rounded">
         @endif
 

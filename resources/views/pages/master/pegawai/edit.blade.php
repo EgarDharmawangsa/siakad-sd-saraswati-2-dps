@@ -168,7 +168,7 @@
                             <label for="foto" class="form-label">Foto<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             
                             {{-- Preview Gambar Existing/Baru --}}
-                            <img src='{{ $pegawai->foto ? asset("storage/{$pegawai->foto}") : '' }}'
+                            <img src='{{ $pegawai->foto ? Storage::url($pegawai->foto) : '' }}'
                                 class="foto mt-2 mb-3 {{ $pegawai->foto ? '' : 'd-none' }}" id="image-preview">
                             
                             {{-- Tombol Hapus --}}

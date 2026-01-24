@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const initialPosisi = els.posisi ? els.posisi.value : '';
     const isEditMode = window.location.pathname.endsWith('/edit');
     
-    const rolesWithLogin = ['Staf Tata Usaha', 'Guru', 'Pegawai Perpustakaan', 'Satuan Pengamanan'];
+    const rolesWithLogin = ['Staf Tata Usaha', 'Guru'];
     const rolesWithSertifikasi = ['Staf Tata Usaha', 'Guru', 'Pegawai Perpustakaan', 'Satuan Pengamanan', 'Pegawai Kebersihan'];
 
     // manage state

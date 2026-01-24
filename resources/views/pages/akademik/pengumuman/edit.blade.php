@@ -38,7 +38,7 @@
                 <div class="col-md-12">
                     <label for="gambar" class="form-label">Gambar<span
                             class="text-muted mini-label ms-1">(Opsional)</span></label>
-                    <img src='{{ $pengumuman->gambar ? asset("storage/{$pengumuman->gambar}") : '' }}'
+                    <img src='{{ $pengumuman->gambar ? Storage::url($pengumuman->gambar) : '' }}'
                         class="gambar mt-2 mb-3 rounded {{ $pengumuman->gambar ? '' : 'd-none' }}" id="image-preview">
                     <button type="button"
                         class="btn btn-danger btn-sm d-block mx-auto mb-4 {{ $pengumuman->gambar ? '' : 'd-none' }}"

@@ -122,7 +122,7 @@
                 <div class="col-md-12">
                     <label for="dokumentasi" class="form-label">Dokumentasi<span
                             class="text-muted mini-label ms-1">(Opsional)</span></label>
-                    <img src='{{ $prestasi->dokumentasi ? asset("storage/{$prestasi->dokumentasi}") : "" }}'
+                    <img src='{{ $prestasi->dokumentasi ? Storage::url($prestasi->dokumentasi) : "" }}'
                         class="dokumentasi mt-2 mb-3 rounded {{ $prestasi->dokumentasi ? '' : 'd-none' }}" id="image-preview">
                     <button type="button"
                         class="btn btn-danger btn-sm d-block mx-auto mb-4 {{ $prestasi->dokumentasi ? '' : 'd-none' }}"

@@ -51,7 +51,7 @@
                 <div class="row g-3">
                     <div class="col-md-12 mt-4 d-flex justify-content-center">
                         @if ($siswa->foto)
-                            <img src="{{ asset("storage/{$siswa->foto}") }}" alt="Foto Siswa" class="foto my-3">
+                            <img src="{{ Storage::url($siswa->foto) }}" alt="Foto Siswa" class="foto my-3">
                         @else
                             <img src="{{ asset('images/default_profile_photo.png') }}" alt="Default Foto" class="foto my-3">
                         @endif

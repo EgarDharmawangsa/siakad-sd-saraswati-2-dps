@@ -167,7 +167,7 @@
                         <div class="col-md-6">
                             <label for="foto" class="form-label">Foto<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             
-                            <img src='{{ $user->foto ? asset("storage/{$user->foto}") : '' }}'
+                            <img src='{{ $user->foto ? Storage::url($user->foto) : '' }}'
                                 class="foto mt-2 mb-3 {{ $user->foto ? '' : 'd-none' }}" id="image-preview">
                             
                             <button type="button"

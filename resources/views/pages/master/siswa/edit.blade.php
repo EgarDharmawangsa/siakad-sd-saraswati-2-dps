@@ -290,7 +290,7 @@
                         {{-- INPUT FOTO (DIPINDAHKAN KE SINI) --}}
                         <div class="col-md-6">
                             <label for="foto" class="form-label">Foto<span class="text-muted mini-label ms-1">(Opsional)</span></label>
-                            <img src='{{ $siswa->foto ? asset("storage/{$siswa->foto}") : '' }}'
+                            <img src='{{ $siswa->foto ? Storage::url($siswa->foto) : '' }}'
                                 class="foto mt-2 mb-3 {{ $siswa->foto ? '' : 'd-none' }}" id="image-preview">
                             <button type="button"
                                 class="btn btn-danger btn-sm d-block mx-auto mb-4 {{ $siswa->foto ? '' : 'd-none' }}"
@@ -732,7 +732,7 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label for="nomor-urut" class="form-label">Nomor Urut</label>
+                            <label for="nomor-urut" class="form-label">Nomor Urut<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="number" class="form-control @error('nomor_urut') is-invalid @enderror"
                                 id="nomor-urut" name="nomor_urut" placeholder="Masukkan nomor urut"
                                 value="{{ old('nomor_urut', $siswa->nomor_urut) }}" min="1" max="60">

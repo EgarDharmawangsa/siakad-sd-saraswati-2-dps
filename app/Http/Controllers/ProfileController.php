@@ -62,14 +62,14 @@ class ProfileController extends Controller
 
         if ($validated_pegawai['image_delete'] == 1) {
             if (!empty($pegawai->foto)) {
-                Storage::disk('public')->delete($pegawai->foto);
+                Storage::delete($pegawai->foto);
             }
             $validated_pegawai['foto'] = null;
         } elseif ($pegawai_request->hasFile('foto')) {
             if (!empty($pegawai->foto)) {
-                Storage::disk('public')->delete($pegawai->foto);
+                Storage::delete($pegawai->foto);
             }
-            $validated_pegawai['foto'] = $pegawai_request->file('foto')->store('foto_pegawai', 'public');
+            $validated_pegawai['foto'] = $pegawai_request->file('foto')->store('foto_pegawai');
         } else {
             $validated_pegawai['foto'] = $pegawai->foto;
         }
@@ -135,14 +135,14 @@ class ProfileController extends Controller
 
         if ($validated_siswa['image_delete'] == 1) {
             if (!empty($siswa->foto)) {
-                Storage::disk('public')->delete($siswa->foto);
+                Storage::delete($siswa->foto);
             }
             $validated_siswa['foto'] = null;
         } elseif ($siswa_request->hasFile('foto')) {
             if (!empty($siswa->foto)) {
-                Storage::disk('public')->delete($siswa->foto);
+                Storage::delete($siswa->foto);
             }
-            $validated_siswa['foto'] = $siswa_request->file('foto')->store('foto_siswa', 'public');
+            $validated_siswa['foto'] = $siswa_request->file('foto')->store('foto_siswa');
         } else {
             $validated_siswa['foto'] = $siswa->foto;
         }

@@ -41,7 +41,7 @@
         </div>
 
         @if ($pengumuman->gambar)
-            <img src="{{ asset("storage/{$pengumuman->gambar}") }}" alt="Gambar Pengumuman"
+            <img src="{{ Storage::url($pengumuman->gambar) }}" alt="Gambar Pengumuman"
                 class="image-content my-4 rounded">
         @endif
 

@@ -17,9 +17,9 @@
                 <a class="profile-toggle dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     <img src="{{ auth()->user()->pegawai?->foto
-                        ? asset('storage/' . auth()->user()->pegawai->foto)
+                        ? Storage::url(auth()->user()->pegawai->foto)
                         : (auth()->user()->siswa?->foto
-                            ? asset('storage/' . auth()->user()->siswa->foto)
+                            ? Storage::url(auth()->user()->siswa->foto)
                             : asset('images/default_profile_photo.png')) }}"
                         alt="Profile" class="profile-avatar me-1">
                     <span
