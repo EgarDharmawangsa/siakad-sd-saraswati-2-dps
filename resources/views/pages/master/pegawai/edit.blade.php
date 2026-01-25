@@ -208,7 +208,7 @@
                                 <option value="Guru" {{ old('posisi', $pegawai->posisi) === 'Guru' ? 'selected' : '' }}>Guru</option>
                                 <option value="Pegawai Perpustakaan" {{ old('posisi', $pegawai->posisi) === 'Pegawai Perpustakaan' ? 'selected' : '' }}>Pegawai Perpustakaan</option>
                                 <option value="Pegawai Kebersihan" {{ old('posisi', $pegawai->posisi) === 'Pegawai Kebersihan' ? 'selected' : '' }}>Pegawai Kebersihan</option>
-                                <option value="Satuan Pengamananan" {{ old('posisi', $pegawai->posisi) === 'Satuan Pengamananan' ? 'selected' : '' }}>Satuan Pengamanan</option>
+                                <option value="Satuan Pengamanan" {{ old('posisi', $pegawai->posisi) === 'Satuan Pengamanan' ? 'selected' : '' }}>Satuan Pengamanan</option>
                             </select>
                             @error('posisi') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
