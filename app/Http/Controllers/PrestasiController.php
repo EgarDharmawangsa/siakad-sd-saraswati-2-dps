@@ -136,12 +136,12 @@ class PrestasiController extends Controller
 
         if ($validated_prestasi['image_delete'] == 1) {
             if (!empty($prestasi->dokumentasi)) {
-                Storage::delete($prestasi->dokumentasi);
+                Storage::disk('public')->delete($prestasi->dokumentasi);
             }
             $validated_prestasi['dokumentasi'] = null;
         } elseif ($request->hasFile('dokumentasi')) {
             if (!empty($prestasi->dokumentasi)) {
-                Storage::delete($prestasi->dokumentasi);
+                Storage::disk('public')->delete($prestasi->dokumentasi);
             }
             $validated_prestasi['dokumentasi'] = $request->file('dokumentasi')->store('dokumentasi_prestasi', 'public');
         } else {

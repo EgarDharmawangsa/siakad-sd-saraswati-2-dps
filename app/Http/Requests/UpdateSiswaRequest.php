@@ -98,7 +98,7 @@ class UpdateSiswaRequest extends FormRequest
             'id_ekstrakurikuler.*'      => 'nullable|exists:ekstrakurikuler,id_ekstrakurikuler',
             'id_kelas'                  => 'nullable|exists:kelas,id_kelas',
             'nomor_urut'                => ['nullable','integer'],
-            'skhun'                     => 'nullable|string|min:5|max:15|unique:siswa,skhun,{$id_siswa},id_siswa',
+            'skhun'                     => "nullable|string|min:5|max:15|unique:siswa,skhun,{$id_siswa},id_siswa",
         ];
 
         if ($this->filled('nomor_urut') && $id_kelas) {

@@ -110,12 +110,12 @@ class PengumumanController extends Controller
 
         if ($validated_pengumuman['image_delete'] == 1) {
             if (!empty($pengumuman->gambar)) {
-                Storage::delete($pengumuman->gambar);
+                Storage::disk('public')->delete($pengumuman->gambar);
             }
             $validated_pengumuman['gambar'] = null;
         } elseif ($request->hasFile('gambar')) {
             if (!empty($pengumuman->gambar)) {
-                Storage::delete($pengumuman->gambar);
+                Storage::disk('public')->delete($pengumuman->gambar);
             }
             $validated_pengumuman['gambar'] = $request->file('gambar')->store('gambar_pengumuman', 'public');
         } else {

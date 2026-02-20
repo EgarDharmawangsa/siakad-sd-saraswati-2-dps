@@ -155,12 +155,12 @@ class PegawaiController extends Controller
         // INI UNTUK FOTO
         if ($validated_pegawai['image_delete'] == 1) {
             if (!empty($pegawai->foto)) {
-                Storage::delete($pegawai->foto);
+                Storage::disk('public')->delete($pegawai->foto);
             }
             $validated_pegawai['foto'] = null;
         } elseif ($request->hasFile('foto')) {
             if (!empty($pegawai->foto)) {
-                Storage::delete($pegawai->foto);
+                Storage::disk('public')->delete($pegawai->foto);
             }
             $validated_pegawai['foto'] = $request->file('foto')->store('foto_pegawai', 'public');
         } else {

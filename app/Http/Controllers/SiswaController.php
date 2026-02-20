@@ -130,12 +130,12 @@ class SiswaController extends Controller
         // INI UNTUK FOTO
         if ($validated_siswa['image_delete'] == 1) {
             if (!empty($siswa->foto)) {
-                Storage::delete($siswa->foto);
+                Storage::disk('public')->delete($siswa->foto);
             }
             $validated_siswa['foto'] = null;
         } elseif ($request->hasFile('foto')) {
             if (!empty($siswa->foto)) {
-                Storage::delete($siswa->foto);
+                Storage::disk('public')->delete($siswa->foto);
             }
             $validated_siswa['foto'] = $request->file('foto')->store('foto_siswa', 'public');
         } else {
