@@ -7,7 +7,7 @@ use App\Http\Requests\UpdatePegawaiRequest;
 use App\Models\Pegawai;
 use App\Models\User;
 use App\Models\MataPelajaran;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 
@@ -67,7 +67,7 @@ class PegawaiController extends Controller
         $validated_pegawai = $request->validated();
 
         if ($request->hasFile('foto')) {
-            $validated_pegawai['foto'] = $request->file('foto')->store('foto_pegawai');
+            $validated_pegawai['foto'] = $request->file('foto')->store('foto_pegawai', 'public');
         }
 
         if ($validated_pegawai['posisi'] === 'Staf Tata Usaha' || $validated_pegawai['posisi'] === 'Guru') {
@@ -162,7 +162,7 @@ class PegawaiController extends Controller
             if (!empty($pegawai->foto)) {
                 Storage::delete($pegawai->foto);
             }
-            $validated_pegawai['foto'] = $request->file('foto')->store('foto_pegawai');
+            $validated_pegawai['foto'] = $request->file('foto')->store('foto_pegawai', 'public');
         } else {
             $validated_pegawai['foto'] = $pegawai->foto;
         }
@@ -231,7 +231,7 @@ class PegawaiController extends Controller
         User::where('id_pegawai', $pegawai->id_pegawai)->first()?->delete();
         
         if (!empty($pegawai->foto)) {
-            Storage::delete($pegawai->foto);
+            Storage::disk('public')->delete($pegawai->foto);
         }
 
         $pegawai->delete();

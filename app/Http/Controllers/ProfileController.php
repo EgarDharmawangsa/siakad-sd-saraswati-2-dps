@@ -69,7 +69,7 @@ class ProfileController extends Controller
             if (!empty($pegawai->foto)) {
                 Storage::delete($pegawai->foto);
             }
-            $validated_pegawai['foto'] = $pegawai_request->file('foto')->store('foto_pegawai');
+            $validated_pegawai['foto'] = $pegawai_request->file('foto')->store('foto_pegawai', 'public');
         } else {
             $validated_pegawai['foto'] = $pegawai->foto;
         }
@@ -142,7 +142,7 @@ class ProfileController extends Controller
             if (!empty($siswa->foto)) {
                 Storage::delete($siswa->foto);
             }
-            $validated_siswa['foto'] = $siswa_request->file('foto')->store('foto_siswa');
+            $validated_siswa['foto'] = $siswa_request->file('foto')->store('foto_siswa', 'public');
         } else {
             $validated_siswa['foto'] = $siswa->foto;
         }

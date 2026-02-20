@@ -59,7 +59,7 @@ class PengumumanController extends Controller
         $validated_pengumuman = $request->validate($this->pengumuman_validation_rules);
 
         if ($request->hasFile('gambar')) {
-            $validated_pengumuman['gambar'] = $request->file('gambar')->store('gambar_pengumuman');
+            $validated_pengumuman['gambar'] = $request->file('gambar')->store('gambar_pengumuman', 'public');
         }
 
         Pengumuman::create($validated_pengumuman);
@@ -117,7 +117,7 @@ class PengumumanController extends Controller
             if (!empty($pengumuman->gambar)) {
                 Storage::delete($pengumuman->gambar);
             }
-            $validated_pengumuman['gambar'] = $request->file('gambar')->store('gambar_pengumuman');
+            $validated_pengumuman['gambar'] = $request->file('gambar')->store('gambar_pengumuman', 'public');
         } else {
             $validated_pengumuman['gambar'] = $pengumuman->gambar;
         }
@@ -139,7 +139,7 @@ class PengumumanController extends Controller
         $pengumuman->delete();
 
         if (!empty($pengumuman->gambar)) {
-            Storage::delete($pengumuman->gambar);
+            Storage::disk('public')->delete($pengumuman->gambar);
         }
 
         return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil dihapus.');

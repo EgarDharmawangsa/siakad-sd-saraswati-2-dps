@@ -7,8 +7,8 @@ use App\Models\Siswa;
 use App\Models\User;
 use App\Models\Ekstrakurikuler;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
@@ -63,7 +63,7 @@ class SiswaController extends Controller
         $validated_siswa = $request->validated();
 
         if ($request->hasFile('foto')) {
-            $validated_siswa['foto'] = $request->file('foto')->store('foto_siswa');
+            $validated_siswa['foto'] = $request->file('foto')->store('foto_siswa', 'public');
         }
 
         $user_data = [
@@ -137,7 +137,7 @@ class SiswaController extends Controller
             if (!empty($siswa->foto)) {
                 Storage::delete($siswa->foto);
             }
-            $validated_siswa['foto'] = $request->file('foto')->store('foto_siswa');
+            $validated_siswa['foto'] = $request->file('foto')->store('foto_siswa', 'public');
         } else {
             $validated_siswa['foto'] = $siswa->foto;
         }
@@ -196,7 +196,7 @@ class SiswaController extends Controller
         User::where('id_siswa', $siswa->id_siswa)->first()?->delete();
 
         if (!empty($siswa->foto)) {
-            Storage::delete($siswa->foto);
+            Storage::disk('public')->delete($siswa->foto);
         }
 
         $siswa->delete();

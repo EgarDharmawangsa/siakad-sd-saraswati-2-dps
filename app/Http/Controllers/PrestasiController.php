@@ -75,7 +75,7 @@ class PrestasiController extends Controller
         $validated_prestasi = $request->validate($this->prestasi_validation_rules);
 
         if ($request->hasFile('dokumentasi')) {
-            $validated_prestasi['dokumentasi'] = $request->file('dokumentasi')->store('dokumentasi_prestasi');
+            $validated_prestasi['dokumentasi'] = $request->file('dokumentasi')->store('dokumentasi_prestasi', 'public');
         }
 
         Prestasi::create($validated_prestasi);
@@ -129,6 +129,7 @@ class PrestasiController extends Controller
         }
 
         $prestasi_update_validation_rules = $this->prestasi_validation_rules;
+        $prestasi_update_validation_rules['tanggal_peraihan'] = 'required|date'; 
         $prestasi_update_validation_rules['image_delete'] = 'required|integer';
 
         $validated_prestasi = $request->validate($prestasi_update_validation_rules);
@@ -142,7 +143,7 @@ class PrestasiController extends Controller
             if (!empty($prestasi->dokumentasi)) {
                 Storage::delete($prestasi->dokumentasi);
             }
-            $validated_prestasi['dokumentasi'] = $request->file('dokumentasi')->store('dokumentasi_prestasi');
+            $validated_prestasi['dokumentasi'] = $request->file('dokumentasi')->store('dokumentasi_prestasi', 'public');
         } else {
             $validated_prestasi['dokumentasi'] = $prestasi->dokumentasi;
         }
@@ -168,7 +169,7 @@ class PrestasiController extends Controller
         $prestasi->delete();
 
         if (!empty($prestasi->dokumentasi)) {
-            Storage::delete($prestasi->dokumentasi);
+            Storage::disk('public')->delete($prestasi->dokumentasi);
         }
 
         return redirect()->route('prestasi.index')->with('success', 'Prestasi berhasil dihapus.');
