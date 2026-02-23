@@ -253,9 +253,9 @@ class KehadiranController extends Controller
 
         return redirect()
             ->route('kehadiran.index', [
-                'id_kelas' => $validated_kehadiran['id_kelas'],
-                'id_semester' => $validated_kehadiran['id_semester_new'],
-                'tanggal' => $validated_kehadiran['tanggal_new']
+                'kelas_filter' => $validated_kehadiran['id_kelas'],
+                'semester_filter' => $validated_kehadiran['id_semester_new'],
+                'tanggal_filter' => $validated_kehadiran['tanggal_new']
             ])
             ->with('success', 'kehadiran berhasil diperbarui.');
     }

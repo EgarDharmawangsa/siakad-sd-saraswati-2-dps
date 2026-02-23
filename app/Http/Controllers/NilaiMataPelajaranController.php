@@ -277,9 +277,9 @@ class NilaiMataPelajaranController extends Controller
 
         return redirect()
             ->route('nilai-mata-pelajaran.index', [
-                'id_kelas' => $validated_nilai_mata_pelajaran['id_kelas'],
-                'id_semester' => $validated_nilai_mata_pelajaran['id_semester_new'],
-                'id_mata_pelajaran' => $validated_nilai_mata_pelajaran['id_mata_pelajaran_new']
+                'kelas_filter' => $validated_nilai_mata_pelajaran['id_kelas'],
+                'semester_filter' => $validated_nilai_mata_pelajaran['id_semester_new'],
+                'mata_pelajaran_filter' => $validated_nilai_mata_pelajaran['id_mata_pelajaran_new']
             ])
             ->with('success', 'Nilai Mata Pelajaran berhasil diperbarui.');
     }
