@@ -49,7 +49,7 @@ class KehadiranSeeder extends Seeder
                     'Hadir' => null,
                     'Izin' => 'Izin karena ada kegiatan keluarga',
                     'Sakit' => null,
-                    'Alfa' => null,
+                    'Alfa' => null
                 };
                 $kehadiranData[] = [
                     'id_siswa' => $siswaId,
