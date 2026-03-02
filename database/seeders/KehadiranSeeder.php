@@ -30,8 +30,8 @@ class KehadiranSeeder extends Seeder
                 $keterangan = match($status) {
                     'Hadir' => null,
                     'Izin' => 'Izin karena ada urusan keluarga',
-                    'Sakit' => 'Sakit demam',
-                    'Alfa' => 'Tidak hadir tanpa keterangan',
+                    'Sakit' => null,
+                    'Alfa' => null,
                 };
                 $kehadiranData[] = [
                     'id_siswa' => $siswaId,
@@ -48,8 +48,8 @@ class KehadiranSeeder extends Seeder
                 $keterangan = match($status) {
                     'Hadir' => null,
                     'Izin' => 'Izin karena ada kegiatan keluarga',
-                    'Sakit' => 'Sakit flu',
-                    'Alfa' => 'Tidak hadir tanpa izin',
+                    'Sakit' => null,
+                    'Alfa' => null,
                 };
                 $kehadiranData[] = [
                     'id_siswa' => $siswaId,

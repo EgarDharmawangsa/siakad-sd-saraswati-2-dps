@@ -162,8 +162,6 @@ function initEkstrakurikuler() {
         let ekstraIndex = document.querySelectorAll(".ekstra-item").length;
 
         addEkstraBtn.addEventListener("click", function () {
-            // Template Row
-            // FIX: Tombol Hapus menggunakan w-100 dan icon+text agar tidak hilang
             const template = `
                 <div class="row g-2 mb-2 ekstra-item align-items-end" id="ekstra-row-${ekstraIndex}">
                     <div class="col-md-5">

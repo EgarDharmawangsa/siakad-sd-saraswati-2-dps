@@ -213,7 +213,7 @@ class PegawaiSeeder extends Seeder
             'status_kepegawaian' => 'Kontrak',
             'ijazah_terakhir' => 'SMA',
             'tahun_ijazah' => 1999,
-            'posisi' => 'Satuan Pengamananan',
+            'posisi' => 'Satuan Pengamanan',
             'status_sertifikasi' => 'Belum',
             'tahun_sertifikasi' => null,
             'permulaan_kerja' => '2015-01-01',
