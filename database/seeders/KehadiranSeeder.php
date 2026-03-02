@@ -12,15 +12,13 @@ class KehadiranSeeder extends Seeder
     {
         $kehadiranData = [];
 
-        $semesterId = 4; // Asumsi semester aktif = 1
-        $tanggalMulai = Carbon::parse('2026-01-20'); // tanggal awal absensi
+        $semesterId = 4; 
+        $tanggalMulai = Carbon::parse('2026-01-20'); 
         $statusOptions = ['Hadir', 'Izin', 'Sakit', 'Alfa'];
 
-        // 10 siswa, 5 siswa per kelas
-        $siswaKelas1 = [1, 2, 3, 4, 5]; // id_siswa
+        $siswaKelas1 = [1, 2, 3, 4, 5]; 
         $siswaKelas2 = [6, 7, 8, 9, 10];
 
-        // Generate kehadiran untuk 5 hari
         for ($i = 0; $i < 5; $i++) {
             $tanggal = $tanggalMulai->copy()->addDays($i)->toDateString();
 
