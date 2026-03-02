@@ -265,6 +265,8 @@ function initInputValidation() {
         no_kip: { type: "numeric", length: 13, label: "No. KIP" },
         no_kks: { type: "numeric", length: 16, label: "No. KKS" },
         no_rekening: { type: "numeric", max: 25, label: "No. Rekening" },
+        lintang: { type: "coordinate", label: "Lintang" },
+        bujur: { type: "coordinate", label: "Bujur" },
     };
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -311,6 +313,10 @@ function initInputValidation() {
                     error = true;
                     msg = `Format ${rule.label || "Email"} tidak valid.`;
                 }
+                if (rule.type === "coordinate" && !/^-?\d+(\.\d+)?$/.test(input.value)) {
+                    error = true;
+                    msg = `Format ${rule.label || "Koordinat"} tidak valid. Contoh: -8.6500`;
+                }
                 if (rule.length && input.value.length !== rule.length) {
                     error = true;
                     msg = `${rule.label || "Input"} harus ${
@@ -337,6 +343,8 @@ function initInputValidation() {
                     this.value = this.value.replace(/[^0-9]/g, "");
                 if (rule.type === "decimal")
                     this.value = this.value.replace(/[^0-9.]/g, "");
+                if (rule.type === "coordinate")
+                    this.value = this.value.replace(/[^0-9.-]/g, "");
                 if (rule.length && this.value.length > rule.length) {
                     this.value = this.value.substring(0, rule.length);
                 }
@@ -491,6 +499,7 @@ function initReadOnlyLogic() {
         "no_rekening",
         "nama_rekening",
         "disabilitas",
+        "no_registrasi_akta_lahir",
         "keterangan_disabilitas",
     ];
 
@@ -545,6 +554,7 @@ function initReadOnlyLogic() {
         "penerima_kip",
         "layak_pip",
         "disabilitas",
+        "no_registrasi_akta_lahir",
         "keterangan_disabilitas",
     ];
 

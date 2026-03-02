@@ -82,7 +82,7 @@ return new class extends Migration
             $table->string('foto')->nullable(); 
             $table->timestamps();
             $table->string('skhun')->nullable();
-        });
+         });
     }
 
     /**

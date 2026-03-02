@@ -340,10 +340,10 @@
                                 class="form-control @error('kode_pos') is-invalid @enderror" name="kode_pos" value="{{ old('kode_pos', $siswa->kode_pos) }}" placeholder="Masukkan kode pos">
                             @error('kode_pos') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">Lintang</label><input type="number"
+                        <div class="col-md-6"><label class="form-label">Lintang</label><input type="text"
                                 class="form-control @error('lintang') is-invalid @enderror" name="lintang" value="{{ old('lintang', $siswa->lintang) }}" placeholder="Masukkan lintang">
                             @error('lintang') <div class="invalid-feedback">{{ $message }}</div> @enderror</div>
-                        <div class="col-md-6"><label class="form-label">Bujur</label><input type="number"
+                        <div class="col-md-6"><label class="form-label">Bujur</label><input type="text"
                                 class="form-control @error('bujur') is-invalid @enderror" name="bujur" value="{{ old('bujur', $siswa->bujur) }}" placeholder="Masukkan bujur">
                             @error('bujur') <div class="invalid-feedback">{{ $message }}</div> @enderror</div>
                         <div class="col-md-6">
@@ -549,7 +549,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">No. Seri Ijazah</label>
-                            <input type="number" class="form-control @error('no_seri_ijazah') is-invalid @enderror" name="no_seri_ijazah"
+                            <input type="text" class="form-control @error('no_seri_ijazah') is-invalid @enderror" name="no_seri_ijazah"
                                 value="{{ old('no_seri_ijazah', $siswa->no_seri_ijazah) }}" placeholder="Masukkan no. seri ijazah">
                             @error('no_seri_ijazah')
                                 <div class="invalid-feedback">{{ $message }}</div>

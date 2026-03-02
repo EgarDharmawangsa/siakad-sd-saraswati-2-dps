@@ -64,7 +64,7 @@
                             <label class="form-label">Password</label>
                             <div class="input-group">
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    name="password" id="password" required placeholder="Masukkan password (Min. 6 karakter)">
+                                    name="password" id="password" required placeholder="Masukkan password">
                                 <button class="btn btn-outline-secondary btn-toggle-password" type="button"><i class="bi bi-eye"></i></button>
                             </div>
                             @error('password')
@@ -337,13 +337,13 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">Lintang<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
+                        <div class="col-md-6"><label class="form-label">Lintang<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="text"
                                 class="form-control @error('lintang') is-invalid @enderror" name="lintang" value="{{ old('lintang') }}" placeholder="Masukkan lintang">
                         @error('lintang')
                                 <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         </div>
-                        <div class="col-md-6"><label class="form-label">Bujur<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
+                        <div class="col-md-6"><label class="form-label">Bujur<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="text"
                                 class="form-control @error('bujur') is-invalid @enderror" name="bujur" value="{{ old('bujur') }}" placeholder="Masukkan bujur">
                         @error('bujur')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -568,7 +568,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">No. Seri Ijazah<span class="text-muted mini-label ms-1">(Opsional)</span></label>
-                            <input type="number" class="form-control @error('no_seri_ijazah') is-invalid @enderror" name="no_seri_ijazah"
+                            <input type="text" class="form-control @error('no_seri_ijazah') is-invalid @enderror" name="no_seri_ijazah"
                                 value="{{ old('no_seri_ijazah') }}" placeholder="Masukkan no. seri ijazah">
                             @error('no_seri_ijazah')
                                 <div class="invalid-feedback">{{ $message }}</div>
