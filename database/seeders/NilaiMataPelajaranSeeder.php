@@ -21,10 +21,8 @@ class NilaiMataPelajaranSeeder extends Seeder
             foreach ($mataPelajaranIds as $idMapel) {
                 foreach ($semesterIds as $idSemester) {
 
-                    // ✅ JUMLAH PORTOFOLIO SAMA UNTUK 1 KELAS + MAPEL + SEMESTER
                     $jumlahPorto = rand(1, 3);
 
-                    // template portofolio
                     $templatePortofolio = [];
                     for ($i = 1; $i <= $jumlahPorto; $i++) {
                         $templatePortofolio[] = [
@@ -34,7 +32,6 @@ class NilaiMataPelajaranSeeder extends Seeder
 
                     foreach ($siswaKelas as $siswa) {
 
-                        // clone + isi nilai
                         $nilaiPortofolio = collect($templatePortofolio)
                             ->map(fn ($porto) => [
                                 ...$porto,

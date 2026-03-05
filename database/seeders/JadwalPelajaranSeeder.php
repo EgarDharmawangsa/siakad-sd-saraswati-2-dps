@@ -25,12 +25,12 @@ class JadwalPelajaranSeeder extends Seeder
                             'kegiatan' => 'Istirahat',
                             'id_guru_mata_pelajaran' => null,
                             'hari' => $hari,
-                            'jam_mulai' => sprintf('%02d:30', 6 + $i), // Contoh jam mulai
-                            'jam_selesai' => sprintf('%02d:00', 7 + $i), // Contoh jam selesai
+                            'jam_mulai' => sprintf('%02d:30', 6 + $i), 
+                            'jam_selesai' => sprintf('%02d:00', 7 + $i), 
                         ];
                     } else {
                         // Belajar
-                        $guruId = $guruIds[$i - 1]; // ambil guru secara urut
+                        $guruId = $guruIds[$i - 1]; 
                         $jadwalData[] = [
                             'id_kelas' => $kelasId,
                             'kegiatan' => 'Belajar',

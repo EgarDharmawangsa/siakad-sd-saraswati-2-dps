@@ -19,11 +19,9 @@ class PesertaEkstrakurikulerSeeder extends Seeder
         $data = [];
 
         foreach ($siswaIds as $siswaId) {
-            // Setiap siswa akan ikut 1 sampai 5 ekstra secara random
             $jumlahEkstra = rand(1, 5);
             $ekstraDipilih = array_rand(array_flip($ekstraIds), $jumlahEkstra);
 
-            // Pastikan $ekstraDipilih menjadi array
             if (!is_array($ekstraDipilih)) {
                 $ekstraDipilih = [$ekstraDipilih];
             }
