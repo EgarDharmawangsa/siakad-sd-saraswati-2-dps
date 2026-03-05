@@ -65,4 +65,14 @@ class UpdatePegawaiRequest extends FormRequest
             'image_delete'          => 'required|integer'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'tanggal_lahir.before' => 'Tanggal Lahir harus sebelum hari ini.',
+            'permulaan_kerja.before_or_equal' => 'Permulaan Kerja harus sebelum atau sama dengan hari ini.',
+            'permulaan_kerja_sds2.before_or_equal' => 'Permulaan Kerja (RASDA) harus sebelum atau sama dengan hari ini.',
+            'tanggal_sk_terakhir.before_or_equal' => 'Tanggal SK Terakhir harus sebelum atau sama dengan hari ini.'
+        ];
+    }
 }

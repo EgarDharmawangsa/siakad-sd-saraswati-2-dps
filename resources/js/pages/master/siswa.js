@@ -114,7 +114,7 @@ function initConditionalFields() {
         checkCondition();
     };
 
-    toggleDisplay("disabilitas", "keterangan_disabilitas", "Lainnya");
+    toggleDisplay("kebutuhan_khusus", "keterangan_kebutuhan_khusus", "Ada");
     toggleDisplay("penerima_kps", "no_kps", "Ya");
     toggleDisplay("layak_pip", "alasan_layak_pip", "Ya");
     toggleDisplay("penerima_kip", "no_kip", "Ya");
@@ -498,9 +498,9 @@ function initReadOnlyLogic() {
         "nama_bank",
         "no_rekening",
         "nama_rekening",
-        "disabilitas",
+        "kebutuhan_khusus",
         "no_registrasi_akta_lahir",
-        "keterangan_disabilitas",
+        "keterangan_kebutuhan_khusus",
     ];
 
     const lockedSelects = [
@@ -553,9 +553,9 @@ function initReadOnlyLogic() {
         "penerima_kps",
         "penerima_kip",
         "layak_pip",
-        "disabilitas",
+        "kebutuhan_khusus",
         "no_registrasi_akta_lahir",
-        "keterangan_disabilitas",
+        "keterangan_kebutuhan_khusus",
     ];
 
     readOnlyFields.forEach(name => {

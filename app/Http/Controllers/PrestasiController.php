@@ -24,6 +24,10 @@ class PrestasiController extends Controller
         'dokumentasi' => 'nullable|file|mimes:jpg,png,jpeg|max:10240'
     ];
 
+    public $prestasi_custom_validation_messages = [
+        'tanggal_peraihan.before_or_equal' => 'Tanggal Peraihan harus sebelum atau sama dengan hari ini.'
+    ];
+
     /**
      * Display a listing of the resource.
      */
@@ -72,7 +76,7 @@ class PrestasiController extends Controller
             abort(404);
         }
 
-        $validated_prestasi = $request->validate($this->prestasi_validation_rules);
+        $validated_prestasi = $request->validate($this->prestasi_validation_rules, $this->prestasi_custom_validation_messages);
 
         if ($request->hasFile('dokumentasi')) {
             $validated_prestasi['dokumentasi'] = $request->file('dokumentasi')->store('dokumentasi_prestasi', 'public');
@@ -128,11 +132,10 @@ class PrestasiController extends Controller
             abort(404);
         }
 
-        $prestasi_update_validation_rules = $this->prestasi_validation_rules;
-        $prestasi_update_validation_rules['tanggal_peraihan'] = 'required|date'; 
+        $prestasi_update_validation_rules = $this->prestasi_validation_rules; 
         $prestasi_update_validation_rules['image_delete'] = 'required|integer';
 
-        $validated_prestasi = $request->validate($prestasi_update_validation_rules);
+        $validated_prestasi = $request->validate($prestasi_update_validation_rules, $this->prestasi_custom_validation_messages);
 
         if ($validated_prestasi['image_delete'] == 1) {
             if (!empty($prestasi->dokumentasi)) {

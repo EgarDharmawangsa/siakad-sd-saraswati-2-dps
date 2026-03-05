@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('id_jadwal_pelajaran');
             $table->foreignId('id_kelas')->nullable()->constrained('kelas', 'id_kelas')->onDelete('cascade');
             $table->foreignId('id_guru_mata_pelajaran')->nullable()->constrained('guru_mata_pelajaran', 'id_guru_mata_pelajaran')->onDelete('cascade');
-            $table->string('kegiatan', 10);
-            $table->string('hari', 10);
+            $table->enum('kegiatan', ['Belajar', 'Istirahat']);
+            $table->enum('hari', ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']);
             $table->time('jam_mulai');
             $table->time('jam_selesai');
             $table->timestamps();

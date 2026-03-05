@@ -13,6 +13,11 @@ class SemesterController extends Controller
         'tanggal_mulai' => 'required|date|unique:semester,tanggal_mulai|after_or_equal:today|before:tanggal_selesai',
         'tanggal_selesai' => 'required|date|unique:semester,tanggal_selesai|after:today|after:tanggal_mulai'
     ];
+
+    public $semester_custom_validation_messages = [
+        'tanggal_mulai.after_or_equal' => 'Tanggal Mulai harus hari ini atau setelahnya.',
+        'tanggal_selesai.after' => 'Tanggal Selesai harus setelah hari ini dan Tanggal Mulai.',
+    ];
     /**
      * Display a listing of the resource.
      */
@@ -53,7 +58,7 @@ class SemesterController extends Controller
             abort(404);
         }
 
-        $validated_semester = $request->validate($this->semester_validation_rules);
+        $validated_semester = $request->validate($this->semester_validation_rules, $this->semester_custom_validation_messages);
 
         $errors = Semester::getTanggalValidationErrors($validated_semester['tanggal_mulai'], $validated_semester['tanggal_selesai']);
 
@@ -107,10 +112,10 @@ class SemesterController extends Controller
 
         $semester_update_validation_rules = $this->semester_validation_rules;
     
-        $semester_update_validation_rules['tanggal_mulai'] = "required|date|unique:semester,tanggal_mulai,{$semester->id_semester},id_semester|after_or_equal:today|before:tanggal_selesai";
-        $semester_update_validation_rules['tanggal_selesai'] = "required|date|unique:semester,tanggal_selesai,{$semester->id_semester},id_semester|after:today|after:tanggal_mulai";
+        $semester_update_validation_rules['tanggal_mulai'] = "required|date|unique:semester,tanggal_mulai,{$semester->id_semester},id_semester|before:tanggal_selesai";
+        $semester_update_validation_rules['tanggal_selesai'] = "required|date|unique:semester,tanggal_selesai,{$semester->id_semester},id_semester|after:tanggal_mulai";
 
-        $validated_semester = $request->validate($semester_update_validation_rules);
+        $validated_semester = $request->validate($semester_update_validation_rules, $this->semester_custom_validation_messages);
 
         $errors = Semester::getTanggalValidationErrors($validated_semester['tanggal_mulai'], $validated_semester['tanggal_selesai'], $semester->id_semester);
 

@@ -215,7 +215,7 @@
                         <div class="col-md-12 mt-0">
                             <hr class="text-muted opacity-25">
                         </div>
-                        <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Fisik & Disabilitas</label></div>
+                        <div class="col-12"><label class="form-label fw-bold text-muted mt-1 mb-0">Fisik & Kebutuhan Khusus</label></div>
                         <div class="col-md-6"><label class="form-label">Berat Badan (kg)<span class="text-muted mini-label ms-1">(Opsional)</span></label><input type="number"
                                 class="form-control @error('berat_badan') is-invalid @enderror" name="berat_badan"
                                 value="{{ old('berat_badan') }}" step="0.01" placeholder="Masukkan berat badan">
@@ -256,30 +256,37 @@
                             @enderror
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Disabilitas<span class="text-muted mini-label ms-1">(Opsional)</span></label>
-                            <select class="form-select @error('disabilitas') is-invalid @enderror" name="disabilitas" required>
-                                @foreach (['Tidak', 'Netra', 'Rungu', 'Grahita', 'Daksa', 'Laras', 'Wicara', 'Tuna Ganda', 'Hiperaktif', 'Cerdas Istimewa', 'Bakat Istimewa', 'Kesulitan Belajar', 'Lainnya'] as $dis)
-                                    <option value="{{ $dis }}"
-                                        {{ old('disabilitas') === $dis ? 'selected' : '' }}>{{ $dis }}</option>
-                                @endforeach
+                            <label class="form-label">Kebutuhan Khusus</label>
+                            <select class="form-select @error('kebutuhan_khusus') is-invalid @enderror" name="kebutuhan_khusus" required>
+                                <option value="Tidak Ada" {{ old('kebutuhan_khusus') == 'Tidak Ada' ? 'selected' : '' }}>Tidak Ada</option>
+                                <option value="Ada" {{ old('kebutuhan_khusus') == 'Ada' ? 'selected' : '' }}>Ada</option>
                             </select>
-                            @error('disabilitas')
+                            @error('kebutuhan_khusus')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-md-8">
-                            <label class="form-label">Keterangan Disabilitas<span class="text-muted mini-label ms-1">(Opsional)</span></label>
-                            <input type="text" class="form-control @error('keterangan_disabilitas') is-invalid @enderror" name="keterangan_disabilitas"
-                                value="{{ old('keterangan_disabilitas') }}" placeholder="Masukkan keterangan disabilitas">
+                            <label class="form-label">Keterangan Kebutuhan Khusus</label>
+                            <input type="text" class="form-control @error('keterangan_kebutuhan_khusus') is-invalid @enderror" name="keterangan_kebutuhan_khusus"
+                                value="{{ old('keterangan_kebutuhan_khusus') }}" placeholder="Masukkan keterangan kebutuhan khusus">
                         </div>
+
                         <div class="col-md-6">
                             <label for="foto" class="form-label">Foto<span
                                     class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <img class="foto mt-2 mb-3 d-none" id="image-preview">
                             <button type="button" class="btn btn-danger btn-sm d-block mx-auto mb-4 d-none"
                                 id="image-delete-button"><i class="bi bi-trash me-2"></i> Hapus</button>
-                            <input type="file" class="form-control @error('foto') is-invalid @enderror image-input"
-                                id="foto" name="foto">
+
+                            <div class="input-group @error('foto') is-invalid @enderror">
+                                <button class="btn btn-secondary rounded-start" type="button"
+                                    onclick="document.getElementById('foto').click()">
+                                    Pilih File
+                                </button>
+                                <input type="text" class="form-control rounded-end" id="image-file-name" placeholder="Belum ada file yang dipilih" readonly>
+                                <input type="file" class="image-input" id="foto" name="foto" hidden>
+                            </div>
+
                             <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 2 MB</span>
                             @error('foto')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -403,7 +410,7 @@
                                 <div class="col-md-6"><label class="form-label">Jenjang Pendidikan<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                                     <select class="form-select @error('jenjang_pendidikan_ayah') is-invalid @enderror" name="jenjang_pendidikan_ayah">
                                         <option value="">-- Pilih Jenjang Pendidikan --</option>
-                                        @foreach (['Tidak Sekolah', 'SD Sederajat', 'SMP Sederajat', 'SMA Sederajat', 'D3', 'S1', 'S2'] as $p)
+                                        @foreach (['Tidak Sekolah', 'TK Sederajat', 'SD Sederajat', 'SMP Sederajat', 'SMA Sederajat', 'Diploma', 'Sarjana', 'Magister', 'Doktor'] as $p)
                                             <option value="{{ $p }}"
                                                 {{ old('jenjang_pendidikan_ayah') == $p ? 'selected' : '' }}>
                                                 {{ $p }}</option>
@@ -416,7 +423,7 @@
                                 <div class="col-md-6"><label class="form-label">Penghasilan<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                                     <select class="form-select @error('penghasilan_ayah') is-invalid @enderror" name="penghasilan_ayah">
                                         <option value="">-- Pilih Penghasilan --</option>
-                                        @foreach (['Kurang dari 500.000', '500.000 - 999.999', '1jt - 2jt', '2jt - 5jt', '> 5jt'] as $g)
+                                        @foreach (['Kurang dari 500.000', '500.000 - 999.999', '1jt - 1.999.999', '2jt - 4.999.999', '>= 5jt'] as $g)
                                             <option value="{{ $g }}"
                                                 {{ old('penghasilan_ayah') == $g ? 'selected' : '' }}>{{ $g }}
                                             </option>
@@ -458,7 +465,7 @@
                                 <div class="col-md-6"><label class="form-label">Jenjang Pendidikan<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                                     <select class="form-select @error('jenjang_pendidikan_ibu') is-invalid @enderror" name="jenjang_pendidikan_ibu">
                                         <option value="">-- Pilih Pendidikan --</option>
-                                        @foreach (['Tidak Sekolah', 'SD Sederajat', 'SMP Sederajat', 'SMA Sederajat', 'D3', 'S1', 'S2'] as $p)
+                                        @foreach (['Tidak Sekolah', 'TK Sederajat', 'SD Sederajat', 'SMP Sederajat', 'SMA Sederajat', 'Diploma', 'Sarjana', 'Magister', 'Doktor'] as $p)
                                             <option value="{{ $p }}"
                                                 {{ old('jenjang_pendidikan_ibu') == $p ? 'selected' : '' }}>
                                                 {{ $p }}</option>
@@ -471,7 +478,7 @@
                                 <div class="col-md-6"><label class="form-label">Penghasilan<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                                     <select class="form-select @error('penghasilan_ibu') is-invalid @enderror" name="penghasilan_ibu">
                                         <option value="">-- Pilih Penghasilan --</option>
-                                        @foreach (['Kurang dari 500.000', '500.000 - 999.999', '1jt - 2jt', '2jt - 5jt', '> 5jt'] as $g)
+                                        @foreach (['Kurang dari 500.000', '500.000 - 999.999', '1jt - 1.999.999', '2jt - 4.999.999', '>= 5jt'] as $g)
                                             <option value="{{ $g }}"
                                                 {{ old('penghasilan_ibu') == $g ? 'selected' : '' }}>{{ $g }}
                                             </option>
@@ -513,7 +520,7 @@
                                 <div class="col-md-6"><label class="form-label">Jenjang Pendidikan<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                                     <select class="form-select @error('jenjang_pendidikan_wali') is-invalid @enderror" name="jenjang_pendidikan_wali">
                                         <option value="">-- Pilih Pendidikan --</option>
-                                        @foreach (['Tidak Sekolah', 'SD Sederajat', 'SMP Sederajat', 'SMA Sederajat', 'D3', 'S1', 'S2'] as $p)
+                                        @foreach (['Tidak Sekolah', 'TK Sederajat', 'SD Sederajat', 'SMP Sederajat', 'SMA Sederajat', 'Diploma', 'Sarjana', 'Magister', 'Doktor'] as $p)
                                             <option value="{{ $p }}"
                                                 {{ old('jenjang_pendidikan_wali') == $p ? 'selected' : '' }}>
                                                 {{ $p }}</option>
@@ -526,7 +533,7 @@
                                 <div class="col-md-6"><label class="form-label">Penghasilan<span class="text-muted mini-label ms-1">(Opsional)</span></label>
                                     <select class="form-select @error('penghasilan_wali') is-invalid @enderror" name="penghasilan_wali">
                                         <option value="">-- Pilih Penghasilan --</option>
-                                        @foreach (['Kurang dari 500.000', '500.000 - 999.999', '1jt - 2jt', '2jt - 5jt', '> 5jt'] as $g)
+                                        @foreach (['Kurang dari 500.000', '500.000 - 999.999', '1jt - 1.999.999', '2jt - 4.999.999', '>= 5jt'] as $g)
                                             <option value="{{ $g }}"
                                                 {{ old('penghasilan_wali') == $g ? 'selected' : '' }}>{{ $g }}
                                             </option>

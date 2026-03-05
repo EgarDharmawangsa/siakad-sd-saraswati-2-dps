@@ -97,7 +97,7 @@
                             <th>Posisi</th>
                             <th>Status Kepegawaian</th>
                         @endcanany
-                        
+
                         <th>Guru Mata Pelajaran</th>
                         <th>Aksi</th>
                     </tr>
@@ -170,15 +170,17 @@
                                 @can('staf-tata-usaha')
                                     <a href="{{ route('pegawai.edit', $_pegawai->id_pegawai) }}"
                                         class="btn btn-warning mx-1"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                    <form action="{{ route('pegawai.destroy', $_pegawai->id_pegawai) }}" method="POST"
-                                        class="d-inline delete-form {{ Auth::user()->pegawai->id_pegawai == $_pegawai->id_pegawai ? 'd-none' : '' }}">
-                                        @csrf
-                                        @method('DELETE')
+                                    @if (Auth::user()?->pegawai?->id_pegawai != $_pegawai->id_pegawai && !($_pegawai->userAuth?->role === 'Staf Tata Usaha' && $_pegawai->id_pegawai == 1))
+                                        <form action="{{ route('pegawai.destroy', $_pegawai->id_pegawai) }}" method="POST"
+                                            class="d-inline delete-form">
+                                            @csrf
+                                            @method('DELETE')
 
-                                        <button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal"
-                                            data-bs-target="#delete-modal">
-                                            <i class="bi bi-trash me-2"></i>Hapus</button>
-                                    </form>
+                                            <button type="button" class="btn btn-danger delete-button" data-bs-toggle="modal"
+                                                data-bs-target="#delete-modal">
+                                                <i class="bi bi-trash me-2"></i>Hapus</button>
+                                        </form>
+                                    @endif
                                 @endcan
                             </td>
                         </tr>

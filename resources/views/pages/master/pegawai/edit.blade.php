@@ -83,7 +83,7 @@
                             <select class="form-select @error('jenis_kelamin') is-invalid @enderror" id="jenis-kelamin"
                                 name="jenis_kelamin" required>
                                 <option value="">-- Pilih Jenis Kelamin --</option>
-                                <option value="Laki-Laki" {{ old('jenis_kelamin', $pegawai->jenis_kelamin) === 'Laki-Laki' ? 'selected' : '' }}>Laki-laki</option>
+                                <option value="Laki-laki" {{ old('jenis_kelamin', $pegawai->jenis_kelamin) === 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                                 <option value="Perempuan" {{ old('jenis_kelamin', $pegawai->jenis_kelamin) === 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                             </select>
                             @error('jenis_kelamin') <div class="invalid-feedback">{{ $message }}</div> @enderror
@@ -166,24 +166,23 @@
 
                         <div class="col-md-6">
                             <label for="foto" class="form-label">Foto<span class="text-muted mini-label ms-1">(Opsional)</span></label>
-                            
-                            {{-- Preview Gambar Existing/Baru --}}
                             <img src='{{ $pegawai->foto ? Storage::url($pegawai->foto) : '' }}'
                                 class="foto mt-2 mb-3 {{ $pegawai->foto ? '' : 'd-none' }}" id="image-preview">
-                            
-                            {{-- Tombol Hapus --}}
                             <button type="button"
                                 class="btn btn-danger btn-sm d-block mx-auto mb-4 {{ $pegawai->foto ? '' : 'd-none' }}"
                                 id="image-delete-button"><i class="bi bi-trash me-2"></i>Hapus Foto</button>
-                            
-                            {{-- Input File --}}
-                            <input type="file" class="form-control @error('foto') is-invalid @enderror image-input"
-                                id="foto" name="foto">
+
+                            <div class="input-group @error('foto') is-invalid @enderror">
+                                <button class="btn btn-secondary rounded-start" type="button"
+                                    onclick="document.getElementById('foto').click()">
+                                    Pilih File
+                                </button>
+                                <input type="text" class="form-control rounded-end" id="image-file-name" placeholder="Belum ada file dipilih" readonly>
+                                <input type="file" class="image-input" id="foto" name="foto" hidden>
+                            </div>
                             
                             <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 2 MB</span>
                             @error('foto') <div class="invalid-feedback">{{ $message }}</div> @enderror
-
-                            {{-- Input hidden untuk menandai penghapusan foto --}}
                             <input type="hidden" name="image_delete" id="image-delete" value="0">
                         </div>
                     </div>

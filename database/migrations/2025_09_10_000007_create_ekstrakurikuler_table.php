@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_pembina');
             $table->string('alamat_pembina');
             $table->string('no_telepon', 15);
-            $table->string('hari', 10);
+            $table->enum('hari', ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']);
             $table->time('jam_mulai');
             $table->time('jam_selesai');
             $table->timestamps();

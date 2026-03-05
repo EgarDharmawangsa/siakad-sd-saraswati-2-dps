@@ -35,6 +35,8 @@ const image_delete_button = document.getElementById('image-delete-button');
 const image_delete = document.getElementById('image-delete');
 const nilai_form = document.getElementById('nilai-form');
 const nilai_inputs = document.querySelectorAll('.nilai-input');
+const input_type_file = document.getElementById('foto') || document.getElementById('gambar') || document.getElementById('dokumentasi');
+const image_file_name = document.getElementById('image-file-name');
 
 const jam_array = [];
 jam_array[0] = document.getElementById('jam-mulai') || document.getElementById('jam-mulai-filter');
@@ -119,8 +121,20 @@ if (image_delete_button) {
         if (image_input) {
             image_input.value = '';
         }
+        if (image_file_name) {
+            image_file_name.value = '';
+        }
         if (image_delete) {
             image_delete.value = 1;
+        }
+    });
+}
+
+if (input_type_file) {
+    input_type_file.addEventListener('change', () => {
+        const file_name = input_type_file.files.length > 0 ? input_type_file.files[0].name : '';
+        if (image_file_name) {
+            image_file_name.value = file_name;
         }
     });
 }

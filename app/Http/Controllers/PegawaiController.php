@@ -227,6 +227,10 @@ class PegawaiController extends Controller
         if (!Gate::allows('staf-tata-usaha')) {
             abort(404);
         }
+
+        if ($pegawai->userAuth->role === 'Staf Tata Usaha' && $pegawai->id_pegawai == 1) {
+            return redirect()->route('pegawai.index')->with('error', 'Penghapusan ditolak.');
+        }
         
         User::where('id_pegawai', $pegawai->id_pegawai)->first()?->delete();
         

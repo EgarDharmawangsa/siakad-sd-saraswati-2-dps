@@ -127,8 +127,16 @@
                     <button type="button"
                         class="btn btn-danger btn-sm d-block mx-auto mb-4 {{ $prestasi->dokumentasi ? '' : 'd-none' }}"
                         id="image-delete-button"><i class="bi bi-trash me-2"></i>Hapus</button>
-                    <input type="file" class="form-control @error('dokumentasi') is-invalid @enderror image-input" id="dokumentasi"
-                        name="dokumentasi">
+                    
+                    <div class="input-group @error('dokumentasi') is-invalid @enderror">
+                        <button class="btn btn-secondary rounded-start" type="button"
+                            onclick="document.getElementById('dokumentasi').click()">
+                            Pilih File
+                        </button>
+                        <input type="text" class="form-control rounded-end" id="image-file-name" placeholder="Belum ada file yang dipilih" readonly>
+                        <input type="file" class="image-input" id="dokumentasi" name="dokumentasi" hidden>
+                    </div>
+
                     @error('dokumentasi')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

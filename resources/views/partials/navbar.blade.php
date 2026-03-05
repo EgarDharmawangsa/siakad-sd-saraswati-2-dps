@@ -22,8 +22,10 @@
                             ? Storage::url(auth()->user()->siswa->foto)
                             : asset('images/default_profile_photo.png')) }}"
                         alt="Profile" class="profile-avatar me-1">
-                    <span
-                        class="profile-name">{{ Str::limit(Auth::user()->pegawai?->nama_pegawai ?? Auth::user()->siswa?->nama_siswa, 20, '...') }}</span>
+                    <div class="d-flex flex-column">
+                        <span class="profile-name">{{ Str::limit(Auth::user()->pegawai?->nama_pegawai ?? Auth::user()->siswa?->nama_siswa, 20, '...') }}</span>
+                        <span class="profile-role-label">({{ Auth::user()->role }})</span>
+                    </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>

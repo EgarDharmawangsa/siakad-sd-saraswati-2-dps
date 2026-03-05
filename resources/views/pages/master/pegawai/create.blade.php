@@ -41,8 +41,8 @@
                         <div class="col-md-6">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control @error('username') is-invalid @enderror"
-                                id="username" name="username" placeholder="Masukkan username"
-                                value="{{ old('username') }}" required>
+                                id="username" name="username" placeholder="Masukkan username" value="{{ old('username') }}"
+                                required>
                             @error('username')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -63,7 +63,7 @@
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
-                        
+
                         <div class="col-md-6">
                             <label for="nik" class="form-label">NIK</label>
                             <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik"
@@ -88,7 +88,7 @@
                             <select class="form-select @error('jenis_kelamin') is-invalid @enderror" id="jenis-kelamin"
                                 name="jenis_kelamin" required>
                                 <option value="">-- Pilih Jenis Kelamin --</option>
-                                <option value="Laki-Laki" {{ old('jenis_kelamin') === 'Laki-Laki' ? 'selected' : '' }}>
+                                <option value="Laki-laki" {{ old('jenis_kelamin') === 'Laki-laki' ? 'selected' : '' }}>
                                     Laki-laki</option>
                                 <option value="Perempuan" {{ old('jenis_kelamin') === 'Perempuan' ? 'selected' : '' }}>
                                     Perempuan</option>
@@ -206,9 +206,18 @@
                             <img class="foto mt-2 mb-3 d-none" id="image-preview">
                             <button type="button" class="btn btn-danger btn-sm d-block mx-auto mb-4 d-none"
                                 id="image-delete-button"><i class="bi bi-trash me-2"></i> Hapus</button>
-                            <input type="file" class="form-control @error('foto') is-invalid @enderror image-input"
-                                id="foto" name="foto">
-                            <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 2 MB</span>
+
+                            <div class="input-group @error('foto') is-invalid @enderror">
+                                <button class="btn btn-secondary rounded-start" type="button"
+                                    onclick="document.getElementById('foto').click()">
+                                    Pilih File
+                                </button>
+                                <input type="text" class="form-control rounded-end" id="image-file-name" placeholder="Belum ada file yang dipilih" readonly>
+                                <input type="file" class="image-input" id="foto" name="foto" hidden>
+                            </div>
+
+                            <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 2
+                                MB</span>
                             @error('foto')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

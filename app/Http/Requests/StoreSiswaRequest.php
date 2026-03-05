@@ -42,8 +42,8 @@ class StoreSiswaRequest extends FormRequest
             'jumlah_saudara_kandung'    => 'nullable|integer',
             'anak_ke_berapa'            => 'nullable|integer',
             'no_registrasi_akta_lahir'  => 'nullable|string|min:10|max:50|unique:siswa,no_registrasi_akta_lahir',
-            'disabilitas'               => 'nullable|string|min:3|max:20',
-            'keterangan_disabilitas'    => 'nullable|string|min:3|max:100',
+            'kebutuhan_khusus'          => 'nullable|string|min:3|max:10',
+            'keterangan_kebutuhan_khusus'    => 'nullable|string|min:3|max:100',
             'alamat'                    => 'required|string|min:3|max:255', 
             'rt'                        => 'nullable|string|min:1|max:5',
             'rw'                        => 'nullable|string|min:1|max:5',
@@ -57,19 +57,19 @@ class StoreSiswaRequest extends FormRequest
             'nama_ayah'                 => 'nullable|string|min:3|max:255',
             'nik_ayah'                  => 'nullable|string|size:16',
             'tahun_lahir_ayah'         => 'nullable|integer|min:1900|max:' . date('Y'),
-            'jenjang_pendidikan_ayah'   => 'nullable|string|min:2|max:50',
+            'jenjang_pendidikan_ayah'   => 'nullable|string|min:2|max:15',
             'pekerjaan_ayah'            => 'nullable|string|min:3|max:100',
             'penghasilan_ayah'          => 'nullable|string|min:3|max:20',
             'nama_ibu'                  => 'nullable|string|min:3|max:255',
             'nik_ibu'                   => 'nullable|string|size:16',
             'tahun_lahir_ibu'          => 'nullable|integer|min:1900|max:' . date('Y'),
-            'jenjang_pendidikan_ibu'    => 'nullable|string|min:2|max:50',
+            'jenjang_pendidikan_ibu'    => 'nullable|string|min:2|max:15',
             'pekerjaan_ibu'             => 'nullable|string|min:3|max:100',
             'penghasilan_ibu'           => 'nullable|string|min:3|max:20',
             'nama_wali'                 => 'nullable|string|min:3|max:255',
             'nik_wali'                  => 'nullable|string|size:16',
             'tahun_lahir_wali'          => 'nullable|integer|min:1900|max:' . date('Y'),
-            'jenjang_pendidikan_wali'   => 'nullable|string|min:2|max:50',
+            'jenjang_pendidikan_wali'   => 'nullable|string|min:2|max:15',
             'pekerjaan_wali'            => 'nullable|string|min:3|max:100',
             'penghasilan_wali'          => 'nullable|string|min:3|max:20',
             'penerima_kps'              => 'required|string|min:2|max:5',
@@ -99,5 +99,12 @@ class StoreSiswaRequest extends FormRequest
         }
 
         return $rules;
+    }
+
+    public function messages(): array
+    {
+        return [
+            'tanggal_lahir.before' => 'Tanggal Lahir harus sebelum hari ini.',
+        ];
     }
 }

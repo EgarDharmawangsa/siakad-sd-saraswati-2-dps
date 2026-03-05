@@ -16,10 +16,10 @@ return new class extends Migration
             $table->foreignId('id_siswa')->constrained('siswa', 'id_siswa')->onDelete('cascade');
             $table->string('nama_prestasi', 100);
             $table->string('penyelenggara', 50);
-            $table->string('jenis', 15); 
-            $table->string('peringkat', 15); 
+            $table->enum('jenis', ['Akademik', 'Non-Akademik']); 
+            $table->enum('peringkat', ['1 (Pertama)', '2 (Kedua)', '3 (Ketiga)', 'Harapan 1', 'Harapan 2', 'Harapan 3', 'lainnya']); 
             $table->string('peringkat_lainnya', 50)->nullable();
-            $table->string('tingkat', 15); 
+            $table->enum('tingkat', ['Sekolah', 'Desa', 'Kecamatan', 'Kabupaten/Kota', 'Provinsi', 'Nasional', 'Internasional']); 
             $table->string('wilayah', 25);
             $table->date('tanggal_peraihan');
             $table->string('dokumentasi')->nullable();
