@@ -68,4 +68,9 @@ class Pengumuman extends Model
 
         return $query;
     }
+
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class, 'id_pegawai', 'id_pegawai');
+    }
 }

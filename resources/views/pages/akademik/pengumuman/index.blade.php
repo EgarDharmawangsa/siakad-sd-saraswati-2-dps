@@ -40,6 +40,7 @@
                         <th>Judul</th>
                         <th>Tanggal</th>
                         {{-- <th>Isi</th> --}}
+                        <th>Dibuat / Diperbarui Oleh</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -52,6 +53,7 @@
                             <td>{{ $_pengumuman->judul }}</td>
                             <td>{{ $_pengumuman->getFormatedTanggal() }}</td>
                             {{-- <td>{!! strip_tags(Str::limit($_pengumuman->isi, 40, '...')) !!}</td> --}}
+                            <td>{{ $_pengumuman->pegawai->getFormatedNamaPegawai() }}</td>
                             <td><span class="badge bg-{{ $_pengumuman->getStatus() === 'Terbit' ? 'success' : 'primary' }}">
                                     {{ $_pengumuman->getStatus() }}
                                 </span>

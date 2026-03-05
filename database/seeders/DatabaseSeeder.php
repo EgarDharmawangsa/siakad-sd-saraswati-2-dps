@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             KehadiranSeeder::class,
             NilaiMataPelajaranSeeder::class,
             NilaiEkstrakurikulerSeeder::class,
-            PengumumanSeeder::class
+            // PengumumanSeeder::class
         ]);
     }
 }

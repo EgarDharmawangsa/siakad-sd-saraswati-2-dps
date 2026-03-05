@@ -59,6 +59,8 @@
                     <span class="text-muted d-block mini-label mt-1">Format .jpg/.png/.jpeg | Ukuran maksimal 10 MB</span>
                     <input type="hidden" name="image_delete" id="image-delete" value="0">
                 </div>
+
+                <input type="hidden" name="id_pegawai" value="{{ Auth::user()->pegawai->id_pegawai }}">
             </div>
 
             <div class="form-buttons">

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pengumuman', function (Blueprint $table) {
             $table->id('id_pengumuman');
+            $table->foreignId('id_pegawai')->nullable()->constrained('pegawai', 'id_pegawai')->onDelete('set null');
             $table->string('judul', 50);
             $table->text('isi');
             $table->date('tanggal');

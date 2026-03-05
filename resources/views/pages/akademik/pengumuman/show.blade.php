@@ -30,7 +30,11 @@
 
         <h4 class="mb-2 mt-3">{{ $pengumuman->judul }}</h4>
 
-        <div class="d-flex align-items-center mb-3">
+        @can('staf-tata-usaha')
+            <small class="text-muted mb-1 d-block">Dibuat / Diperbarui oleh {{ $pengumuman->pegawai->getFormatedNamaPegawai() }}</small>
+        @endcan
+
+        <div class="d-flex align-items-center">
             <small class="text-muted me-2 d-block">Diterbitkan pada {{ $pengumuman->getFormatedTanggal(true) }}</small>
             @can('staf-tata-usaha')
                 <span
@@ -39,6 +43,7 @@
                 </span>
             @endcan
         </div>
+
 
         @if ($pengumuman->gambar)
             <img src="{{ Storage::url($pengumuman->gambar) }}" alt="Gambar Pengumuman"

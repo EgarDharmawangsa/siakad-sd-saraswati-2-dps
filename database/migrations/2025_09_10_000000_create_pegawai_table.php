@@ -25,21 +25,7 @@ return new class extends Migration
             $table->string('no_telepon_rumah', 15)->nullable();
             $table->string('no_telepon_seluler', 15);
             $table->string('e_mail')->unique()->nullable();
-            $table->enum('jabatan', [
-                'Pengatur Muda | II/a',
-                'Pengatur Muda Tk. I | II/b',
-                'Pengatur | II/c',
-                'Pengatur Tk. I | II/d',
-                'Penata Muda | III/a',
-                'Penata Muda Tk. I | III/b',
-                'Penata | III/c',
-                'Penata Tk. I | III/d',
-                'Pembina | IV/a',
-                'Pembina Tk. I | IV/b',
-                'Pembina Utama Muda | IV/c',
-                'Pembina Utama Madya | IV/d',
-                'Pembina Utama | IV/e',
-            ])->nullable();
+            $table->enum('jabatan', ['Pengatur Muda | II/a', 'Pengatur Muda Tk. I | II/b', 'Pengatur | II/c', 'Pengatur Tk. I | II/d', 'Penata Muda | III/a', 'Penata Muda Tk. I | III/b', 'Penata | III/c', 'Penata Tk. I | III/d', 'Pembina | IV/a', 'Pembina Tk. I | IV/b', 'Pembina Utama Muda | IV/c', 'Pembina Utama Madya | IV/d', 'Pembina Utama | IV/e',])->nullable();
             $table->enum('status_perkawinan', ['Sudah', 'Pernah', 'Belum']);
             $table->enum('status_kepegawaian', ['PNS', 'PPPK', 'Honorer', 'Kontrak', 'Tetap', 'Tidak Tetap'])->nullable();
             $table->string('ijazah_terakhir', 5)->nullable();

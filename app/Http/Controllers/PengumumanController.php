@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Gate;
 class PengumumanController extends Controller
 {
     public $pengumuman_validation_rules = [
+        'id_pegawai' => 'required|integer|exists:pegawai,id_pegawai',
         'judul' => 'required|string|min:5|max:50',
         'isi' => 'required|string',
         'tanggal' => 'required|date|after_or_equal:today',

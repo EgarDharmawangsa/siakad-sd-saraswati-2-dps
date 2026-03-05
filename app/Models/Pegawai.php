@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 
 /**
@@ -187,5 +187,10 @@ class Pegawai extends Model
     public function userAuth()
     {
         return $this->hasOne(User::class, 'id_pegawai', 'id_pegawai');
+    }
+
+    public function pengumuman()
+    {
+        return $this->hasMany(Pengumuman::class, 'id_pegawai', 'id_pegawai');
     }
 }
