@@ -96,8 +96,7 @@ function initConditionalFields() {
 
         if (!trigger || !target) return;
         const parentDiv =
-            target.closest(".col-md-6") ||
-            target.closest(".col-md-4") ||
+            target.closest('[class*="col-"]') ||
             target.closest(".mb-3");
 
         const checkCondition = () => {
@@ -113,12 +112,12 @@ function initConditionalFields() {
         trigger.addEventListener("change", checkCondition);
         checkCondition();
     };
-
-    toggleDisplay("kebutuhan_khusus", "keterangan_kebutuhan_khusus", "Ada");
+    
     toggleDisplay("penerima_kps", "no_kps", "Ya");
     toggleDisplay("layak_pip", "alasan_layak_pip", "Ya");
     toggleDisplay("penerima_kip", "no_kip", "Ya");
     toggleDisplay("penerima_kip", "nama_kip", "Ya");
+    toggleDisplay("kebutuhan_khusus", "keterangan_kebutuhan_khusus", "Ya");
 }
 
 // ============================================================

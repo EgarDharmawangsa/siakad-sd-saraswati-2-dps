@@ -255,20 +255,17 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-md-4">
+                         <div class="col-md-4">
                             <label class="form-label">Kebutuhan Khusus</label>
                             <select class="form-select @error('kebutuhan_khusus') is-invalid @enderror" name="kebutuhan_khusus" required>
-                                <option value="Tidak Ada" {{ old('kebutuhan_khusus') == 'Tidak Ada' ? 'selected' : '' }}>Tidak Ada</option>
-                                <option value="Ada" {{ old('kebutuhan_khusus') == 'Ada' ? 'selected' : '' }}>Ada</option>
+                                <option value="">-- Pilih --</option>
+                                <option value="Tidak" {{ old('kebutuhan_khusus') === 'Tidak' ? 'selected' : '' }}>Tidak</option>
+                                <option value="Ya" {{ old('kebutuhan_khusus') === 'Ya' ? 'selected' : '' }}>Ada</option>
                             </select>
-                            @error('kebutuhan_khusus')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
                         </div>
-                        <div class="col-md-8">
+                         <div class="col-md-8">
                             <label class="form-label">Keterangan Kebutuhan Khusus</label>
-                            <input type="text" class="form-control @error('keterangan_kebutuhan_khusus') is-invalid @enderror" name="keterangan_kebutuhan_khusus"
-                                value="{{ old('keterangan_kebutuhan_khusus') }}" placeholder="Masukkan keterangan kebutuhan khusus">
+                            <input type="text" class="form-control @error('keterangan_kebutuhan_khusus') is-invalid @enderror" name="keterangan_kebutuhan_khusus" value="{{ old('keterangan_kebutuhan_khusus') }}" placeholder="Masukkan keterangan kebutuhan khusus">
                         </div>
 
                         <div class="col-md-6">
