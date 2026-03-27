@@ -53,7 +53,7 @@
                             <td>{{ $_pengumuman->judul }}</td>
                             <td>{{ $_pengumuman->getFormatedTanggal() }}</td>
                             {{-- <td>{!! strip_tags(Str::limit($_pengumuman->isi, 40, '...')) !!}</td> --}}
-                            <td>{{ $_pengumuman->pegawai->getFormatedNamaPegawai() }}</td>
+                            <td>{{ $_pengumuman->pegawai?->getFormatedNamaPegawai() ?? '-' }}</td>
                             <td><span class="badge bg-{{ $_pengumuman->getStatus() === 'Terbit' ? 'success' : 'primary' }}">
                                     {{ $_pengumuman->getStatus() }}
                                 </span>

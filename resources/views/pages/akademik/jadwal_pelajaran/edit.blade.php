@@ -71,7 +71,7 @@
                                         <option value="{{ $_grouped_guru_mata_pelajaran->id_guru_mata_pelajaran }}"
                                             data-mata-pelajaran="{{ $_grouped_guru_mata_pelajaran->mataPelajaran->nama_mata_pelajaran }}"
                                             {{ old('id_guru_mata_pelajaran', $jadwal_pelajaran->id_guru_mata_pelajaran) == $_grouped_guru_mata_pelajaran->id_guru_mata_pelajaran ? 'selected' : '' }}>
-                                            {{ $_grouped_guru_mata_pelajaran->pegawai->getFormatedNamaPegawai() }}
+                                            {{ $_grouped_guru_mata_pelajaran->pegawai?->getFormatedNamaPegawai() ?? '-' }}
                                         </option>
                                     @endforeach
                                 </optgroup>

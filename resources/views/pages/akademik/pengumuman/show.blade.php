@@ -31,7 +31,7 @@
         <h4 class="mb-2 mt-3">{{ $pengumuman->judul }}</h4>
 
         @can('staf-tata-usaha')
-            <small class="text-muted mb-1 d-block">Dibuat / Diperbarui oleh {{ $pengumuman->pegawai->getFormatedNamaPegawai() }}</small>
+            <small class="text-muted mb-1 d-block">Dibuat / Diperbarui oleh {{ $pengumuman->pegawai?->getFormatedNamaPegawai() ?? '-' }}</small>
         @endcan
 
         <div class="d-flex align-items-center">

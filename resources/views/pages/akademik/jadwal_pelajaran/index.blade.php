@@ -52,9 +52,9 @@
                                         <td>{{ $loop->iteration }}</td>
 
                                         @if ($_jadwal_pelajaran->kegiatan === 'Belajar')
-                                            <td>{{ $_jadwal_pelajaran->guruMataPelajaran->mataPelajaran->nama_mata_pelajaran }}
+                                            <td>{{ $_jadwal_pelajaran->guruMataPelajaran?->mataPelajaran?->nama_mata_pelajaran ?? '-' }}
                                             </td>
-                                            <td>{{ $_jadwal_pelajaran->guruMataPelajaran->pegawai->getFormatedNamaPegawai() }}
+                                            <td>{{ $_jadwal_pelajaran->guruMataPelajaran?->pegawai?->getFormatedNamaPegawai() ?? '-' }}
                                             </td>
                                         @else
                                             <td colspan="2" class="text-center">Istirahat</td>

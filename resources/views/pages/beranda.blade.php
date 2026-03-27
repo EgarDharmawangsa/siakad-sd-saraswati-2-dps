@@ -247,7 +247,7 @@
                             <div class="d-flex align-items-center mt-3">
                                 <img src="{{ $_active_users->pegawai->foto ? Storage::url($_active_users->pegawai->foto) : asset('images/default_profile_photo.png') }}"
                                     alt="Foto Pegawai" class="profile-avatar me-2">
-                                <div>{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</div>
+                                <div>{{ $_active_users->pegawai?->getFormatedNamaPegawai() ?? '-' }}</div>
                             </div>
                         @empty
                             <p class="text-center text-muted mt-3 mb-0">Tidak ada Staf Tata Usaha yang aktif.</p>
@@ -263,7 +263,7 @@
                         <div class="d-flex align-items-center mt-3">
                             <img src="{{ $_active_users->pegawai->foto ? Storage::url($_active_users->pegawai->foto) : asset('images/default_profile_photo.png') }}"
                                 alt="Foto Pegawai" class="profile-avatar me-2">
-                            <div>{{ $_active_users->pegawai->getFormatedNamaPegawai() }}</div>
+                            <div>{{ $_active_users->pegawai?->getFormatedNamaPegawai() ?? '-' }}</div>
                         </div>
                     @empty
                         <p class="text-center text-muted mt-3 mb-0">Tidak ada Guru yang aktif.</p>
