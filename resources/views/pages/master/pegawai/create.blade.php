@@ -474,7 +474,7 @@
                                     class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="text" class="form-control @error('no_sk') is-invalid @enderror"
                                 id="no-sk" name="no_sk" placeholder="Masukkan no. SK terakhir"
-                                value="{{ old('no_sk') }}" required>
+                                value="{{ old('no_sk') }}">
                             @error('no_sk')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -485,7 +485,7 @@
                                     class="text-muted mini-label ms-1">(Opsional)</span></label>
                             <input type="date" class="form-control @error('tanggal_sk_terakhir') is-invalid @enderror"
                                 id="tanggal-sk-terakhir" name="tanggal_sk_terakhir"
-                                value="{{ old('tanggal_sk_terakhir') }}" required>
+                                value="{{ old('tanggal_sk_terakhir') }}">
                             @error('tanggal_sk_terakhir')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
