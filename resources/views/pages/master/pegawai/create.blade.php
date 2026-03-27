@@ -506,5 +506,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/pages/master/pegawai.js') }}"></script>
+    @vite('resources/js/pages/master/pegawai.js')
 @endpush
